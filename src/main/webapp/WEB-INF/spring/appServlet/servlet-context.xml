@@ -17,10 +17,11 @@
 	<resources mapping="/res/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<!-- <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	 <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-	</beans:bean> -->
+		<beans:property name="order" value="2" />
+	</beans:bean> 
 	
 	<!-- Tiles Resolver -->
 	<beans:bean id="tilesConfigurer"
@@ -38,6 +39,7 @@
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass"
 		  value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+		  <beans:property name="order" value="1" />
 	</beans:bean>
 
 	
@@ -47,7 +49,7 @@
 		<beans:property name="maxUploadSize" value="4000000"/>
 	</beans:bean>
 	
-	<context:component-scan base-package="bit.group1.nature,naver.storage,nature/*" />
+	<context:component-scan base-package="bit.group1.nature,naver.storage,nature.*" />
 	
 	
 </beans:beans>
