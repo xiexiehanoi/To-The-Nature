@@ -112,7 +112,7 @@
 <div>
 
 	
-	<form action="./addmember" method="post" enctype="multipart/form-data" onsubmit="return check()">
+	<form action="./success" method="post" enctype="multipart/form-data" onsubmit="return check()">
 		
 			<h2><b>회원가입</b></h2>
 			<br>

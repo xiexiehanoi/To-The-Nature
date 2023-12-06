@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="nature.user.UserDao">
+	<select id="totalCountOfMember" resultType="int">
+		select count(*) from user
+	</select>
+	<insert id="insertMember" parameterType="UserDto">
+		insert into user  (usernum,userid,userpw, username,userphoto,userbirth,usergender,userphone,useremail,writeday)
+		 values (#{usernum},#{userid},#{userpw},#{username},#{userphoto},#{userbirth},#{usergender},#{userphone},#{useremail},now())
+	</insert>
+	<select id="selectAllMembers" resultType="UserDto" parameterType="Map">
+		select * from user 
+		<if test="searchword!=null">
+		 where ${searchfield} like concat('%',#{searchword},'%')
+		</if>
+		order by usernum desc
+	</select>
 	
+	<select id="searchIdCount" parameterType="String" resultType="int">
+		select count(*) from user where userid=#{userid}
+	</select>
+	
+	<delete id="deleteMember" parameterType="int">
+		delete from user where usernum=#{usernum}
+	</delete>
+	
+	<select id="loginCheck" parameterType="Map" resultType="int">
+		select count(*) from user where userid=#{userid} and userpw=#{userpw}
+	</select>
+	<select id="selectDataById" parameterType="String" resultType="UserDto">
+		select * from user where userid=#{userid}
+	</select>
+	<select id="selectDataByNum" parameterType="int" resultType="UserDto">
+		select * from user where usernum=#{usernum}
+	</select>
+	<update id="updatePhotoByNum" parameterType="Map">
+		update user set userphoto=#{userphoto} where usernum=#{usernum}
+	</update>
+	<update id="updatePhotoById" parameterType="Map">
+		update user set userphoto=#{userphoto} where userid=#{userid}
+	</update>
+
 </mapper>

@@ -36,6 +36,12 @@ public class UserController {
 	{
 		return "login/loginsuccess";
 	}
+	
+	@GetMapping("main/main")
+	public String main()
+	{
+		return "main/main";
+	}
 
 	@GetMapping("/login/process")
 	@ResponseBody Map<String, Object> login(@RequestParam boolean saveid,

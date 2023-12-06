@@ -21,39 +21,69 @@
 <c:set var="root" value="<%=request.getContextPath()%>"/>
 
 <script type="text/javascript">
-$(function(){
-	//로그인버튼
-	$("#btnlogin").click(function(){
-		let saveid=$("#saveid").is(":checked");//true/false,val() 은 체크여부와상관없이 무조건 'on'
-		let userid=$("#login_myid").val();
-		let userpw=$("#login_pass").val();
-		//alert(saveid+","+myid);
-		
-		//$("#btnclose").trigger("click");//강제로 닫기 버튼 클릭하기
-		$.ajax({
-			type:"get",
-			dataType:"json",
-			url:"${root}/login/process",
-			data:{"saveid":saveid,"userid":userid,"userpw":userpw},
-			success:function(res){
-				//성공여부 : res.success
-				if(res.success){
-					window.location.href = "${root}/main/main";
-				}else{
-					alert("아이디나 비밀번호가 맞지 않습니다");
-				}
-		    }
-		});		
-	});
+$(document).ready(function() {
+    // 로그인 버튼
+    $("#btnlogin").click(function(event) {
+        // 기본 양식 제출 동작 방지
+        event.preventDefault();
 
+        let saveid = $("#saveid").is(":checked");
+        let userid = $("#login_myid").val();
+        let userpw = $("#login_pass").val();
+        
+        if (userid === "") {
+            // userid가 없으면 팝업 창에 버튼과 닫기 버튼 추가
+            let popupContent = `
+                <div>
+                    <p>회원이 아닙니다.</p>
+                    <button onclick="window.location.href='${root}/login/form'">회원가입</button>
+                    <button onclick="$('#myModal').modal('hide')">닫기</button>
+                </div>
+            `;
+            $("#popupContent").html(popupContent);
+            $('#myModal').modal('show');
+            return;
+        }
+		
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "${root}/login/process",
+            data: { "saveid": saveid, "userid": userid, "userpw": userpw },
+            success: function (res) {
+                // 성공여부: res.success
+                if (res.success) {
+                    window.location.href = "${root}";
+                } else {
+                    alert("아이디나 비밀번호가 맞지 않습니다");
+                }
+            }
+        });
+    });
 });
 </script>
 </head>
 
 <body>
+	<!-- 팝업 창을 위한 모달 코드 추가 -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <!-- 모달 헤더 -->
+            <div class="modal-header">
+                <h4 class="modal-title">알림</h4>
+            </div>
 
-     <form action="${root}/login/process" method="get">
+            <!-- 모달 바디 -->
+            <div class="modal-body" id="popupContent">
+                <!-- 팝업 창에 표시될 내용 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+     <form action="${root}/process" method="get">
       <div class="header">
        회원 로그인
       </div>
@@ -76,16 +106,12 @@ $(function(){
         	</div>
 
         	<div class="idcheck">
-        	 <caption align="bottom">
-            	<label>
             	  <c:if test="${sessionScope.saveid==null || sessionScope.saveid=='no' }">
-            		<input type="checkbox" id="saveid">&nbsp;아이디저장
+            		<input type="checkbox" id="saveid_checkbox">&nbsp;아이디저장
             	  </c:if>
             	  <c:if test="${sessionScope.saveid=='yes' }">
-            		<input type="checkbox" id="saveid" checked>&nbsp;아이디저장
-            	  </c:if>
-            	</label>
-            </caption>
+            		<input type="checkbox" id="saveid_checkbox" checked>&nbsp;아이디저장
+            	  </c:if>         	
         </div>
       
       <div class="user">

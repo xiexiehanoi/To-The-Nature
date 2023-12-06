@@ -48,7 +48,7 @@ public class MemberController {
 		return "login/list";
 	}
 	
-	@PostMapping("/login/addmember")
+	@PostMapping("/login/success")
 	public String addMember(HttpServletRequest request,@ModelAttribute UserDto dto,@RequestParam MultipartFile upload)
 	{
 
