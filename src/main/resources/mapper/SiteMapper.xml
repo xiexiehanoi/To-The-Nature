@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="nature.site.SiteDao">
 	<select id="selectdetail" parameterType="int" resultType="SiteDto">
-		select * from naturedb where num=#{camping_num}
+		SELECT DISTINCT
+		    cd.*,
+		    cf.imageUrl
+		FROM
+		    camping_details cd
+		LEFT JOIN
+		    camping_file cf ON cd.camping_contentId = cf.camping_contentId
+		WHERE
+		    cd.camping_num = {num};
 	</select>
 </mapper>
