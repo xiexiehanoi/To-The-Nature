@@ -39,5 +39,5 @@
 	<update id="updatePhotoById" parameterType="Map">
 		update user set userphoto=#{userphoto} where userid=#{userid}
 	</update>
-
+	
 </mapper>

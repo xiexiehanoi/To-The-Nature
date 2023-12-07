@@ -31,11 +31,11 @@ $(document).ready(function() {
         let userid = $("#login_myid").val();
         let userpw = $("#login_pass").val();
         
-        if (userid === "") {
+        if (userid === "" || userpw === "") {
             // userid가 없으면 팝업 창에 버튼과 닫기 버튼 추가
             let popupContent = `
                 <div>
-                    <p>회원이 아닙니다.</p>
+                    <p>아이디와 비밀번호를 입력해주세요.</p>
                     <button onclick="window.location.href='${root}/login/form'">회원가입</button>
                     <button onclick="$('#myModal').modal('hide')">닫기</button>
                 </div>
@@ -60,6 +60,7 @@ $(document).ready(function() {
             }
         });
     });
+    
 });
 </script>
 </head>
@@ -119,8 +120,10 @@ $(document).ready(function() {
       회원가입
       </a>
       </div>
-	  <div class="usercheck">
+	  <div class="usersearch">
+	  <a href="./search">
       아이디/비번찾기
+      </a>
       </div>
       
       &nbsp;&nbsp;&nbsp;&nbsp;

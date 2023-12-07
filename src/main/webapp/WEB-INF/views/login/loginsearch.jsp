@@ -20,12 +20,11 @@
 <c:set var="root" value="<%=request.getContextPath()%>"/>
 </head>
 <body>
+<form >
+이름 : <input type="text" id="login_myid" name="userid" class="form-control">
+이메일주소 : <input type="text" id="login_phone" name="userphone" class="form-control">
+<button type="submit" class="idsearch" id="idsearch">아이디 찾기</button>
+</form>
 
-<h5>가입을 환영합니다</h5>
-<!-- 로그인 버튼 -->
-<a href="${root}/login/main" class="btn btn-primary">로그인</a>
-
-<!-- 메인 페이지로 이동하는 버튼 -->
-<a href="${root}/" class="btn btn-secondary">메인 페이지로 이동</a>
 </body>
 </html>

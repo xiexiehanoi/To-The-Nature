@@ -20,99 +20,95 @@
 </style>
 
 <script type="text/javascript">
-	let idok=false;
-	$(function(){
-		$("#upload").change(function(){
-			  console.log("1:"+$(this)[0].files.length);
-			  console.log("2:"+$(this)[0].files[0]);
-			  //정규표현식
-			var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
-			var f=$(this)[0].files[0];//현재 선택한 파일
-			if(!f.type.match(reg)){
-			   alert("확장자가 이미지파일이 아닙니다");
-			   return;
-			}
-
-			  if($(this)[0].files[0]){
-			   var reader=new FileReader();
-			   reader.onload=function(e){
-			    $("#showimg").attr("src",e.target.result);
-			   }
-			   reader.readAsDataURL($(this)[0].files[0]);
-			  }
-		});
-		
-		//중복체크 버튼 이벤트
-		$("#btnidcheck").click(function(){
-			//입력한 아이디
-			let userid=$("#userid").val();
-			$.ajax({
-				type:"get",
-				dataType:"json",
-				url:"./idcheck",
-				data:{"userid":userid},
-				success:function(res){
-					if(res.count!=0){
-						alert("이미 가입된 아이디입니다.");
-						idok=false;
-						$("#userid").val("");
-					}else{
-						alert("사용 가능한 아이디입니다");
-						idok=true;
-					}
-			    }
-			});
-		});
-		
-		//아이디 입력시 발생하는 이벤트
-		$("#userid").keyup(function(){
-			idok=false;
-		});
- 		$(document).ready(function () {
-	        // 남성 체크박스를 클릭했을 때
-	        $(".maleCheckbox").click(function () {
-	            // 남성 체크박스가 체크되어 있으면 여성 체크박스의 체크를 해제
-	            if ($(this).prop("checked")) {
-	                $(".femaleCheckbox").prop("checked", false);
-	            }
-	        });
-
-	        // 여성 체크박스를 클릭했을 때
-	        $(".femaleCheckbox").click(function () {
-	            // 여성 체크박스가 체크되어 있으면 남성 체크박스의 체크를 해제
-	            if ($(this).prop("checked")) {
-	                $(".maleCheckbox").prop("checked", false);
-	            }
-	        });
-	    });
- 		
- 	   
-	});//close function
-	  
-	function check(){
-		if(!idok){
-			alert("중복체크 버튼을 눌러주세요");
-			return false;
+let idok=false;
+$(function(){
+	$("#upload").change(function(){
+		  console.log("1:"+$(this)[0].files.length);
+		  console.log("2:"+$(this)[0].files[0]);
+		  //정규표현식
+		var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+		var f=$(this)[0].files[0];//현재 선택한 파일
+		if(!f.type.match(reg)){
+		   alert("확장자가 이미지파일이 아닙니다");
+		   return;
 		}
-		let pass1=$("#pass1").val();
-		let pass2=$("#pass2").val();
-		if(pass1==pass2){
-			
-			return true;//action 호출
-		}else{
-				alert("두개의 비밀번호가 맞지 않습니다");
-				return false;//action 이 호출되지 않는다
-			}		
-	}
 
+		  if($(this)[0].files[0]){
+		   var reader=new FileReader();
+		   reader.onload=function(e){
+		    $("#showimg").attr("src",e.target.result);
+		   }
+		   reader.readAsDataURL($(this)[0].files[0]);
+		  }
+	});
 	
+	//중복체크 버튼 이벤트
+	$("#btnidcheck").click(function(){
+		//입력한 아이디
+		let userid=$("#userid").val();
+		$.ajax({
+			type:"get",
+			dataType:"json",
+			url:"./idcheck",
+			data:{"userid":userid},
+			success:function(res){
+				if(res.count!=0){
+					alert("이미 가입된 아이디입니다.");
+					idok=false;
+					$("#userid").val("");
+				}else{
+					alert("사용 가능한 아이디입니다");
+					idok=true;
+				}
+		    }
+		});
+	});
+	
+	//아이디 입력시 발생하는 이벤트
+	$("#userid").keyup(function(){
+		idok=false;
+	});
+		$(document).ready(function () {
+        // 남성 체크박스를 클릭했을 때
+        $(".maleCheckbox").click(function () {
+            // 남성 체크박스가 체크되어 있으면 여성 체크박스의 체크를 해제
+            if ($(this).prop("checked")) {
+                $(".femaleCheckbox").prop("checked", false);
+            }
+        });
+
+        // 여성 체크박스를 클릭했을 때
+        $(".femaleCheckbox").click(function () {
+            // 여성 체크박스가 체크되어 있으면 남성 체크박스의 체크를 해제
+            if ($(this).prop("checked")) {
+                $(".maleCheckbox").prop("checked", false);
+            }
+        });
+    });
+		
+	   
+});//close function
+  
+function check(){
+	if(!idok){
+		alert("중복체크 버튼을 눌러주세요");
+		return false;
+	}
+	let pass1=$("#pass1").val();
+	let pass2=$("#pass2").val();
+	if(pass1==pass2){
+		$("#signupModal").modal("show");
+		return true;//action 호출
+	}else{
+			alert("두개의 비밀번호가 맞지 않습니다");
+			return false;//action 이 호출되지 않는다
+		}		
+}
 </script>
 </head>
 <body>
-<div>
 
-	
-	<form action="./success" method="post" enctype="multipart/form-data" onsubmit="return check()">
+	<form id="yourFormId" action="./success" method="post" enctype="multipart/form-data" onsubmit="return check()">
 		
 			<h2><b>회원가입</b></h2>
 			<br>
@@ -149,11 +145,7 @@
 				
 					
 					<button type="submit" class="btn btn-secondary" id="loginsuccess" >회원가입</button>
-			
-	</form>
-</div>
-
-
+			</form>
 
 </body>
 </html>
