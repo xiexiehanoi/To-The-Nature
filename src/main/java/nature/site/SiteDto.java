@@ -22,9 +22,9 @@ public class SiteDto {
     private int wtrplCo;
     private int availableRoom;
     private String sbrsCl;
-    private String eqpmnLendCl;
     private String animalCmgCl;
     private String firstImageUrl;
     private String createdAt;
     private String modifiedAt;
+    private String image_url;
 }

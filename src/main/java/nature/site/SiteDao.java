@@ -1,5 +1,8 @@
 package nature.site;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,9 +14,9 @@ public class SiteDao {
 	
 	private String nameSpace="nature.site.SiteDao.";
 	
-	public SiteDto getsearchcamping(int num)
+	public List<Map<String, Object>> getsearchcamping(int num)
 	{
-		return session.selectOne(nameSpace+"selectdetail", num);
+		return session.selectList(nameSpace+"selectdetail", num);
 	}
 	
 }
