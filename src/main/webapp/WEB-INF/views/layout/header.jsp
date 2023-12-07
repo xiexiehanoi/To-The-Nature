@@ -12,14 +12,28 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <style type="text/css">
-	.header{
+	/* .header{
 		border: 1px solid blue;
+	} */
+	
+	div.header_container{
+		display: flex;
+	}
+	
+	div.header_container div.header_menu{
+		margin-left: auto;
+		padding-right: 30px;
 	}
 </style>
 </head>
 <body>
-	<div class="header">
-		<h1>header</h1>
+<div class="header_container">
+	<div class="header_logo">
+		<h1>To The Nature</h1>
 	</div>
+	<div class="header_menu">
+		<h1>menu</h1>
+	</div>
+</div>
 </body>
 </html>
