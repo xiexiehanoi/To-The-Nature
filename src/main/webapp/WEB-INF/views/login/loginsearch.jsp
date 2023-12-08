@@ -61,7 +61,6 @@
                         } else {
                             // 결과가 있을 때 모달창으로 아이디 표시
                             $("#modal-body").text("아이디: " + data);
-                           
                         }
                         $("#myModal").modal("show");
                     },
