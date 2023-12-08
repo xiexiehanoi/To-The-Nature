@@ -58,7 +58,7 @@
                         } else {
                             // 결과가 있을 때 모달창으로 임시 비밀번호 표시
                             $("#modal-body").text("임시 비밀번호: " + data);
-                            $("#modal-footer").html('<a href="<%=request.getContextPath()%>/login/main" class="btn btn-primary">로그인 페이지로 이동</a><button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>');
+                            $("#modal-footer").html('<a href="<%=request.getContextPath()%>/login/main" class="btn btn-primary">로그인 페이지로 이동</a><a href="./change" class="btn btn-primary">비밀번호 변경</a><button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>');
                         }
                         $("#myModal").modal("show");
                     },

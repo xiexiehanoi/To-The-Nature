@@ -11,6 +11,7 @@ public class UserDto {
 	private int usernum;
 	private String userid;
 	private String userpw;
+	private String usernewpw;
 	private String username;
 	private String userphoto;
 	private String userbirth;

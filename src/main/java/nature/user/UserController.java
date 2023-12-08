@@ -68,7 +68,28 @@ public class UserController {
 	        return "Not Found";
 	    }
 
-	    return password;
+	    // 결과가 있을 경우, 임시 비밀번호 생성
+	    String temporaryPassword = generateTemporaryPassword();
+
+	    // 생성한 임시 비밀번호를 디비에 업데이트
+	    userDao.updatePassword(userid, temporaryPassword);
+
+	    return temporaryPassword;
+	}
+
+	// 임시 비밀번호 생성 메서드
+	private String generateTemporaryPassword() {
+	    // 원하는 길이만큼 랜덤한 비밀번호 생성
+	    String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	    StringBuilder temporaryPassword = new StringBuilder();
+	    int length = 8; // 임시 비밀번호 길이 설정
+
+	    for (int i = 0; i < length; i++) {
+	        int index = (int) (Math.random() * characters.length());
+	        temporaryPassword.append(characters.charAt(index));
+	    }
+
+	    return temporaryPassword.toString();
 	}
 	
 	@GetMapping("/login/process")
@@ -104,7 +125,21 @@ public class UserController {
 	{
 		return "login/loginchange";
 	}
-	
+	@PostMapping("/login/updatePassword")
+	@ResponseBody
+	public String updatePassword(@RequestParam("userid") String userid,
+	                             @RequestParam("userpw") String userpw,
+	                             @RequestParam("usernewpw") String usernewpw) {
+	    // 현재 비밀번호가 일치하는지 확인
+	    if (!userDao.isLoginCheck(userid, userpw)) {
+	        return "IncorrectPassword";
+	    }
+
+	    // 새 비밀번호로 업데이트
+	    userDao.updatePassword(userid, usernewpw);
+
+	    return "Success";
+	}
 	@GetMapping("/login/logout")
 	@ResponseBody public void logout(HttpSession session)
 	{
