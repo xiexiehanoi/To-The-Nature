@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="nature.site.SiteDao">
-	<select id="selectdetail" parameterType="int" resultType="SiteDto">
-		select * from naturedb where num=#{camping_num}
+	<select id="selectdetail" parameterType="int" resultType="Map">
+		SELECT
+		    cd.*,
+		    COALESCE(
+		        TRIM(BOTH ' ' FROM (
+		            SELECT GROUP_CONCAT(DISTINCT cf.imageUrl SEPARATOR ', ') FROM camping_file cf WHERE cd.camping_contentId = cf.camping_contentId
+		        )),
+		        '' -- ' ' 대신에 빈 문자열로 변경
+		    ) AS imageUrl
+		FROM camping_details cd
+		WHERE cd.camping_num = #{num}
 	</select>
 </mapper>
