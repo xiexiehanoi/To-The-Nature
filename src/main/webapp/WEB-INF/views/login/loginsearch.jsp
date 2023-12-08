@@ -39,6 +39,7 @@
                 if (!username || !userphone) {
                     // 모달창으로 경고 메시지 표시
                     $("#modal-body").text("이름과 연락처를 모두 입력하세요.");
+                    $("#modal-footer").html('<button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>');
                     $("#myModal").modal("show");
 
                     // 모달 닫힐 때 입력 폼으로 포커스 이동
@@ -58,21 +59,23 @@
                         if (data === "Not Found") {
                             // 결과가 없을 때 모달창으로 메시지 표시
                             $("#modal-body").text("일치하는 정보가 없습니다. 다시 확인해주세요.");
+                            $("#modal-footer").html('<button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>');
                         } else {
                             // 결과가 있을 때 모달창으로 아이디 표시
                             $("#modal-body").text("아이디: " + data);
+                            $("#modal-footer").html('<a href="<%=request.getContextPath()%>/login/main" class="btn btn-primary">로그인 페이지로 이동</a><button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>');
                         }
                         $("#myModal").modal("show");
                     },
                     error: function () {
                         // 실패 시 알림창 표시
-                        alert("서버와 통신 중 오류가 발생했습니다.");
+                        alert("오류가 발생했습니다.");
                     }
                 });
             });
 
             // 모달창 확인 버튼 클릭 시 모달 닫기
-            $("#modal-confirm-btn").click(function () {
+            $(document).on("click", "#modal-confirm-btn", function () {
                 $("#myModal").modal("hide");
             });
         });
@@ -85,8 +88,8 @@
     </div>
     <br><br>
     <form>
-        이름 : <input type="text" id="login_name" name="username" class="form-control">
-        연락처 : <input type="text" id="login_phone" name="userphone" class="form-control">
+        이름  <input type="text" id="login_name" name="username" class="form-control">
+        연락처  <input type="text" id="login_phone" name="userphone" class="form-control">
         <br>
         <button type="button" class="idsearch" id="idsearchBtn">아이디 찾기</button>
     </form>
@@ -101,8 +104,8 @@
                 <div class="modal-body" id="modal-body">
                     <!-- 결과 또는 경고 메시지가 이 부분에 표시됩니다. -->
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>
+                <div class="modal-footer" id="modal-footer">
+                    <!-- 이 부분에 버튼이 추가됩니다. -->
                 </div>
             </div>
         </div>

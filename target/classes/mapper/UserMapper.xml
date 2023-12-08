@@ -39,5 +39,10 @@
 	<select id="findUserIdByNameAndPhone" parameterType="Map" resultType="String">
     select userid from user
     where username = #{username} and userphone = #{userphone}
-</select>
+	</select>
+	<select id="findPassword" parameterType="Map" resultType="String">
+        SELECT userpw
+        FROM user
+        WHERE username = #{username} AND userid = #{userid} AND useremail = #{useremail}
+    </select>
 </mapper>

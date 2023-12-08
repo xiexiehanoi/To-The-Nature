@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +55,20 @@ public class UserController {
 	public String find()
 	{
 		return "login/loginfind";
+	}
+	
+	@GetMapping("/login/findPassword")
+	@ResponseBody
+	public String findPassword(@RequestParam("username") String username, @RequestParam("userid") String userid, @RequestParam("useremail") String useremail) {
+	    // DAO를 사용하여 DB에서 비밀번호를 찾는 로직 구현
+	    String password = userDao.findPassword(username, userid, useremail);
+
+	    // 이름, 아이디, 이메일이 일치하지 않을 경우
+	    if (password == null) {
+	        return "Not Found";
+	    }
+
+	    return password;
 	}
 	
 	@GetMapping("/login/process")
