@@ -8,7 +8,7 @@
 		        TRIM(BOTH ' ' FROM (
 		            SELECT GROUP_CONCAT(DISTINCT cf.imageUrl SEPARATOR ', ') FROM camping_file cf WHERE cd.camping_contentId = cf.camping_contentId
 		        )),
-		        '' -- ' ' 대신에 빈 문자열로 변경
+		        '' 
 		    ) AS imageUrl
 		FROM camping_details cd
 		WHERE cd.camping_num = #{num}
