@@ -44,6 +44,15 @@
 	font-size: 14px;
 }
 
+  .btn_bottom {
+    text-align: center; /* 가운데 정렬을 위한 스타일 추가 */
+    margin-top: 20px; /* 필요한 경우 상단 간격 조절 */
+  }
+
+  .btn_bottom button {
+    margin: 0 10px; /* 버튼 사이 간격 조절 */
+  }
+
 .img_grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -90,26 +99,15 @@
 			$('.image_grid').hide();
 		});
 	}
-    function submitReservation() {
-        // Get form data
-        const formData = new FormData(document.getElementById('reservationForm'));
-
-        // You can perform additional validations or actions here
-
-        // Example: Log the form data to the console
-        for (var pair of formData.entries()) {
-          console.log(pair[0] + ': ' + pair[1]);
-        }
-
-        // Here you can use AJAX to send the data to the server
-        // For example, using jQuery:
-        // $.post('your_server_endpoint', formData, function(response) {
-        //   console.log(response);
-        // });
-
-        // Close the modal
-        $('#reservationModal').modal('hide');
-      }
+	function submitReservation() {
+		  const formData = new FormData(document.getElementById('reservationForm'));
+		  document.getElementById('reservationForm').action = './reservation';
+		  document.getElementById('reservationForm').method = 'POST';
+		  // 폼을 제출
+		  document.getElementById('reservationForm').submit();
+		 
+		  $('#reservationModal').modal('hide');
+		}
 </script>
 <body>
 	<c:forEach var="dto" items="${campinglist}">
@@ -162,7 +160,7 @@
 							</tbody>
 						</table>
 						<!-- 테이블 끝 -->
-						<div class="btn_bottom">
+						<div class="btn_bottom input-group">
 							<button id="widhBtn" type="button" class="btn"
 								onclick="fnCampBkmk(); return false">
 								<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기
@@ -170,18 +168,17 @@
 							<div id="reviewInfo">
 								<span>리뷰</span> <span id="reviewCount">0</span>
 								<!-- 리뷰 개수가 표시될 부분 -->
-							</div>
+							</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button>
-
+						</div>
 							<div class="image_grid">
 								<c:forEach var="imageUrl" items="${fn:split(dto.imageUrl, ',')}"
 									varStatus="loop">
 									<img src="${imageUrl.trim()}" alt="캠핑장 이미지"
 										class="${loop.index + 1 > 6 ? 'hidden-image' : ''} hidden-image">
 								</c:forEach>
-							</div>
 							<button type="button" class="btn btn-secondary load_image">more</button>
-						</div>
+							</div>
 					</div>
 				</div>
 				<div class="camping_information_group">
@@ -242,37 +239,36 @@
 					</p>
 					  <!-- Your existing HTML code goes here -->
 
-  <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="reservationModalLabel">Reservation Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="reservationForm">
-            <div class="mb-3">
-              <label for="startDate" class="form-label">Start Date</label>
-              <input type="date" class="form-control" id="startDate" name="startDate" required>
-            </div>
-            <div class="mb-3">
-              <label for="endDate" class="form-label">End Date</label>
-              <input type="date" class="form-control" id="endDate" name="endDate" required>
-            </div>
-            <div class="mb-3">
-              <label for="adults" class="form-label">Adults</label>
-              <input type="number" class="form-control" id="adults" name="adults" min="1" required>
-            </div>
-            <div class="mb-3">
-              <label for="children" class="form-label">Children</label>
-              <input type="number" class="form-control" id="children" name="children" min="0" required>
-            </div>
-            <button type="button" class="btn btn-primary" onclick="submitReservation()">Confirm Reservation</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+				  <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+				    <div class="modal-dialog">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <h5 class="modal-title" id="reservationModalLabel">Reservation Details</h5>
+				          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				        </div>
+				        <div class="modal-body">
+				          <form id="reservationForm">
+				          	<div class="mb-3">
+				          	  <label for="startDate" class="form-label">캠핑장명 : ${dto.facltNm}</label>
+				          	</div>
+				            <div class="mb-3 input-group">
+				              <label for="startDate" class="form-label">입실일</label>
+				              <input type="date" class="form-control" id="startDate" name="startDate" required>
+				              <label for="endDate" class="form-label">퇴실일</label>
+				              <input type="date" class="form-control" id="endDate" name="endDate" required>
+				            </div>
+				            <div class="mb-3 input-group">
+				              <label for="adults" class="form-label">성인</label>
+				              <input type="number" class="form-control" id="adults" name="adults" min="1" required>
+				              <label for="children" class="form-label">아동(만0세~17세)</label>
+				              <input type="number" class="form-control" id="children" name="children" min="0" required>
+				            </div>
+				            <button type="button" class="btn btn-primary" onclick="submitReservation()">Confirm Reservation</button>
+				          </form>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
 				</div>
 			</div>
 		</div>
