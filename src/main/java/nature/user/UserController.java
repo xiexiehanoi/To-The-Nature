@@ -42,6 +42,19 @@ public class UserController {
 	{
 		return "login/loginsearch";
 	}
+	@GetMapping("/login/findUserId")
+	@ResponseBody
+	public String findUserId(@RequestParam("username") String username,
+	                         @RequestParam("userphone") String userphone) {
+	    String userId = userDao.findUserIdByNameAndPhone(username, userphone);
+	    return userId != null ? userId : "Not Found";
+	}
+	
+	@GetMapping("/login/find")
+	public String find()
+	{
+		return "login/loginfind";
+	}
 	
 	@GetMapping("/login/process")
 	@ResponseBody Map<String, Object> login(@RequestParam boolean saveid,

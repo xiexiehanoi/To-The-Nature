@@ -86,5 +86,12 @@ public class UserDao {
 		session.update(nameSpace+"updatePhotoById", map);
 	}
 	
+	public String findUserIdByNameAndPhone(String username, String userphone) {
+	    Map<String, String> map = new HashMap<>();
+	    map.put("username", username);
+	    map.put("userphone", userphone);
+	    return session.selectOne(nameSpace + "findUserIdByNameAndPhone", map);
+	}
+	
 	
 }

@@ -36,8 +36,8 @@
 	<update id="updatePhotoByNum" parameterType="Map">
 		update user set userphoto=#{userphoto} where usernum=#{usernum}
 	</update>
-	<update id="updatePhotoById" parameterType="Map">
-		update user set userphoto=#{userphoto} where userid=#{userid}
-	</update>
-	
+	<select id="findUserIdByNameAndPhone" parameterType="Map" resultType="String">
+    select userid from user
+    where username = #{username} and userphone = #{userphone}
+</select>
 </mapper>
