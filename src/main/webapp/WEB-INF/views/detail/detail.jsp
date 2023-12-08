@@ -15,34 +15,57 @@
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
-.camp_info_box {
-	position: relative;
-	width: 80%;
-	height: auto;
-	overflow: hidden;
-	margin-bottom: 100px;
-	display: flex;
-}
+<style>
+  .camp_info_box {
+    position: relative;
+    width: 80%;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 100px;
+    display: flex;
+  }
 
-.camp_info_box .img_b {
-	width: 50%;
-}
+  .camp_info_box .img_b {
+    width: 40%;
+    height: 400px; /* 고정된 높이 설정 */
+    overflow: hidden;
+  }
 
-.camp_info_box .img_b img {
-	width: 100%;
-	height: auto;
-}
+  .camp_info_box .img_b img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지가 잘리지 않도록 설정 */
+  }
 
-.camp_info_box .cont_tb {
-	width: 50%;
-	height: auto;
-	overflow: hidden;
-}
+  .camp_info_box .cont_tb {
+    width: 60%; /* 남은 공간을 차지하도록 설정 */
+    height: 400px;
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+  }
 
-.camp_info_box .cont_tb table {
-	width: 100%;
-	font-size: 14px;
-}
+  .camp_info_box .cont_tb table {
+    width: 100%;
+    height: 100%;
+  }
+
+  .camp_info_box .cont_tb .info_bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* 배경 색상을 조절할 수 있습니다 */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .camp_info_box .cont_tb .info_bar .action_buttons {
+    display: flex;
+    gap: 10px;
+  }
 
   .btn_bottom {
     text-align: center; /* 가운데 정렬을 위한 스타일 추가 */
@@ -90,6 +113,10 @@
     padding: 30px 3%;
     border-radius: 5px;
 }
+
+.datainput{
+	border-radius: 20px;
+}
 </style>
 <script>
 	function readmoreimage(){
@@ -101,7 +128,7 @@
 	}
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
-		  document.getElementById('reservationForm').action = './reservation';
+ 		  document.getElementById('reservationForm').action = './reservation';
 		  document.getElementById('reservationForm').method = 'POST';
 		  // 폼을 제출
 		  document.getElementById('reservationForm').submit();
@@ -236,6 +263,9 @@
                                 </c:choose>
 	                        </ul>
                           </c:forEach>
+						<span><i class="bi bi-toilet"></i></span><span>화장실 개수: ${dto.toiletCo}개</span>
+						<span><i class="bi bi-shower"></i></span><span>샤워실 개수: ${dto.swrmCo}개</span>
+						<span><i class="bi bi-sink"></i></span><span>세면대 개수: ${dto.wtrplCo}개</span>
 					</p>
 					  <!-- Your existing HTML code goes here -->
 
@@ -253,15 +283,15 @@
 				          	</div>
 				            <div class="mb-3 input-group">
 				              <label for="startDate" class="form-label">입실일</label>
-				              <input type="date" class="form-control" id="startDate" name="startDate" required>
+				              <input type="date" class="form-control datainput" id="startDate" name="startDate" required>
 				              <label for="endDate" class="form-label">퇴실일</label>
-				              <input type="date" class="form-control" id="endDate" name="endDate" required>
+				              <input type="date" class="form-control datainput" id="endDate" name="endDate" required>
 				            </div>
 				            <div class="mb-3 input-group">
-				              <label for="adults" class="form-label">성인</label>
-				              <input type="number" class="form-control" id="adults" name="adults" min="1" required>
+				              <label for="adults" class="form-label ">성인</label>
+				              <input type="number" class="form-control datainput" id="adults" name="adults" min="1" required>
 				              <label for="children" class="form-label">아동(만0세~17세)</label>
-				              <input type="number" class="form-control" id="children" name="children" min="0" required>
+				              <input type="number" class="form-control datainput" id="children" name="children" min="0" required>
 				            </div>
 				            <button type="button" class="btn btn-primary" onclick="submitReservation()">Confirm Reservation</button>
 				          </form>
