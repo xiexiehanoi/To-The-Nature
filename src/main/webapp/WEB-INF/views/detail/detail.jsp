@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 <script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -74,23 +74,20 @@
 	line-height: 25px;
 }
 
-.camping_facility .camping_icon_list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.camping_icon_list ul li {
-    font-size: 20px;
-    list-style: none;
+.camp_icon_list {
+    width: 94%;
+    height: auto;
+    overflow: hidden;
+    padding: 30px 3%;
+    border-radius: 5px;
 }
 </style>
 <script>
 	$(function() {
-		$(".load_image").click(function() {
+		$(".image_grid").click(function() {
 
 			$('.hidden-image').removeClass('hidden-image');
-			$('.load_image').hide();
+			$('.image_grid').hide();
 		});
 	});
 </script>
@@ -154,12 +151,13 @@
 								<span>리뷰</span> <span id="reviewCount">0</span>
 								<!-- 리뷰 개수가 표시될 부분 -->
 							</div>
+							<button type="button" class="btn btn-primary">예약하기</button>
 
 							<div class="image_grid">
 								<c:forEach var="imageUrl" items="${fn:split(dto.imageUrl, ',')}"
 									varStatus="loop">
 									<img src="${imageUrl.trim()}" alt="캠핑장 이미지"
-										class="${loop.index + 1 > 6 ? 'hidden-image' : ''}">
+										class="${loop.index + 1 > 6 ? 'hidden-image' : ''} hidden-image">
 								</c:forEach>
 							</div>
 							<button type="button" class="btn btn-secondary load_image">more</button>
@@ -181,46 +179,46 @@
 					<h3 class="camping_info">
 						<i class="bi bi-info-circle-fill"></i>&nbsp;캠핑장 시설정보
 					</h3>
-					<p class="camping_facility">
-						<c:forEach var="sbrcl" items="${fn:split(dto.sbrsCl, ',')}">
-							<ul class="camping_icon_list">
-								<c:choose>
-									<c:when test="${sbrcl == '운동시설'}">
-										<li><span><i class="bi bi-gym"></i></span><span>${sbrcl}</span></li>
-									</c:when>
-									<c:when test="${sbrcl == '전기'}">
-										<li><span><i class="bi bi-lightning"></i></span><span>${sbrcl}</span></li>
-									</c:when>
-									<c:when test="${sbrcl == '무선인터넷'}">
-										<li><span><i class="bi bi-wifi"></i></span><span>${sbrcl}</span></li>
-									</c:when>
-									<c:when test="${sbrcl == '장작판매'}">
-										<li><span><i class="bi bi-tree"></i></span><span>${sbrcl}</span></li>
-									</c:when>
-									<c:when test="${sbrcl == '온수'}">
-										<li><span><i class="bi bi-hot"></i></span><span>${sbrcl}</span></li>
-									</c:when>
-									<c:when test="${sbrcl == '트렘폴린'}">
-										<li><span><i class="bi bi-trampoline"></i></span><span>${sbrcl}</span></li>
-									</c:when>
-									<c:when test="${sbrcl == '물놀이장'}">
-										<li><span><i class="bi bi-droplet"></i></span><span>${sbrcl}</span></li>
-									</c:when>
-									<c:when test="${sbrcl == '마트.편의점'}">
-										<li><span><i class="bi bi-shop"></i></span><span>${sbrcl}</span></li>
-									</c:when>
-									<c:when test="${sbrcl == '놀이터'}">
-										<li><span><i class="bi bi-trophy"></i></span><span>${sbrcl}</span></li>
-									</c:when>
-									<c:when test="${sbrcl == '산책로'}">
-										<li><span><i class="bi bi-tree"></i></span><span>${sbrcl}</span></li>
-									</c:when>
-									<c:when test="${sbrcl == '운동장'}">
-										<li><span><i class="bi bi-soccer"></i></span><span>${sbrcl}</span></li>
-									</c:when>
-								</c:choose>
-							</ul>
-						</c:forEach>
+ 					<p class="camping_facility">
+                            <c:forEach var="sbrcl" items="${fn:split(dto.sbrsCl, ',')}">
+                        		<ul class="camping_icon_list">
+                                <c:choose>
+                                    <c:when test="${sbrcl == '운동시설'}">
+                                        <li><span><i class="bi bi-universal-access"></i></span><span>${sbrcl}</span></li>
+                                    </c:when>
+                                    <c:when test="${sbrcl == '전기'}">
+                                        <li><span><i class="bi bi-lightning"></i></span><span>${sbrcl}</span></li>
+                                    </c:when>
+                                    <c:when test="${sbrcl == '무선인터넷'}">
+                                        <li><span><i class="bi bi-wifi"></i></span><span>${sbrcl}</span></li>
+                                    </c:when>
+                                    <c:when test="${sbrcl == '장작판매'}">
+                                        <li><span><i class="bi bi-tree"></i></span><span>${sbrcl}</span></li>
+                                    </c:when>
+                                    <c:when test="${sbrcl == '온수'}">
+                                        <li><span><i class="bi bi-cup-hot"></i></span><span>${sbrcl}</span></li>
+                                    </c:when>
+                                    <c:when test="${sbrcl == '트렘폴린'}">
+                                        <li><span><i class="bi bi-trampoline"></i></span><span>${sbrcl}</span></li>
+                                    </c:when>
+                                    <c:when test="${sbrcl == '물놀이장'}">
+                                        <li><span><i class="bi bi-droplet"></i></span><span>${sbrcl}</span></li>
+                                    </c:when>
+                                    <c:when test="${sbrcl == '마트.편의점'}">
+                                        <li><span><i class="bi bi-shop"></i></span><span>${sbrcl}</span></li>
+                                    </c:when>
+                                    <c:when test="${sbrcl == '놀이터'}">
+                                        <li><span><i class="bi bi-scooter"></i></span><span>${sbrcl}</span></li>
+                                    </c:when>
+                                    <c:when test="${sbrcl == '산책로'}">
+                                        <li><span><i class="bi bi-tree"></i></span><span>${sbrcl}</span></li>
+                                    </c:when>
+                                    <c:when test="${sbrcl == '운동장'}">
+                                        <li><span><i class="bi bi-dribbble"></i></span><span>${sbrcl}</span></li>
+                                    </c:when>
+                                </c:choose>
+	                        </ul>
+                          </c:forEach>
 					</p>
 				</div>
 			</div>
