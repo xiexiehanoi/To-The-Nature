@@ -99,4 +99,6 @@ public class UserDao {
 	    map.put("useremail", useremail);
 	    return session.selectOne(nameSpace + "findPassword", map);
 	}
+	
+	
 }

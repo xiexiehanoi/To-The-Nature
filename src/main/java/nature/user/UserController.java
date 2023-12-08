@@ -99,6 +99,12 @@ public class UserController {
 		return map;		
 	}
 	
+	@GetMapping("/login/change")
+	public String change()
+	{
+		return "login/loginchange";
+	}
+	
 	@GetMapping("/login/logout")
 	@ResponseBody public void logout(HttpSession session)
 	{
