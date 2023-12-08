@@ -55,18 +55,26 @@
                     method: "GET",
                     data: { username: username, userphone: userphone },
                     success: function (data) {
-                        // 성공 시 모달창으로 아이디 표시
-                        $("#modal-body").text("아이디: " + data);
+                        if (data === "Not Found") {
+                            // 결과가 없을 때 모달창으로 메시지 표시
+                            $("#modal-body").text("일치하는 정보가 없습니다. 다시 확인해주세요.");
+                        } else {
+                            // 결과가 있을 때 모달창으로 아이디 표시
+                            $("#modal-body").text("아이디: " + data);
+                           
+                        }
                         $("#myModal").modal("show");
-
-                        // 아이디 찾기 성공 시 로그인 페이지로 이동하는 버튼 추가
-                        $("#modal-footer").html('<a href="<%=request.getContextPath()%>/login/loginmain" class="btn btn-primary">로그인 페이지로 이동</a>');
                     },
                     error: function () {
                         // 실패 시 알림창 표시
-                        alert("일치하는 정보가 없습니다. 다시 확인해주세요.");
+                        alert("서버와 통신 중 오류가 발생했습니다.");
                     }
                 });
+            });
+
+            // 모달창 확인 버튼 클릭 시 모달 닫기
+            $("#modal-confirm-btn").click(function () {
+                $("#myModal").modal("hide");
             });
         });
     </script>
@@ -90,15 +98,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">아이디 찾기</h5>
-                    
-                        <span aria-hidden="true">&times;</span>
-                    
                 </div>
                 <div class="modal-body" id="modal-body">
-                    <!-- 경고 메시지가 이 부분에 표시됩니다. -->
+                    <!-- 결과 또는 경고 메시지가 이 부분에 표시됩니다. -->
                 </div>
-                <div class="modal-footer" id="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>
                 </div>
             </div>
         </div>

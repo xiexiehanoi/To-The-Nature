@@ -93,5 +93,4 @@ public class UserDao {
 	    return session.selectOne(nameSpace + "findUserIdByNameAndPhone", map);
 	}
 	
-	
 }
