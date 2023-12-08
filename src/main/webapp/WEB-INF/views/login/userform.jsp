@@ -16,6 +16,15 @@
    body * {
        font-family: 'Jua';
    }
+   
+   .genderButton {
+            background-color: #fff; 
+            color: #000; 
+        }
+
+   .genderButton.active {
+            background-color: #ccc; 
+        }
   
 </style>
 
@@ -68,22 +77,13 @@ $(function(){
 	$("#userid").keyup(function(){
 		idok=false;
 	});
-		$(document).ready(function () {
-        // 남성 체크박스를 클릭했을 때
-        $(".maleCheckbox").click(function () {
-            // 남성 체크박스가 체크되어 있으면 여성 체크박스의 체크를 해제
-            if ($(this).prop("checked")) {
-                $(".femaleCheckbox").prop("checked", false);
-            }
-        });
-
-        // 여성 체크박스를 클릭했을 때
-        $(".femaleCheckbox").click(function () {
-            // 여성 체크박스가 체크되어 있으면 남성 체크박스의 체크를 해제
-            if ($(this).prop("checked")) {
-                $(".maleCheckbox").prop("checked", false);
-            }
-        });
+	$(".genderButton").click(function () {
+        // 버튼 클릭 시 다른 버튼의 활성화를 해제
+        $(".genderButton").removeClass("active");
+        // 클릭한 버튼에 활성화 클래스 추가
+        $(this).addClass("active");
+        // 설정된 gender 값을 form에 추가
+        $("#yourFormId").append("<input type='hidden' name='usergender' value='" + $(this).val("gender") + "'>");
     });
 		
 	   
@@ -134,8 +134,8 @@ function check(){
 					
     				<input type="text" name="userbirth" class="form-control" required="required" minlength="8" maxlength="8" placeholder="생년월일 8자리"><br>
    					
-					<input type="checkbox" class="maleCheckbox" id="saveid" checked>&nbsp;남성
-					<input type="checkbox" class="femaleCheckbox" id="saveid">&nbsp;여성
+					<button type="button" class="btn btn-secondary genderButton active" data-gender="male" id="saveMale">남성</button>
+					<button type="button" class="btn btn-secondary genderButton" data-gender="female" id="saveFemale">여성</button>
 							
 					<input type="text" name="userphone" class="form-control" required="required" minlength="11" maxlength="11" placeholder="휴대전화번호">
 					

@@ -92,5 +92,11 @@ public class UserDao {
 	    map.put("userphone", userphone);
 	    return session.selectOne(nameSpace + "findUserIdByNameAndPhone", map);
 	}
-	
+	public String findPassword(String username, String userid, String useremail) {
+	    Map<String, String> map = new HashMap<>();
+	    map.put("username", username);
+	    map.put("userid", userid);
+	    map.put("useremail", useremail);
+	    return session.selectOne(nameSpace + "findPassword", map);
+	}
 }
