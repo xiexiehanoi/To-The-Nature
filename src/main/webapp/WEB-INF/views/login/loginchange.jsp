@@ -2,11 +2,11 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>제목 입력</title>
 <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Jua&family=Lobster&family=Nanum+Pen+Script&family=Permanent+Marker&family=Single+Day&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -21,11 +21,11 @@
         $("#pwchangeBtn").click(function () {
             var userid = $("#login_id").val();
             var userpw = $("#login_pw").val();
-            var userpwchange = $("#login_userpwchange").val();
+            var usernewpw = $("#login_usernewpw").val();
             var userpwchangeConfirm = $("#login_pwchange_confirm").val();
 
             // 입력값 확인
-            if (!userid || !userpw || !userpwchange || !userpwchangeConfirm) {
+            if (!userid || !userpw || !usernewpw || !userpwchangeConfirm) {
                 // 모달창으로 경고 메시지 표시
                 $("#modal-body").text("입력란을 모두 작성해주세요");
                 $("#modal-footer").html('<button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>');
@@ -34,7 +34,7 @@
             }
 
             // 새 비밀번호와 새 비밀번호 재입력이 일치하는지 확인
-            if (userpwchange !== userpwchangeConfirm) {
+            if (usernewpw !== userpwchangeConfirm) {
                 // 모달창으로 경고 메시지 표시
                 $("#modal-body").text("새 비밀번호와 새 비밀번호 재입력이 일치하지 않습니다.");
                 $("#modal-footer").html('<button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>');
@@ -46,7 +46,7 @@
             $.ajax({
                 url: "<%=request.getContextPath()%>/login/updatePassword",
                 method: "POST",
-                data: { userid: userid, userpw: userpw, userpwchange: userpwchange },
+                data: { userid: userid, userpw: userpw, usernewpw: usernewpw },
                 success: function (data) {
                     if (data === "IncorrectPassword") {
                         // 현재 비밀번호가 일치하지 않을 때 모달창으로 메시지 표시
@@ -55,7 +55,7 @@
                         // 성공 시 모달창으로 메시지 표시
                         $("#modal-body").text("비밀번호가 성공적으로 변경되었습니다.");
                     }
-                    $("#modal-footer").html('<button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>');
+                    $("#modal-footer").html('<a href="./main" class="btn btn-primary">확인</a>');
                     $("#myModal").modal("show");
                 },
                 error: function (xhr, status, error) {
@@ -80,7 +80,7 @@
     <form>
         아이디 <input type="text" id="login_id" name="userid" class="form-control">
         현재 비밀번호 <input type="password" id="login_pw" name="userpw" class="form-control">
-        새 비밀번호 <input type="password" id="login_userpwchange" name="userpwchange" class="form-control">
+        새 비밀번호 <input type="password" id="login_usernewpw" name="usernewpw" class="form-control">
         새 비밀번호 재입력 <input type="password" id="login_pwchange_confirm" name="userpwchange_confirm" class="form-control">
         <br>
         <button type="button" class="pwchange" id="pwchangeBtn">비밀번호 변경</button>
