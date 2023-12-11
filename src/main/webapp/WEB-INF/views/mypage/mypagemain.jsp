@@ -20,17 +20,29 @@
         }
  	@media (min-width: 576px) {
             .navbar {
+                position: fixed;
                 width: 15%;
-                height: 50vh;
+                height: 70vh;
+                padding:20px;
                 transition: width 0.3s;
             }
             .navbar:hover {
                 width: 25%; /* 마우스를 올리면 너비를 늘림 */
             }
             .navbar-nav .nav-link {
-                font-size: 2em; /* 현재 크기보다 2배 이상으로 설정 */
+                font-size: 1.5em; /* 현재 크기보다 2배 이상으로 설정 */
+            	position: absolute;
+                opacity: 0;
+                transition: opacity 0.3s;
+                pointer-events: none;
             }
-        }
+            .navbar:hover .navbar-nav .nav-link {
+                opacity: 1;
+                pointer-events: auto; /* 마우스 이벤트 허용 */
+            }
+            
+           
+        
 
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
@@ -42,19 +54,31 @@
         </div>
   <nav class="navbar bg-light">
   <div class="container-fluid">
-  <h2 class="mytitle">마이페이지</h2>
-  <br><br>
-    <ul class="navbar-nav flex-column">
+  <div class="mytitle">마이페이지</div>
+  	<ul class="navbar-icon">
+  	<li class="navar-list">
+  	<i class="bi bi-calendar4"></i>
+  	</li>
+  	<li class="navar-list">
+  	<i class="bi bi-pencil-square"></i>
+  	</li>
+  	<li class="navar-list">
+  	<i class="bi bi-chat-right-text"></i>
+  	</li>
+  	</ul>
+    <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="#">Link 1</a>
+        <a class="nav-link" href="${root}/mypage/reservation">예약내역</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link 2</a>
+        <a class="nav-link" href="${root}/mypage/review">리뷰관리</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link 3</a>
+        <a class="nav-link" href="${root}/mypage/cs">고객센터</a>
       </li>
     </ul>
+    <br><br><br><br><br><br>
+    <div class="myaccount"><a href="${root}/mypage/account">회원탈퇴</a></div>
   </div>
 </nav>
 </body>

@@ -45,11 +45,6 @@ public class UserDao {
 		return session.selectOne(nameSpace+"searchIdCount",userid);
 	}
 	
-	public void deleteMember(int usernum)
-	{
-		session.delete(nameSpace+"deleteMember", usernum);
-	}
-	
 	public boolean isLoginCheck(String userid,String userpw)
 	{
 		Map<String, String> map=new HashMap<String, String>();
