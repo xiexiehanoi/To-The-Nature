@@ -135,7 +135,7 @@ function check(){
 					
 					<input type="file" name="upload" id="upload" maxlength="100" style="display: none;">
 					<div class="input-group">
-					<input type="text" name="userid" id="userid" class="form-control" minlength="5" maxlength="20" required="required" autofocus="autofocus" placeholder="아이디">
+					<input type="text" name="userid" id="userid" class="form-control" minlength="4" maxlength="20" required="required" autofocus="autofocus" placeholder="아이디">
 					<button type="button" class="btn btn-danger btn-sm" id="btnidcheck">중복체크</button>
 					</div>
 				<input type="password" name="userpw" id="pass1" class="form-control" minlength="4" maxlength="20" required="required" placeholder="비밀번호">
