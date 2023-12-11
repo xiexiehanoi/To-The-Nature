@@ -15,293 +15,318 @@
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
-<style>
-  .camp_info_box {
-    position: relative;
-    width: 80%;
+.camp_info_box {
+    width: 90%;
     height: auto;
+    /* background-color: green; */
+    margin: 0 auto;
+    min-height: 100%;
+    display: flex; /* flex 컨테이너 설정 */
+    border: 1px solid black;
+    justify-content: space-between; /* 요소들을 가능한 넓게 배치 */
+    flex-wrap: wrap; /* 자식 요소들을 랩핑 */
     overflow: hidden;
-    margin-bottom: 100px;
-    display: flex;
-  }
-
-  .camp_info_box .img_b {
-    width: 40%;
-    height: 400px; /* 고정된 높이 설정 */
-    overflow: hidden;
-  }
-
-  .camp_info_box .img_b img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 이미지가 잘리지 않도록 설정 */
-  }
-
-  .camp_info_box .cont_tb {
-    width: 60%; /* 남은 공간을 차지하도록 설정 */
-    height: 400px;
-    overflow: hidden;
-    box-sizing: border-box;
-    position: relative;
-  }
-
-  .camp_info_box .cont_tb table {
-    width: 100%;
-    height: 100%;
-  }
-
-  .camp_info_box .cont_tb .info_bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.8); /* 배경 색상을 조절할 수 있습니다 */
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .camp_info_box .cont_tb .info_bar .action_buttons {
-    display: flex;
-    gap: 10px;
-  }
-
-  .btn_bottom {
-    text-align: center; /* 가운데 정렬을 위한 스타일 추가 */
-    margin-top: 20px; /* 필요한 경우 상단 간격 조절 */
-  }
-
-  .btn_bottom button {
-    margin: 0 10px; /* 버튼 사이 간격 조절 */
-  }
-
-.img_grid {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-gap: 10px;
-}
-
-.image_grid img, svg {
-	vertical-align: middle;
-	max-width: 100px;
+}	
+div .img_b{
+	float:left;
+	width:50%;
 	height: auto;
-}
-
-.camping_intro {
-	width: 100%;
-	padding: 20px 0;
-	border-top: 2px solid #000;
-	border-bottom: 1px solid #000;
+	box-sizing: border-box;
 	overflow: hidden;
-	margin-top: 20px;
-	display: block;
-	clear: both;
 }
-
-.camping_intro>span {
-	font-size: 14px;
-	color: #000;
-	display: block;
-	line-height: 25px;
+div .img_b img{
+	width: 100%;
+	height: 484px;
+	object-fit: cover;
+	
 }
-
-.camp_icon_list {
-    width: 94%;
+div .camp_tb{
+	float:right;
+	height:100%;	
+	width:50%;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+div .btn_bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div .btn_bottom span {
+    margin: 0 20px;
+}
+#heartIcon {
+    cursor: pointer;
+}
+hr{
+	 margin-left: 5%;
+	 margin-right: 5%;
+}
+.camp_img_grid{
+    width: 90%;
     height: auto;
-    overflow: hidden;
-    padding: 30px 3%;
-    border-radius: 5px;
+    margin: 0 auto;
 }
-
-.datainput{
-	border-radius: 20px;
+.camp_inner_img {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* 이미지 사이의 간격 조정 */
+}
+.hidden-image {
+    max-width: 22.5%;
+    height: 200px; /* 이미지 너비 조정 (4개씩 배치하려면 25%) */
+}
+.hidden {
+    display: none; /* hidden 클래스를 가진 요소 숨김 */
+}
+.camping_information_group{
+	width: 90%;
+    height: auto;
+    margin: 0 auto;
 }
 </style>
-<script>
-	function readmoreimage(){
-		$(".image_grid").click(function() {
-
-			$('.hidden-image').removeClass('hidden-image');
-			$('.image_grid').hide();
-		});
-	}
+<script type="text/javascript">
+	$(function(){
+/* 		$("#heartIcon").click(function() {
+	        // 여기에서 Ajax 요청을 보내고 서버에서 필요한 작업을 수행합니다.
+	        $.ajax({
+	            type: "POST",
+	            url: "./addWish",
+	            data: {
+	            	userNum: "${usernum}",
+	            	campingNum: "${dto.campingNum}"},
+	            success: function(response) {
+	                if (response.success) {
+	                	$("#heartIcon").removeClass("bi-heart").addClass("bi-heart-fill").css("color", "red");
+	                } else {
+	                    console.error("Error:", response.error);
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                console.error("Ajax Error:", error);
+	            }
+	        });
+	    });
+	});//heartIcon close */
+    $(document).ready(function () {
+        var visibleImages = 4; // 한 번에 표시할 이미지 수
+        var $hiddenImages = $(".hidden-image");
+        var $loadButton = $(".load_image");
+        // 초기에는 숨겨진 이미지를 보이지 않도록 설정
+        $hiddenImages.slice(0, visibleImages).removeClass("hidden");
+        // "more" 버튼 클릭 이벤트 핸들러
+        $loadButton.on("click", function () {
+            var currentVisibleCount = $(".hidden-image:not(.hidden)").length;
+            var nextVisibleCount = currentVisibleCount + visibleImages;
+            // 다음에 표시될 이미지들을 보이도록 변경
+            $hiddenImages.slice(currentVisibleCount, nextVisibleCount).removeClass("hidden");
+            // 모든 이미지가 표시되었다면 "more" 버튼 숨김
+            if (nextVisibleCount >= $hiddenImages.length) {
+                $loadButton.hide();
+            }
+        });
+    });
+	})//function close
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
- 		  document.getElementById('reservationForm').action = './reservation';
+		  document.getElementById('reservationForm').action = './reservation';
 		  document.getElementById('reservationForm').method = 'POST';
 		  // 폼을 제출
 		  document.getElementById('reservationForm').submit();
-		 
+		
 		  $('#reservationModal').modal('hide');
 		}
 </script>
 <body>
-	<c:forEach var="dto" items="${campinglist}">
-		<div id="cont_inner">
-			<div class="sub_layout layout">
-				<div class="camp_info_box">
-					<!-- 이미지 부분은 이미지 경로를 반영 -->
-					<div class="img_b">
-						<img src="${dto.firstImageUrl}" alt="캠핑장 메인 이미지">
-					</div>
-					<!-- 테이블 부분 -->
-					<div class="cont_tb">
-						<table class="table">
-							<colgroup>
-								<col style="width: 30%;">
-								<col style="width: 70%;">
-							</colgroup>
-							<tbody>
-								<tr class="camp_name">
-									<th scope="col">캠핑장명</th>
-									<td>${dto.facltNm}</td>
-								</tr>
-								<tr class="camp_addr">
-									<th scope="col">지역</th>
-									<td>${dto.doNm}${dto.sigunguNm}</td>
-								</tr>
-								<tr class="camp_detailaddr">
-									<th scope="col">전체 주소</th>
-									<td>${dto.addr1}</td>
-								</tr>
-								<tr class="camp_call">
-									<th scope="col">전화번호</th>
-									<td>${dto.tel}</td>
-								</tr>
-								<tr class="camp_homepage">
-									<th scope="col">홈페이지</th>
-									<td><a href="${dto.homepage}">${dto.homepage}</a></td>
-								</tr>
-								<tr class="camp_workingday">
-									<th scope="col">운영일</th>
-									<td>${dto.operDeCl}</td>
-								</tr>
-								<tr class="camp_pet">
-									<th scope="col">반려동물 출입 여부</th>
-									<td>${dto.animalCmgCl}</td>
-								</tr>
-								<!-- <%-- <button type="button" class="btn_gB1 btn_modify"
-                                    onclick="location.href='/zboard/createForm.do?lmCode=campRequest&amp;c_no='+${campinglist.campingNum}">
-                                    정보수정요청</button> --%> -->
-							</tbody>
-						</table>
-						<!-- 테이블 끝 -->
-						<div class="btn_bottom input-group">
-							<button id="widhBtn" type="button" class="btn"
-								onclick="fnCampBkmk(); return false">
-								<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기
-							</button>
-							<div id="reviewInfo">
-								<span>리뷰</span> <span id="reviewCount">0</span>
-								<!-- 리뷰 개수가 표시될 부분 -->
-							</div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button>
-						</div>
-							<div class="image_grid">
-								<c:forEach var="imageUrl" items="${fn:split(dto.imageUrl, ',')}"
-									varStatus="loop">
-									<img src="${imageUrl.trim()}" alt="캠핑장 이미지"
-										class="${loop.index + 1 > 6 ? 'hidden-image' : ''} hidden-image">
-								</c:forEach>
-							<button type="button" class="btn btn-secondary load_image">more</button>
-							</div>
-					</div>
+<c:forEach var="dto" items="${campinglist}">
+	<div class="camp_info_box">
+			<!-- 메인 사진 부분 -->
+			<div class="img_b">
+				<img src="${dto.firstImageUrl}" alt="캠핑장 메인 이미지">
+			</div>
+			<!-- 메인 정보 테이블-->
+			<!-- 테이블 부분 -->
+			<div class="camp_tb">
+				<table class="table">
+					<colgroup>
+						<col style="width: 30%;">
+						<col style="width: 70%;">
+					</colgroup>
+					<tbody>
+						<tr class="camp_name">
+							<th scope="col">캠핑장명</th>
+							<td>${dto.facltNm}</td>
+						</tr>
+						<tr class="camp_addr">
+							<th scope="col">지역</th>
+							<td>${dto.doNm}${dto.sigunguNm}</td>
+						</tr>
+						<tr class="camp_detailaddr">
+							<th scope="col">전체 주소</th>
+							<td>${dto.addr1}</td>
+						</tr>
+						<tr class="camp_call">
+							<th scope="col">전화번호</th>
+							<td>${dto.tel}</td>
+						</tr>
+						<tr class="camp_homepage">
+							<th scope="col">홈페이지</th>
+							<td><a href="${dto.homepage}">${dto.homepage}</a></td>
+						</tr>
+						<tr class="camp_workingday">
+							<th scope="col">운영일</th>
+							<td>${dto.operDeCl}</td>
+						</tr>
+						<tr class="camp_pet">
+							<th scope="col">반려동물 출입 여부</th>
+							<td>${dto.animalCmgCl}</td>
+						</tr>
+						<tr class="camp_toilet">
+							<th scope="col">화장실</th>
+							<td>${dto.toiletCo}</td>
+						</tr>
+						<tr class="camp_showerbooth">
+							<th scope="col">샤워실</th>
+							<td>${dto.swrmCo}</td>
+						</tr>
+						<tr class="camp_showerbooth">
+							<th scope="col">세면대</th>
+							<td>${dto.wtrplCo}</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 테이블 아래 찜, 리뷰, 예약 -->
+				<div class="btn_bottom input-group">
+					<span>
+						<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기					
+					</span>
+					<span id="reviewInfo">
+						<i class="bi bi-star-fill" style="color: gold;"></i>리뷰: 0
+						<!-- 리뷰 개수가 표시될 부분 -->
+					</span>
+					<!-- 예약하기 버튼 -->
+					<span>
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button>					
+					</span>
 				</div>
-				<div class="camping_information_group">
-					<h3 class="camping_info">
-						<i class="bi bi-info-circle-fill"></i>&nbsp;캠핑장 소개
-					</h3>
-					<p class="camping_icon">
-						<c:if test="${not empty dto.intro}">
-							<span>${dto.intro}</span>
-						</c:if>
-						<c:if test="${empty dto.intro}">
-							<span>내용 업데이트 예정</span>
-						</c:if>
-					</p>
-					<h3 class="camping_info">
-						<i class="bi bi-info-circle-fill"></i>&nbsp;캠핑장 시설정보
-					</h3>
- 					<p class="camping_facility">
-                            <c:forEach var="sbrcl" items="${fn:split(dto.sbrsCl, ',')}">
-                        		<ul class="camping_icon_list">
-                                <c:choose>
-                                    <c:when test="${sbrcl == '운동시설'}">
-                                        <li><span><i class="bi bi-universal-access"></i></span><span>${sbrcl}</span></li>
-                                    </c:when>
-                                    <c:when test="${sbrcl == '전기'}">
-                                        <li><span><i class="bi bi-lightning"></i></span><span>${sbrcl}</span></li>
-                                    </c:when>
-                                    <c:when test="${sbrcl == '무선인터넷'}">
-                                        <li><span><i class="bi bi-wifi"></i></span><span>${sbrcl}</span></li>
-                                    </c:when>
-                                    <c:when test="${sbrcl == '장작판매'}">
-                                        <li><span><i class="bi bi-tree"></i></span><span>${sbrcl}</span></li>
-                                    </c:when>
-                                    <c:when test="${sbrcl == '온수'}">
-                                        <li><span><i class="bi bi-cup-hot"></i></span><span>${sbrcl}</span></li>
-                                    </c:when>
-                                    <c:when test="${sbrcl == '트렘폴린'}">
-                                        <li><span><i class="bi bi-trampoline"></i></span><span>${sbrcl}</span></li>
-                                    </c:when>
-                                    <c:when test="${sbrcl == '물놀이장'}">
-                                        <li><span><i class="bi bi-droplet"></i></span><span>${sbrcl}</span></li>
-                                    </c:when>
-                                    <c:when test="${sbrcl == '마트.편의점'}">
-                                        <li><span><i class="bi bi-shop"></i></span><span>${sbrcl}</span></li>
-                                    </c:when>
-                                    <c:when test="${sbrcl == '놀이터'}">
-                                        <li><span><i class="bi bi-scooter"></i></span><span>${sbrcl}</span></li>
-                                    </c:when>
-                                    <c:when test="${sbrcl == '산책로'}">
-                                        <li><span><i class="bi bi-tree"></i></span><span>${sbrcl}</span></li>
-                                    </c:when>
-                                    <c:when test="${sbrcl == '운동장'}">
-                                        <li><span><i class="bi bi-dribbble"></i></span><span>${sbrcl}</span></li>
-                                    </c:when>
-                                </c:choose>
-	                        </ul>
-                          </c:forEach>
-						<span><i class="bi bi-toilet"></i></span><span>화장실 개수: ${dto.toiletCo}개</span>
-						<span><i class="bi bi-shower"></i></span><span>샤워실 개수: ${dto.swrmCo}개</span>
-						<span><i class="bi bi-sink"></i></span><span>세면대 개수: ${dto.wtrplCo}개</span>
-					</p>
-					  <!-- Your existing HTML code goes here -->
-
-				  <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
-				    <div class="modal-dialog">
-				      <div class="modal-content">
-				        <div class="modal-header">
-				          <h5 class="modal-title" id="reservationModalLabel">Reservation Details</h5>
-				          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				        </div>
-				        <div class="modal-body">
-				          <form id="reservationForm">
-				          	<div class="mb-3">
-				          	  <label for="startDate" class="form-label">캠핑장명 : ${dto.facltNm}</label>
-				          	</div>
-				            <div class="mb-3 input-group">
-				              <label for="startDate" class="form-label">입실일</label>
-				              <input type="date" class="form-control datainput" id="startDate" name="startDate" required>
-				              <label for="endDate" class="form-label">퇴실일</label>
-				              <input type="date" class="form-control datainput" id="endDate" name="endDate" required>
-				            </div>
-				            <div class="mb-3 input-group">
-				              <label for="adults" class="form-label ">성인</label>
-				              <input type="number" class="form-control datainput" id="adults" name="adults" min="1" required>
-				              <label for="children" class="form-label">아동(만0세~17세)</label>
-				              <input type="number" class="form-control datainput" id="children" name="children" min="0" required>
-				            </div>
-				            <button type="button" class="btn btn-primary" onclick="submitReservation()">Confirm Reservation</button>
-				          </form>
-				        </div>
-				      </div>
-				    </div>
-				  </div>
+			</div>
+		</div><!-- camp_info_box close -->
+		<br>
+		<!-- div grid -->
+			<hr>
+		<div class="camp_img_grid">
+			<!-- 캠프 내부 사진 grid -->
+			<h3>
+				<i class="bi bi-info-circle-fill"></i>&nbsp;캠핑장 내부 사진
+			</h3>
+			<div class="camp_inner_img">
+				<c:forEach var="imageUrl" items="${fn:split(dto.imageUrl, ',')}"
+					varStatus="loop">
+					<img src="${imageUrl.trim()}" alt="캠핑장 이미지"
+						class="hidden-image ${loop.index + 1 > 4 ? 'hidden' : ''}">
+				</c:forEach>
+				<button type="button" class="btn btn-secondary load_image">more</button>
+			</div>
+		</div>
+		<hr>
+		<!--  -->
+		<div class="camping_information_group">
+			<h3 class="camping_info">
+				<i class="bi bi-info-circle-fill"></i>&nbsp;캠핑장 소개
+			</h3>
+			<p class="camping_icon">
+				<c:if test="${not empty dto.intro}">
+					<span>${dto.intro}</span>
+				</c:if>
+				<c:if test="${empty dto.intro}">
+					<span>내용 업데이트 예정</span>
+				</c:if>
+			</p>
+			<h3 class="camping_info">
+				<i class="bi bi-info-circle-fill"></i>&nbsp;캠핑장 시설정보
+			</h3>
+			<p class="camping_facility">
+				<c:forEach var="sbrcl" items="${fn:split(dto.sbrsCl, ',')}">
+					<ul class="camping_icon_list">
+						<c:choose>
+							<c:when test="${sbrcl == '운동시설'}">
+								<li><span><i class="bi bi-universal-access"></i></span><span>${sbrcl}</span></li>
+							</c:when>
+							<c:when test="${sbrcl == '전기'}">
+								<li><span><i class="bi bi-lightning"></i></span><span>${sbrcl}</span></li>
+							</c:when>
+							<c:when test="${sbrcl == '무선인터넷'}">
+								<li><span><i class="bi bi-wifi"></i></span><span>${sbrcl}</span></li>
+							</c:when>
+							<c:when test="${sbrcl == '장작판매'}">
+								<li><span><i class="bi bi-tree"></i></span><span>${sbrcl}</span></li>
+							</c:when>
+							<c:when test="${sbrcl == '온수'}">
+								<li><span><i class="bi bi-cup-hot"></i></span><span>${sbrcl}</span></li>
+							</c:when>
+							<c:when test="${sbrcl == '트렘폴린'}">
+								<li><span><i class="bi bi-trampoline"></i></span><span>${sbrcl}</span></li>
+							</c:when>
+							<c:when test="${sbrcl == '물놀이장'}">
+								<li><span><i class="bi bi-droplet"></i></span><span>${sbrcl}</span></li>
+							</c:when>
+							<c:when test="${sbrcl == '마트.편의점'}">
+								<li><span><i class="bi bi-shop"></i></span><span>${sbrcl}</span></li>
+							</c:when>
+							<c:when test="${sbrcl == '놀이터'}">
+								<li><span><i class="bi bi-scooter"></i></span><span>${sbrcl}</span></li>
+							</c:when>
+							<c:when test="${sbrcl == '산책로'}">
+								<li><span><i class="bi bi-tree"></i></span><span>${sbrcl}</span></li>
+							</c:when>
+							<c:when test="${sbrcl == '운동장'}">
+								<li><span><i class="bi bi-dribbble"></i></span><span>${sbrcl}</span></li>
+							</c:when>
+						</c:choose>
+					</ul>
+				</c:forEach>
+			</p>
+			<!-- Your existing HTML code goes here -->
+			<div class="modal fade" id="reservationModal" tabindex="-1"
+				aria-labelledby="reservationModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="reservationModalLabel">Reservation
+								Details</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form id="reservationForm">
+								<div class="mb-3">
+									<label for="startDate" class="form-label">캠핑장명 :
+										${dto.facltNm}</label>
+								</div>
+								<div class="mb-3 input-group">
+									<label for="startDate" class="form-label">입실일</label> <input
+										type="date" class="form-control datainput" id="startDate"
+										name="startDate" required> <label for="endDate"
+										class="form-label">퇴실일</label> <input type="date"
+										class="form-control datainput" id="endDate" name="endDate"
+										required>
+								</div>
+								<div class="mb-3 input-group">
+									<label for="adults" class="form-label ">성인</label> <input
+										type="number" class="form-control datainput" id="adults"
+										name="adults" min="1" required> <label for="children"
+										class="form-label">아동(만0세~17세)</label> <input type="number"
+										class="form-control datainput" id="children" name="children"
+										min="0" required>
+								</div>
+								<button type="button" class="btn btn-primary"
+									onclick="submitReservation()">Confirm Reservation</button>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</c:forEach>
+	</c:forEach>	
 </body>
 </html>
