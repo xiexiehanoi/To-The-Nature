@@ -47,7 +47,7 @@
 		<beans:property name="maxUploadSize" value="4000000"/>
 	</beans:bean>
 	
-	<context:component-scan base-package="bit.group1.nature,naver.storage,nature/*" />
+	<context:component-scan base-package="bit.group1.nature,naver.storage,nature.*" />
 	
 	
 </beans:beans>

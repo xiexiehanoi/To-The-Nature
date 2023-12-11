@@ -86,28 +86,54 @@ hr{
 }
 </style>
 <script type="text/javascript">
-	$(function(){
-/* 		$("#heartIcon").click(function() {
-	        // 여기에서 Ajax 요청을 보내고 서버에서 필요한 작업을 수행합니다.
-	        $.ajax({
-	            type: "POST",
-	            url: "./addWish",
-	            data: {
-	            	userNum: "${usernum}",
-	            	campingNum: "${dto.campingNum}"},
-	            success: function(response) {
-	                if (response.success) {
-	                	$("#heartIcon").removeClass("bi-heart").addClass("bi-heart-fill").css("color", "red");
-	                } else {
-	                    console.error("Error:", response.error);
-	                }
-	            },
-	            error: function(xhr, status, error) {
-	                console.error("Ajax Error:", error);
-	            }
-	        });
-	    });
-	});//heartIcon close */
+var urlParams = new URLSearchParams(window.location.search);
+var campingNum = urlParams.get('num');
+/* var userId = ${sessionScope.userid}; */
+var userId = "kim";
+<%-- 찜하기 추가 --%>
+	$(document).on("click", "#heartIcon", function() {
+	         $.ajax({
+	           type: "POST",
+	           url: "./detail/insertWish",
+	           data: {
+	           	userId: userId,
+	           	campingNum: campingNum},
+	           success: function(res) {
+	               if (res.success) {
+	               	$("#heartIcon").removeClass("bi-heart").addClass("bi-heart-fill").css("color", "red");
+	               } else {
+	                   console.error("Error:", res.error);
+	               }
+	           },
+	           error: function(xhr, status, error) {
+	               console.error("Ajax Error:", error);
+	           }
+	       });
+	   });
+
+	$(document).on("click", "#heartIcon", function() {
+	         $.ajax({
+	           type: "POST",
+	           url: "./detail/deleteWish",
+	           data: {
+	           	userId: userId,
+	           	wishNum: wishNum},
+	           success: function(res) {
+	               if (res.success) {
+	               	$("#heartIcon").removeClass("bi-heart-fill").addClass("bi-heart").css("color", "red");
+	               } else {
+	                   console.error("Error:", res.error);
+	               }
+	           },
+	           error: function(xhr, status, error) {
+	               console.error("Ajax Error:", error);
+	           }
+	       });
+	   });
+	
+
+	
+	<%-- 사진 더보기 버튼 --%>	
     $(document).ready(function () {
         var visibleImages = 4; // 한 번에 표시할 이미지 수
         var $hiddenImages = $(".hidden-image");
@@ -126,7 +152,7 @@ hr{
             }
         });
     });
-	})//function close
+    <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
 		  document.getElementById('reservationForm').action = './reservation';
@@ -198,7 +224,7 @@ hr{
 				<!-- 테이블 아래 찜, 리뷰, 예약 -->
 				<div class="btn_bottom input-group">
 					<span>
-						<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기					
+						<i id="heartIcon" data-wishnum="${wishNum}" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기					
 					</span>
 					<span id="reviewInfo">
 						<i class="bi bi-star-fill" style="color: gold;"></i>리뷰: 0
