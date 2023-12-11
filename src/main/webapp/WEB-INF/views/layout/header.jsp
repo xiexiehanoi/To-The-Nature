@@ -24,6 +24,10 @@
 	.login-section {
         margin-left: auto;
     }
+    .mypage-section a{
+    	text-decoration: none;
+    	color: black;
+    }
 </style>
 <c:set var="root" value="<%=request.getContextPath()%>"/>
 
@@ -64,6 +68,18 @@
     <button type="button" class="btn btn-success" id="btnlogout" style="width: 100px;">로그아웃</button>
 </c:if>
 </div>
-	
+&nbsp;&nbsp;
+	<div class="mypage-section">
+    <c:choose>
+        <c:when test="${empty sessionScope.loginok}">
+            <!-- 세션에 loginok 값이 없으면 (로그인 상태가 아니면) 로그인 페이지로 이동 -->
+            <a href="${root}/login/main">mypage</a>
+        </c:when>
+        <c:otherwise>
+            <!-- 세션에 loginok 값이 있으면 (로그인 상태이면) mypage 페이지로 이동 -->
+            <a href="${root}/mypage/main">mypage</a>
+        </c:otherwise>
+    </c:choose>
+</div>
 </body>
 </html>
