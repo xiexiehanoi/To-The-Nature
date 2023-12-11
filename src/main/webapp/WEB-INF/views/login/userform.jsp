@@ -30,6 +30,7 @@
 
 <script type="text/javascript">
 let idok=false;
+let selectedGender = "";
 $(function(){
 	$("#upload").change(function(){
 		  console.log("1:"+$(this)[0].files.length);
@@ -82,10 +83,18 @@ $(function(){
         $(".genderButton").removeClass("active");
         // 클릭한 버튼에 활성화 클래스 추가
         $(this).addClass("active");
-        // 설정된 gender 값을 form에 추가
-        $("#yourFormId").append("<input type='hidden' name='usergender' value='" + $(this).val("gender") + "'>");
+        selectedGender = $(this).data("gender");
+        $("#usergender").val(selectedGender);
     });
-		
+	$("#saveMale").click(function () {
+        // "남성" 버튼 클릭 시 usergender 값을 "male"로 설정
+        $("#usergender").val("남성");
+    });
+
+    $("#saveFemale").click(function () {
+        // "여성" 버튼 클릭 시 usergender 값을 "female"로 설정
+        $("#usergender").val("여성");
+    });
 	   
 });//close function
   
@@ -98,6 +107,11 @@ function check(){
 	let pass2=$("#pass2").val();
 	if(pass1==pass2){
 		$("#signupModal").modal("show");
+		$("<input>").attr({
+            type: "hidden",
+            id: "usergender_hidden",
+            name: "usergender"
+        }).val(selectedGender).appendTo("#yourFormId");
 		return true;//action 호출
 	}else{
 			alert("두개의 비밀번호가 맞지 않습니다");
@@ -121,7 +135,7 @@ function check(){
 					
 					<input type="file" name="upload" id="upload" maxlength="100" style="display: none;">
 					<div class="input-group">
-					<input type="text" name="userid" id="userid" class="form-control" minlength="5" maxlength="20" required="required" autofocus="autofocus" placeholder="아이디">
+					<input type="text" name="userid" id="userid" class="form-control" minlength="4" maxlength="20" required="required" autofocus="autofocus" placeholder="아이디">
 					<button type="button" class="btn btn-danger btn-sm" id="btnidcheck">중복체크</button>
 					</div>
 				<input type="password" name="userpw" id="pass1" class="form-control" minlength="4" maxlength="20" required="required" placeholder="비밀번호">
@@ -134,7 +148,7 @@ function check(){
 					
     				<input type="text" name="userbirth" class="form-control" required="required" minlength="8" maxlength="8" placeholder="생년월일 8자리"><br>
    					
-					<button type="button" class="btn btn-secondary genderButton active" data-gender="male" id="saveMale">남성</button>
+					<button type="button" class="btn btn-secondary genderButton" data-gender="male" id="saveMale">남성</button>
 					<button type="button" class="btn btn-secondary genderButton" data-gender="female" id="saveFemale">여성</button>
 							
 					<input type="text" name="userphone" class="form-control" required="required" minlength="11" maxlength="11" placeholder="휴대전화번호">

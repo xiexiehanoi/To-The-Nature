@@ -99,4 +99,11 @@ public class UserDao {
 	    map.put("useremail", useremail);
 	    return session.selectOne(nameSpace + "findPassword", map);
 	}
+	public void updatePassword(String userid, String usernewpw) {
+        Map<String, String> map = new HashMap<>();
+        map.put("userid", userid);
+        map.put("usernewpw", usernewpw);
+        session.update(nameSpace + "updatePassword", map);
+    }
+	
 }

@@ -49,7 +49,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login/success")
-	public String addMember(HttpServletRequest request,@ModelAttribute UserDto dto,@RequestParam MultipartFile upload)
+	public String addMember(HttpServletRequest request,@ModelAttribute UserDto dto,@RequestParam MultipartFile upload, @RequestParam String usergender)
 	{
 
 		String path=request.getSession().getServletContext().getRealPath("/resources/upload");
@@ -73,7 +73,7 @@ public class MemberController {
 		}
 	
 		dto.setUserphoto(userphoto);
-	
+		dto.setUsergender(usergender);
 		userDao.insertMember(dto);
 		
 		return "login/loginsuccess";

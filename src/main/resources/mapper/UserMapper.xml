@@ -45,5 +45,9 @@
         FROM user
         WHERE username = #{username} AND userid = #{userid} AND useremail = #{useremail}
     </select>
-    
+    <update id="updatePassword" parameterType="java.util.Map">
+    UPDATE user
+    SET userpw = #{usernewpw}
+    WHERE userid = #{userid}
+</update>
 </mapper>
