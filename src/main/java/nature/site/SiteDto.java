@@ -27,4 +27,6 @@ public class SiteDto {
     private String createdAt;
     private String modifiedAt;
     private String image_url;
+    private int iswished;
+    private int coutniwsh;
 }
