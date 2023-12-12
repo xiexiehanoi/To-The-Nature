@@ -31,6 +31,11 @@ class App {
 		// 창 크기가 변경될 때마다 resize 해주는 기능
 		window.onresize = this.resize.bind(this);
 		this.resize();
+		
+		// Add mouse event listeners for manual control
+        this._divContainer.addEventListener('mousedown', this.onMouseDown.bind(this));
+        this._divContainer.addEventListener('mousemove', this.onMouseMove.bind(this));
+        this._divContainer.addEventListener('mouseup', this.onMouseUp.bind(this));
 
 		// 렌더 메소드를 requestAnimationFrame에 넘겨줌
 		requestAnimationFrame(this.render.bind(this));
@@ -81,23 +86,25 @@ class App {
 	    
 	    this._scene.add(cube);
 	    this._cube = cube;
-		
-		// 부모 요소 생성
-    	const modelContainer = document.createElement('div');
-    	modelContainer.style.width = '100%';
-    	modelContainer.style.height = '100%';
-    	this._divContainer.appendChild(modelContainer);
+	    
 		
 	    // 모델에 마우스 오버 이벤트를 추가합니다.
-	    modelContainer.addEventListener('mouseover', () => {
-        	// cursor를 pointer로 변경합니다.
-        	modelContainer.style.cursor = 'pointer';
-    	});
+	    //this._cube.addEventListener('mouseover', () => {
+        //	// Change cursor to pointer when the mouse is over the cube
+        //	this._divContainer.style.cursor = 'pointer';
+    	//});
 	
 	    // 모델에서 마우스가 벗어날 때 이벤트를 추가하여 cursor를 초기 상태로 변경합니다.
-	    modelContainer.addEventListener('mouseout', () => {
-        	modelContainer.style.cursor = 'auto';
-    	});
+	    //this._cube.addEventListener('mouseout', () => {
+        //	// Change cursor to auto when the mouse is not over the cube
+        //	this._divContainer.style.cursor = 'auto';
+    	//});
+    	
+    	// Add mousemove event listener for the container
+    	this._divContainer.addEventListener('mousemove', this.onMouseMove.bind(this));
+
+    	// Set initial cursor style
+    	this._divContainer.style.cursor = 'auto';
 	}
 
 
@@ -125,14 +132,65 @@ class App {
 	update(time) {
 		time *= 0.001; // ms => s 단위로 표기
 		// 회전값에 시간을 지정 -> 값이 계속 바뀜
-		//this._cube.rotation.x = time/2;
+		//this._cube.rotation.x = time/4;
 		this._cube.rotation.y = time/4;
 		
 		// 추가된 부분: OrbitControls 업데이트
         //this._controls.update();
         
-		this._cube.rotation.z = time/4;
+		//this._cube.rotation.z = time/4;
 	}
+	
+	// Mouse control events
+    onMouseDown(event) {
+        this.isMouseDown = true;
+        this.previousMousePosition = {
+            x: event.clientX,
+            y: event.clientY
+        };
+    }
+
+    onMouseMove(event) {
+    	const raycaster = new THREE.Raycaster();
+    	const mouse = new THREE.Vector2();
+	
+	    // Calculate mouse position in normalized device coordinates
+	    mouse.x = (event.clientX / this._divContainer.clientWidth) * 2 - 1;
+	    mouse.y = -(event.clientY / this._divContainer.clientHeight) * 2 + 1;
+	
+    	// Update the raycaster's origin and direction
+    	raycaster.setFromCamera(mouse, this._camera);
+	
+	    // Check if the ray intersects with the cube
+	    const intersects = raycaster.intersectObject(this._cube);
+	
+	    // Change cursor style based on intersection
+	    if (intersects.length > 0) {
+        	this._divContainer.style.cursor = 'pointer';
+    	} else {
+	        this._divContainer.style.cursor = 'auto';
+        	if (!this.isMouseDown) return;
+		}
+	
+	
+        const deltaMousePosition = {
+            x: event.clientX - this.previousMousePosition.x,
+            y: event.clientY - this.previousMousePosition.y
+        };
+
+        // Adjust rotation based on mouse movement
+        //this._cube.rotation.y += deltaMousePosition.x * 0.01;
+        this._cube.rotation.x += deltaMousePosition.y * 0.01;
+
+        this.previousMousePosition = {
+            x: event.clientX,
+            y: event.clientY
+        };
+    }
+
+    onMouseUp() {
+        this.isMouseDown = false;
+    }
 }
 
 window.onload = function () {
