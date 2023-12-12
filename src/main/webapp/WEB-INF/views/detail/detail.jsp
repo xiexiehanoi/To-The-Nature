@@ -88,8 +88,8 @@ hr{
 <script type="text/javascript">
 var urlParams = new URLSearchParams(window.location.search);
 var campingNum = urlParams.get('num');
-/* var userId = ${sessionScope.userid}; */
-var userId = "kim";
+var userId = "${sessionScope.userid}";
+/* var userId = "kim"; */
 <%-- 찜하기 추가 --%>
 	$(document).on("click", "#heartIcon", function() {
 	         $.ajax({
@@ -111,7 +111,7 @@ var userId = "kim";
 	       });
 	   });
 
-	$(document).on("click", "#heartIcon", function() {
+/* 	$(document).on("click", "#heartIcon", function() {
 	         $.ajax({
 	           type: "POST",
 	           url: "./detail/deleteWish",
@@ -129,9 +129,7 @@ var userId = "kim";
 	               console.error("Ajax Error:", error);
 	           }
 	       });
-	   });
-	
-
+	   }); */
 	
 	<%-- 사진 더보기 버튼 --%>	
     $(document).ready(function () {

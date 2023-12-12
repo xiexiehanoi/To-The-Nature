@@ -1,4 +1,4 @@
-package nature.user;
+package nature.mypage;
 
 import java.sql.Timestamp;
 
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 @Data
-public class UserDto {
+public class MypageDto {
 	private int usernum;
 	private String userid;
 	private String userpw;
