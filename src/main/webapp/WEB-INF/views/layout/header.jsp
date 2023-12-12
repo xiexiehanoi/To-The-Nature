@@ -14,13 +14,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 
 <style type="text/css">
-	.header{
+	/* .header{
 		border: 1px solid blue;
 		display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 10px;
 	}
+	div.header_container{
+		display: flex;
+	}
+	div.header_container div.header_menu{
+		margin-left: auto;
+		padding-right: 30px;
+	}	
 	.login-section {
         margin-left: auto;
     }

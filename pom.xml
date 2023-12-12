@@ -209,6 +209,13 @@
          <version>20210307</version> <!-- 최신 버전 확인 -->
       </dependency>
          
+      
+      <dependency>
+       <groupId>org.webjars.npm</groupId>
+       <artifactId>three</artifactId>
+       <version>0.155.0</version> <!-- Three.js의 원하는 버전으로 변경 -->
+   	  </dependency>
+              
    </dependencies>
 
    
