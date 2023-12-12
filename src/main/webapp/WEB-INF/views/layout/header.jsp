@@ -78,8 +78,12 @@
         <c:otherwise>
             <!-- 세션에 loginok 값이 있으면 (로그인 상태이면) mypage 페이지로 이동 -->
             <a href="${root}/mypage/main">mypage</a>
+        <c:if test="${sessionScope.userid eq 'nature'}">
+        <a href="${root}/admin/main">admin</a>
+    	</c:if>
         </c:otherwise>
     </c:choose>
+   
 </div>
 </body>
 </html>

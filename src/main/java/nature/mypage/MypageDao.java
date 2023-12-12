@@ -12,8 +12,8 @@ public class MypageDao {
 	
 	private String nameSpace="nature.mypage.MypageDao.";
 	
-	public void deleteMember(int usernum)
+	public void deleteMember(String userid)
 	{
-		session.delete(nameSpace+"deleteMember", usernum);
+		session.delete(nameSpace+"deleteMember", userid);
 	}
 }

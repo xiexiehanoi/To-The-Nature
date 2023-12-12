@@ -25,10 +25,40 @@
                 height: 70vh;
                 padding:20px;
                 transition: width 0.3s;
+                display: flex;
+            flex-direction: column; /* 수직으로 나오도록 설정 */
+            align-items: center;
             }
             .navbar:hover {
                 width: 25%; /* 마우스를 올리면 너비를 늘림 */
             }
+            .navbar .mytitle {
+            margin-bottom: 100px;
+            
+        }
+            .navbar .mytitle {
+            margin-bottom: 20px; /* mytitle과 navbar 간 여백 추가 */
+        	display: flex;
+            flex-direction: column; /* 수직으로 나오도록 설정 */
+            align-items: center; 
+        }
+        .navbar .mytitle,
+        .navbar .navbar-icon,
+        .navbar .navbar-nav,
+        .navbar .myaccount {
+            text-align: center; /* 가운데 정렬 */
+        }
+        .navbar .navbar-icon {
+            display: flex;
+            flex-direction: column; /* 수직으로 나오도록 설정 */
+            align-items: center; /* 가운데 정렬 */
+        }
+        .navbar .navbar-nav {
+            margin-top: 20px; /* 각 링크 사이 여백 추가 */
+        }
+        .navbar-nav .nav-item {
+            margin-bottom: 10px; /* 각 링크 사이 여백 추가 */
+        }
             .navbar-nav .nav-link {
                 font-size: 1.5em; /* 현재 크기보다 2배 이상으로 설정 */
             	position: absolute;
@@ -40,7 +70,9 @@
                 opacity: 1;
                 pointer-events: auto; /* 마우스 이벤트 허용 */
             }
-            
+            .navbar .myaccount {
+            margin-top: auto;
+        }
            
         
 
@@ -68,13 +100,13 @@
   	</ul>
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="${root}/mypage/reservation">예약내역</a>
+        <a class="nav-link1" href="${root}/mypage/reservation">예약내역</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="${root}/mypage/review">리뷰관리</a>
+        <a class="nav-link2" href="${root}/mypage/review">리뷰관리</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="${root}/mypage/cs">고객센터</a>
+        <a class="nav-link3" href="${root}/mypage/cs">고객센터</a>
       </li>
     </ul>
     <br><br><br><br><br><br>
