@@ -13,19 +13,44 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <style>
-   body * {
-       font-family: 'Jua';
-   }
-   
+   body {
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+   .genderButtons {
+        display: flex;
+        justify-content: space-between;
+        
+    }
    .genderButton {
+   
+   			width: 50%;
             background-color: #fff; 
             color: #000; 
+         	border: 1px solid #ccc;
         }
 
-   .genderButton.active {
-            background-color: #ccc; 
-        }
-  
+   .genderButton.active,
+    .genderButton:hover {
+        background-color: white;
+        color: #000;
+        border: 5px solid lightgreen;
+    }
+  form {
+        width: 80%;
+        max-width: 600px; /* 최대 너비 설정 */
+    }
+   button#loginsuccess {
+        width: 100%; /* 입력란과 같은 너비로 설정 */
+        background-color: beige; /* 베이지 색상으로 설정 */
+        color: #000000; /* 글자 색상을 검정으로 설정 */
+        border: 1px solid white; /* 테두리를 흰색으로 설정 */
+    } 
+   
+	
 </style>
 
 <script type="text/javascript">
@@ -56,6 +81,10 @@ $(function(){
 	$("#btnidcheck").click(function(){
 		//입력한 아이디
 		let userid=$("#userid").val();
+		if (userid.length < 4) {
+			alert("아이디를 4자 이상 입력해주세요.");
+			return;
+		}
 		$.ajax({
 			type:"get",
 			dataType:"json",
@@ -78,6 +107,7 @@ $(function(){
 	$("#userid").keyup(function(){
 		idok=false;
 	});
+	
 	$(".genderButton").click(function () {
         // 버튼 클릭 시 다른 버튼의 활성화를 해제
         $(".genderButton").removeClass("active");
@@ -97,7 +127,6 @@ $(function(){
     });
 	   
 });//close function
-  
 function check(){
 	if(!idok){
 		alert("중복체크 버튼을 눌러주세요");
@@ -124,16 +153,10 @@ function check(){
 
 	<form id="yourFormId" action="./success" method="post" enctype="multipart/form-data" onsubmit="return check()">
 		
-			<h2><b>회원가입</b></h2>
+			<h2>회원가입</h2>
 			<br>
 			<br>
-					<img id="showimg" style="width:150px;height:150px;"
-					 src="../res/photo/noimage.png">
-					<br>
-					<button type="button" class="btn btn-secondary"
-					onclick="$('#upload').trigger('click')">사진선택</button>
 					
-					<input type="file" name="upload" id="upload" maxlength="100" style="display: none;">
 					<div class="input-group">
 					<input type="text" name="userid" id="userid" class="form-control" minlength="4" maxlength="20" required="required" autofocus="autofocus" placeholder="아이디">
 					<button type="button" class="btn btn-danger btn-sm" id="btnidcheck">중복체크</button>
@@ -147,10 +170,10 @@ function check(){
 				
 					
     				<input type="text" name="userbirth" class="form-control" required="required" minlength="8" maxlength="8" placeholder="생년월일 8자리"><br>
-   					
+   					<div class="genderButtons">
 					<button type="button" class="btn btn-secondary genderButton" data-gender="male" id="saveMale">남성</button>
 					<button type="button" class="btn btn-secondary genderButton" data-gender="female" id="saveFemale">여성</button>
-							
+					</div>
 					<input type="text" name="userphone" class="form-control" required="required" minlength="11" maxlength="11" placeholder="휴대전화번호">
 					
 			
