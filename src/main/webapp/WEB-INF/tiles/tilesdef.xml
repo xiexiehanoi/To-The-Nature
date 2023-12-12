@@ -8,7 +8,8 @@
 	<definition name="layout1" template="/WEB-INF/views/layout/layout1.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
 		<put-attribute name="content" value="/WEB-INF/views/layout/content.jsp"/>
-	</definition>
+<!-- 		<put-attribute name="threeJsContent" value="/templates/threemain/three.html"/>
+ -->	</definition>
 	
 	
 	<!-- layout1 macro -->
@@ -30,5 +31,10 @@
 	<definition name="*/*.site" extends="layout1">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
 	</definition>
+	
+	<!-- layout5 macro 
+	<definition name="*/*.three" extends="layout1">
+		<put-attribute name="content" value="/templates/{1}/{2}.html"></put-attribute>
+	</definition>-->
 	
 </tiles-definitions>

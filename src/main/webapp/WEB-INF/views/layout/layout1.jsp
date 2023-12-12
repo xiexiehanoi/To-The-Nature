@@ -21,35 +21,36 @@
        
 	}
 
-	div.header{
-		position: fixed;
+	/* div.header{
+		position: fixed;*/
 	 	/* top: 1rem;
 	 	left: 1rem; 
 	 	border-radius: 10px;
 	 	padding: 1rem 0;
 	 	height: calc(100vh - 4rem);
 	 	*/
-	 	background: #fff;
+	 	/* background: #fff;
 	 	border: none;
 	 	height: 84px;
 	 	width: 100%;
 	 	z-index: 1;
 	 	box-shadow: 0 10px 20px rgba(100, 100, 100, 0.07);
-	}
+	}*/
     
-    div.content{
+    /*div.content{
     	position: absolute;
     	width: 100%;
     	height: 100%;
     	padding-top: 84px;
     	background-color: #eaeef6;
     	overflow-y: scroll;
-    }
+    }  */
     
 </style>
+    
 </head>
 <body>
-<div class="main_container">
+<%-- <div class="main_container">
 	
 	<div class="header">
 		<tiles:insertAttribute name="header"/>
@@ -58,7 +59,12 @@
 	<div class="content">
 		<tiles:insertAttribute name="content"/>
 	</div>
+	</div>--%>
 	
-</div>
+	
+	 <!-- Tiles를 사용하여 레이아웃 구성 -->
+    <tiles:insertAttribute name="header" />
+    <tiles:insertAttribute name="content" />
+
 </body>
 </html>
