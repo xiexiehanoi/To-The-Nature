@@ -11,4 +11,9 @@ public class MypageDao {
 	private SqlSession session;
 	
 	private String nameSpace="nature.mypage.MypageDao.";
+	
+	public void deleteMember(String userid)
+	{
+		session.delete(nameSpace+"deleteMember", userid);
+	}
 }

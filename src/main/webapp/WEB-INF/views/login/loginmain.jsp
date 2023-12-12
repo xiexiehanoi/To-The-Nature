@@ -12,9 +12,48 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
-        body * {
-            font-family: 'Jua';
-        }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .loginform {
+        width: 80%; /* Set the width to your desired value */
+        max-width: 400px; /* Optional: set a maximum width if needed */
+    }
+    .userenter-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size:15px;
+    }
+	
+    .userid {
+        margin-bottom: 10px; /* Add margin-bottom */
+    }
+    .userpw {
+    	margin-bottom: 10px;
+    }
+    
+    .idcheck {
+    	margin-bottom: 10px;
+    }
+    .user a, .usersearch a {
+        text-decoration: none; /* Remove underline */
+        color: #000000; /* Set color to black */
+    }
+  
+   
+     .footer button {
+        width: 100%;
+        background-color: beige; /* Set background color to beige */
+        color: #000000; /* Set text color to black */
+        border: 1px solid white; /* Set border to white */
+        height: 60px; /* Increase height */
+        
+    }  
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
 
@@ -93,9 +132,9 @@
         </div>
     </div>
 
-    <form action="${root}/process" method="get">
+    <form class="loginform" action="${root}/process" method="get">
         <div class="header">
-            회원 로그인
+            <h3>로그인</h3>
         </div>
         <br><br>
         <div class="body">
@@ -108,10 +147,12 @@
                     <input type="text" id="login_myid" name="userid" class="form-control" value="${sessionScope.userid}" >
                 </c:if>
             </div>
+            
             <div class="userpw">
                 <input type="password" id="login_pass" name="userpw" class="form-control" placeholder="비밀번호">
             </div>
         </div>
+        <div class="userenter-container">
         <div class="idcheck">
             <c:if test="${sessionScope.saveid==null || sessionScope.saveid=='no' }">
                 <input type="checkbox" id="saveid_checkbox">&nbsp;아이디저장
@@ -120,16 +161,20 @@
                 <input type="checkbox" id="saveid_checkbox" checked>&nbsp;아이디저장
             </c:if>
         </div>
-        <div class="user">
+        
+        <div class="user"  style="margin-left:70px;">
             <a href="./form">
                 회원가입
             </a>
         </div>
+        <span class="add">|</span>
         <div class="usersearch">
             <a href="./search">
-                아이디/비번찾기
+                아이디/비밀번호찾기
             </a>
         </div>
+       </div>
+   
         &nbsp;&nbsp;&nbsp;&nbsp;
         <div class="footer">
             <button type="submit" class="btnlogin" id="btnlogin">로그인</button>
