@@ -104,7 +104,7 @@ public class UserController {
 		boolean bLogin=userDao.isLoginCheck(userid, userpw);
 		if(bLogin)
 		{
-			session.setMaxInactiveInterval(60*60*6);
+			session.setMaxInactiveInterval(60*60);
 			session.setAttribute("loginok", "yes");
 			session.setAttribute("saveid", saveid?"yes":"no");
 			session.setAttribute("userid",userid);

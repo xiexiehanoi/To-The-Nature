@@ -49,30 +49,28 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login/success")
-	public String addMember(HttpServletRequest request,@ModelAttribute UserDto dto,@RequestParam MultipartFile upload, @RequestParam String usergender)
-	{
+	public String addMember(HttpServletRequest request, @ModelAttribute UserDto dto,
+	                        @RequestParam(value = "upload", required = false) MultipartFile upload,
+	                        @RequestParam String usergender) {
 
-		String path=request.getSession().getServletContext().getRealPath("/resources/upload");
-		System.out.println(path);
+	    String userphoto = null;
 
-		String userphoto=null;
-		if(upload.getOriginalFilename().equals(""))
-			userphoto="no";
-		else {
-			userphoto=UUID.randomUUID().toString();
+	    if (upload != null && !upload.isEmpty()) {
+	        // 파일이 업로드되었을 때의 처리
+	        String path = request.getSession().getServletContext().getRealPath("/resources/upload");
+	        userphoto = UUID.randomUUID().toString();
 
-			try {
-				upload.transferTo(new File(path+"/"+userphoto));
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	
-		dto.setUserphoto(userphoto);
+	        try {
+	            upload.transferTo(new File(path + "/" + userphoto));
+	        } catch (IllegalStateException | IOException e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        // 파일이 업로드되지 않았을 때의 처리
+	        userphoto = "no";
+	    }
+
+	    dto.setUserphoto(userphoto);
 		dto.setUsergender(usergender);
 		userDao.insertMember(dto);
 		

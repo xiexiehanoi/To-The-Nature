@@ -57,30 +57,13 @@
 let idok=false;
 let selectedGender = "";
 $(function(){
-	$("#upload").change(function(){
-		  console.log("1:"+$(this)[0].files.length);
-		  console.log("2:"+$(this)[0].files[0]);
-		  //정규표현식
-		var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
-		var f=$(this)[0].files[0];//현재 선택한 파일
-		if(!f.type.match(reg)){
-		   alert("확장자가 이미지파일이 아닙니다");
-		   return;
-		}
-
-		  if($(this)[0].files[0]){
-		   var reader=new FileReader();
-		   reader.onload=function(e){
-		    $("#showimg").attr("src",e.target.result);
-		   }
-		   reader.readAsDataURL($(this)[0].files[0]);
-		  }
-	});
+	
 	
 	//중복체크 버튼 이벤트
 	$("#btnidcheck").click(function(){
 		//입력한 아이디
 		let userid=$("#userid").val();
+		
 		if (userid.length < 4) {
 			alert("아이디를 4자 이상 입력해주세요.");
 			return;
@@ -153,7 +136,7 @@ function check(){
 
 	<form id="yourFormId" action="./success" method="post" enctype="multipart/form-data" onsubmit="return check()">
 		
-			<h2>회원가입</h2>
+			<h2 style="margin-bottom:50px;">회원가입</h2>
 			<br>
 			<br>
 					
