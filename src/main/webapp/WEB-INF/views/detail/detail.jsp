@@ -84,6 +84,11 @@ hr{
     height: auto;
     margin: 0 auto;
 }
+.reviewbox{
+	width: 90%;
+    height: auto;
+    margin: 0 auto;
+}
 </style>
 <%
 String userId = (String) session.getAttribute("userid");
@@ -140,7 +145,7 @@ $(document).on("click", "#heartIcon", function () {
         });
     }
 });
-<%-- 사진 더보기 버튼 --%>	
+	//사진 더보기 버튼	
   
         var visibleImages = 5; // 한 번에 표시할 이미지 수
         var $hiddenImages = $(".hidden-image");
@@ -173,7 +178,7 @@ $(document).on("click", "#heartIcon", function () {
 	        }
 	    });
     
-    <%-- 예약 내용 보내기 --%>
+    //예약 내용 보내기
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
 		  document.getElementById('reservationForm').action = './reservation';
@@ -183,6 +188,26 @@ $(document).on("click", "#heartIcon", function () {
 		
 		  $('#reservationModal').modal('hide');
 		}
+	
+	//review 불러오기
+	 $.ajax({
+         type: "GET",
+         url: "./detail/reviewList",
+         data: {
+             campingNum: campingNum
+         },
+         success: function (res) {
+             if (res.success) {
+                 
+                 
+             } else {
+                 console.error("Error:", res.error);
+             }
+         },
+         error: function (xhr, status, error) {
+             console.error("Ajax Error:", error);
+         }
+     });
     });
 </script>
 <body>
@@ -377,6 +402,17 @@ $(document).on("click", "#heartIcon", function () {
 				</div>
 			</div>
 		</div>
-	</c:forEach>	
+	</c:forEach>
+	<br>
+	<hr>
+	<div class="reviewbox">
+		<div>
+		  <h3>캠핑장 후기</h3>
+		</div>
+		<br>
+		<div class="reviewList">
+			리뷰
+		</div>	
+	</div>
 </body>
 </html>

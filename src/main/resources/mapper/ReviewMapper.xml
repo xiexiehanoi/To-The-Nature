@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="nature.review.ReviewDao">
-	
+	<select id="selectRiewList" parameterType="int" resultType="Map">
+		SELECT u.userid, r.content, r.rate, avg_rate.average_rate, r.created_at
+		FROM review r
+		INNER JOIN user u ON r.user_id = u.userid
+		JOIN (
+		    SELECT camping_num, AVG(rate) as average_rate
+		    FROM review
+		    GROUP BY camping_num
+		) avg_rate ON (avg_rate.camping_num = r.camping_num)
+		WHERE r.camping_num = #{campingNum} 
+		ORDER BY create_at DESC
+	</select>
 </mapper>
