@@ -86,59 +86,60 @@ hr{
 }
 </style>
 <script type="text/javascript">
-var urlParams = new URLSearchParams(window.location.search);
-var campingNum = urlParams.get('num');
-var userId = "${sessionScope.userid}";
-var iswished = "${dto.iswished}"
-console.log(${dto.iswished});
+    var urlParams = new URLSearchParams(window.location.search);
+    var campingNum = urlParams.get('num');
+    var userId = "${sessionScope.userid}";
+    var iswished = ${campinglist[0].iswished};
 
-  $(document).ready(function () {
- 
-<%-- 찜하기 추가 --%>
-	$(document).on("click", "#heartIcon", function() {
-		if(iswished==0)
-	    $.ajax({
-	      type: "POST",
-	      url: "./detail/insertWish",
-	      data: {
-	      	userId: userId,
-	      	campingNum: campingNum},
-	      success: function(res) {
-	          if (res.success) {
-	          	$("#heartIcon").removeClass("bi-heart").addClass("bi-heart-fill").css("color", "red");
-	          } else {
-	              console.error("Error:", res.error);
-	          }
-	      },
-	      error: function(xhr, status, error) {
-	          console.error("Ajax Error:", error);
-	      }
-	  });
-	});
-	<%-- 찜하기 추가 --%>
-	$(document).on("click", "#heartIcon", function() {
-		if(iswished==1)
-	    $.ajax({
-	      type: "POST",
-	      url: "./detail/deleteWish",
-	      data: {
-	      	userId: userId,
-	      	campingNum: campingNum},
-	      success: function(res) {
-	          if (res.success) {
-	          	$("#heartIcon").removeClass("bi-heart-fill").addClass("bi-heart").css("color", "red");
-	          } else {
-	              console.error("Error:", res.error);
-	          }
-	      },
-	      error: function(xhr, status, error) {
-	          console.error("Ajax Error:", error);
-	      }
-	  });
-	});
+    $(document).ready(function () {
+        // 찜하기 추가
+$(document).on("click", "#heartIcon", function () {
+    if (iswished == "0") {
+        $.ajax({
+            type: "POST",
+            url: "./detail/insertWish",
+            data: {
+                userId: userId,
+                campingNum: campingNum
+            },
+            success: function (res) {
+                if (res.success) {
+                    iswished = "1";
+                    $("#heartIcon").removeClass("bi-heart").addClass("bi-heart-fill").css("color", "red");
+                    console.log(iswished);
+                } else {
+                    console.error("Error:", res.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Ajax Error:", error);
+            }
+        });
+    } else if (iswished == "1") {
+        $.ajax({
+            type: "POST",
+            url: "./detail/deleteWish",
+            data: {
+                userId: userId,
+                campingNum: campingNum
+            },
+            success: function (res) {
+                if (res.success) {
+                    iswished = "0";
+                    $("#heartIcon").removeClass("bi-heart-fill").addClass("bi-heart").css("color", "red");
+                } else {
+                    console.error("Error:", res.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Ajax Error:", error);
+            }
+        });
+    }
+});
 <%-- 사진 더보기 버튼 --%>	
   
-        var visibleImages = 4; // 한 번에 표시할 이미지 수
+        var visibleImages = 5; // 한 번에 표시할 이미지 수
         var $hiddenImages = $(".hidden-image");
         var $loadButton = $(".load_image");
         // 초기에는 숨겨진 이미지를 보이지 않도록 설정
@@ -154,7 +155,6 @@ console.log(${dto.iswished});
                 $loadButton.hide();
             }
         });
-    });
     <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
@@ -165,6 +165,7 @@ console.log(${dto.iswished});
 		
 		  $('#reservationModal').modal('hide');
 		}
+    });
 </script>
 <body>
 <input type="hidden" name="userId" value="${sessionScope.userid}">
@@ -228,7 +229,7 @@ console.log(${dto.iswished});
 				<!-- 테이블 아래 찜, 리뷰, 예약 -->
 				<div class="btn_bottom input-group">
 					<span>
-						<i id="heartIcon" data-iswished="false" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기				
+						<i id="heartIcon" data-iswished="0" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기 ${dto.countwish}				
 					</span>
 					<span id="reviewInfo">
 						<i class="bi bi-star-fill" style="color: gold;"></i>리뷰: 0
