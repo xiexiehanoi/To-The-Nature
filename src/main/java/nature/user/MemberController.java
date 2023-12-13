@@ -49,30 +49,9 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login/success")
-	public String addMember(HttpServletRequest request,@ModelAttribute UserDto dto,@RequestParam MultipartFile upload, @RequestParam String usergender)
+	public String addMember(HttpServletRequest request,@ModelAttribute UserDto dto, @RequestParam String usergender)
 	{
-
-		String path=request.getSession().getServletContext().getRealPath("/resources/upload");
-		System.out.println(path);
-
-		String userphoto=null;
-		if(upload.getOriginalFilename().equals(""))
-			userphoto="no";
-		else {
-			userphoto=UUID.randomUUID().toString();
-
-			try {
-				upload.transferTo(new File(path+"/"+userphoto));
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 	
-		dto.setUserphoto(userphoto);
 		dto.setUsergender(usergender);
 		userDao.insertMember(dto);
 		
