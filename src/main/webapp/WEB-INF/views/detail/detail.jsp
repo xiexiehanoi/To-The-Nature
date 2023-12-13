@@ -85,10 +85,13 @@ hr{
     margin: 0 auto;
 }
 </style>
+<%
+String userId = (String) session.getAttribute("userid");
+%>
 <script type="text/javascript">
     var urlParams = new URLSearchParams(window.location.search);
     var campingNum = urlParams.get('num');
-    var userId = "${sessionScope.userid}";
+    var userId = '<%= userId %>';
     var iswished = ${campinglist[0].iswished};
 
     $(document).ready(function () {
@@ -155,6 +158,21 @@ $(document).on("click", "#heartIcon", function () {
                 $loadButton.hide();
             }
         });
+        
+    //예약시 아이디 여부확인
+	        $("#reservationbutton").click(function (e) {
+	        	console.log(1);
+	        	console.log(userId);
+	        if (userId == null || userId == "" || userId=="null") {
+	            $('#reservationModal').modal("hide");
+	            alert("회원만 예약 가능합니다.");
+	            return;
+	        } else {
+	        	console.log(2);
+	            $('#reservationModal').modal("show");
+	        }
+	    });
+    
     <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
@@ -229,7 +247,7 @@ $(document).on("click", "#heartIcon", function () {
 				<!-- 테이블 아래 찜, 리뷰, 예약 -->
 				<div class="btn_bottom input-group">
 					<span>
-						<i id="heartIcon" data-iswished="0" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기 ${dto.countwish}				
+						<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기 ${dto.countwish}				
 					</span>
 					<span id="reviewInfo">
 						<i class="bi bi-star-fill" style="color: gold;"></i>리뷰: 0
@@ -237,7 +255,8 @@ $(document).on("click", "#heartIcon", function () {
 					</span>
 					<!-- 예약하기 버튼 -->
 					<span>
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button>					
+				      <!--  <button type="button" id="reservationbutton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button> -->
+				       <button type="button" id="reservationbutton" class="btn btn-primary">예약하기</button>
 					</span>
 				</div>
 			</div>
@@ -254,7 +273,7 @@ $(document).on("click", "#heartIcon", function () {
 				<c:forEach var="imageUrl" items="${fn:split(dto.imageUrl, ',')}"
 					varStatus="loop">
 					<img src="${imageUrl.trim()}" alt="캠핑장 이미지"
-						class="hidden-image ${loop.index + 1 > 4 ? 'hidden' : ''}">
+						class="hidden-image ${loop.index + 1 > 5 ? 'hidden' : ''}">
 				</c:forEach>
 				<button type="button" class="btn btn-secondary load_image">more</button>
 			</div>
