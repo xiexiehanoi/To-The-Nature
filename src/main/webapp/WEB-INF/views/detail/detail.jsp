@@ -240,21 +240,23 @@ $(document).on("click", "#heartIcon", function () {
 	        	var content = $(".star_box").val();
 	        	
 	        	$.ajax({
-	        		type:"POST",
-	        		url: "/detail/insertReview",
-	        		dataType: "json",
-	        		data:{"userId": userId,
-	        			  "campingNum":	campingNum,
-	        			  "rate": rate,
-	        			  "content":content,
-	        				},
-	        				success: function (res) {
-	        					if(res.success){
-	        						alert("리뷰가 성공적으로 등록되었습니다.");
-	        						getreviewlist(campingNum);
-	        					}
-	        				}
-	        	})
+	        	    type: "POST",
+	        	    url: "./detail/insertReview",
+	        	    contentType:"application/json",
+	        	    data: JSON.stringify({
+	        	        "userId": userId,
+	        	        "campingNum": campingNum,
+	        	        "rate": rate,
+	        	        "content": content
+	        	    }),
+	        	    success: function (res) {
+	        	        alert("리뷰가 성공적으로 등록되었습니다.");
+	        	        getreviewlist(campingNum);
+	        	    },
+	        	    error: function (xhr, status, error) {
+	        	        console.error("Ajax Error:", error);
+	        	    }
+	        	});
 	        })
 	    	
 	    });//readyclose

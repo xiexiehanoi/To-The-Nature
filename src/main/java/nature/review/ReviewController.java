@@ -6,9 +6,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,17 +29,16 @@ public class ReviewController {
 	    List<Map<String, Object>> reviewlist = reviewService.getAllReview(campingNum);
 	    
 	    list.put("total", total);
-	    System.out.println(total);
 	    list.put("reviewlist", reviewlist);
-	    System.err.println(reviewlist);
 	    return list;
 	}
 	
 	@PostMapping("/detail/insertReview")
 	@ResponseBody
-	public void insertReview(@RequestParam ReviewDto reviewDto)
-	{
-		reviewService.insertReview(reviewDto);
-		System.out.println(reviewDto);
+	public Map<String, Object> insertReview(@RequestBody ReviewDto reviewDto) {
+	    reviewService.insertReview(reviewDto);
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("success", true);
+	    return response;
 	}
 }
