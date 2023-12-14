@@ -2,7 +2,6 @@
 import * as THREE from "three";
 //import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-
 class App {
 	constructor() {
 		const divContainer = document.querySelector("#three-model");
