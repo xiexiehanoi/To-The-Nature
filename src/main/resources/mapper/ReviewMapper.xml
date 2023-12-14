@@ -18,7 +18,7 @@
 	</select>
 	<insert id="insertReview" parameterType="ReviewDto">
 		insert into review (user_id, camping_num, rate, content, created_at) 
-			values (#{userId}, #{campingNum}, #{rate},#{content},now())
+			values (#{userId}, #{campingNum}, #{rate}, #{content}, now())
 	</insert>
 	<delete id="deleteReview" parameterType="int">
 		delete from review where review_num = #{reviewNum} 

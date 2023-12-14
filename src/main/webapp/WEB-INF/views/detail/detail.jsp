@@ -105,7 +105,8 @@ String userId = (String) session.getAttribute("userid");
 		  $('#reservationModal').modal('hide');
 		}
 
-    $(document).ready(function () {
+$(document).ready(function () {
+    getreviewlist(campingNum);
         // 찜하기 추가
 $(document).on("click", "#heartIcon", function () {
     if (iswished == "0") {
@@ -151,7 +152,7 @@ $(document).on("click", "#heartIcon", function () {
         });
     }
 });
-<%-- 사진 더보기 버튼 --%>	
+	//사진 더보기 버튼	
   
         var visibleImages = 5; // 한 번에 표시할 이미지 수
         var $hiddenImages = $(".hidden-image");
@@ -172,19 +173,103 @@ $(document).on("click", "#heartIcon", function () {
         
     //예약시 아이디 여부확인
 	        $("#reservationbutton").click(function (e) {
-	        	console.log(1);
-	        	console.log(userId);
 	        if (userId == null || userId == "" || userId=="null") {
 	            $('#reservationModal').modal("hide");
 	            alert("회원만 예약 가능합니다.");
 	            return;
 	        } else {
-	        	console.log(2);
 	            $('#reservationModal').modal("show");
 	        }
-	    });
+
+        });
+	      //별점 등록부분
+	        $('.star_rating > .star').click(function() {
+	        	  $(this).parent().children('span').removeClass('on');
+	        	  $(this).addClass('on').prevAll('span').addClass('on');
+	        	})
+	      //리뷰 등록  	
+	        $(".btn02").click(function(){
+	        	//별점 가져오기
+	        	var rate = $(".star_rating .star.on").length;
+	        	//내용
+	        	var content = $(".star_box").val();
+	        	
+	        	$.ajax({
+	        	    type: "POST",
+	        	    url: "./detail/insertReview",
+	        	    contentType:"application/json",
+	        	    data: JSON.stringify({
+	        	        "userId": userId,
+	        	        "campingNum": campingNum,
+	        	        "rate": rate,
+	        	        "content": content
+	        	    }),
+	        	    success: function (res) {
+	        	        alert("리뷰가 성공적으로 등록되었습니다.");
+	        	        getreviewlist(campingNum);
+	        	    },
+	        	    error: function (xhr, status, error) {
+	        	        console.error("Ajax Error:", error);
+	        	    }
+	        	});
+	        })
+	    	
+	    });//readyclose
     
+    //예약 내용 보내기
+	function submitReservation() {
+		  const formData = new FormData(document.getElementById('reservationForm'));
+		  document.getElementById('reservationForm').action = './reservation';
+		  document.getElementById('reservationForm').method = 'POST';
+		  // 폼을 제출
+		  document.getElementById('reservationForm').submit();
+		
+		  $('#reservationModal').modal('hide');
+		}
+
+	//review 불러오기
+function getreviewlist(campingNum) {
+    $.ajax({
+        type: "GET",
+        url: "./detail/reviewList",
+        dataType: "json",
+        data: {
+            "campingNum": campingNum
+        },
+        success: function (res) {
+            var review = "";
+            if (res.reviewlist.length>0) {
+                review += '<table class="reviewtable">';
+                review += '<tr>';
+                review += '<th>작성자</th>';
+                review += '<th>리뷰 내용</th>';
+                review += '<th>별점</th>';
+                review += '<th>작성일</th>';
+                review += '</tr>';
+                $.each(res.reviewlist, function (index, item) {
+                    review += '<tr>';
+                    review += '<td>' + item.userid + '</td>';
+                    review += '<td>' + item.content + '</td>';
+                    review += '<td>' + item.rate + '</td>';
+                    review += '<td>' + item.created_at + '</td>';
+                    review += '</tr>';
+                });
+                review += '</table>';
+            } else { 
+                review = "등록된 리뷰가 없습니다.";
+            }
+            $(".reviewList").html(review);
+            $(".countReview").eq(0).text("리뷰 : " + res.total.count + " 개");
+            $(".review_total h4").eq(0).text(res.total.avg.toFixed(2) + " 점");
+            console.log(res.total.avg.toFixed(2));
+        },
+        error: function (xhr, status, error) {
+            console.error("Ajax Error:", error);
+            $(".reviewList").html("리뷰를 불러오는 중 오류가 발생했습니다.");
+        }
     });
+}
+
 </script>
 <body>
 <input type="hidden" name="userId" value="${sessionScope.userid}">
@@ -251,7 +336,7 @@ $(document).on("click", "#heartIcon", function () {
 						<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기 ${dto.countwish}				
 					</span>
 					<span id="reviewInfo">
-						<i class="bi bi-star-fill" style="color: gold;"></i>리뷰: 0
+						<i class="bi bi-star-fill" style="color: gold;"></i><span class="countReview"></span> 
 						<!-- 리뷰 개수가 표시될 부분 -->
 					</span>
 					<!-- 예약하기 버튼 -->
@@ -381,6 +466,32 @@ $(document).on("click", "#heartIcon", function () {
 				</div>
 			</div>
 		</div>
-	</c:forEach>	
+	</c:forEach>
+	<br>
+	<hr>
+	<div class="reviewbox">
+		<br>
+		<div class="reviewTitle">
+			<div class="review_total">
+				<h2>캠핑장 리뷰</h2>
+				<h4>점수</h4>
+			</div>
+
+		<div class ="star_rating">
+		  <span class="star on" value="1"> </span>
+		  <span class="star" value="2"> </span>
+		  <span class="star" value="3"> </span>
+		  <span class="star" value="4"> </span>
+		  <span class="star" value="5"> </span>별점을 선택해주세요.
+		</div>
+			<div class="input-group start_boxs">
+				<textarea class="star_box" placeholder="리뷰 내용을 작성해주세요." ></textarea>	
+				<input type="submit" class="btn02" value="등록"/>
+			</div>
+			<div class="reviewList">
+				
+			</div>
+		</div>	
+	</div>
 </body>
 </html>
