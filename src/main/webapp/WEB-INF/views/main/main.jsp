@@ -60,5 +60,6 @@
 <!-- <a href="./detail?num=1">디테일페이지</a> -->
 <div id="three-model"></div>
 
+
 </body>
 </html>
