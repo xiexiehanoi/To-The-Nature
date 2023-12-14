@@ -58,7 +58,9 @@
 
 
 </div>--%>
-<a href="./detail?num=1">디테일페이지</a>
+
+<!-- <a href="./detail?num=1">디테일페이지</a> -->
+
 <div id="three-model"></div>
 <a href="./email">메일이 가질까?</a>
 

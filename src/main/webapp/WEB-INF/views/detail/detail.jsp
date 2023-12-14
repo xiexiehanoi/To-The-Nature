@@ -9,146 +9,140 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+<script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
 .camp_info_box {
-	width: 90%;
-	height: auto;
-	/* background-color: green; */
-	margin: 0 auto;
-	min-height: 100%;
-	display: flex; /* flex 컨테이너 설정 */
-	border: 1px solid black;
-	justify-content: space-between; /* 요소들을 가능한 넓게 배치 */
-	flex-wrap: wrap; /* 자식 요소들을 랩핑 */
-	overflow: hidden;
-}
-
-div .img_b {
-	float: left;
-	width: 50%;
+    width: 90%;
+    height: auto;
+    /* background-color: green; */
+    margin: 0 auto;
+    min-height: 100%;
+    display: flex; /* flex 컨테이너 설정 */
+    border: 1px solid black;
+    justify-content: space-between; /* 요소들을 가능한 넓게 배치 */
+    flex-wrap: wrap; /* 자식 요소들을 랩핑 */
+    overflow: hidden;
+}	
+div .img_b{
+	float:left;
+	width:50%;
 	height: auto;
 	box-sizing: border-box;
 	overflow: hidden;
 }
-
-div .img_b img {
+div .img_b img{
 	width: 100%;
 	height: 484px;
 	object-fit: cover;
+	
 }
-
-div .camp_tb {
-	float: right;
-	height: 100%;
-	width: 50%;
+div .camp_tb{
+	float:right;
+	height:100%;	
+	width:50%;
 	box-sizing: border-box;
 	overflow: hidden;
 }
-
 div .btn_bottom {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 div .btn_bottom span {
-	margin: 0 20px;
+    margin: 0 20px;
 }
-
 #heartIcon {
-	cursor: pointer;
+    cursor: pointer;
 }
-
-hr {
-	margin-left: 5%;
-	margin-right: 5%;
+hr{
+	 margin-left: 5%;
+	 margin-right: 5%;
 }
-
-.camp_img_grid {
-	width: 90%;
-	height: auto;
-	margin: 0 auto;
+.camp_img_grid{
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
 }
-
 .camp_inner_img {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px; /* 이미지 사이의 간격 조정 */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* 이미지 사이의 간격 조정 */
 }
-
 .hidden-image {
-	max-width: 22.5%;
-	height: 200px; /* 이미지 너비 조정 (4개씩 배치하려면 25%) */
+    max-width: 22.5%;
+    height: 200px; /* 이미지 너비 조정 (4개씩 배치하려면 25%) */
 }
-
 .hidden {
-	display: none; /* hidden 클래스를 가진 요소 숨김 */
+    display: none; /* hidden 클래스를 가진 요소 숨김 */
 }
-
-.camping_information_group {
+.camping_information_group{
 	width: 90%;
-	height: auto;
-	margin: 0 auto;
+    height: auto;
+    margin: 0 auto;
 }
 </style>
+<%
+String userId = (String) session.getAttribute("userid");
+%>
 <script type="text/javascript">
-var urlParams = new URLSearchParams(window.location.search);
-var campingNum = urlParams.get('num');
-var userId = "${sessionScope.userid}";
-/* var userId = "kim"; */
-<%-- 찜하기 추가 --%>
-	$(document).on("click", "#heartIcon", function() {
-	         $.ajax({
-	           type: "POST",
-	           url: "./detail/insertWish",
-	           data: {
-	           	userId: userId,
-	           	campingNum: campingNum},
-	           success: function(res) {
-	               if (res.success) {
-	               	$("#heartIcon").removeClass("bi-heart").addClass("bi-heart-fill").css("color", "red");
-	               } else {
-	                   console.error("Error:", res.error);
-	               }
-	           },
-	           error: function(xhr, status, error) {
-	               console.error("Ajax Error:", error);
-	           }
-	       });
-	   });
+    var urlParams = new URLSearchParams(window.location.search);
+    var campingNum = urlParams.get('num');
+    var userId = '<%= userId %>';
+    var iswished = ${campinglist[0].iswished};
 
-/* 	$(document).on("click", "#heartIcon", function() {
-	         $.ajax({
-	           type: "POST",
-	           url: "./detail/deleteWish",
-	           data: {
-	           	userId: userId,
-	           	wishNum: wishNum},
-	           success: function(res) {
-	               if (res.success) {
-	               	$("#heartIcon").removeClass("bi-heart-fill").addClass("bi-heart").css("color", "red");
-	               } else {
-	                   console.error("Error:", res.error);
-	               }
-	           },
-	           error: function(xhr, status, error) {
-	               console.error("Ajax Error:", error);
-	           }
-	       });
-	   }); */
-	
-	<%-- 사진 더보기 버튼 --%>	
     $(document).ready(function () {
-        var visibleImages = 4; // 한 번에 표시할 이미지 수
+        // 찜하기 추가
+$(document).on("click", "#heartIcon", function () {
+    if (iswished == "0") {
+        $.ajax({
+            type: "POST",
+            url: "./detail/insertWish",
+            data: {
+                userId: userId,
+                campingNum: campingNum
+            },
+            success: function (res) {
+                if (res.success) {
+                    iswished = "1";
+                    $("#heartIcon").removeClass("bi-heart").addClass("bi-heart-fill").css("color", "red");
+                    console.log(iswished);
+                } else {
+                    console.error("Error:", res.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Ajax Error:", error);
+            }
+        });
+    } else if (iswished == "1") {
+        $.ajax({
+            type: "POST",
+            url: "./detail/deleteWish",
+            data: {
+                userId: userId,
+                campingNum: campingNum
+            },
+            success: function (res) {
+                if (res.success) {
+                    iswished = "0";
+                    $("#heartIcon").removeClass("bi-heart-fill").addClass("bi-heart").css("color", "red");
+                } else {
+                    console.error("Error:", res.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Ajax Error:", error);
+            }
+        });
+    }
+});
+<%-- 사진 더보기 버튼 --%>	
+  
+        var visibleImages = 5; // 한 번에 표시할 이미지 수
         var $hiddenImages = $(".hidden-image");
         var $loadButton = $(".load_image");
         // 초기에는 숨겨진 이미지를 보이지 않도록 설정
@@ -164,21 +158,37 @@ var userId = "${sessionScope.userid}";
                 $loadButton.hide();
             }
         });
-    });
+        
+    //예약시 아이디 여부확인
+	        $("#reservationbutton").click(function (e) {
+	        	console.log(1);
+	        	console.log(userId);
+	        if (userId == null || userId == "" || userId=="null") {
+	            $('#reservationModal').modal("hide");
+	            alert("회원만 예약 가능합니다.");
+	            return;
+	        } else {
+	        	console.log(2);
+	            $('#reservationModal').modal("show");
+	        }
+	    });
+    
     <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
-		  document.getElementById('reservationForm').action = './reservation/page';
+		  document.getElementById('reservationForm').action = './reservation';
 		  document.getElementById('reservationForm').method = 'POST';
 		  // 폼을 제출
 		  document.getElementById('reservationForm').submit();
 		
 		  $('#reservationModal').modal('hide');
 		}
+    });
 </script>
 <body>
-	<c:forEach var="dto" items="${campinglist}">
-		<div class="camp_info_box">
+<input type="hidden" name="userId" value="${sessionScope.userid}">
+<c:forEach var="dto" items="${campinglist}">
+	<div class="camp_info_box">
 			<!-- 메인 사진 부분 -->
 			<div class="img_b">
 				<img src="${dto.firstImageUrl}" alt="캠핑장 메인 이미지">
@@ -236,23 +246,24 @@ var userId = "${sessionScope.userid}";
 				</table>
 				<!-- 테이블 아래 찜, 리뷰, 예약 -->
 				<div class="btn_bottom input-group">
-					<span> <i id="heartIcon" data-wishnum="${wishNum}"
-						class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기
-					</span> <span id="reviewInfo"> <i class="bi bi-star-fill"
-						style="color: gold;"></i>리뷰: 0 <!-- 리뷰 개수가 표시될 부분 -->
+					<span>
+						<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기 ${dto.countwish}				
+					</span>
+					<span id="reviewInfo">
+						<i class="bi bi-star-fill" style="color: gold;"></i>리뷰: 0
+						<!-- 리뷰 개수가 표시될 부분 -->
 					</span>
 					<!-- 예약하기 버튼 -->
 					<span>
-						<button type="button" class="btn btn-primary"
-							data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button>
+				      <!--  <button type="button" id="reservationbutton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button> -->
+				       <button type="button" id="reservationbutton" class="btn btn-primary">예약하기</button>
 					</span>
 				</div>
 			</div>
-		</div>
-		<!-- camp_info_box close -->
+		</div><!-- camp_info_box close -->
 		<br>
 		<!-- div grid -->
-		<hr>
+			<hr>
 		<div class="camp_img_grid">
 			<!-- 캠프 내부 사진 grid -->
 			<h3>
@@ -262,7 +273,7 @@ var userId = "${sessionScope.userid}";
 				<c:forEach var="imageUrl" items="${fn:split(dto.imageUrl, ',')}"
 					varStatus="loop">
 					<img src="${imageUrl.trim()}" alt="캠핑장 이미지"
-						class="hidden-image ${loop.index + 1 > 4 ? 'hidden' : ''}">
+						class="hidden-image ${loop.index + 1 > 5 ? 'hidden' : ''}">
 				</c:forEach>
 				<button type="button" class="btn btn-secondary load_image">more</button>
 			</div>
@@ -339,12 +350,8 @@ var userId = "${sessionScope.userid}";
 						<div class="modal-body">
 							<form id="reservationForm">
 								<div class="mb-3">
-								<input type="hidden" name="camping_num" value="${num}">
-								<input type="hidden" name="userid" value="${sessionScope.userid}">
-									<label for="CampsiteName" class="form-label">캠핑장명 :
-										${dto.facltNm}</label> <input
-										type="hidden" id="CampsiteName"
-										name="CampsiteName" value="${dto.facltNm}" required>
+									<label for="startDate" class="form-label">캠핑장명 :
+										${dto.facltNm}</label>
 								</div>
 								<div class="mb-3 input-group">
 									<label for="startDate" class="form-label">입실일</label> <input
@@ -355,12 +362,12 @@ var userId = "${sessionScope.userid}";
 										required>
 								</div>
 								<div class="mb-3 input-group">
-									<label for="adults" class="form-label ">성인</label> <input
-										type="number" class="form-control datainput" id="adults"
-										name="adult_count" min="1"  value="1" required> <label for="children"
-										class="form-label">미성년자(만0세~17세)</label> <input type="number"
-										class="form-control datainput" id="children" name="child_count"
-										min="0" value="0" required>
+									<label for="adults" class="form-label ">성인</label> 
+									<input type="number" class="form-control datainput" id="adults"
+										name="adult_count" min="1" required> <label for="children"
+										class="form-label">아동(만0세~17세)</label> <input type="number"
+										class="form-control datainput" id="children" name="children_count"
+										min="0" required>
 								</div>
 								<button type="button" class="btn btn-primary"
 									onclick="submitReservation()">Confirm Reservation</button>
@@ -370,7 +377,6 @@ var userId = "${sessionScope.userid}";
 				</div>
 			</div>
 		</div>
-	</c:forEach>
+	</c:forEach>	
 </body>
 </html>
-s

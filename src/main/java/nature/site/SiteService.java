@@ -12,9 +12,10 @@ public class SiteService {
 	@Autowired
 	private SiteDao siteDao;
 	
-	public List<Map<String, Object>> getsearchcamping(int num)
+	
+	public List<Map<String, Object>> getsearchcamping(Map<String, Object> siteParam)
 	{
-		return siteDao.getsearchcamping(num);
+		return siteDao.getsearchcamping(siteParam);
 	}
 
 }
