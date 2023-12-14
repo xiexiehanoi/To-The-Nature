@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="nature.mypage.MypageDao">
-<delete id="deleteMember" parameterType="int">
-		delete from user where usernum=#{usernum}
+	<delete id="deleteMember" parameterType="int">
+		delete from user where userid=#{userid}
 	</delete>
-
+	<select id="totalCountOfBoard" resultType="int">
+		select count(*) from review
+	</select>
+	<select id="selectMaxNumOfBoard" resultType="int">
+		select ifnull(max(review_num),0) from review
+	</select>
+	<select id="getReviewsByUserId" parameterType="String" resultType="Map">
+        SELECT r.*, c.facltNm
+        FROM review r
+        JOIN camping_details c ON r.camping_num = c.camping_num
+        WHERE r.user_id = #{user_id}
+    </select>
+    
 </mapper>

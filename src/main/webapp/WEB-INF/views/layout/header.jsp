@@ -48,7 +48,7 @@
                 url: "${root}/login/logout",
                 success: function(res){
                     // 로그아웃 성공시 페이지 새로고침
-                    location.reload();
+                	window.location.href = "${root}/login/main";
                 },
                 error: function(res) {
                     // 실패시 처리
@@ -86,7 +86,7 @@
             <!-- 세션에 loginok 값이 있으면 (로그인 상태이면) mypage 페이지로 이동 -->
             <a href="${root}/mypage/main">mypage</a>
         <c:if test="${sessionScope.userid eq 'nature'}">
-        <a href="${root}/admin/main">admin</a>
+        <div class="admin-main"><a href="${root}/admin/main">admin</a></div>
     	</c:if>
         </c:otherwise>
     </c:choose>
