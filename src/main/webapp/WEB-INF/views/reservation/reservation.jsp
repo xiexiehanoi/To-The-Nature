@@ -21,7 +21,6 @@
     			    
     			    name: "${CampsiteName}",
     			    amount: 1000, // 결제창에 표시될 금액. 실제 승인이 이뤄지지는 않습니다.
-    			    customer_uid: "your-customer-unique-id", // 필수 입력.
     			    buyer_email: "${userDto.useremail}",
     			    buyer_name:  "${userDto.username}",
     			    buyer_tel:   "${userDto.userphone}",
