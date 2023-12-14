@@ -37,4 +37,9 @@
 		<put-attribute name="content" value="/templates/{1}/{2}.html"></put-attribute>
 	</definition>-->
 	
+	<!-- layout6 macro -->
+	<definition name="*/*.reservation" extends="layout1">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
+	</definition>
+	
 </tiles-definitions>

@@ -9,80 +9,95 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-<script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
 .camp_info_box {
-    width: 90%;
-    height: auto;
-    /* background-color: green; */
-    margin: 0 auto;
-    min-height: 100%;
-    display: flex; /* flex 컨테이너 설정 */
-    border: 1px solid black;
-    justify-content: space-between; /* 요소들을 가능한 넓게 배치 */
-    flex-wrap: wrap; /* 자식 요소들을 랩핑 */
-    overflow: hidden;
-}	
-div .img_b{
-	float:left;
-	width:50%;
+	width: 90%;
+	height: auto;
+	/* background-color: green; */
+	margin: 0 auto;
+	min-height: 100%;
+	display: flex; /* flex 컨테이너 설정 */
+	border: 1px solid black;
+	justify-content: space-between; /* 요소들을 가능한 넓게 배치 */
+	flex-wrap: wrap; /* 자식 요소들을 랩핑 */
+	overflow: hidden;
+}
+
+div .img_b {
+	float: left;
+	width: 50%;
 	height: auto;
 	box-sizing: border-box;
 	overflow: hidden;
 }
-div .img_b img{
+
+div .img_b img {
 	width: 100%;
 	height: 484px;
 	object-fit: cover;
-	
 }
-div .camp_tb{
-	float:right;
-	height:100%;	
-	width:50%;
+
+div .camp_tb {
+	float: right;
+	height: 100%;
+	width: 50%;
 	box-sizing: border-box;
 	overflow: hidden;
 }
+
 div .btn_bottom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+
 div .btn_bottom span {
-    margin: 0 20px;
+	margin: 0 20px;
 }
+
 #heartIcon {
-    cursor: pointer;
+	cursor: pointer;
 }
-hr{
-	 margin-left: 5%;
-	 margin-right: 5%;
+
+hr {
+	margin-left: 5%;
+	margin-right: 5%;
 }
-.camp_img_grid{
-    width: 90%;
-    height: auto;
-    margin: 0 auto;
-}
-.camp_inner_img {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* 이미지 사이의 간격 조정 */
-}
-.hidden-image {
-    max-width: 22.5%;
-    height: 200px; /* 이미지 너비 조정 (4개씩 배치하려면 25%) */
-}
-.hidden {
-    display: none; /* hidden 클래스를 가진 요소 숨김 */
-}
-.camping_information_group{
+
+.camp_img_grid {
 	width: 90%;
-    height: auto;
-    margin: 0 auto;
+	height: auto;
+	margin: 0 auto;
+}
+
+.camp_inner_img {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px; /* 이미지 사이의 간격 조정 */
+}
+
+.hidden-image {
+	max-width: 22.5%;
+	height: 200px; /* 이미지 너비 조정 (4개씩 배치하려면 25%) */
+}
+
+.hidden {
+	display: none; /* hidden 클래스를 가진 요소 숨김 */
+}
+
+.camping_information_group {
+	width: 90%;
+	height: auto;
+	margin: 0 auto;
 }
 </style>
 <script type="text/javascript">
@@ -153,7 +168,7 @@ var userId = "${sessionScope.userid}";
     <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
-		  document.getElementById('reservationForm').action = './reservation';
+		  document.getElementById('reservationForm').action = './reservation/page';
 		  document.getElementById('reservationForm').method = 'POST';
 		  // 폼을 제출
 		  document.getElementById('reservationForm').submit();
@@ -162,8 +177,8 @@ var userId = "${sessionScope.userid}";
 		}
 </script>
 <body>
-<c:forEach var="dto" items="${campinglist}">
-	<div class="camp_info_box">
+	<c:forEach var="dto" items="${campinglist}">
+		<div class="camp_info_box">
 			<!-- 메인 사진 부분 -->
 			<div class="img_b">
 				<img src="${dto.firstImageUrl}" alt="캠핑장 메인 이미지">
@@ -221,23 +236,23 @@ var userId = "${sessionScope.userid}";
 				</table>
 				<!-- 테이블 아래 찜, 리뷰, 예약 -->
 				<div class="btn_bottom input-group">
-					<span>
-						<i id="heartIcon" data-wishnum="${wishNum}" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기					
-					</span>
-					<span id="reviewInfo">
-						<i class="bi bi-star-fill" style="color: gold;"></i>리뷰: 0
-						<!-- 리뷰 개수가 표시될 부분 -->
+					<span> <i id="heartIcon" data-wishnum="${wishNum}"
+						class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기
+					</span> <span id="reviewInfo"> <i class="bi bi-star-fill"
+						style="color: gold;"></i>리뷰: 0 <!-- 리뷰 개수가 표시될 부분 -->
 					</span>
 					<!-- 예약하기 버튼 -->
 					<span>
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button>					
+						<button type="button" class="btn btn-primary"
+							data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button>
 					</span>
 				</div>
 			</div>
-		</div><!-- camp_info_box close -->
+		</div>
+		<!-- camp_info_box close -->
 		<br>
 		<!-- div grid -->
-			<hr>
+		<hr>
 		<div class="camp_img_grid">
 			<!-- 캠프 내부 사진 grid -->
 			<h3>
@@ -324,8 +339,12 @@ var userId = "${sessionScope.userid}";
 						<div class="modal-body">
 							<form id="reservationForm">
 								<div class="mb-3">
-									<label for="startDate" class="form-label">캠핑장명 :
-										${dto.facltNm}</label>
+								<input type="hidden" name="camping_num" value="${num}">
+								<input type="hidden" name="userid" value="${sessionScope.userid}">
+									<label for="CampsiteName" class="form-label">캠핑장명 :
+										${dto.facltNm}</label> <input
+										type="hidden" id="CampsiteName"
+										name="CampsiteName" value="${dto.facltNm}" required>
 								</div>
 								<div class="mb-3 input-group">
 									<label for="startDate" class="form-label">입실일</label> <input
@@ -338,10 +357,10 @@ var userId = "${sessionScope.userid}";
 								<div class="mb-3 input-group">
 									<label for="adults" class="form-label ">성인</label> <input
 										type="number" class="form-control datainput" id="adults"
-										name="adults" min="1" required> <label for="children"
-										class="form-label">아동(만0세~17세)</label> <input type="number"
-										class="form-control datainput" id="children" name="children"
-										min="0" required>
+										name="adult_count" min="1"  value="1" required> <label for="children"
+										class="form-label">미성년자(만0세~17세)</label> <input type="number"
+										class="form-control datainput" id="children" name="child_count"
+										min="0" value="0" required>
 								</div>
 								<button type="button" class="btn btn-primary"
 									onclick="submitReservation()">Confirm Reservation</button>
@@ -351,6 +370,7 @@ var userId = "${sessionScope.userid}";
 				</div>
 			</div>
 		</div>
-	</c:forEach>	
+	</c:forEach>
 </body>
 </html>
+s

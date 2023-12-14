@@ -21,6 +21,7 @@ public class SiteController {
 		//List<SiteDto> dto = siteService.getsearchcamping(num);
 		List<Map<String, Object>> campinglist = siteService.getsearchcamping(num);
 		model.addAttribute("campinglist", campinglist);
+		model.addAttribute("num",num);
 		return "detail/detail.site";
 	}
 	
