@@ -21,4 +21,9 @@ public class ReviewService {
 	{
 		return reviewDao.getTotalCountAVG(campingNum);
 	}
+	
+	public void insertReview(ReviewDto reviewDto)
+	{
+		reviewDao.insertReview(reviewDto);
+	}
 }

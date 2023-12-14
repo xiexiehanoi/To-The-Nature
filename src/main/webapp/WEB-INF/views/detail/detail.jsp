@@ -227,11 +227,35 @@ $(document).on("click", "#heartIcon", function () {
 	        }
 
         });
-	      //리뷰 등록 버튼
+	      //별점 등록부분
 	        $('.star_rating > .star').click(function() {
 	        	  $(this).parent().children('span').removeClass('on');
 	        	  $(this).addClass('on').prevAll('span').addClass('on');
 	        	})
+	      //리뷰 등록  	
+	        $(".btn02").click(function(){
+	        	//별점 가져오기
+	        	var rate = $(".star_rating .star.on").length;
+	        	//내용
+	        	var content = $(".star_box").val();
+	        	
+	        	$.ajax({
+	        		type:"POST",
+	        		url: "/detail/insertReview",
+	        		dataType: "json",
+	        		data:{"userId": userId,
+	        			  "campingNum":	campingNum,
+	        			  "rate": rate,
+	        			  "content":content,
+	        				},
+	        				success: function (res) {
+	        					if(res.success){
+	        						alert("리뷰가 성공적으로 등록되었습니다.");
+	        						getreviewlist(campingNum);
+	        					}
+	        				}
+	        	})
+	        })
 	    	
 	    });//readyclose
     
@@ -278,8 +302,9 @@ function getreviewlist(campingNum) {
                 review = "등록된 리뷰가 없습니다.";
             }
             $(".reviewList").html(review);
-            $(".review_total h4").eq(0).text(res.total.count + " 개");
-            $(".review_total h4").eq(1).text(res.total.avg.toFixed(2) + " 점");
+            $(".countReview").eq(0).text("리뷰 : " + res.total.count + " 개");
+            $(".review_total h4").eq(0).text(res.total.avg.toFixed(2) + " 점");
+            console.log(res.total.avg.toFixed(2));
         },
         error: function (xhr, status, error) {
             console.error("Ajax Error:", error);
@@ -287,8 +312,6 @@ function getreviewlist(campingNum) {
         }
     });
 }
-	
-	function insertReview(userId, campingNum, rate, content)
 
 </script>
 <body>
@@ -356,7 +379,7 @@ function getreviewlist(campingNum) {
 						<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기 ${dto.countwish}				
 					</span>
 					<span id="reviewInfo">
-						<i class="bi bi-star-fill" style="color: gold;"></i>리뷰: 0
+						<i class="bi bi-star-fill" style="color: gold;"></i><span class="countReview"></span> 
 						<!-- 리뷰 개수가 표시될 부분 -->
 					</span>
 					<!-- 예약하기 버튼 -->
@@ -491,7 +514,6 @@ function getreviewlist(campingNum) {
 		<div class="reviewTitle">
 			<div class="review_total">
 				<h2>캠핑장 리뷰</h2>
-				<h4>게시물 수</h4>
 				<h4>점수</h4>
 			</div>
 

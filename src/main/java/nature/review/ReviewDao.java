@@ -25,4 +25,8 @@ public class ReviewDao {
 		return session.selectOne(nameSpace+"totalCounTAVGtOfReview", campingNum);
 	}
 	
+	public void insertReview(ReviewDto reviewDto)
+	{
+		session.selectOne(nameSpace+"insertReview", reviewDto);
+	}
 }
