@@ -58,19 +58,9 @@
 
 
 </div>--%>
-<<<<<<< HEAD
-<c:choose>
-    <c:when test="${sessionScope.userid == null}">
-        <a href="./detail?num=1&userId=null">디테일페이지</a>
-    </c:when>
-    <c:otherwise>
-        <a href="./detail?num=1&userId=${sessionScope.userid}">디테일페이지</a>
-    </c:otherwise>
-</c:choose>
 
-=======
 <!-- <a href="./detail?num=1">디테일페이지</a> -->
->>>>>>> refs/remotes/origin/feature/home
+
 <div id="three-model"></div>
 
 </body>
