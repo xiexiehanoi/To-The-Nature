@@ -63,7 +63,8 @@
 	
 	
 	 <!-- Tiles를 사용하여 레이아웃 구성 -->
-    <tiles:insertAttribute name="header" />
+    <%-- <tiles:insertAttribute name="header" /> --%>
+    <tiles:insertAttribute name="navbar" />
     <tiles:insertAttribute name="content" />
 
 </body>
