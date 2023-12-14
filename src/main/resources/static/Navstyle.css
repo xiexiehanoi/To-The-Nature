@@ -252,11 +252,12 @@ select {
     transition: width .35s cubic-bezier(var(--transition-main), 1);
     overflow-y: auto;
     overflow-x: hidden;
-    right: 0;
+    left: 0;
+    /* right: 0; */
 }
 #navbar:hover {
     width: 16em;
-    right: 0;
+    /* right: 0; */
 }
 #navbar::-webkit-scrollbar-track {
     background-color: hsl(var(--background-secondary));
@@ -334,6 +335,64 @@ select {
 }
 
 
+/* =============
+    ::Sub List
+   ============= */
+
+/* sub list */
+#navbar>ul.main-list>li.mypage-section>ul.sub-menu{
+  background: #1E2B32;
+  margin-left: 280px;
+  margin-top: -38px;
+  display: none;
+  position: absolute;
+  border-top-right-radius: 15px 15px;
+  border-bottom-right-radius: 15px 15px;
+}
+
+#navbar>ul.main-list>li.mypage-section:hover>ul.sub-menu{
+  display: block;
+  cursor: pointer;
+}
+
+/* 부차적인 목록 스타일링 
+.mypage-section:hover .sub-menu {
+    display: block;
+}
+
+ 추가된 부분 
+.mypage-section .sub-menu {
+    background: #1E2B32;
+    margin-left: 280px;
+    margin-top: -38px;
+    display: none;
+    position: absolute;
+    border-top-right-radius: 15px 15px;
+    border-bottom-right-radius: 15px 15px;
+}
+
+.mypage-section .sub-menu li {
+    transition: 1s all;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    padding: 15px;
+    margin-left: -40px;
+    margin-top: 0px;
+    color: #fff;
+    list-style: none;
+    display: block;
+    border-top-right-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+}
+
+.mypage-section .sub-menu li:hover {
+    transition: 1s all;
+    color: #2f89fc;
+    background-color: rgba(42, 56, 65, 0.82);
+    border-top-right-radius: 10px 10px;
+    border-bottom-right-radius: 10px 10px;
+    cursor: pointer;
+}*/
 /* =============
     ::Selectors
    ============= */

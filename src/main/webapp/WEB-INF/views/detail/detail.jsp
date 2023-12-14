@@ -85,55 +85,64 @@ hr{
     margin: 0 auto;
 }
 </style>
+<%
+String userId = (String) session.getAttribute("userid");
+%>
 <script type="text/javascript">
-var urlParams = new URLSearchParams(window.location.search);
-var campingNum = urlParams.get('num');
-var userId = "${sessionScope.userid}";
-/* var userId = "kim"; */
-<%-- 찜하기 추가 --%>
-	$(document).on("click", "#heartIcon", function() {
-	         $.ajax({
-	           type: "POST",
-	           url: "./detail/insertWish",
-	           data: {
-	           	userId: userId,
-	           	campingNum: campingNum},
-	           success: function(res) {
-	               if (res.success) {
-	               	$("#heartIcon").removeClass("bi-heart").addClass("bi-heart-fill").css("color", "red");
-	               } else {
-	                   console.error("Error:", res.error);
-	               }
-	           },
-	           error: function(xhr, status, error) {
-	               console.error("Ajax Error:", error);
-	           }
-	       });
-	   });
+    var urlParams = new URLSearchParams(window.location.search);
+    var campingNum = urlParams.get('num');
+    var userId = '<%= userId %>';
+    var iswished = ${campinglist[0].iswished};
 
-/* 	$(document).on("click", "#heartIcon", function() {
-	         $.ajax({
-	           type: "POST",
-	           url: "./detail/deleteWish",
-	           data: {
-	           	userId: userId,
-	           	wishNum: wishNum},
-	           success: function(res) {
-	               if (res.success) {
-	               	$("#heartIcon").removeClass("bi-heart-fill").addClass("bi-heart").css("color", "red");
-	               } else {
-	                   console.error("Error:", res.error);
-	               }
-	           },
-	           error: function(xhr, status, error) {
-	               console.error("Ajax Error:", error);
-	           }
-	       });
-	   }); */
-	
-	<%-- 사진 더보기 버튼 --%>	
     $(document).ready(function () {
-        var visibleImages = 4; // 한 번에 표시할 이미지 수
+        // 찜하기 추가
+$(document).on("click", "#heartIcon", function () {
+    if (iswished == "0") {
+        $.ajax({
+            type: "POST",
+            url: "./detail/insertWish",
+            data: {
+                userId: userId,
+                campingNum: campingNum
+            },
+            success: function (res) {
+                if (res.success) {
+                    iswished = "1";
+                    $("#heartIcon").removeClass("bi-heart").addClass("bi-heart-fill").css("color", "red");
+                    console.log(iswished);
+                } else {
+                    console.error("Error:", res.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Ajax Error:", error);
+            }
+        });
+    } else if (iswished == "1") {
+        $.ajax({
+            type: "POST",
+            url: "./detail/deleteWish",
+            data: {
+                userId: userId,
+                campingNum: campingNum
+            },
+            success: function (res) {
+                if (res.success) {
+                    iswished = "0";
+                    $("#heartIcon").removeClass("bi-heart-fill").addClass("bi-heart").css("color", "red");
+                } else {
+                    console.error("Error:", res.error);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Ajax Error:", error);
+            }
+        });
+    }
+});
+<%-- 사진 더보기 버튼 --%>	
+  
+        var visibleImages = 5; // 한 번에 표시할 이미지 수
         var $hiddenImages = $(".hidden-image");
         var $loadButton = $(".load_image");
         // 초기에는 숨겨진 이미지를 보이지 않도록 설정
@@ -149,7 +158,21 @@ var userId = "${sessionScope.userid}";
                 $loadButton.hide();
             }
         });
-    });
+        
+    //예약시 아이디 여부확인
+	        $("#reservationbutton").click(function (e) {
+	        	console.log(1);
+	        	console.log(userId);
+	        if (userId == null || userId == "" || userId=="null") {
+	            $('#reservationModal').modal("hide");
+	            alert("회원만 예약 가능합니다.");
+	            return;
+	        } else {
+	        	console.log(2);
+	            $('#reservationModal').modal("show");
+	        }
+	    });
+    
     <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
@@ -160,8 +183,10 @@ var userId = "${sessionScope.userid}";
 		
 		  $('#reservationModal').modal('hide');
 		}
+    });
 </script>
 <body>
+<input type="hidden" name="userId" value="${sessionScope.userid}">
 <c:forEach var="dto" items="${campinglist}">
 	<div class="camp_info_box">
 			<!-- 메인 사진 부분 -->
@@ -222,7 +247,7 @@ var userId = "${sessionScope.userid}";
 				<!-- 테이블 아래 찜, 리뷰, 예약 -->
 				<div class="btn_bottom input-group">
 					<span>
-						<i id="heartIcon" data-wishnum="${wishNum}" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기					
+						<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기 ${dto.countwish}				
 					</span>
 					<span id="reviewInfo">
 						<i class="bi bi-star-fill" style="color: gold;"></i>리뷰: 0
@@ -230,7 +255,8 @@ var userId = "${sessionScope.userid}";
 					</span>
 					<!-- 예약하기 버튼 -->
 					<span>
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button>					
+				      <!--  <button type="button" id="reservationbutton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button> -->
+				       <button type="button" id="reservationbutton" class="btn btn-primary">예약하기</button>
 					</span>
 				</div>
 			</div>
@@ -247,7 +273,7 @@ var userId = "${sessionScope.userid}";
 				<c:forEach var="imageUrl" items="${fn:split(dto.imageUrl, ',')}"
 					varStatus="loop">
 					<img src="${imageUrl.trim()}" alt="캠핑장 이미지"
-						class="hidden-image ${loop.index + 1 > 4 ? 'hidden' : ''}">
+						class="hidden-image ${loop.index + 1 > 5 ? 'hidden' : ''}">
 				</c:forEach>
 				<button type="button" class="btn btn-secondary load_image">more</button>
 			</div>
@@ -336,11 +362,11 @@ var userId = "${sessionScope.userid}";
 										required>
 								</div>
 								<div class="mb-3 input-group">
-									<label for="adults" class="form-label ">성인</label> <input
-										type="number" class="form-control datainput" id="adults"
-										name="adults" min="1" required> <label for="children"
+									<label for="adults" class="form-label ">성인</label> 
+									<input type="number" class="form-control datainput" id="adults"
+										name="adult_count" min="1" required> <label for="children"
 										class="form-label">아동(만0세~17세)</label> <input type="number"
-										class="form-control datainput" id="children" name="children"
+										class="form-control datainput" id="children" name="children_count"
 										min="0" required>
 								</div>
 								<button type="button" class="btn btn-primary"
