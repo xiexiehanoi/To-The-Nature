@@ -13,11 +13,16 @@ public class ReviewDao {
 	@Autowired
 	private SqlSession session;
 	
-	private String nameSpace = "nature.review.ReviewDto.";
+	private String nameSpace = "nature.review.ReviewDao.";
 	
 	public List<Map<String, Object>> getAllReview(int campingNum)
 	{
 		return session.selectList(nameSpace+"selectRiewList",  campingNum);
+	}
+	
+	public Map<String, Object> getTotalCountAVG(int campingNum)
+	{
+		return session.selectOne(nameSpace+"totalCounTAVGtOfReview", campingNum);
 	}
 	
 }

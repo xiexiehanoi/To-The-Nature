@@ -16,4 +16,9 @@ public class ReviewService {
 	{
 		return reviewDao.getAllReview(campingNum);
 	}
+	
+	public Map<String, Object> getCountgetTotalCountAVG(int campingNum)
+	{
+		return reviewDao.getTotalCountAVG(campingNum);
+	}
 }

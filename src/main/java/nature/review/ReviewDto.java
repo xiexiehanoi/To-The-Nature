@@ -8,11 +8,10 @@ import lombok.Data;
 
 @Data
 public class ReviewDto {
-	private int reviewNum;
-	private String userId;
-	private int campingNum;
 	private int rate;
-	private String content;
+	private short avg;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
 	private Timestamp createAt;
+	private String userId;
+	private String content;
 }
