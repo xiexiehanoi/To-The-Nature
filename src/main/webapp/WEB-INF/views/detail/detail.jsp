@@ -144,11 +144,20 @@ String userId = (String) session.getAttribute("userid");
 %>
 <script type="text/javascript">
     var urlParams = new URLSearchParams(window.location.search);
-    var campingNum = parseInt(urlParams.get('num'));
-    console.log(typeof campingNum);
-    console.log(campingNum);
+    var campingNum = urlParams.get('num');
     var userId = '<%= userId %>';
     var iswished = ${campinglist[0].iswished};
+    
+    <%-- 예약 내용 보내기 --%>
+	function submitReservation() {
+		  const formData = new FormData(document.getElementById('reservationForm'));
+		  document.getElementById('reservationForm').action = './reservation/page';
+		  document.getElementById('reservationForm').method = 'POST';
+		  // 폼을 제출
+		  document.getElementById('reservationForm').submit();
+		
+		  $('#reservationModal').modal('hide');
+		}
 
 $(document).ready(function () {
     getreviewlist(campingNum);
@@ -480,6 +489,9 @@ function getreviewlist(campingNum) {
 						</div>
 						<div class="modal-body">
 							<form id="reservationForm">
+								<input type="hidden" name="camping_num" value="${campingNum}" >
+								<input type="hidden" name="userid" value="${userId}">
+								<input type="hidden" name="CampsiteName" value="${dto.facltNm}">
 								<div class="mb-3">
 									<label for="startDate" class="form-label">캠핑장명 :
 										${dto.facltNm}</label>
@@ -495,9 +507,9 @@ function getreviewlist(campingNum) {
 								<div class="mb-3 input-group">
 									<label for="adults" class="form-label ">성인</label> 
 									<input type="number" class="form-control datainput" id="adults"
-										name="adult_count" min="1" required> <label for="children"
-										class="form-label">아동(만0세~17세)</label> <input type="number"
-										class="form-control datainput" id="children" name="children_count"
+										name="adult_count" min="1" value="1" required> <label for="children"
+										class="form-label">미성년자(만0세~17세)</label> <input type="number"
+										class="form-control datainput" value="0" id="children" name="children_count"
 										min="0" required>
 								</div>
 								<button type="button" class="btn btn-primary"
