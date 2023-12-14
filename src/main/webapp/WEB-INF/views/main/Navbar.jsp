@@ -49,7 +49,7 @@
   <ul class="navbar-items flexbox-col-right flexbox-left main-list">
     <li class="navbar-logo flexbox-left">
       <a class="navbar-item-inner flexbox" href="${root}">
-        <i class="bi bi-list" style="font-size: 24px;"></i>
+        <i class="bi bi-list" style="font-size: 26px;color: white;margin-left: 6px;"></i>
       </a>
     </li>
     <li class="navbar-item flexbox-left login-section">

@@ -92,7 +92,8 @@ a {
     text-decoration: underline;
 }
 a:visited {
-    color: hsla(var(--primary), .5);
+    /* color: hsla(var(--primary), .5); */
+    color: hsl(var(--quite-gray));
 }
 
 /* =========
@@ -309,7 +310,8 @@ select {
 }
 .navbar-item-inner:hover {
     color: hsl(var(--white));
-    background: hsl(var(--background-secondary-light));
+    /* background: hsl(var(--background-secondary-light)); */
+    background: #528171;
     box-shadow: 0 17px 30px -10px hsla(var(--black), .25);
 }
 .navbar-item-inner-icon-wrapper {
