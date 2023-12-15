@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 
 <style type="text/css">
-	/* .header{
+	.header{
 		border: 1px solid blue;
 		display: flex;
         justify-content: space-between;
@@ -60,7 +60,7 @@
 </script>
 </head>
 <body>
-	<div class="header">
+<%-- 	<div class="header">
 		<h1>header</h1>
 	</div>
 	<div class="login-section">
@@ -90,7 +90,7 @@
     	</c:if>
         </c:otherwise>
     </c:choose>
-   
-</div>
+
+</div>    --%>
 </body>
 </html>

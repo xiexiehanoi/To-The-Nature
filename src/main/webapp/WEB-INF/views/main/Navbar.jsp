@@ -41,15 +41,63 @@
             });
         });
     });
+     
+    $(document).ready(function () {
+        var isNavbarHovered = false;
+
+        // My Page 영역을 hover 했을 때 세부 목록을 보이게 하는 스크립트
+        $('#mypage').hover(function () {
+            // 추가된 조건: sessionScope.loginok 값이 있을 때만 실행
+            if (${not empty sessionScope.loginok}) {
+                $('#mypageSubMenu').css('display', 'block');
+                $('#navbar').addClass('hover');
+                isNavbarHovered = true;
+            }
+        }, function () {
+            $('#mypageSubMenu').css('display', 'none');
+            $('#navbar').removeClass('hover');
+            isNavbarHovered = false;
+        });
+
+        $('#mypageSubMenu').hover(function () {
+            // 추가된 조건: sessionScope.loginok 값이 있을 때만 실행
+            if (${not empty sessionScope.loginok}) {
+                $(this).css('display', 'block');
+                $('#navbar').addClass('hover');
+                isNavbarHovered = true;
+            }
+        }, function () {
+            $(this).css('display', 'none');
+            $('#navbar').removeClass('hover');
+            isNavbarHovered = false;
+        });
+
+        // 마우스가 #navbar 영역에서 벗어나면 hover 클래스를 제거하지만, 마우스가 다른 곳에 있으면 유지
+        $('#navbar').mouseleave(function () {
+            if (!isNavbarHovered) {
+                $('#navbar').removeClass('hover');
+            }
+        });
+    });
+    
 </script>
 </head>
 <body>
+
+<!-- 세부 항목 리스트 블록-->
+<ul class="sub-menu" id="mypageSubMenu">
+      <li><a href="${root}/mypage/main">회원 정보</a></li>
+      <li><a href="${root}/mypage/main">예약 내역</a></li>
+      <li><a href="${root}/mypage/main">리뷰 관리</a></li>
+      <li><a href="${root}/mypage/main">회원 탈퇴</a></li>
+</ul>
+
 <!-- Navbar -->
 <nav id="navbar">
   <ul class="navbar-items flexbox-col-right flexbox-left main-list">
     <li class="navbar-logo flexbox-left">
       <a class="navbar-item-inner flexbox" href="${root}">
-        <i class="bi bi-list" style="font-size: 24px;"></i>
+        <i class="bi bi-list" style="font-size: 26px;color: white;margin-left: 6px;"></i>
       </a>
     </li>
     <li class="navbar-item flexbox-left login-section">
@@ -65,7 +113,7 @@
       
       <c:if test="${not empty sessionScope.loginok}">
       	<div class="navbar-item-inner-icon-wrapper flexbox">
-          		<i class="bi bi-box-arrow-left" style="font-size: 24px;"></i>
+          		<i class="bi bi-box-arrow-left" style="font-size: 24px;color: gray;"></i>
       	</div>
       	<div class="link-text" style="margin-bottom: 12px;"> 
 	    	<!-- 세션에 loginok 값이 있으면 (로그인 상태이면) 로그아웃 버튼 표시 -->
@@ -82,7 +130,7 @@
         <span class="link-text">켐핑장 찾기</span>
       </a>
     </li>
-    <li class="navbar-item flexbox-left mypage-section">
+    <li class="navbar-item flexbox-left mypage-section" id="mypage">
       <c:choose>
         <c:when test="${empty sessionScope.loginok}">
             <!-- 세션에 loginok 값이 없으면 (로그인 상태가 아니면) 로그인 페이지로 이동 -->
@@ -101,12 +149,6 @@
         		</span>
         		<span class="link-text">My Page</span>
       		</a>
-      		<%-- <ul class="sub-menu">
-    			<li><a href="${root}/mypage/main">회원 정보</a></li>
-    			<li><a href="${root}/mypage/main">예약 내역</a></li>
-    			<li><a href="${root}/mypage/main">리뷰 관리</a></li>
-    			<li><a href="${root}/mypage/main">회원 탈퇴</a></li>
-    		</ul> --%>
         	<c:if test="${sessionScope.userid eq 'nature'}">
         		<a href="${root}/admin/main">Admin</a>
     		</c:if>
@@ -162,7 +204,7 @@
     
       
     </li>
-    <li class="navbar-item flexbox-left">
+    <li class="navbar-item flexbox-left faq">
       <a href="/FAQ" class="navbar-item-inner flexbox-left">
         <span class="navbar-item-inner-icon-wrapper flexbox">
           <i class="bi bi-question-circle" style="font-size: 22px;"></i>
