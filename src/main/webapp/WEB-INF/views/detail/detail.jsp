@@ -22,7 +22,7 @@
     margin: 0 auto;
     min-height: 100%;
     display: flex; /* flex 컨테이너 설정 */
-    border: 1px solid black;
+    /* border: 1px solid black; */
     justify-content: space-between; /* 요소들을 가능한 넓게 배치 */
     flex-wrap: wrap; /* 자식 요소들을 랩핑 */
     overflow: hidden;
@@ -38,7 +38,7 @@ div .img_b img{
 	width: 100%;
 	height: 484px;
 	object-fit: cover;
-	
+	border-radius: 20px;
 }
 div .camp_tb{
 	float:right;
@@ -69,6 +69,7 @@ hr{
 }
 .camp_inner_img {
     display: flex;
+    border-radius: 20px;
     flex-wrap: wrap;
     gap: 10px; /* 이미지 사이의 간격 조정 */
 }
@@ -88,6 +89,7 @@ hr{
 	width: 90%;
     height: auto;
     margin: 0 auto;
+    border-radius: 20px;
 }
 .star_rating {
   width: 100%; 
@@ -136,8 +138,12 @@ hr{
 .btn02 {
   display:inline-block;;
   width: 80px;
-
 }
+
+.yellowstar{
+  font-color: gold;
+}
+
 </style>
 <%
 String userId = (String) session.getAttribute("userid");
@@ -293,7 +299,7 @@ function getreviewlist(campingNum) {
         success: function (res) {
             var review = "";
             if (res.reviewlist.length>0) {
-                review += '<table class="reviewtable">';
+                review += '<table class="table table-bordered reviewtable">';
                 review += '<tr>';
                 review += '<th>작성자</th>';
                 review += '<th>리뷰 내용</th>';
@@ -309,11 +315,21 @@ function getreviewlist(campingNum) {
                 	var hour = String(createdDate.getHours()).padStart(2, '0');
                 	var minute = String(createdDate.getMinutes()).padStart(2, '0');
 
-                	var createdate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;;
+                	var createdate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+                	
+                	var starrate = '';
+                	for (var i = 0; i < 5; i++) {
+                	    if (i < item.rate) {
+                	        starrate += '<span class="yellowstar">★</span>';
+                	    } else {
+                	        starrate += '<span>☆</span>';
+                	    }
+                	}
+                	
                     review += '<tr>';
                     review += '<td>' + item.userid + '</td>';
                     review += '<td>' + item.content + '</td>';
-                    review += '<td>' + item.rate + '</td>';
+                    review += '<td class="ratebox">' + starrate + '</td>';
                     review += '<td>' + createdate + '</td>';
                     review += '</tr>';
                 });
@@ -324,7 +340,7 @@ function getreviewlist(campingNum) {
             $(".reviewList").html(review);
             $(".countReview").eq(0).text("리뷰 : " + res.total.count + " 개");
             $(".review_total h4").eq(0).text(res.total.avg.toFixed(2) + " 점");
-            console.log(res.total.avg.toFixed(2));
+            $(".ratebox span").html(starrate);
         },
         error: function (xhr, status, error) {
             console.error("Ajax Error:", error);
@@ -345,7 +361,7 @@ function getreviewlist(campingNum) {
 			<!-- 메인 정보 테이블-->
 			<!-- 테이블 부분 -->
 			<div class="camp_tb">
-				<table class="table">
+				<table class="table table-bordered">
 					<colgroup>
 						<col style="width: 30%;">
 						<col style="width: 70%;">
