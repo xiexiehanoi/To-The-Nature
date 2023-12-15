@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import nature.user.UserDto;
+
 @Repository
 public class MypageDao {
 
@@ -34,5 +36,11 @@ public class MypageDao {
     public int getMaxNum() {
         return session.selectOne(nameSpace + "selectMaxNumOfBoard");
     }
-    
+    public MypageDto getData(String userid)
+	{
+		return session.selectOne(nameSpace+"selectDataById", userid);
+	}
+    public List<Map<String, Object>> getUserInfoByUserId(String userId) {
+        return session.selectOne(nameSpace + "getUserInfoByUserId", userId);
+    }
 }

@@ -172,12 +172,13 @@
                         alert("오류가 발생했습니다.");
                     }
                 });
+                // 모달창 확인 버튼 클릭 시 모달 닫기
+                $(document).on("click", "#modal-confirm-btn", function () {
+                    $("#myModal").modal("hide");
+                });
             });
 
-            // 모달창 확인 버튼 클릭 시 모달 닫기
-            $(document).on("click", "#modal-confirm-btn", function () {
-                $("#myModal").modal("hide");
-            });
+           
         });
     </script>
 </head>

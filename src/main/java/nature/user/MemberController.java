@@ -30,24 +30,24 @@ public class MemberController {
 	
 	@NonNull
 	private UserDao userDao;
-	
+
 	@GetMapping("/login/form")
 	public String login()
 	{
 		return "login/userform";
 	}
-	
+
 	@GetMapping("/login/list")
 	public String memberList(Model model)
 	{
 
 		int totalCount=userDao.getTotalCount();
-		
+
 		model.addAttribute("totalCount", totalCount);
-		
+
 		return "login/list";
 	}
-	
+
 	@PostMapping("/login/success")
 	public String addMember(HttpServletRequest request, @ModelAttribute UserDto dto,
 	                        @RequestParam(value = "upload", required = false) MultipartFile upload,
@@ -76,7 +76,7 @@ public class MemberController {
 		
 		return "login/loginsuccess";
 	}
-	
+
 	@GetMapping("/login/idcheck")
 	@ResponseBody public Map<String, Integer> getIdCount(@RequestParam String userid)
 	{
@@ -85,6 +85,6 @@ public class MemberController {
 		map.put("count", count);
 		return map;
 	}
-	
+
 	
 }

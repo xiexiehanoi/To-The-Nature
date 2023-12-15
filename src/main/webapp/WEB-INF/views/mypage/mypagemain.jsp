@@ -12,28 +12,69 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <style>
     body * {
             font-family: 'Jua';
         }
  	
-    .header {
-    	border:1px solid black;
-    }    
+   
+     
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  
+	}
+	
+	li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+	}
 
+	li a.active {
+  background-color: #555;
+  color: white;
+	}
+
+	li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+	}
+	
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
+ <script>
+        $(document).ready(function () {
+            $(".navbar-nav .nav-link3").click(function () {
+                $(".submenu").toggle();
+            });
+            $(".submenu").click(function (e) {
+                e.stopPropagation();
+            });
 
+            $(document).click(function () {
+                $(".submenu").hide();
+            }); 
+        });
+    </script>
 </head>
+</head>
+
 <body>
 <div class="header">
 <%@ include file="/WEB-INF/views/layout/header.jsp" %>
-</div>
-
-  
-    <ul class="navbar-nav">
+	</div>
+	
+    <ul class="navbar-nav navall">
       <li class="nav-item">
         <a class="nav-link1" href="${root}/mypage/reservation">예약내역</a>
       </li>
@@ -41,12 +82,16 @@
         <a class="nav-link2" href="${root}/mypage/review">리뷰관리</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link3" href="${root}/mypage/change">회원수정</a>
+        <a class="nav-link3" href="#">회원관리</a> 
+      <ul class="submenu">
+      <li><a href="${root}/mypage/account">회원탈퇴</a></li>
+      <li><a href="${root}/mypage/change">회원수정</a></li>
+      </ul>
+      
       </li>
     </ul>
-    <br><br><br><br><br><br>
-    <div class="myaccount"><a href="${root}/mypage/account">회원탈퇴</a></div>
-
-
+    
+    
+	
 </body>
 </html>

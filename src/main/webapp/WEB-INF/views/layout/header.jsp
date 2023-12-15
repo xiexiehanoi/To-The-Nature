@@ -62,18 +62,18 @@
 <body>
 	<div class="header">
 		<h1>header</h1>
-		</div>
-		<div class="login-section">
+	</div>
+	<div class="login-section">
 	<c:if test="${empty sessionScope.loginok}">
-    <!-- 세션에 loginok 값이 없으면 (로그인 상태가 아니면) 로그인 링크 표시 -->
-    <a href="${root}/login/main">로그인</a>
-</c:if>
+    	<!-- 세션에 loginok 값이 없으면 (로그인 상태가 아니면) 로그인 링크 표시 -->
+    	<a href="${root}/login/main">로그인</a>
+	</c:if>
 
-<c:if test="${not empty sessionScope.loginok}">
-    <!-- 세션에 loginok 값이 있으면 (로그인 상태이면) 로그아웃 버튼 표시 -->
-    <h5>${sessionScope.userid}님</h5>
-    <button type="button" class="btn btn-success" id="btnlogout" style="width: 100px;">로그아웃</button>
-</c:if>
+	<c:if test="${not empty sessionScope.loginok}">
+    	<!-- 세션에 loginok 값이 있으면 (로그인 상태이면) 로그아웃 버튼 표시 -->
+    	<h5>${sessionScope.userid}님</h5><br>
+    	<button type="button" class="btn btn-success" id="btnlogout" style="width: 100px;">로그아웃</button>
+	</c:if>
 </div>
 &nbsp;&nbsp;
 	<div class="mypage-section">

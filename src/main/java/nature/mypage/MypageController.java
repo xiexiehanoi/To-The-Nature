@@ -45,7 +45,7 @@ public class MypageController {
 	    // Call the service method to get reviews by user ID
 	    //List<MypageDto> userReviews = mypageService.getReviewsByUserId(userId);
 	    List<Map<String, Object>> userReviews = mypageService.getReviewsByUserId(userId);
-	    System.out.println(userReviews);
+	    
 	    // Add the reviews to the model
 	    model.addAttribute("userReviews", userReviews);
 	    model.addAttribute("totalCount", mypageService.getTotalCount());
@@ -53,8 +53,11 @@ public class MypageController {
 	}
 	
 	@GetMapping("/mypage/change")
-	public String mychange() {
+	public String mychange(HttpSession session,Model model) {
+		String userId = (String) session.getAttribute("userid");
 		
+		
+	   
 		return "mypage/mychange";
 	}
 	@GetMapping("/mypage/account")

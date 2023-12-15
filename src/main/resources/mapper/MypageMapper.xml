@@ -16,5 +16,11 @@
         JOIN camping_details c ON r.camping_num = c.camping_num
         WHERE r.user_id = #{user_id}
     </select>
-    
+    <!-- 사용자의 정보를 가져오는 쿼리 -->
+    <select id="getUserInfoByUserId" parameterType="String" resultType="Map">
+        SELECT userid, userbirth, usergender, userphone, useremail
+        FROM user
+        WHERE userid = #{userid}
+    </select>
+
 </mapper>

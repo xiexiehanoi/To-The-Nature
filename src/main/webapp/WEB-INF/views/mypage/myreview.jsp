@@ -19,9 +19,7 @@
             font-family: 'Jua';
         }
  	
-    .header {
-    	border:1px solid black;
-    }    
+     
 	.myreview-all {
 			width:70%;
             padding: 10px;

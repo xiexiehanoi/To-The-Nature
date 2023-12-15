@@ -14,9 +14,9 @@ public class SiteDao {
 	
 	private String nameSpace="nature.site.SiteDao.";
 	
-	public List<Map<String, Object>> getsearchcamping(int num)
+	public List<Map<String, Object>> getsearchcamping(Map<String, Object> siteParam) 
 	{
-		return session.selectList(nameSpace+"selectdetail", num);
+		return session.selectList(nameSpace + "selectdetail", siteParam);
 	}
 	
 }

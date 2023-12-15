@@ -33,12 +33,10 @@
             hieght: 90%;
             margin: 0 auto;
         }
-
         .form-control {
         	
             margin-bottom: 10px;
         }
-
         .form-control:placeholder {
             color: #ccc;
         }
@@ -78,7 +76,6 @@
             var userpw = $("#login_pw").val();
             var usernewpw = $("#login_usernewpw").val();
             var userpwchangeConfirm = $("#login_pwchange_confirm").val();
-
             // 입력값 확인
             if (!userid || !userpw || !usernewpw || !userpwchangeConfirm) {
                 // 모달창으로 경고 메시지 표시
@@ -87,7 +84,6 @@
                 $("#myModal").modal("show");
                 return;
             }
-
             // 새 비밀번호와 새 비밀번호 재입력이 일치하는지 확인
             if (usernewpw !== userpwchangeConfirm) {
                 // 모달창으로 경고 메시지 표시
@@ -96,7 +92,6 @@
                 $("#myModal").modal("show");
                 return;
             }
-
             // AJAX로 서버에 요청 보내기
             $.ajax({
                 url: "<%=request.getContextPath()%>/login/updatePassword",
@@ -121,7 +116,6 @@
                 }
             });
         });
-
         // 모달창 확인 버튼 클릭 시 모달 닫기
         $(document).on("click", "#modal-confirm-btn", function () {
             $("#myModal").modal("hide");
@@ -130,14 +124,13 @@
 </script>
 </head>
 <body>
-
     <div class="change-all">
     <div class="change-title">비밀번호 변경</div>
     <form class="changeform">
-        <input type="text" id="login_id" name="userid" class="form-control" maxlength="20" placeholder="아이디">
-        <input type="password" id="login_pw" name="userpw" class="form-control" maxlength="20" placeholder="비밀번호">
-        <input type="password" id="login_usernewpw" name="usernewpw" class="form-control" maxlength="20" placeholder="새 비밀번호">
-        <input type="password" id="login_pwchange_confirm" name="userpwchange_confirm" class="form-control" maxlength="20" placeholder="새 비밀번호 확인">
+        <input type="text" id="login_id" name="userid" class="form-control" placeholder="아이디">
+        <input type="password" id="login_pw" name="userpw" class="form-control" placeholder="비밀번호">
+        <input type="password" id="login_usernewpw" name="usernewpw" class="form-control" placeholder="새 비밀번호">
+        <input type="password" id="login_pwchange_confirm" name="userpwchange_confirm" class="form-control" placeholder="새 비밀번호 확인">
         <br>
         <button type="button" class="pwchange" id="pwchangeBtn">비밀번호 변경</button>
         <button type="button" class="nextchange" onclick="location.href='./main'">다음에 변경</button>
@@ -147,7 +140,6 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-               
                 <div class="modal-body" id="modal-body" style="border: none;">
                     <!-- 결과 또는 경고 메시지가 이 부분에 표시됩니다. -->
                 </div>

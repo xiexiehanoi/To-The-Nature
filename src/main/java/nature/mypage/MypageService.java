@@ -24,6 +24,8 @@ public class MypageService {
 	public int getTotalCountOfBoards() {
 		return mypagedao.getTotalCountOfBoard();
 	}
-
+	public List<Map<String, Object>> getUserInfoByUserId(String userId) {
+	    return mypagedao.getUserInfoByUserId(userId);
+	}
    
 }

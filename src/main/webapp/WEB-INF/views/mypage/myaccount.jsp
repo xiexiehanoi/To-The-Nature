@@ -37,11 +37,13 @@
     .mypagemain {
         float: left;
         width: 29%; /* 변경된 부분: 49%로 설정하여 왼쪽에 위치하도록 조정 */
+    	height: 21%
     }
 
     .delete {
         float: right;
         width: 70%; /* 변경된 부분: 49%로 설정하여 오른쪽에 위치하도록 조정 */
+    	height: 79%
     }
 </style>
 <script>
@@ -50,7 +52,9 @@
             var usernameInput = document.getElementById('username');
             var userpwInput = document.getElementById('userpw');
 
-       
+            
+            var enteredUsername = usernameInput.value;
+            var enteredUserpw = userpwInput.value;
             
 
             if (checkbox.checked && usernameInput.value === username && userpwInput.value === password) {
@@ -98,12 +102,7 @@
 </head>
 <body>
 <c:set var="root" value="<%=request.getContextPath()%>"/>
-<div class="header">
-<%@ include file="/WEB-INF/views/layout/header.jsp" %>
-</div>
-<div class="mypagemain">
-<%@ include file="/WEB-INF/views/mypage/mypagemain.jsp" %>
-</div>
+
 <div class="delete">
 <h3>회원탈퇴</h3>
 <ul>

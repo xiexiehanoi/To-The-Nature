@@ -2,7 +2,6 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
- 
  <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +13,6 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <style>
    body {
-        
         display: flex;
         justify-content: center;
         align-items: center;
@@ -23,16 +21,13 @@
    .genderButtons {
         display: flex;
         justify-content: space-between;
-        
     }
    .genderButton {
-   
    			width: 50%;
-            background-color: #fff; 
-            color: #000; 
+            background-color: #fff;
+            color: #000;
          	border: 1px solid #ccc;
         }
-
    .genderButton.active,
     .genderButton:hover {
         background-color: white;
@@ -48,11 +43,9 @@
         background-color: beige; /* 베이지 색상으로 설정 */
         color: #000000; /* 글자 색상을 검정으로 설정 */
         border: 1px solid white; /* 테두리를 흰색으로 설정 */
-    } 
-   
+    }
 	
 </style>
-
 <script type="text/javascript">
 let idok=false;
 let selectedGender = "";
@@ -63,7 +56,6 @@ $(function(){
 	$("#btnidcheck").click(function(){
 		//입력한 아이디
 		let userid=$("#userid").val();
-		
 		if (userid.length < 4) {
 			alert("아이디를 4자 이상 입력해주세요.");
 			return;
@@ -103,12 +95,11 @@ $(function(){
         // "남성" 버튼 클릭 시 usergender 값을 "male"로 설정
         $("#usergender").val("남성");
     });
-
     $("#saveFemale").click(function () {
         // "여성" 버튼 클릭 시 usergender 값을 "female"로 설정
         $("#usergender").val("여성");
     });
-	   
+	  
 });//close function
 function check(){
 	if(!idok){
@@ -133,7 +124,6 @@ function check(){
 </script>
 </head>
 <body>
-
 	<form id="yourFormId" action="./success" method="post" enctype="multipart/form-data" onsubmit="return check()">
 		
 			<h2 style="margin-bottom:50px;">회원가입</h2>
@@ -166,6 +156,5 @@ function check(){
 					
 					<button type="submit" class="btn btn-secondary" id="loginsuccess" >회원가입</button>
 			</form>
-
 </body>
 </html>

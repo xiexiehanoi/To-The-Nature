@@ -4,7 +4,7 @@
 	<insert id="insertWish" parameterType="WishDto">
 		INSERT INTO wish (user_id, camping_num) VALUES (#{userId},#{campingNum})
 	</insert>
-	<delete id="deleteWish" parameterType="int">
-		DELETE FROM wish where wish_num=#{wishNum} AND user_id=#{userId}
+	<delete id="deleteWish" parameterType="WishDto">
+		DELETE FROM wish where user_id=#{userId} AND camping_num=#{campingNum}
 	</delete>
 </mapper>
