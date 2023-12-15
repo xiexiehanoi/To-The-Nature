@@ -260,6 +260,11 @@ select {
     width: 16em;
     /* right: 0; */
 }
+
+.hover #navbar{
+	width: 16em;
+}
+
 #navbar::-webkit-scrollbar-track {
     background-color: hsl(var(--background-secondary));
 }
@@ -342,59 +347,57 @@ select {
    ============= */
 
 /* sub list */
-#navbar>ul.main-list>li.mypage-section>ul.sub-menu{
-  background: #1E2B32;
-  margin-left: 280px;
-  margin-top: -38px;
-  display: none;
-  position: absolute;
-  border-top-right-radius: 15px 15px;
-  border-bottom-right-radius: 15px 15px;
-}
 
-#navbar>ul.main-list>li.mypage-section:hover>ul.sub-menu{
-  display: block;
-  cursor: pointer;
-}
-
-/* 부차적인 목록 스타일링 
-.mypage-section:hover .sub-menu {
+/* My Page 영역을 hover 했을 때 sub-menu를 보이게 하는 스타일 추가 */
+#navbar #mypage:hover #mypageSubMenu,
+#navbar.hover #mypageSubMenu {
     display: block;
 }
 
- 추가된 부분 
-.mypage-section .sub-menu {
+/* sub-menu에 대한 스타일 */
+#mypageSubMenu {
     background: #1E2B32;
-    margin-left: 280px;
-    margin-top: -38px;
+    margin-left: 16em; /* 수정: Navbar가 확장된 상태에서의 마진 조절 */
+    margin-top: 15.7em; /* 수정: Navbar에 따른 상단 마진 제거 */
     display: none;
-    position: absolute;
-    border-top-right-radius: 15px 15px;
-    border-bottom-right-radius: 15px 15px;
-}
-
-.mypage-section .sub-menu li {
-    transition: 1s all;
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
-    padding: 15px;
-    margin-left: -40px;
-    margin-top: 0px;
-    color: #fff;
-    list-style: none;
-    display: block;
-    border-top-right-radius: 10px 10px;
-    border-bottom-right-radius: 10px 10px;
-}
-
-.mypage-section .sub-menu li:hover {
-    transition: 1s all;
-    color: #2f89fc;
-    background-color: rgba(42, 56, 65, 0.82);
-    border-top-right-radius: 10px 10px;
-    border-bottom-right-radius: 10px 10px;
+    position: fixed; /* 수정: 고정 위치로 조절 */
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 12em; /* 수정: sub-menu의 폭을 조절 */
     cursor: pointer;
-}*/
+}
+
+/* sub-menu의 각 항목에 대한 스타일 */
+#mypageSubMenu li {
+    padding: 1em;
+    list-style: none;
+    border-bottom: none; /* 밑줄 제거 */
+}
+
+/* My Page 영역을 hover 했을 때 sub-menu의 각 항목을 보이게 하는 스타일 */
+#mypage:hover #mypageSubMenu li {
+    display: block;
+    border-bottom: 1px solid #39444d;
+}
+
+/* 기존의 Navbar 확장 시 마진 조절 스타일 */
+#navbar:hover #mypageSubMenu {
+	display: block;
+    margin-left: 16em;
+    cursor: pointer;
+}
+
+/* 기존의 Navbar 확장 시 sub-menu의 각 항목을 보이게 하는 스타일 */
+#navbar:hover #mypageSubMenu li {
+    display: block;
+}
+
+
+#mypageSubMenu li a {
+    text-decoration: none;
+}
+
+
 /* =============
     ::Selectors
    ============= */
