@@ -29,4 +29,5 @@ public class SiteDto {
     private String image_url;
     private int iswished;
     private int coutniwsh;
+    private int amount;
 }

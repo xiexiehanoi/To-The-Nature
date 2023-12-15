@@ -164,7 +164,7 @@ String userId = (String) session.getAttribute("userid");
 		
 		  $('#reservationModal').modal('hide');
 		}
-
+	
 $(document).ready(function () {
     getreviewlist(campingNum);
     updateHeartIcon();
@@ -521,6 +521,15 @@ function updateCountWish() {
 										class="form-control datainput" value="0" id="children" name="children_count"
 										min="0" required>
 								</div>
+								<div class="mb-3">
+			                        <label for="totalNights" class="form-label">총 숙박 일: <span id="totalNights">0 박</span></label>
+			                    </div>
+			                    <div class="mb-3">
+			                        <label for="totalPerson" class="form-label"><span id="totalPerson">총 인원: 0 명</span></label>
+			                    </div>
+			                    <div class="mb-3">
+			                        <label for="totalAmount" class="form-label">총 금액: <span id="totalAmount">0 원</span></label>
+			                    </div>
 								<button type="button" class="btn btn-primary"
 									onclick="submitReservation()">Confirm Reservation</button>
 							</form>
