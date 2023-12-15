@@ -163,7 +163,7 @@
       
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left">
+      <a href="/FAQ" class="navbar-item-inner flexbox-left">
         <span class="navbar-item-inner-icon-wrapper flexbox">
           <i class="bi bi-question-circle" style="font-size: 22px;"></i>
         </span>
