@@ -216,16 +216,6 @@ $(document).on("click", "#heartIcon", function () {
 	    	
 	    });//readyclose
     
-    //예약 내용 보내기
-	function submitReservation() {
-		  const formData = new FormData(document.getElementById('reservationForm'));
-		  document.getElementById('reservationForm').action = './reservation';
-		  document.getElementById('reservationForm').method = 'POST';
-		  // 폼을 제출
-		  document.getElementById('reservationForm').submit();
-		
-		  $('#reservationModal').modal('hide');
-		}
 
 	//review 불러오기
 function getreviewlist(campingNum) {
