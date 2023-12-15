@@ -26,6 +26,27 @@
     			    buyer_tel:   "${userDto.userphone}",
     			  },
     			  function (rsp) {
+    				  console.log(rsp);
+    					
+    					 //결제 성공 시
+    					if (rsp.success) {
+    						var msg = '결제가 완료되었습니다.';
+    						console.log("결제성공 ");
+
+    						$.ajax({
+    							type: "POST",
+    							url: '../payment',
+    							data: {
+    								amount: 1000,
+    								imp_uid: rsp.imp_uid,
+    								merchant_uid: rsp.merchant_uid
+    							}
+    						});
+    					} else {
+    						var msg = '결제에 실패하였습니다.';
+    						msg += '에러내용 : ' + rsp.error_msg;
+    					}
+    					alert(msg);
     			    
     			  }
     			);
