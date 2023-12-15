@@ -27,5 +27,4 @@ public class MypageService {
 	public List<Map<String, Object>> getUserInfoByUserId(String userId) {
 	    return mypagedao.getUserInfoByUserId(userId);
 	}
-   
 }

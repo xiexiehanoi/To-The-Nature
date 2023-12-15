@@ -34,12 +34,18 @@
      	display: inline-block;
      	float: right;
      	
-     }  
+     }
+     .star {
+        color: gold; /* or any other color you prefer for the yellow stars */
+        font-size: 1.5em; /* Adjust the size of the stars */
+        margin-right: 2px; /* Adjust the spacing between stars */
+    }  
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
 
 </head>
 <script type="text/javascript">
+
 function list()
 {
 	let review_num=${dto.review_num};
@@ -53,11 +59,14 @@ function list()
 		data:{"review_num":review_num},
 		success:function(res){
 			let s="";
-			$.each(res,function(idx,item){
+			$.each(res, function (idx, item) {
+                
 				s+=
 					`
-					\${item.facltNm}
-					\${item.rate}(\${item.content})<br>
+					${item.facltNm}
+					${item.rate}
+					
+					(${item.content})<br>
 					`;
 				}
 

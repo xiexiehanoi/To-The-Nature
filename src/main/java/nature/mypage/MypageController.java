@@ -53,12 +53,20 @@ public class MypageController {
 	}
 	
 	@GetMapping("/mypage/change")
-	public String mychange(HttpSession session,Model model) {
-		String userId = (String) session.getAttribute("userid");
-		
-		
-	   
-		return "mypage/mychange";
+	public String mychange(HttpSession session, Model model) {
+	    String userId = (String) session.getAttribute("userid");
+
+	    // 사용자 정보를 가져오기
+	    List<Map<String, Object>> userInfoList = mypageService.getUserInfoByUserId(userId);
+
+	    // 사용자 정보가 존재하면 모델에 추가
+	    if (!userInfoList.isEmpty()) {
+	        Map<String, Object> userInfo = userInfoList.get(0);
+	        model.addAttribute("usergender", userInfo.get("usergender"));
+	        model.addAttribute("userInfo", userInfo);
+	    }
+
+	    return "mypage/mychange";
 	}
 	@GetMapping("/mypage/account")
 	public String myaccount() {

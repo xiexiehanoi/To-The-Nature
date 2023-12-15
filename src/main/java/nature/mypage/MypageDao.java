@@ -8,7 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import nature.user.UserDto;
+//import nature.user.UserDto;
+import nature.mypage.MypageDto;
 
 @Repository
 public class MypageDao {
@@ -41,6 +42,6 @@ public class MypageDao {
 		return session.selectOne(nameSpace+"selectDataById", userid);
 	}
     public List<Map<String, Object>> getUserInfoByUserId(String userId) {
-        return session.selectOne(nameSpace + "getUserInfoByUserId", userId);
+        return session.selectList(nameSpace + "getUserInfoByUserId", userId);
     }
 }

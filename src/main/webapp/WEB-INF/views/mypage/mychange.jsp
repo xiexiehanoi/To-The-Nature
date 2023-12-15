@@ -50,6 +50,61 @@
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
 </head>
+<script type="text/javascript">
+
+function list()
+{
+	let userid=${dto.userid};
+	let loginok='${sessionScope.loginok}'; 
+	let loginid='${sessionScope.myid}';
+	
+
+    // DOM이 완전히 로드된 후 실행되는 함수
+    $(document).ready(function () {
+    	let userGender = '${sessionScope.usergender}';
+        // userGender가 male이면 남성 버튼에 색상 적용 및 비활성화
+        if (userGender === 'male') {
+            applyButtonStyle('saveMale');
+        } else if (userGender === 'female') {
+            // userGender가 female이면 여성 버튼에 색상 적용 및 비활성화
+            applyButtonStyle('saveFemale');
+        }
+     // 각 버튼에 마우스를 갖다대었을 때 비활성화 상태로 설정
+        $('.genderButton').mouseenter(function () {
+            $(this).attr('disabled', true);
+        });
+    });
+
+   
+	//댓글 출력하는 함수
+	$.ajax({
+		type:"get",
+		dataType:"json",
+		url:"../mypage/change",
+		data:{"userid":userid},
+		success:function(res){
+			let s="";
+			$.each(res, function (idx, item) {
+                
+				s+=
+					`
+					${item.userbirth}
+					${item.usergender}
+					${item.userphone}
+					${item.useremail}
+					`;
+				}
+
+				
+				
+				s+="<br>";
+			});
+
+			$("div.reviewlist").html(s);
+	    }
+	});
+}
+</script>
 <body>
 
 	<form id="yourFormId" action="./info" method="post" enctype="multipart/form-data" onsubmit="return check()">
@@ -69,18 +124,16 @@
 					<input type="text" class="form-control" required="required"
 					autofocus="autofocus" name="username" minlength="2" maxlength="20" value="${sessionScope.username}" placeholder="이름">
 				
-					
-    				<input type="text" name="userbirth" class="form-control" minlength="8" maxlength="8" value="${sessionScope.userbirth}" readonly><br>
-   					<div class="genderButtons">
-					<button type="button" class="btn btn-secondary genderButton" ${sessionScope.usergender eq 'male' ? 'active' : ''}" data-gender="male" id="saveMale">남성</button>
-					<button type="button" class="btn btn-secondary genderButton" ${sessionScope.usergender eq 'female' ? 'active' : ''}" data-gender="female" id="saveFemale">여성</button>
-					</div>
-					<input type="text" name="userphone" class="form-control" required="required" minlength="11" maxlength="11" value="${sessionScope.userphone}" placeholder="연락처">
-					
-			
-					<input type="email" name="useremail" class="form-control" required="required" minlength="10" maxlength="50" value="${sessionScope.useremail}" multiple placeholder="이메일">
-					<br>
-				
+					<c:if test="${not empty userInfo}">
+    	<input type="text" name="userbirth" class="form-control" minlength="8" maxlength="8" value="${userInfo.userbirth}" readonly><br>
+    	<div class="genderButtons">
+        <button type="button" class="btn btn-secondary genderButton ${usergender eq 'male' ? 'active' : ''}" data-gender="male" id="saveMale">남성</button>
+        <button type="button" class="btn btn-secondary genderButton ${usergender eq 'female' ? 'active' : ''}" data-gender="female" id="saveFemale">여성</button>
+    	</div>
+    	<input type="text" name="userphone" class="form-control" required="required" minlength="11" maxlength="11" value="${userInfo.userphone}" placeholder="연락처">
+    	<input type="email" name="useremail" class="form-control" required="required" minlength="10" maxlength="50" value="${userInfo.useremail}" multiple placeholder="이메일">
+    	<br>
+	</c:if>
 					
 					<button type="submit" class="btn btn-secondary" id="memberchange" >회원수정</button>
 			</form>
