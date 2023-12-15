@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">;
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap">
 <script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -84,54 +84,94 @@ body {
 
 </style>
 <script type="text/javascript">
-document.querySelectorAll('.accordion-header').forEach(button => {
-    button.addEventListener('click', () => {
-        const accordionContent = button.nextElementSibling;
+$(document).ready(function() {
+	  $('.accordion-header').click(function() {
+	    const accordionContent = $(this).next();
 
-        button.classList.toggle('active');
+	    $(this).toggleClass('active');
 
-        if (button.classList.contains('active')) {
-            accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
-        } else {
-            accordionContent.style.maxHeight = 0;
-        }
+	    if ($(this).hasClass('active')) {
+	      accordionContent.css('max-height', accordionContent.prop('scrollHeight') + 'px');
+	    } else {
+	      accordionContent.css('max-height', '0');
+	    }
 
-        // Close other open accordion items
-        document.querySelectorAll('.accordion-header').forEach(otherButton => {
-            if (otherButton !== button) {
-                otherButton.classList.remove('active');
-                otherButton.nextElementSibling.style.maxHeight = 0;
-            }
-        });
-    });
-});
+	    $('.accordion-header').not(this).removeClass('active');
+	    $('.accordion-content').not(accordionContent).css('max-height', '0');
+	  });
+	});
 </script>
 <body>
+	<div class="allbox">
+	<div class="title">
+		<h3>자주 묻는 질문 FAQ</h3>
+	</div>
+
   <div class="accordion-container">
         <div class="accordion-item">
             <button class="accordion-header">
-                FAQ Question 1 <span class="icon">+</span>
+                Q. 예약을 취소하고 싶어요 <span class="icon">+</span>
             </button>
             <div class="accordion-content">
-                <p>Answer to question 1...</p>
+                <p>A: 
+                <br>
+                예약자 본인이 직접 예약확인/취소 가능합니다.
+                <br>
+				예약/결제 당시 안내된 취소/환불 규정에 따라 처리되며, 취소수수료가 발생 시 취소수수료를 차감한 금액으로 환불 처리됩니다.</p>
             </div>
         </div>
         <div class="accordion-item">
             <button class="accordion-header">
-                FAQ Question 2 <span class="icon">+</span>
+                Q. 천재지변으로 인한 예약취소는 어떻게 하나요? <span class="icon">+</span>
             </button>
             <div class="accordion-content">
-                <p>Answer to question 2...</p>
+                <p>A: 
+                <br>
+                일반적인 우천에 의한 예약 취소 및 변경 불가합니다.
+                <br>
+                태풍 등 기상 특보 시, 입실 당일 현장 날씨 및 캠핑장/펜션의 정책에 따라 연기 또는 취소 결정됩니다.
+				<br>
+				입실 당일 오전에 캠핑장/펜션에 연락하셔서 안내 받으시기 바랍니다.</p>
             </div>
         </div>
         <div class="accordion-item">
             <button class="accordion-header">
-                FAQ Question 3 <span class="icon">+</span>
+                Q. 입실일을 변경하고 싶어요. <span class="icon">+</span>
             </button>
             <div class="accordion-content">
-                <p>Answer to question 3...</p>
+                <p>A: 
+                <br>
+                예약 이용일 변경은 불가능합니다.
+                <br>
+				취소 수수료를 확인하시고 기존 예약건을 취소하신 다음 재예약하셔야 합니다.</p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Q. 취소수수료 산정 기준은 어떻게 되나요? <span class="icon">+</span>
+            </button>
+            <div class="accordion-content">
+                <p>A. 
+                <br>
+                예약 취소 후 간편결제 사업자, 은행 또는 신용카드사에 따라 환불 절차에 일정 시간이 소요될 수 있습니다.
+                <br>
+                영업일 기준(토/일/공휴일 제외) 실시간 계좌이체는 2~3일, 신용카드는 3~5일 소요됩니다.
+                </p>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <button class="accordion-header">
+                Q. 예약 취소했는데 언제 환불되나요? <span class="icon">+</span>
+            </button>
+            <div class="accordion-content">
+                <p>A: 
+                <br>
+                예약 취소 후 간편결제 사업자, 은행 또는 신용카드사에 따라 환불 절차에 일정 시간이 소요될 수 있습니다.
+                <br>
+				영업일 기준(토/일/공휴일 제외) 실시간 계좌이체는 2~3일, 신용카드는 3~5일 소요됩니다.</p>
             </div>
         </div>
     </div>
+   </div>
 </body>
 </html>
