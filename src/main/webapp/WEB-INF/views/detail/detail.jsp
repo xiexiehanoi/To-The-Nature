@@ -167,21 +167,25 @@ String userId = (String) session.getAttribute("userid");
 
 $(document).ready(function () {
     getreviewlist(campingNum);
+    updateHeartIcon();
         // 찜하기 추가
-$(document).on("click", "#heartIcon", function () {
-    if (iswished == "0") {
+    $(document).on("click", "#heartIcon", function () {
+    	if(userId == null){
+    		alert("로그인 후 이용 가능하십니다.")
+    	}else{
+        var ajaxUrl = iswished == "0" ? "./detail/insertWish" : "./detail/deleteWish";
         $.ajax({
             type: "POST",
-            url: "./detail/insertWish",
+            url: ajaxUrl,
             data: {
                 userId: userId,
                 campingNum: campingNum
             },
             success: function (res) {
                 if (res.success) {
-                    iswished = "1";
-                    $("#heartIcon").removeClass("bi-heart").addClass("bi-heart-fill").css("color", "red");
-                    console.log(iswished);
+                    iswished = iswished == "0" ? "1" : "0";
+                    updateHeartIcon();
+                    updateCountWish(); // countwish 업데이트 함수를 호출
                 } else {
                     console.error("Error:", res.error);
                 }
@@ -190,28 +194,9 @@ $(document).on("click", "#heartIcon", function () {
                 console.error("Ajax Error:", error);
             }
         });
-    } else if (iswished == "1") {
-        $.ajax({
-            type: "POST",
-            url: "./detail/deleteWish",
-            data: {
-                userId: userId,
-                campingNum: campingNum
-            },
-            success: function (res) {
-                if (res.success) {
-                    iswished = "0";
-                    $("#heartIcon").removeClass("bi-heart-fill").addClass("bi-heart").css("color", "red");
-                } else {
-                    console.error("Error:", res.error);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("Ajax Error:", error);
-            }
-        });
-    }
-});
+    	}
+    });
+
 	//사진 더보기 버튼	
   
         var visibleImages = 5; // 한 번에 표시할 이미지 수
@@ -275,17 +260,6 @@ $(document).on("click", "#heartIcon", function () {
 	        })
 	    	
 	    });//readyclose
-    
-    //예약 내용 보내기
-	function submitReservation() {
-		  const formData = new FormData(document.getElementById('reservationForm'));
-		  document.getElementById('reservationForm').action = './reservation';
-		  document.getElementById('reservationForm').method = 'POST';
-		  // 폼을 제출
-		  document.getElementById('reservationForm').submit();
-		
-		  $('#reservationModal').modal('hide');
-		}
 
 	//review 불러오기
 function getreviewlist(campingNum) {
@@ -348,7 +322,17 @@ function getreviewlist(campingNum) {
         }
     });
 }
+function updateHeartIcon() {
+    if (iswished == "1") {
+        $("#heartIcon").removeClass("bi-heart").addClass("bi-heart-fill").css("color", "red");
+    } else {
+        $("#heartIcon").removeClass("bi-heart-fill").addClass("bi-heart").css("color", "");
+    }
+}
 
+function updateCountWish() {
+	$("#countWish").text(newCountWish);
+}
 </script>
 <body>
 <input type="hidden" name="userId" value="${sessionScope.userid}">
