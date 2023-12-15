@@ -92,7 +92,8 @@ a {
     text-decoration: underline;
 }
 a:visited {
-    color: hsla(var(--primary), .5);
+    /* color: hsla(var(--primary), .5); */
+    color: hsl(var(--quite-gray));
 }
 
 /* =========
@@ -252,12 +253,23 @@ select {
     transition: width .35s cubic-bezier(var(--transition-main), 1);
     overflow-y: auto;
     overflow-x: hidden;
-    right: 0;
+    left: 0;
+    /* right: 0; */
 }
 #navbar:hover {
     width: 16em;
-    right: 0;
+    /* right: 0; */
 }
+
+#navbar.hover{
+	width: 16em;
+}
+
+#navbar.hover .link-text {
+	width: calc(100% - calc(5rem - 8px));
+    opacity: 1;
+}
+
 #navbar::-webkit-scrollbar-track {
     background-color: hsl(var(--background-secondary));
 }
@@ -308,7 +320,8 @@ select {
 }
 .navbar-item-inner:hover {
     color: hsl(var(--white));
-    background: hsl(var(--background-secondary-light));
+    /* background: hsl(var(--background-secondary-light)); */
+    background: #528171;
     box-shadow: 0 17px 30px -10px hsla(var(--black), .25);
 }
 .navbar-item-inner-icon-wrapper {
@@ -331,6 +344,62 @@ select {
 #navbar:hover .link-text {
     width: calc(100% - calc(5rem - 8px));
     opacity: 1;
+}
+
+
+/* =============
+    ::Sub List
+   ============= */
+
+/* sub list */
+
+/* My Page 영역을 hover 했을 때 sub-menu를 보이게 하는 스타일 추가 */
+#navbar #mypage:hover #mypageSubMenu,
+#navbar.hover #mypageSubMenu {
+    display: block;
+}
+
+/* sub-menu에 대한 스타일 */
+#mypageSubMenu {
+    background: #1E2B32;
+    margin-left: 16em; /* 수정: Navbar가 확장된 상태에서의 마진 조절 */
+    margin-top: 17.5em; /* 수정: Navbar에 따른 상단 마진 제거 */
+    display: none;
+    position: fixed; /* 수정: 고정 위치로 조절 */
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 12em; /* 수정: sub-menu의 폭을 조절 */
+    cursor: pointer;
+}
+
+/* sub-menu의 각 항목에 대한 스타일 */
+#mypageSubMenu li {
+    padding: 1em;
+    list-style: none;
+    border-bottom: none; /* 밑줄 제거 */
+}
+
+/* My Page 영역을 hover 했을 때 sub-menu의 각 항목을 보이게 하는 스타일 */
+#mypage:hover #mypageSubMenu li {
+    display: block;
+    border-bottom: 1px solid #39444d;
+}
+
+/* 기존의 Navbar 확장 시 마진 조절 스타일 */
+#navbar:hover #mypageSubMenu {
+	display: block;
+    margin-left: 16em;
+    cursor: pointer;
+}
+
+/* 기존의 Navbar 확장 시 sub-menu의 각 항목을 보이게 하는 스타일 */
+#navbar:hover #mypageSubMenu li {
+    display: block;
+}
+
+
+#mypageSubMenu li a {
+    text-decoration: none;
 }
 
 

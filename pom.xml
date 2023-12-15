@@ -215,6 +215,9 @@
        <artifactId>three</artifactId>
        <version>0.155.0</version> <!-- Three.js의 원하는 버전으로 변경 -->
    	  </dependency>
+   	  
+   	  
+   	 
               
    </dependencies>
 
