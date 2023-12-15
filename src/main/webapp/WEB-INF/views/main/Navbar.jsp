@@ -41,22 +41,42 @@
             });
         });
     });
-    
-    
+     
     $(document).ready(function () {
+        var isNavbarHovered = false;
+
         // My Page 영역을 hover 했을 때 세부 목록을 보이게 하는 스크립트
         $('#mypage').hover(function () {
-            $('#mypageSubMenu').css('display', 'block');
-        }, function () {
-            $('#mypageSubMenu').css('display', 'none');
-        });
-        
-        $('#mypageSubMenu').hover(function () {
-            $('#mypageSubMenu').css('display', 'block');
-            $('#navbar').addClass('hover');
+            // 추가된 조건: sessionScope.loginok 값이 있을 때만 실행
+            if (${not empty sessionScope.loginok}) {
+                $('#mypageSubMenu').css('display', 'block');
+                $('#navbar').addClass('hover');
+                isNavbarHovered = true;
+            }
         }, function () {
             $('#mypageSubMenu').css('display', 'none');
             $('#navbar').removeClass('hover');
+            isNavbarHovered = false;
+        });
+
+        $('#mypageSubMenu').hover(function () {
+            // 추가된 조건: sessionScope.loginok 값이 있을 때만 실행
+            if (${not empty sessionScope.loginok}) {
+                $(this).css('display', 'block');
+                $('#navbar').addClass('hover');
+                isNavbarHovered = true;
+            }
+        }, function () {
+            $(this).css('display', 'none');
+            $('#navbar').removeClass('hover');
+            isNavbarHovered = false;
+        });
+
+        // 마우스가 #navbar 영역에서 벗어나면 hover 클래스를 제거하지만, 마우스가 다른 곳에 있으면 유지
+        $('#navbar').mouseleave(function () {
+            if (!isNavbarHovered) {
+                $('#navbar').removeClass('hover');
+            }
         });
     });
     

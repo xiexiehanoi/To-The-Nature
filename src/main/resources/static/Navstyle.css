@@ -261,8 +261,13 @@ select {
     /* right: 0; */
 }
 
-.hover #navbar{
+#navbar.hover{
 	width: 16em;
+}
+
+#navbar.hover .link-text {
+	width: calc(100% - calc(5rem - 8px));
+    opacity: 1;
 }
 
 #navbar::-webkit-scrollbar-track {
@@ -358,7 +363,7 @@ select {
 #mypageSubMenu {
     background: #1E2B32;
     margin-left: 16em; /* 수정: Navbar가 확장된 상태에서의 마진 조절 */
-    margin-top: 15.7em; /* 수정: Navbar에 따른 상단 마진 제거 */
+    margin-top: 17.5em; /* 수정: Navbar에 따른 상단 마진 제거 */
     display: none;
     position: fixed; /* 수정: 고정 위치로 조절 */
     border-top-right-radius: 15px;
