@@ -69,13 +69,16 @@ function list()
             // userGender가 female이면 여성 버튼에 색상 적용 및 비활성화
             applyButtonStyle('saveFemale');
         }
-     // 각 버튼에 마우스를 갖다대었을 때 비활성화 상태로 설정
-        $('.genderButton').mouseenter(function () {
-            $(this).attr('disabled', true);
-        });
+        
     });
 
-   
+    // 버튼에 색상 적용 및 비활성화하는 함수
+    function applyButtonStyle(buttonId) {
+        // 클릭된 버튼을 제외한 다른 버튼 비활성화
+         $('.genderButton').attr('disabled', true);
+         $('#' + buttonId).attr('disabled', false).addClass('active');
+     
+    }
 	//댓글 출력하는 함수
 	$.ajax({
 		type:"get",

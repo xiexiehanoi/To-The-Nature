@@ -67,6 +67,7 @@
       <div class="navbar-item-inner-icon-wrapper flexbox">
           	<i class="bi bi-box-arrow-left" style="font-size: 24px;color: white;margin-right: 6px;"></i>
       </div>
+      
       <div class="link-text" style="margin-bottom: 12px;"> 
     	<!-- 세션에 loginok 값이 있으면 (로그인 상태이면) 로그아웃 버튼 표시 -->
     	<h5 style="color: white;margin-bottom: 12px;">${sessionScope.userid} 님</h5>
@@ -87,7 +88,9 @@
         <c:when test="${empty sessionScope.loginok}">
             <!-- 세션에 loginok 값이 없으면 (로그인 상태가 아니면) 로그인 페이지로 이동 -->
             <a href="${root}/login/main" class="navbar-item-inner flexbox-right">
-        		<div class="navbar-item-inner-icon-wrapper flexbox">
+        		<c:if test="${dto.photocount>0}">
+		   				<img src="../res/photo/re.png">
+		   			</c:if>
           			<i class="bi bi-person" style="font-size: 24px;color: white;margin-right: 6px;"></i>
         		</div>
         		<span class="link-text">My Page</span>

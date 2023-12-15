@@ -68,6 +68,9 @@ public class MypageController {
 
 	    return "mypage/mychange";
 	}
+	
+	
+	
 	@GetMapping("/mypage/account")
 	public String myaccount() {
 		
