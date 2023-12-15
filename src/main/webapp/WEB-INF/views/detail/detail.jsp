@@ -301,11 +301,20 @@ function getreviewlist(campingNum) {
                 review += '<th>작성일</th>';
                 review += '</tr>';
                 $.each(res.reviewlist, function (index, item) {
+                	var createdDate = new Date(item.created_at);
+                	
+                	var year = createdDate.getFullYear();
+                	var month = String(createdDate.getMonth() + 1).padStart(2, '0');
+                	var day = String(createdDate.getDate()).padStart(2, '0');
+                	var hour = String(createdDate.getHours()).padStart(2, '0');
+                	var minute = String(createdDate.getMinutes()).padStart(2, '0');
+
+                	var createdate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;;
                     review += '<tr>';
                     review += '<td>' + item.userid + '</td>';
                     review += '<td>' + item.content + '</td>';
                     review += '<td>' + item.rate + '</td>';
-                    review += '<td>' + item.created_at + '</td>';
+                    review += '<td>' + createdate + '</td>';
                     review += '</tr>';
                 });
                 review += '</table>';
