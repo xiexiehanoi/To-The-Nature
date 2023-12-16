@@ -154,6 +154,7 @@ String userId = (String) session.getAttribute("userid");
     var userId = '<%= userId %>';
     var iswished = ${campinglist[0].iswished};
     
+    
     <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
@@ -165,9 +166,56 @@ String userId = (String) session.getAttribute("userid");
 		  $('#reservationModal').modal('hide');
 		}
 	
+	
+	
 $(document).ready(function () {
     getreviewlist(campingNum);
     updateHeartIcon();
+    
+ // countPerson 함수 수정
+    function countPerson() {
+        var adults = parseInt($("#adults").val());
+        var children = parseInt($("#children").val());
+        var totalPerson = adults + children;
+
+        $("#totalPerson").html('<b>' + totalPerson + '</b>');
+    }
+
+    // totalAmount 함수 수정
+    function totalAmount(amount, countdate) {
+        var totalAmount = amount * countdate;
+        $("#totalAmount").html('<strong>' + new Intl.NumberFormat('ko-KR').format(totalAmount) + ' 원</strong>');
+    }
+
+    // 성인과 미성년자 입력 값이 변경될 때 countPerson 함수 호출
+    $("#adults, #children").on("input", countPerson);
+
+
+    // 페이지 로드 시 초기 계산 실행
+    countPerson();
+	
+    //숙박일 수 구하기
+    $("#startDate, #endDate").on("change", function () {
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var campingAmount = parseInt(document.getElementById("campingAmount").value);
+        
+        console.log("startDate:", startDate);
+        console.log("endDate:", endDate);
+        console.log("campingAmount:", campingAmount);
+
+        if (!isNaN(new Date(startDate).getTime()) && !isNaN(new Date(endDate).getTime())) {
+            var timeDiff = Math.abs(new Date(endDate).getTime() - new Date(startDate).getTime());
+            var countdate = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            $("#totalDates").html('<strong>' + countdate + '일</strong>');
+            totalAmount(campingAmount, countdate);
+        } else {
+            // 날짜 형식이 올바르지 않을 경우 처리
+            $("#totalDates").html("");
+            $("#totalAmount").html("");
+        }
+    });
+	
         // 찜하기 추가
     $(document).on("click", "#heartIcon", function () {
     	if(userId == null){
@@ -379,6 +427,12 @@ function updateCountWish() {
 							<th scope="col">반려동물 출입 여부</th>
 							<td>${dto.animalCmgCl}</td>
 						</tr>
+						<tr class="camp_amount">
+							<th scope="col">1박 가격</th>
+							<td>
+								<fmt:formatNumber value="${dto.amount}" pattern="###,### 원/일" />	
+							</td>
+						</tr>
 						<tr class="camp_toilet">
 							<th scope="col">화장실</th>
 							<td>${dto.toiletCo}</td>
@@ -514,7 +568,7 @@ function updateCountWish() {
 										required>
 								</div>
 								<div class="mb-3 input-group">
-									<label for="adults" class="form-label ">성인</label> 
+									<label for="adults" class="form-label">성인</label> 
 									<input type="number" class="form-control datainput" id="adults"
 										name="adult_count" min="1" value="1" required> <label for="children"
 										class="form-label">미성년자(만0세~17세)</label> <input type="number"
@@ -522,13 +576,14 @@ function updateCountWish() {
 										min="0" required>
 								</div>
 								<div class="mb-3">
-			                        <label for="totalNights" class="form-label">총 숙박 일: <span id="totalNights">0 박</span></label>
+			                        <label for="totalNights" class="form-label">총 숙박 일 : <span id="totalDates"></span></label>
 			                    </div>
 			                    <div class="mb-3">
-			                        <label for="totalPerson" class="form-label"><span id="totalPerson">총 인원: 0 명</span></label>
+			                        <label for="totalPerson" class="form-label">총 인원 : <span id="totalPerson"></span></label>
 			                    </div>
 			                    <div class="mb-3">
-			                        <label for="totalAmount" class="form-label">총 금액: <span id="totalAmount">0 원</span></label>
+			                        <label for="totalAmount" class="form-label">총 금액 : <span id="totalAmount"></span></label>
+			                    	<input type="hidden" id="campingAmount" value="${dto.amount}">
 			                    </div>
 								<button type="button" class="btn btn-primary"
 									onclick="submitReservation()">Confirm Reservation</button>
