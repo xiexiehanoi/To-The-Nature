@@ -13,8 +13,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 <script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y9u6f6xda4"></script>
 </head>
 <style>
+.camp_container {
+    margin: 5% 5%;
+    background-color: white; /* 배경색을 흰색으로 설정 */
+}
 .camp_info_box {
     width: 90%;
     height: auto;
@@ -86,6 +91,21 @@ hr{
     margin: 0 auto;
 }
 
+.camping_icon_list {
+  list-style: none;
+  display: flex;
+  /* 아래 스타일을 추가하여 가로로 배열합니다. */
+  flex-direction: row;
+}
+
+.camping_icon_list li {
+  margin-right: 10px; /* 각 항목 사이의 간격을 조절할 수 있습니다. */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 텍스트를 가운데 정렬합니다. */
+  text-align: center; /* 텍스트를 가운데 정렬합니다. */
+}
+
 .reviewbox{
 	width: 90%;
     height: auto;
@@ -118,31 +138,41 @@ hr{
   background-size: 100%; 
   box-sizing: border-box; 
 }
-.start_boxs{
-  width:80%;
+.start_boxs {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
+
 .star_box {
-  width: 600px;
+  flex: 1;
   box-sizing: border-box;
-  display: inline-block;
-  margin: 15px 0;
+  margin: 0;
   background: #F3F4F8;
   border: 0;
   border-radius: 10px;
-  height: 60px;
   resize: none;
   padding: 15px;
   font-size: 13px;
   font-family: sans-serif;
   vertical-align: top;
 }
+
 .btn02 {
-  display:inline-block;;
-  width: 80px;
+  width: auto;
+  height: auto;
+  margin: 0;
+  border-radius: 10px
 }
 
 .yellowstar{
   font-color: gold;
+}
+
+.camp_map{
+	width: 90%;
+    height: auto;
+    margin: 0 auto;
 }
 </style>
 <%
@@ -233,7 +263,7 @@ $(document).ready(function () {
                 if (res.success) {
                     iswished = iswished == "0" ? "1" : "0";
                     updateHeartIcon();
-                    updateCountWish(); // countwish 업데이트 함수를 호출
+                    $("#countWish").text(res.updatedCountWish);
                 } else {
                     console.error("Error:", res.error);
                 }
@@ -384,6 +414,7 @@ function updateCountWish() {
 </script>
 <body>
 <input type="hidden" name="userId" value="${sessionScope.userid}">
+<div class="camp_container">
 <c:forEach var="dto" items="${campinglist}">
 	<div class="camp_info_box">
 			<!-- 메인 사진 부분 -->
@@ -450,7 +481,7 @@ function updateCountWish() {
 				<!-- 테이블 아래 찜, 리뷰, 예약 -->
 				<div class="btn_bottom input-group">
 					<span>
-						<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기 ${dto.countwish}				
+						<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기<span id="countWish">${dto.countwish}</span>				
 					</span>
 					<span id="reviewInfo">
 						<i class="bi bi-star-fill" style="color: gold;"></i><span class="countReview"></span> 
@@ -596,6 +627,36 @@ function updateCountWish() {
 	</c:forEach>
 	<br>
 	<hr>
+	<div class="camp_map">
+		<div class="camp_map_title">
+			<span><i class="bi bi-compass"></i>위치</span>
+		</div>
+		<div id="map" style="width: 100%; height: 400px;"></div>
+	    <script>
+	    	var mapX = Number("${campinglist[0]['mapX']}"); // 위도
+	    	var mapY = Number("${campinglist[0]['mapY']}"); // 경도
+	
+			var mapOptions = {
+				    center: new naver.maps.LatLng(mapY, mapX),
+				    zoom: 15
+				};
+	
+			//위치 표시하기
+			var map = new naver.maps.Map('map', {
+			    center: new naver.maps.LatLng(mapY, mapX),
+			    zoom: 15
+			});
+			
+			//위치 표시하기 marker
+			var marker = new naver.maps.Marker({
+			    position: new naver.maps.LatLng(mapY, mapX),
+			    map: map
+	        });
+	    </script>
+	    </div>
+    </div>
+	<br>
+	<hr>
 	<div class="reviewbox">
 		<br>
 		<div class="reviewTitle">
@@ -620,5 +681,6 @@ function updateCountWish() {
 			</div>
 		</div>	
 	</div>
+</div>
 </body>
 </html>

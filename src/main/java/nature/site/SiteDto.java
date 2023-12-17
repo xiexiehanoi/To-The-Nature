@@ -12,8 +12,8 @@ public class SiteDto {
     private String doNm;
     private String sigunguNm;
     private String addr1;
-    private double mapX;
-    private double mapY;
+    private String mapX;
+    private String mapY;
     private String tel;
     private String homepage;
     private String operDeCl;

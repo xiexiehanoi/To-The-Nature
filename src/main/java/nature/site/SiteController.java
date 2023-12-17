@@ -1,5 +1,6 @@
 package nature.site;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,9 @@ public class SiteController {
 	    siteParam.put("campingNum", num);
 
 	    List<Map<String, Object>> campinglist = siteService.getsearchcamping(siteParam);
+	    
 	    model.addAttribute("campinglist", campinglist);
+	    System.out.println(campinglist);
 	    model.addAttribute("userId", userId);
 	    model.addAttribute("campingNum", num);
 	    return "detail/detail.site";
