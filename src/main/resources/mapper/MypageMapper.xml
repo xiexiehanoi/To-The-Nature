@@ -16,7 +16,7 @@
     </select>
     <!-- 사용자의 정보를 가져오는 쿼리 -->
     <select id="getUserInfoByUserId" parameterType="String" resultType="Map">
-        SELECT userid, userbirth, usergender, userphone, useremail
+        SELECT userid,username, userbirth, usergender, userphone, useremail
         FROM user
         WHERE userid = #{userid}
     </select>
