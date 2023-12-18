@@ -109,11 +109,8 @@ hr{
   text-align: center; /* 텍스트를 가운데 정렬합니다. */
 }
 
-.reviewbox{
-	width: 90%;
-    height: auto;
-    margin: 0 auto;
-    border-radius: 20px;
+i{
+  font-size: 30px;
 }
 .star_rating {
   width: 100%; 
@@ -174,32 +171,40 @@ hr{
     margin: 0 auto;
 }
 
-.reviewtable {
+.reviewbox {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden; /* 바깥쪽 모서리만 보이도록 overflow를 숨김으로 설정 */
+}
+
+.reviewbox .reviewtable {
     width: 100%;
     font-size: 13px;
     font-family: sans-serif;
     box-sizing: border-box;
     resize: none;
+    border-collapse: separate;
 }
 
-.table {
+.reviewbox .table {
     width: 100%;
-    border-collapse: collapse;
-    border-radius: 15px;
+    border-collapse: separate;
     margin: 0;
 }
 
-
-.table td,
-.table th {
+.reviewbox .table td,
+.reviewbox .table th {
     padding: 8px;
     vertical-align: top;
-    border: 1px solid #e0e0e0; /* 각 셀에 테두리 추가 */
+    border: 1px solid #e0e0e0;
 }
 
-.yellowstar {
-    color: gold; /* 별점을 노란색으로 지정 */
+.reviewbox .yellowstar {
+    color: gold;
 }
+
 
 </style>
 <%
@@ -656,7 +661,7 @@ function updateCountWish() {
 	<hr>
 	<div class="camp_map">
 		<div class="camp_map_title">
-			<span><i class="bi bi-compass"></i>위치</span>
+			<span><i class="bi bi-compass icon"></i>위치</span>
 		</div>
 		<div id="map" style="width: 100%; height: 400px;"></div>
 	    <script>
@@ -679,6 +684,28 @@ function updateCountWish() {
 			    position: new naver.maps.LatLng(mapY, mapX),
 			    map: map
 	        });
+			
+			var contentString = [
+		        '<div class="iw_inner">',
+		        '   <h5>${campinglist[0].facltNm}</h5>',
+		        '   <p style="font-size:15px;">${campinglist[0].addr1}<br />',
+		        '   </p>',
+		        '</div>'
+		    ].join('');
+
+		var infowindow = new naver.maps.InfoWindow({
+		    content: contentString
+		});
+
+		naver.maps.Event.addListener(marker, "click", function(e) {
+		    if (infowindow.getMap()) {
+		        infowindow.close();
+		    } else {
+		        infowindow.open(map, marker);
+		    }
+		});
+
+		infowindow.open(map, marker);
 	    </script>
 	    </div>
 	<br>
