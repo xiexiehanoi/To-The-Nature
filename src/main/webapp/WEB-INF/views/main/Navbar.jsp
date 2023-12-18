@@ -40,60 +40,14 @@
                 }
             });
         });
-    });
-     
-    $(document).ready(function () {
-        var isNavbarHovered = false;
-
-        // My Page 영역을 hover 했을 때 세부 목록을 보이게 하는 스크립트
-        $('#mypage').hover(function () {
-            // 추가된 조건: sessionScope.loginok 값이 있을 때만 실행
-            if (${not empty sessionScope.loginok}) {
-                $('#mypageSubMenu').css('display', 'block');
-                $('#navbar').addClass('hover');
-                isNavbarHovered = true;
-            }
-        }, function () {
-            $('#mypageSubMenu').css('display', 'none');
-            $('#navbar').removeClass('hover');
-            isNavbarHovered = false;
-        });
-
-        $('#mypageSubMenu').hover(function () {
-            // 추가된 조건: sessionScope.loginok 값이 있을 때만 실행
-            if (${not empty sessionScope.loginok}) {
-                $(this).css('display', 'block');
-                $('#navbar').addClass('hover');
-                isNavbarHovered = true;
-            }
-        }, function () {
-            $(this).css('display', 'none');
-            $('#navbar').removeClass('hover');
-            isNavbarHovered = false;
-        });
-
-        // 마우스가 #navbar 영역에서 벗어나면 hover 클래스를 제거하지만, 마우스가 다른 곳에 있으면 유지
-        $('#navbar').mouseleave(function () {
-            if (!isNavbarHovered) {
-                $('#navbar').removeClass('hover');
-            }
-        });
-    });
-    
+    });   
 </script>
 </head>
 <body>
 
-<!-- 세부 항목 리스트 블록-->
-<ul class="sub-menu" id="mypageSubMenu">
-      <li><a href="${root}/mypage/main">회원 정보</a></li>
-      <li><a href="${root}/mypage/main">예약 내역</a></li>
-      <li><a href="${root}/mypage/main">리뷰 관리</a></li>
-      <li><a href="${root}/mypage/main">회원 탈퇴</a></li>
-</ul>
-
 <!-- Navbar -->
 <nav id="navbar">
+  <!-- My Page 영역을 hover 했을 때 세부 목록을 보이게 하는 스크립트 -->
   <ul class="navbar-items flexbox-col-right flexbox-left main-list">
     <li class="navbar-logo flexbox-left">
       <a class="navbar-item-inner flexbox" href="${root}">
@@ -123,12 +77,31 @@
 	  </c:if>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left">
+      <!-- <a class="navbar-item-inner flexbox-left">
         <span class="navbar-item-inner-icon-wrapper flexbox">
           <i class="bi bi-search" style="font-size: 20px;"></i>
         </span>
         <span class="link-text">켐핑장 찾기</span>
-      </a>
+      </a> -->
+      
+      <c:choose>
+    	<c:when test="${sessionScope.userid == null}">
+        	<a href="./plist?num=1&userId=null" class="navbar-item-inner flexbox-left">
+        		<span class="navbar-item-inner-icon-wrapper flexbox">
+          			<i class="bi bi-search" style="font-size: 20px;"></i>
+        		</span>
+        		<span class="link-text">켐핑장 찾기</span>
+      		</a>
+    	</c:when>
+        <c:otherwise>
+            <a href="./plist?num=1&userId=${sessionScope.userid}" class="navbar-item-inner flexbox-left">
+        		<span class="navbar-item-inner-icon-wrapper flexbox">
+          			<i class="bi bi-search" style="font-size: 20px;"></i>
+        		</span>
+        		<span class="link-text">켐핑장 찾기</span>
+      		</a>
+        </c:otherwise>
+      </c:choose>
     </li>
     <li class="navbar-item flexbox-left mypage-section" id="mypage">
       <c:choose>
@@ -152,6 +125,14 @@
         	<c:if test="${sessionScope.userid eq 'nature'}">
         		<a href="${root}/admin/main">Admin</a>
     		</c:if>
+    		
+    		<!-- 세부 항목 리스트 블록-->
+			<ul class="sub-menu" id="mypageSubMenu">
+      			<li><a href="${root}/mypage/main">회원 정보</a></li>
+      			<li><a href="${root}/mypage/main">예약 내역</a></li>
+      			<li><a href="${root}/mypage/main">리뷰 관리</a></li>
+      			<li><a href="${root}/mypage/main">회원 탈퇴</a></li>
+			</ul>
         </c:otherwise>
       </c:choose>
     </li>
@@ -201,8 +182,6 @@
       		</a>
         </c:otherwise>
       </c:choose>
-    
-      
     </li>
     <li class="navbar-item flexbox-left faq">
       <a class="navbar-item-inner flexbox-left">

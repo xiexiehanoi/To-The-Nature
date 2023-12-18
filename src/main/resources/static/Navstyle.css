@@ -37,13 +37,18 @@
 }
 html, body {
     margin: 0;
+    height: 0;
     width: 100%;
     color: hsl(var(--text-primary));
     font-family: var(--font-main);
-    background-color: hsl(var(--background));
+    /* background-color: hsl(var(--background)); */
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
     box-sizing: border-box;
+}
+
+.navbar{
+	width: 5em;
 }
 
 /* ============
@@ -130,11 +135,11 @@ ul, ol {
 form {
     margin: 0;
 }
-fieldset {
+/* fieldset {
     margin: 0;
     padding: .5em 0;
     border: none;
-}
+} */
 input {
     padding: .8em 1.2em;
     font-size: var(--paragraph);
@@ -258,6 +263,8 @@ select {
 }
 #navbar:hover {
     width: 16em;
+    border-top-right-radius: 15px;
+  	border-bottom-right-radius: 15px;
     /* right: 0; */
 }
 
@@ -353,23 +360,16 @@ select {
 
 /* sub list */
 
-/* My Page 영역을 hover 했을 때 sub-menu를 보이게 하는 스타일 추가 */
-#navbar #mypage:hover #mypageSubMenu,
-#navbar.hover #mypageSubMenu {
-    display: block;
-}
-
-/* sub-menu에 대한 스타일 */
-#mypageSubMenu {
-    background: #1E2B32;
-    margin-left: 16em; /* 수정: Navbar가 확장된 상태에서의 마진 조절 */
-    margin-top: 17.5em; /* 수정: Navbar에 따른 상단 마진 제거 */
-    display: none;
-    position: fixed; /* 수정: 고정 위치로 조절 */
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    width: 12em; /* 수정: sub-menu의 폭을 조절 */
-    cursor: pointer;
+#mypage #mypageSubMenu{
+  background: #1E2B32;
+  margin-left: 15.5em;
+  margin-top: 10.5em;
+  display: none;
+  position: fixed;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  width: 12em; /* 수정: sub-menu의 폭을 조절 */
+  cursor: pointer;
 }
 
 /* sub-menu의 각 항목에 대한 스타일 */
@@ -379,29 +379,14 @@ select {
     border-bottom: none; /* 밑줄 제거 */
 }
 
-/* My Page 영역을 hover 했을 때 sub-menu의 각 항목을 보이게 하는 스타일 */
-#mypage:hover #mypageSubMenu li {
-    display: block;
-    border-bottom: 1px solid #39444d;
+#mypage:hover > #mypageSubMenu{
+  display: block;
+  cursor: pointer;
 }
 
-/* 기존의 Navbar 확장 시 마진 조절 스타일 */
-#navbar:hover #mypageSubMenu {
-	display: block;
-    margin-left: 16em;
-    cursor: pointer;
+#mypage #mypageSubMenu li a:hover{
+	color: white;
 }
-
-/* 기존의 Navbar 확장 시 sub-menu의 각 항목을 보이게 하는 스타일 */
-#navbar:hover #mypageSubMenu li {
-    display: block;
-}
-
-
-#mypageSubMenu li a {
-    text-decoration: none;
-}
-
 
 /* =============
     ::Selectors
