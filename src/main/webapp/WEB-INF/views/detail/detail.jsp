@@ -16,6 +16,7 @@
 <script type="text/javascript"src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y9u6f6xda4"></script>
 </head>
 <style>
+<style>
 .body{
 	background-color: white;
 }
@@ -80,13 +81,15 @@ hr{
     border-radius: 20px;
     flex-wrap: wrap;
     gap: 10px; /* 이미지 사이의 간격 조정 */
+	border-radius: 8px;
 }
 .hidden-image {
     max-width: 22.5%;
     height: 200px; /* 이미지 너비 조정 (4개씩 배치하려면 25%) */
+    border-radius: 8px;
 }
 .hidden {
-    display: none; /* hidden 클래스를 가진 요소 숨김 */
+    display: none;
 }
 .camping_information_group{
 	width: 90%;
@@ -94,23 +97,33 @@ hr{
     margin: 0 auto;
 }
 
-.camping_icon_list {
-  list-style: none;
-  display: flex;
-  /* 아래 스타일을 추가하여 가로로 배열합니다. */
-  flex-direction: row;
+.camping_facility {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
-.camping_icon_list li {
-  margin-right: 10px; /* 각 항목 사이의 간격을 조절할 수 있습니다. */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 텍스트를 가운데 정렬합니다. */
-  text-align: center; /* 텍스트를 가운데 정렬합니다. */
+.camping_icon_list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    align-items: center;
+    text-align: center;
+}
+
+.camping_icon_list i {
+    font-size: 40px;
+    color: #f5dcb7;
+    display: block;
 }
 
 i{
   font-size: 30px;
+  color: #f5dcb7;
+}
+.i_heart{
+  color:red;
 }
 .star_rating {
   width: 100%; 
@@ -138,8 +151,9 @@ i{
   background-size: 100%; 
   box-sizing: border-box; 
 }
+
 .start_boxs {
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
 }
@@ -155,7 +169,6 @@ i{
   padding: 15px;
   font-size: 13px;
   font-family: sans-serif;
-  vertical-align: top;
 }
 
 .btn02 {
@@ -176,7 +189,6 @@ i{
     height: auto;
     margin: 0 auto;
     border-radius: 20px;
-    overflow: hidden; /* 바깥쪽 모서리만 보이도록 overflow를 숨김으로 설정 */
 }
 
 .reviewbox .reviewtable {
@@ -185,12 +197,12 @@ i{
     font-family: sans-serif;
     box-sizing: border-box;
     resize: none;
-    border-collapse: separate;
+    border-collapse: collapse;
 }
 
 .reviewbox .table {
     width: 100%;
-    border-collapse: separate;
+    border-collapse: collapse;
     margin: 0;
 }
 
@@ -205,6 +217,9 @@ i{
     color: gold;
 }
 
+.camp_location{
+	font-size: 30px;
+}
 
 </style>
 <%
@@ -513,7 +528,7 @@ function updateCountWish() {
 				<!-- 테이블 아래 찜, 리뷰, 예약 -->
 				<div class="btn_bottom input-group">
 					<span>
-						<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기<span id="countWish">${dto.countwish}</span>				
+						<i id="heartIcon" class="bi bi-heart i_heart" style="color: red;"></i>&nbsp;찜하기<span id="countWish">${dto.countwish}</span>				
 					</span>
 					<span id="reviewInfo">
 						<i class="bi bi-star-fill" style="color: gold;"></i><span class="countReview"></span> 
@@ -561,7 +576,7 @@ function updateCountWish() {
 			<h3 class="camping_info">
 				<i class="bi bi-info-circle-fill"></i>&nbsp;캠핑장 시설정보
 			</h3>
-			<p class="camping_facility">
+			<div class="camping_facility">
 				<c:forEach var="sbrcl" items="${fn:split(dto.sbrsCl, ',')}">
 					<ul class="camping_icon_list">
 						<c:choose>
@@ -601,7 +616,7 @@ function updateCountWish() {
 						</c:choose>
 					</ul>
 				</c:forEach>
-			</p>
+			</div>
 			<!-- Your existing HTML code goes here -->
 			<div class="modal fade" id="reservationModal" tabindex="-1"
 				aria-labelledby="reservationModalLabel" aria-hidden="true">
