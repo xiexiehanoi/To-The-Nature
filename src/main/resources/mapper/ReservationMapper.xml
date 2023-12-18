@@ -8,4 +8,9 @@
 	<select id="selectgetUser" parameterType="String" resultType="UserDto">
 		select * from user where userid = #{userid}
 	</select>
+	
+	<insert id="insertReservation" parameterType="ReservationDto">
+		insert into reservation (user_num,reservationDate,startDate,endDate,adult_count,child_count,camping_num,merchant_uid,imp_uid,amount) 
+		values (#{user_num},#{reservationDate},#{startDate},#{endDate},#{adult_count},#{child_count},#{camping_num},#{merchant_uid},#{imp_uid},#{amount})
+	</insert>
 </mapper>

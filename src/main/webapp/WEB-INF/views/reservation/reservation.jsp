@@ -7,54 +7,60 @@
 <html>
 <head>
 <!-- PortOne SDK -->
-	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-	<script>
-      var IMP = window.IMP;
-      IMP.init("imp00141082");
- 
-      function requestPay() {
-    	  IMP.request_pay(
-    			  {
-    			    pg: "html5_inicis.INIBillTst", // 실제 계약 후에는 실제 상점아이디로 변경
-    			    pay_method: "card", // 'card'만 지원됩니다.
-    			    merchant_uid: 'merchant_' + new Date().getTime(), // 상점에서 관리하는 주문 번호
-    			    
-    			    name: "${CampsiteName}",
-    			    amount: 1000, // 결제창에 표시될 금액. 실제 승인이 이뤄지지는 않습니다.
-    			    buyer_email: "${userDto.useremail}",
-    			    buyer_name:  "${userDto.username}",
-    			    buyer_tel:   "${userDto.userphone}",
-    			  },
-    			  function (rsp) {
-    				  console.log(rsp);
-    					
-    					 //결제 성공 시
-    					if (rsp.success) {
-    						var msg = '결제가 완료되었습니다.';
-    						console.log("결제성공 ");
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script>
+	var IMP = window.IMP;
+	IMP.init("imp00141082");
 
-    						$.ajax({
-    							type: "POST",
-    							url: '../payment',
-    							data: {
-    								amount: 1000,
-    								imp_uid: rsp.imp_uid,
-    								merchant_uid: rsp.merchant_uid
-    							}
-    						});
-    					} else {
-    						var msg = '결제에 실패하였습니다.';
-    						msg += '에러내용 : ' + rsp.error_msg;
-    					}
-    					alert(msg);
-    			    
-    			  }
-    			);
-      };
-    </script>
+	function requestPay() {
+		IMP.request_pay({
+			pg : "html5_inicis.INIBillTst", // 실제 계약 후에는 실제 상점아이디로 변경
+			pay_method : "card", // 'card'만 지원됩니다.
+			merchant_uid : 'merchant_' + new Date().getTime(), // 상점에서 관리하는 주문 번호
+			name : "${CampsiteName}",
+			amount : 1000, // 결제창에 표시될 금액. 실제 승인이 이뤄지지는 않습니다.
+			buyer_email : "${userDto.useremail}",
+			buyer_name : "${userDto.username}",
+			buyer_tel : "${userDto.userphone}",
+
+		}, function(rsp) {
+			console.log(rsp);
+
+			if (rsp.success) {
+				var msg = '결제가 완료되었습니다.';
+				console.log("결제성공 ");
+
+			    // 첫 번째 AJAX 요청
+	            $.ajax({
+	                type : "POST",
+	                url : '/nature/reservation',
+	                dataType: "text",
+	                data : {
+	                    user_num : ${userDto.usernum},
+	                    reservationDate : "${rDto.reservationDate}",
+	                    startDate : "${rDto.startDate}",
+	                    endDate : "${rDto.endDate}",
+	                    adult_count : ${rDto.adult_count},
+	                    child_count : ${rDto.child_count},
+	                    camping_num : ${rDto.camping_num}
+	                    user_num : ${userDto.userid},
+                        imp_uid : rsp.imp_uid,
+                        merchant_uid : rsp.merchant_uid,
+                       s
+	                }
+	            });
+			   
+	        } else {
+	            var msg = '결제에 실패하였습니다.';
+	            msg += '에러내용 : ' + rsp.error_msg;
+	        }
+	        alert(msg);
+	    }); 
+	}; 
+</script>
 <meta charset="UTF-8">
 <title>예약 페이지</title>
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -63,10 +69,10 @@
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<style>
-    .hidden-form {
-        display: none;
-    }
+<style>
+.hidden-form {
+	display: none;
+}
 </style>
 
 </head>
@@ -89,7 +95,7 @@
 		// 증가 버튼
 		$('.plus').on('click', function() {
 			// 서버에서 설정한 roomCount 값을 직접 넣어주세요.
-			var roomCount = ${roomCount};
+			var roomCount = ${roomCount}
 
 			if (currentValue < roomCount) {
 				currentValue++;
@@ -150,8 +156,8 @@
 			<div class="d-flex flex-column body-normal">
 				<div class="d-flex align-items-center justify-content-between mb-0">
 					<label for="closeSite1" class="first-column-division2">이름 <span
-						class="required">(필수)</span></label> <input type="text"
-						id="closeSite1" class="input-area-border second-column-division2 mb-0 is-invalid"
+						class="required">(필수)</span></label> <input type="text" id="closeSite1"
+						class="input-area-border second-column-division2 mb-0 is-invalid"
 						value="${userDto.username}">
 				</div>
 				<div class="d-flex justify-content-between">
@@ -161,9 +167,10 @@
 						style="display: none;">한글 또는 영문자만 입력가능합니다.</span>
 				</div>
 				<div class="d-flex align-items-center justify-content-between mb-0">
-					<label for="closeSite2" class="first-column-division2">연락처 <span
-						class="required">(필수)</span></label> <input type="tel"
-						id="closeSite2" class="input-area-border second-column-division2 mb-0 is-invalid"
+					<label for="closeSite2" class="first-column-division2">연락처
+						<span class="required">(필수)</span>
+					</label> <input type="tel" id="closeSite2"
+						class="input-area-border second-column-division2 mb-0 is-invalid"
 						value="${userDto.userphone}">
 				</div>
 				<div class="d-flex justify-content-between">
@@ -173,9 +180,10 @@
 						style="display: none;">올바른 휴대폰 번호를 입력해주세요.</span>
 				</div>
 				<div class="d-flex align-items-center justify-content-between mb-0">
-					<label for="closeSite3" class="first-column-division2">이메일 <span
-						class="optional">(선택)</span></label> <input type="email"
-						id="closeSite3" class="input-area-border second-column-division2 mb-0"
+					<label for="closeSite3" class="first-column-division2">이메일
+						<span class="optional">(선택)</span>
+					</label> <input type="email" id="closeSite3"
+						class="input-area-border second-column-division2 mb-0"
 						value="${userDto.useremail}">
 				</div>
 				<div class="d-flex justify-content-between">
@@ -188,7 +196,8 @@
 					<label for="closeSite4" class="first-column-division2">요청사항
 						<span class="optional">(선택)</span>
 					</label>
-					<textarea id="closeSite4" class="input-area-border second-column-division2 mb-0"></textarea>
+					<textarea id="closeSite4"
+						class="input-area-border second-column-division2 mb-0"></textarea>
 				</div>
 			</div>
 		</form>
@@ -347,96 +356,114 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- hidden form -->
 	<form id="myForm" class="hidden-form">
 		<input type="text" name="CampsiteName" value="${CampsiteName}">
-		<input type="text" name="userid" value="${userDto.userid}">
-		<input type="text" name="username" value="${userDto.username}">
-		<input type="text" name="userphone" value="${userDto.userphone}">
-		<input type="text" name="useremail" value="${userDto.useremail}">
+		<input type="text" name="userid" value="${userDto.userid}"> <input
+			type="text" name="username" value="${userDto.username}"> <input
+			type="text" name="userphone" value="${userDto.userphone}"> <input
+			type="text" name="useremail" value="${userDto.useremail}">
 	</form>
 
 
 </body>
 <script>
-    $(document).ready(function() {
-    	
-    	 $('#allPrivateInfoAgree').on('change', function() {
-             // 전체 약관 동의 체크박스의 상태 가져오기
-             var isChecked = $(this).prop('checked');
-             // 다른 약관 동의 체크박스에 상태 적용
-             $('input[name="agree"]').prop('checked', isChecked);
-         });
+	$(document)
+			.ready(
+					function() {
 
-         // 개별 약관 동의 체크박스 선택 이벤트
-         $('input[name="agree"]').on('change', function() {
-             // 개별 약관 동의 체크박스의 상태 가져오기
-             var isAllAgreed = $('input[name="agree"]:checked').length === $('input[name="agree"]').length;
+						$('#allPrivateInfoAgree').on(
+								'change',
+								function() {
+									// 전체 약관 동의 체크박스의 상태 가져오기
+									var isChecked = $(this).prop('checked');
+									// 다른 약관 동의 체크박스에 상태 적용
+									$('input[name="agree"]').prop('checked',
+											isChecked);
+								});
 
-             // 전체 약관 동의 체크박스에 상태 적용
-             $('#allPrivateInfoAgree').prop('checked', isAllAgreed);
-         });
-    	
-        // 예약하기 버튼 클릭 이벤트
-        $('.bottom-btn').on('click', function() {
-        		let selectedValue = $(".mySelect").val();
- 		    	if (selectedValue != '네 동의합니다.') {
-	 		      	// 모달 창을 표시합니다.
-	 		      	$('#agreeModal').modal('show');
-	 		      	return;
- 		    	}
-        	
-        		// 선택한 값을 저장할 배열을 생성합니다.
-        		var selectedValues = [];
-        		// 모든 .mySelect 요소에 대해 값을 가져와서 배열에 저장합니다.
-        		$(".mySelect").each(function() {
-        		    selectedValues.push($(this).val());
-        		});
-        		
-        		var firstValue = selectedValues[0];
-        		var allValuesAreEqual = true;
-        		for (var i = 1; i < selectedValues.length; i++) {
-        		    if (selectedValues[i] != firstValue) {
-        		        allValuesAreEqual = false;
-        		        break;
-        		    }
-        		}
-     		    if (allValuesAreEqual == false ) {
-     		      // 모달 창을 표시합니다.
-     		      $('#agreeModal').modal('show');
-     		    } else {
-     		    	var isAgreed = $('#allPrivateInfoAgree').prop('checked');
-     	            
-     	            // 체크되지 않았을 경우 모달 띄우기
-     	            if (!isAgreed) {
-     	                $('#agreementModal').modal('show');
-     	            } else {
-     	                // 체크되었을 경우 예약 로직 수행
-     	                // 여기에 예약 로직 추가
-     	                requestPay();
-     	            	//const formData = new FormData(document.getElementById('myForm'));
-	     	     		//document.getElementById('myForm').action = '/nature/payment';
-	     	     		//document.getElementById('myForm').method = 'POST';
-	     	     		// 폼을 제출
-	     	     		//document.getElementById('myForm').submit();
-     	                
-     	            }
-     		    }
-            // 체크 여부 확인
-        });
-        
-        $('#okButton1').on('click', function () {
-            // 여기에 "OK" 버튼 클릭 시 수행할 동작 추가
-            // 모달을 닫고 싶다면 아래 코드를 사용
-            $('#agreeModal').modal('hide');
-        });
-        
-        $('#okButton2').on('click', function () {
-            // 여기에 "OK" 버튼 클릭 시 수행할 동작 추가
-            // 모달을 닫고 싶다면 아래 코드를 사용
-            $('#agreementModal').modal('hide');
-        });
-    });
+						// 개별 약관 동의 체크박스 선택 이벤트
+						$('input[name="agree"]')
+								.on(
+										'change',
+										function() {
+											// 개별 약관 동의 체크박스의 상태 가져오기
+											var isAllAgreed = $('input[name="agree"]:checked').length === $('input[name="agree"]').length;
+
+											// 전체 약관 동의 체크박스에 상태 적용
+											$('#allPrivateInfoAgree').prop(
+													'checked', isAllAgreed);
+										});
+
+						// 예약하기 버튼 클릭 이벤트
+						$('.bottom-btn')
+								.on(
+										'click',
+										function() {
+											let selectedValue = $(".mySelect")
+													.val();
+											if (selectedValue != '네 동의합니다.') {
+												// 모달 창을 표시합니다.
+												$('#agreeModal').modal('show');
+												return;
+											}
+
+											// 선택한 값을 저장할 배열을 생성합니다.
+											var selectedValues = [];
+											// 모든 .mySelect 요소에 대해 값을 가져와서 배열에 저장합니다.
+											$(".mySelect").each(
+													function() {
+														selectedValues.push($(
+																this).val());
+													});
+
+											var firstValue = selectedValues[0];
+											var allValuesAreEqual = true;
+											for (var i = 1; i < selectedValues.length; i++) {
+												if (selectedValues[i] != firstValue) {
+													allValuesAreEqual = false;
+													break;
+												}
+											}
+											if (allValuesAreEqual == false) {
+												// 모달 창을 표시합니다.
+												$('#agreeModal').modal('show');
+											} else {
+												var isAgreed = $(
+														'#allPrivateInfoAgree')
+														.prop('checked');
+
+												// 체크되지 않았을 경우 모달 띄우기
+												if (!isAgreed) {
+													$('#agreementModal').modal(
+															'show');
+												} else {
+													// 체크되었을 경우 예약 로직 수행
+													// 여기에 예약 로직 추가
+													requestPay();
+													//const formData = new FormData(document.getElementById('myForm'));
+													//document.getElementById('myForm').action = '/nature/payment';
+													//document.getElementById('myForm').method = 'POST';
+													// 폼을 제출
+													//document.getElementById('myForm').submit();
+
+												}
+											}
+											// 체크 여부 확인
+										});
+
+						$('#okButton1').on('click', function() {
+							// 여기에 "OK" 버튼 클릭 시 수행할 동작 추가
+							// 모달을 닫고 싶다면 아래 코드를 사용
+							$('#agreeModal').modal('hide');
+						});
+
+						$('#okButton2').on('click', function() {
+							// 여기에 "OK" 버튼 클릭 시 수행할 동작 추가
+							// 모달을 닫고 싶다면 아래 코드를 사용
+							$('#agreementModal').modal('hide');
+						});
+					});
 </script>
 </html>
