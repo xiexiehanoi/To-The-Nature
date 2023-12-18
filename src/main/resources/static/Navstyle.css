@@ -37,13 +37,18 @@
 }
 html, body {
     margin: 0;
+    height: 0;
     width: 100%;
     color: hsl(var(--text-primary));
     font-family: var(--font-main);
-    background-color: hsl(var(--background));
+    /* background-color: hsl(var(--background)); */
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
     box-sizing: border-box;
+}
+
+.navbar{
+	width: 5em;
 }
 
 /* ============
@@ -92,7 +97,8 @@ a {
     text-decoration: underline;
 }
 a:visited {
-    color: hsla(var(--primary), .5);
+    /* color: hsla(var(--primary), .5); */
+    color: hsl(var(--quite-gray));
 }
 
 /* =========
@@ -129,11 +135,11 @@ ul, ol {
 form {
     margin: 0;
 }
-fieldset {
+/* fieldset {
     margin: 0;
     padding: .5em 0;
     border: none;
-}
+} */
 input {
     padding: .8em 1.2em;
     font-size: var(--paragraph);
@@ -252,12 +258,25 @@ select {
     transition: width .35s cubic-bezier(var(--transition-main), 1);
     overflow-y: auto;
     overflow-x: hidden;
-    right: 0;
+    left: 0;
+    /* right: 0; */
 }
 #navbar:hover {
     width: 16em;
-    right: 0;
+    border-top-right-radius: 15px;
+  	border-bottom-right-radius: 15px;
+    /* right: 0; */
 }
+
+#navbar.hover{
+	width: 16em;
+}
+
+#navbar.hover .link-text {
+	width: calc(100% - calc(5rem - 8px));
+    opacity: 1;
+}
+
 #navbar::-webkit-scrollbar-track {
     background-color: hsl(var(--background-secondary));
 }
@@ -308,7 +327,8 @@ select {
 }
 .navbar-item-inner:hover {
     color: hsl(var(--white));
-    background: hsl(var(--background-secondary-light));
+    /* background: hsl(var(--background-secondary-light)); */
+    background: #528171;
     box-shadow: 0 17px 30px -10px hsla(var(--black), .25);
 }
 .navbar-item-inner-icon-wrapper {
@@ -333,6 +353,40 @@ select {
     opacity: 1;
 }
 
+
+/* =============
+    ::Sub List
+   ============= */
+
+/* sub list */
+
+#mypage #mypageSubMenu{
+  background: #1E2B32;
+  margin-left: 15.5em;
+  margin-top: 10.5em;
+  display: none;
+  position: fixed;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  width: 12em; /* 수정: sub-menu의 폭을 조절 */
+  cursor: pointer;
+}
+
+/* sub-menu의 각 항목에 대한 스타일 */
+#mypageSubMenu li {
+    padding: 1em;
+    list-style: none;
+    border-bottom: none; /* 밑줄 제거 */
+}
+
+#mypage:hover > #mypageSubMenu{
+  display: block;
+  cursor: pointer;
+}
+
+#mypage #mypageSubMenu li a:hover{
+	color: white;
+}
 
 /* =============
     ::Selectors

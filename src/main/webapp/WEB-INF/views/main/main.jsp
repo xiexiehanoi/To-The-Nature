@@ -20,7 +20,7 @@
 	} */
 	
 	body {
-  		margin: 0;
+  		/* margin: 0; */
 	}
 	
 	div#three-model {

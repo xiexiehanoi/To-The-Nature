@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="nature.review.ReviewDao">
-	
+	<select id="totalCounTAVGtOfReview" parameterType="int" resultType="Map">
+		select count(*) as count, avg(rate) as avg from review where camping_num=#{campingNum}
+	</select>
+	<select id="selectRiewList" parameterType="int" resultType="Map">
+		SELECT u.userid, r.content, r.rate, avg_rate.average_rate, r.created_at
+		FROM review r
+		INNER JOIN user u ON r.user_id = u.userid
+		JOIN (
+		    SELECT camping_num, AVG(rate) as average_rate
+		    FROM review
+		    GROUP BY camping_num
+		) avg_rate ON (avg_rate.camping_num = r.camping_num)
+		WHERE r.camping_num = #{campingNum} 
+		ORDER BY created_at DESC
+	</select>
+	<insert id="insertReview" parameterType="ReviewDto">
+		insert into review (user_id, camping_num, rate, content, created_at) 
+			values (#{userId}, #{campingNum}, #{rate}, #{content}, now())
+	</insert>
+	<delete id="deleteReview" parameterType="int">
+		delete from review where review_num = #{reviewNum} 
+	</delete>
 </mapper>

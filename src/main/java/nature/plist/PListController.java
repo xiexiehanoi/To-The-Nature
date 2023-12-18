@@ -1,4 +1,4 @@
-package nature.site;
+package nature.plist;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,25 +14,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-public class SiteController {
+public class PListController {
 	
 	@Autowired
-	private SiteService siteService;
+	private PListService plistService;
 	
-	@GetMapping("/detail")
+	@GetMapping("/plist")
 	public String detail(HttpSession session, Model model,@RequestParam String userId, @RequestParam int num) {
 		
 	    // 필요한 로직 수행
-	    Map<String, Object> siteParam = new HashMap<>();
-	    siteParam.put("userId", userId);
-	    siteParam.put("campingNum", num);
+	    Map<String, Object> plistParam = new HashMap<>();
+	    plistParam.put("userId", userId);
+	    plistParam.put("campingNum", num);
 
-	    List<Map<String, Object>> campinglist = siteService.getsearchcamping(siteParam);
-	    
+	    List<Map<String, Object>> campinglist = plistService.getsearchcamping(plistParam);
 	    model.addAttribute("campinglist", campinglist);
 	    model.addAttribute("userId", userId);
 	    model.addAttribute("campingNum", num);
-	    return "detail/detail.site";
+	    return "plist/plist.plist";
 	}
 	
 }

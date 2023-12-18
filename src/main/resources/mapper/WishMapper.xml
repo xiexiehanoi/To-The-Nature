@@ -7,4 +7,7 @@
 	<delete id="deleteWish" parameterType="WishDto">
 		DELETE FROM wish where user_id=#{userId} AND camping_num=#{campingNum}
 	</delete>
+	<update id="updateCount" parameterType="int">
+		update count(iswished) from wish where camping_num = #{campingNum}
+	</update>
 </mapper>

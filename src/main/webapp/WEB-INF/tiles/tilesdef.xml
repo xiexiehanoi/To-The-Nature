@@ -43,4 +43,9 @@
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
 	</definition>
 	
+	<!-- layout7 macro -->
+	<definition name="*/*.plist" extends="layout1">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
+	</definition>
+	
 </tiles-definitions>
