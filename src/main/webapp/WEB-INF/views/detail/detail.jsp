@@ -21,7 +21,7 @@
 	background-color: white;
 }
 .camp_container {
-    margin: 5% 5% 1% 10%;
+    margin: 2%;
     background-color: white; /* 배경색을 흰색으로 설정 */
 }
 .camp_info_box {
@@ -82,6 +82,7 @@ hr{
     flex-wrap: wrap;
     gap: 10px; /* 이미지 사이의 간격 조정 */
 	border-radius: 8px;
+	object-fit: cover;
 }
 .hidden-image {
     max-width: 22.5%;
@@ -596,7 +597,7 @@ function updateCountWish() {
 								<li><span><i class="bi bi-cup-hot"></i></span><span>${sbrcl}</span></li>
 							</c:when>
 							<c:when test="${sbrcl == '트렘폴린'}">
-								<li><span><i class="bi bi-trampoline"></i></span><span>${sbrcl}</span></li>
+								<li><span><img src="./res/photo/trampoline.svg" style="color:#f5dcb7;padding:2px;"></span>&nbsp;<span>${sbrcl}</span></li>
 							</c:when>
 							<c:when test="${sbrcl == '물놀이장'}">
 								<li><span><i class="bi bi-droplet"></i></span><span>${sbrcl}</span></li>
@@ -676,7 +677,7 @@ function updateCountWish() {
 	<hr>
 	<div class="camp_map">
 		<div class="camp_map_title">
-			<span><i class="bi bi-compass icon"></i>위치</span>
+			<span><i class="bi bi-compass-fill icon"></i><span style="font-size:30px;">&nbsp;위치</span></span>
 		</div>
 		<div id="map" style="width: 100%; height: 400px;"></div>
 	    <script>
