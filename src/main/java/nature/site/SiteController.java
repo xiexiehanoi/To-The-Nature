@@ -28,6 +28,7 @@ public class SiteController {
 	    siteParam.put("campingNum", num);
 
 	    List<Map<String, Object>> campinglist = siteService.getsearchcamping(siteParam);
+	    
 	    model.addAttribute("campinglist", campinglist);
 	    model.addAttribute("userId", userId);
 	    model.addAttribute("campingNum", num);

@@ -13,8 +13,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 <script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y9u6f6xda4"></script>
 </head>
 <style>
+<style>
+.body{
+	background-color: white;
+}
+.camp_container {
+    margin: 5% 5% 1% 10%;
+    background-color: white; /* 배경색을 흰색으로 설정 */
+}
 .camp_info_box {
     width: 90%;
     height: auto;
@@ -72,13 +81,15 @@ hr{
     border-radius: 20px;
     flex-wrap: wrap;
     gap: 10px; /* 이미지 사이의 간격 조정 */
+	border-radius: 8px;
 }
 .hidden-image {
     max-width: 22.5%;
     height: 200px; /* 이미지 너비 조정 (4개씩 배치하려면 25%) */
+    border-radius: 8px;
 }
 .hidden {
-    display: none; /* hidden 클래스를 가진 요소 숨김 */
+    display: none;
 }
 .camping_information_group{
 	width: 90%;
@@ -86,11 +97,33 @@ hr{
     margin: 0 auto;
 }
 
-.reviewbox{
-	width: 90%;
-    height: auto;
-    margin: 0 auto;
-    border-radius: 20px;
+.camping_facility {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.camping_icon_list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    align-items: center;
+    text-align: center;
+}
+
+.camping_icon_list i {
+    font-size: 40px;
+    color: #f5dcb7;
+    display: block;
+}
+
+i{
+  font-size: 30px;
+  color: #f5dcb7;
+}
+.i_heart{
+  color:red;
 }
 .star_rating {
   width: 100%; 
@@ -118,32 +151,76 @@ hr{
   background-size: 100%; 
   box-sizing: border-box; 
 }
-.start_boxs{
-  width:80%;
+
+.start_boxs {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
 }
+
 .star_box {
-  width: 600px;
+  flex: 1;
   box-sizing: border-box;
-  display: inline-block;
-  margin: 15px 0;
+  margin: 0;
   background: #F3F4F8;
   border: 0;
   border-radius: 10px;
-  height: 60px;
   resize: none;
   padding: 15px;
   font-size: 13px;
   font-family: sans-serif;
-  vertical-align: top;
-}
-.btn02 {
-  display:inline-block;;
-  width: 80px;
 }
 
-.yellowstar{
-  font-color: gold;
+.btn02 {
+  width: auto;
+  height: auto;
+  margin: 0;
+  border-radius: 10px
 }
+
+.camp_map{
+	width: 90%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.reviewbox {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+.reviewbox .reviewtable {
+    width: 100%;
+    font-size: 13px;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    resize: none;
+    border-collapse: collapse;
+}
+
+.reviewbox .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.reviewbox .table td,
+.reviewbox .table th {
+    padding: 8px;
+    vertical-align: top;
+    border: 1px solid #e0e0e0;
+}
+
+.reviewbox .yellowstar {
+    color: gold;
+}
+
+.camp_location{
+	font-size: 30px;
+}
+
 </style>
 <%
 String userId = (String) session.getAttribute("userid");
@@ -153,6 +230,7 @@ String userId = (String) session.getAttribute("userid");
     var campingNum = urlParams.get('num');
     var userId = '<%= userId %>';
     var iswished = ${campinglist[0].iswished};
+    
     
     <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
@@ -164,10 +242,57 @@ String userId = (String) session.getAttribute("userid");
 		
 		  $('#reservationModal').modal('hide');
 		}
-
+	
+	
+	
 $(document).ready(function () {
     getreviewlist(campingNum);
     updateHeartIcon();
+    
+ // countPerson 함수 수정
+    function countPerson() {
+        var adults = parseInt($("#adults").val());
+        var children = parseInt($("#children").val());
+        var totalPerson = adults + children;
+
+        $("#totalPerson").html('<b>' + totalPerson + '</b>');
+    }
+
+    // totalAmount 함수 수정
+    function totalAmount(amount, countdate) {
+        var totalAmount = amount * countdate;
+        $("#totalAmount").html('<strong>' + new Intl.NumberFormat('ko-KR').format(totalAmount) + ' 원</strong>');
+    }
+
+    // 성인과 미성년자 입력 값이 변경될 때 countPerson 함수 호출
+    $("#adults, #children").on("input", countPerson);
+
+
+    // 페이지 로드 시 초기 계산 실행
+    countPerson();
+	
+    //숙박일 수 구하기
+    $("#startDate, #endDate").on("change", function () {
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
+        var campingAmount = parseInt(document.getElementById("campingAmount").value);
+        
+        console.log("startDate:", startDate);
+        console.log("endDate:", endDate);
+        console.log("campingAmount:", campingAmount);
+
+        if (!isNaN(new Date(startDate).getTime()) && !isNaN(new Date(endDate).getTime())) {
+            var timeDiff = Math.abs(new Date(endDate).getTime() - new Date(startDate).getTime());
+            var countdate = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            $("#totalDates").html('<strong>' + countdate + '일</strong>');
+            totalAmount(campingAmount, countdate);
+        } else {
+            // 날짜 형식이 올바르지 않을 경우 처리
+            $("#totalDates").html("");
+            $("#totalAmount").html("");
+        }
+    });
+	
         // 찜하기 추가
     $(document).on("click", "#heartIcon", function () {
     	if(userId == null){
@@ -185,7 +310,7 @@ $(document).ready(function () {
                 if (res.success) {
                     iswished = iswished == "0" ? "1" : "0";
                     updateHeartIcon();
-                    updateCountWish(); // countwish 업데이트 함수를 호출
+                    $("#countWish").text(res.updatedCountWish);
                 } else {
                     console.error("Error:", res.error);
                 }
@@ -273,7 +398,7 @@ function getreviewlist(campingNum) {
         success: function (res) {
             var review = "";
             if (res.reviewlist.length>0) {
-                review += '<table class="table table-bordered reviewtable">';
+                review += '<table class="table reviewtable">';
                 review += '<tr>';
                 review += '<th>작성자</th>';
                 review += '<th>리뷰 내용</th>';
@@ -336,6 +461,7 @@ function updateCountWish() {
 </script>
 <body>
 <input type="hidden" name="userId" value="${sessionScope.userid}">
+<div class="camp_container">
 <c:forEach var="dto" items="${campinglist}">
 	<div class="camp_info_box">
 			<!-- 메인 사진 부분 -->
@@ -379,6 +505,12 @@ function updateCountWish() {
 							<th scope="col">반려동물 출입 여부</th>
 							<td>${dto.animalCmgCl}</td>
 						</tr>
+						<tr class="camp_amount">
+							<th scope="col">1박 가격</th>
+							<td>
+								<fmt:formatNumber value="${dto.amount}" pattern="###,### 원/일" />	
+							</td>
+						</tr>
 						<tr class="camp_toilet">
 							<th scope="col">화장실</th>
 							<td>${dto.toiletCo}</td>
@@ -396,7 +528,7 @@ function updateCountWish() {
 				<!-- 테이블 아래 찜, 리뷰, 예약 -->
 				<div class="btn_bottom input-group">
 					<span>
-						<i id="heartIcon" class="bi bi-heart" style="color: red;"></i>&nbsp;찜하기 ${dto.countwish}				
+						<i id="heartIcon" class="bi bi-heart i_heart" style="color: red;"></i>&nbsp;찜하기<span id="countWish">${dto.countwish}</span>				
 					</span>
 					<span id="reviewInfo">
 						<i class="bi bi-star-fill" style="color: gold;"></i><span class="countReview"></span> 
@@ -444,7 +576,7 @@ function updateCountWish() {
 			<h3 class="camping_info">
 				<i class="bi bi-info-circle-fill"></i>&nbsp;캠핑장 시설정보
 			</h3>
-			<p class="camping_facility">
+			<div class="camping_facility">
 				<c:forEach var="sbrcl" items="${fn:split(dto.sbrsCl, ',')}">
 					<ul class="camping_icon_list">
 						<c:choose>
@@ -484,7 +616,7 @@ function updateCountWish() {
 						</c:choose>
 					</ul>
 				</c:forEach>
-			</p>
+			</div>
 			<!-- Your existing HTML code goes here -->
 			<div class="modal fade" id="reservationModal" tabindex="-1"
 				aria-labelledby="reservationModalLabel" aria-hidden="true">
@@ -514,13 +646,23 @@ function updateCountWish() {
 										required>
 								</div>
 								<div class="mb-3 input-group">
-									<label for="adults" class="form-label ">성인</label> 
+									<label for="adults" class="form-label">성인</label> 
 									<input type="number" class="form-control datainput" id="adults"
 										name="adult_count" min="1" value="1" required> <label for="children"
 										class="form-label">미성년자(만0세~17세)</label> <input type="number"
 										class="form-control datainput" value="0" id="children" name="children_count"
 										min="0" required>
 								</div>
+								<div class="mb-3">
+			                        <label for="totalNights" class="form-label">총 숙박 일 : <span id="totalDates"></span></label>
+			                    </div>
+			                    <div class="mb-3">
+			                        <label for="totalPerson" class="form-label">총 인원 : <span id="totalPerson"></span></label>
+			                    </div>
+			                    <div class="mb-3">
+			                        <label for="totalAmount" class="form-label">총 금액 : <span id="totalAmount"></span></label>
+			                    	<input type="hidden" id="campingAmount" value="${dto.amount}">
+			                    </div>
 								<button type="button" class="btn btn-primary"
 									onclick="submitReservation()">Confirm Reservation</button>
 							</form>
@@ -532,13 +674,64 @@ function updateCountWish() {
 	</c:forEach>
 	<br>
 	<hr>
+	<div class="camp_map">
+		<div class="camp_map_title">
+			<span><i class="bi bi-compass icon"></i>위치</span>
+		</div>
+		<div id="map" style="width: 100%; height: 400px;"></div>
+	    <script>
+	    	var mapX = Number("${campinglist[0]['mapX']}"); // 위도
+	    	var mapY = Number("${campinglist[0]['mapY']}"); // 경도
+	
+			var mapOptions = {
+				    center: new naver.maps.LatLng(mapY, mapX),
+				    zoom: 15
+				};
+	
+			//위치 표시하기
+			var map = new naver.maps.Map('map', {
+			    center: new naver.maps.LatLng(mapY, mapX),
+			    zoom: 15
+			});
+			
+			//위치 표시하기 marker
+			var marker = new naver.maps.Marker({
+			    position: new naver.maps.LatLng(mapY, mapX),
+			    map: map
+	        });
+			
+			var contentString = [
+		        '<div class="iw_inner">',
+		        '   <h5>${campinglist[0].facltNm}</h5>',
+		        '   <p style="font-size:15px;">${campinglist[0].addr1}<br />',
+		        '   </p>',
+		        '</div>'
+		    ].join('');
+
+		var infowindow = new naver.maps.InfoWindow({
+		    content: contentString
+		});
+
+		naver.maps.Event.addListener(marker, "click", function(e) {
+		    if (infowindow.getMap()) {
+		        infowindow.close();
+		    } else {
+		        infowindow.open(map, marker);
+		    }
+		});
+
+		infowindow.open(map, marker);
+	    </script>
+	    </div>
+	<br>
+	<hr>
 	<div class="reviewbox">
 		<br>
 		<div class="reviewTitle">
 			<div class="review_total">
 				<h2>캠핑장 리뷰</h2>
 				<h4>점수</h4>
-			</div>
+			</div> <!-- cloase review_total  -->
 
 		<div class ="star_rating">
 		  <span class="star on" value="1"> </span>
@@ -546,15 +739,17 @@ function updateCountWish() {
 		  <span class="star" value="3"> </span>
 		  <span class="star" value="4"> </span>
 		  <span class="star" value="5"> </span>별점을 선택해주세요.
-		</div>
+		</div> <!-- close star_rating -->
 			<div class="input-group start_boxs">
 				<textarea class="star_box" placeholder="리뷰 내용을 작성해주세요." ></textarea>	
 				<input type="submit" class="btn02" value="등록"/>
-			</div>
+			</div> <!-- close star_rating -->
+			<br>
 			<div class="reviewList">
 				
-			</div>
-		</div>	
-	</div>
+			</div> <!-- close reviewList -->
+		</div> <!-- cloase reviewTitle -->	
+	</div> <!-- close reviewbox  -->
+</div>
 </body>
 </html>
