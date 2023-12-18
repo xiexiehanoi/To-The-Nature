@@ -41,7 +41,9 @@
             overflow-y: auto; /* Add a scrollbar when the content exceeds the height */
        		margin-top: 80px;
         }
-     
+    .delete-icon {
+        cursor: pointer;
+    } 
 </style>
 <script type="text/javascript">
 
@@ -49,13 +51,12 @@ $(function(){
 	$("#btnsearch").click(function(){
         list();
     });
-	$("#resultTable").on("click", ".delete-icon", function() {
-		console.log("Delete icon clicked");
-		// 클릭된 delete-icon에서 userid 속성을 가져옴
-        var userId = $(this).closest('tr').find('[data-userid]').data("userid");
-       
+	$(document).on("click", ".delete-icon", function() {
+	    // 클릭된 delete-icon에서 writeday 속성을 가져옴
+	    var writeday = $(this).closest('tr').data("writeday");
+        console.log("Clicked delete-icon. UserId:", userId);
         // 사용자를 삭제하기 위한 함수 호출
-        deleteUser(userId);
+        deleteUser(writeday);
     })
 function list()
 {
@@ -91,7 +92,7 @@ function list()
 
 				s+=
 					`
-	<tr data-userid="${item.userid}">
+	<tr data-writeday="${item.writeday}">
       <th scope="row"></th>
       <td>\${item.userid}</td>
       <td>\${item.username}</td>
@@ -100,7 +101,7 @@ function list()
       <td>\${item.userphone}</td>
       <td>\${item.useremail}</td>
       <td>\${item.writeday}</td>
-      <td>&nbsp;&nbsp;&nbsp;<i class="bi bi-x-square-fill delete-icon" data-userid="${item.userid}"></i></td>
+      <td>&nbsp;&nbsp;&nbsp;<i class="bi bi-x-square-fill delete-icon" data-writeday="${item.writeday}"></i></td>
     </tr>
 					`;
 			});
@@ -117,11 +118,11 @@ function list()
     });
 }
 
-	function deleteUser(userId) {
+	function deleteUser(writeday) {
         $.ajax({
             type: "POST",
             url: "../admin/userdelete",
-            data: { userid: userId },
+            data: { writeday: writeday },
             success: function (res) {
                 // 삭제가 성공하면 사용자 목록을 새로 고침
                 list();

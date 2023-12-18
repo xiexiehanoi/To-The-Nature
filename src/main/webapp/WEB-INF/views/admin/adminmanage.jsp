@@ -92,12 +92,23 @@ function deleteReview(review_num) {
         }
     });
 }
+
 </script>
 <body>
 <div class="myreview-all">
 <div class="review-all">리뷰관리<br>
 총 리뷰 ${allReviews.size()}개</div>
-
+ <div class="input-group reviewsearch">	  
+				<select id="field" class="form-select">
+					
+					<option value="facltNm">업체명</option>
+					<option value="user_id">아이디</option>
+					
+				</select>
+				<input type="text" class="form-control" style="margin-left:10px;"
+				id="word" placeholder="검색값입력">
+				<button type="button" class="btn btn-success btn-sm" id="btnsearch"
+				style="margin-left:10px;">검색</button><br><br></div>
 <hr>
  
       <c:forEach var="review" items="${allReviews}">
@@ -111,6 +122,7 @@ function deleteReview(review_num) {
                 <i class="bi bi-x-square-fill reviewdelete" onclick="deleteReview(${review.review_num})" data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"></i><br><hr>
             </c:forEach>
             <div class="reviewlist"></div>
- </div>          
+ </div>
+         
 </body>
 </html>

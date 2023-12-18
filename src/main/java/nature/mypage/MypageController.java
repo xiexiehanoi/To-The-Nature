@@ -159,13 +159,15 @@ public class MypageController {
 
         return result;
     }
-	@GetMapping("/admin/reviewsearch")
-	@ResponseBody
-	public List<Map<String, Object>> reviewsearch(@RequestParam(required = false) String field,
-	                                             @RequestParam(required = false) String word) {
-	    List<Map<String, Object>> searchResult = mypageDao.searchReviews(field, word);
-	    return searchResult;
-	}
+	@GetMapping("/admin/reviewfind")
+    @ResponseBody
+    public List<Map<String, Object>> reviewSearch(
+            @RequestParam(required = false) String field,
+            @RequestParam(required = false) String word,Model model) {
+        List<Map<String, Object>> searchResult = mypageDao.searchReviews(field, word);
+        model.addAttribute("searchResult", searchResult);
+        return searchResult;
+    }
 	@GetMapping("/admin/request")
 	public String adminrequest() {
 		
