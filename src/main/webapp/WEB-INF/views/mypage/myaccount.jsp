@@ -47,57 +47,55 @@
     }
 </style>
 <script>
-        function check() {
-            var checkbox = document.getElementById('checkDelete');
-            var usernameInput = document.getElementById('username');
-            var userpwInput = document.getElementById('userpw');
+$(document).ready(function() {
+    function check() {
+        var checkbox = document.getElementById('checkDelete');
+        var usernameInput = document.getElementById('username');
+        var userpwInput = document.getElementById('userpw');
 
-            
-            var enteredUsername = usernameInput.value;
-            var enteredUserpw = userpwInput.value;
-            
+        var enteredUsername = usernameInput.value;
+        var enteredUserpw = userpwInput.value;
 
-            if (checkbox.checked && usernameInput.value === username && userpwInput.value === password) {
-                $('#deleteConfirmationModal').modal('show');
-            } else {
-                $('#invalidInfoModal').modal('show');
-                // 입력 필드 초기화
-                usernameInput.value = "";
-                userpwInput.value = "";
-            }
-
-            return false;
+        if (checkbox.checked && enteredUsername === "${sessionScope.userid}" && enteredUserpw === "${sessionScope.userpw}") {
+            $('#deleteConfirmationModal').modal('show');
+        } else {
+            $('#invalidInfoModal').modal('show');
+            // 입력 필드 초기화
+            usernameInput.value = "";
+            userpwInput.value = "";
         }
+    }
 
-        function deleteAccount() {
-            // 여기에 계정 삭제 로직을 수행하세요
-        	$.ajax({
-                type: "POST",
-                url: "${root}/mypage/account",
-                data: {
-                    username: $("#username").val(),
-                    userpw: $("#userpw").val()
-                },
-                success: function(response) {
-                    if (response.success) {
-                        alert("계정이 성공적으로 삭제되었습니다!");
-                        window.location.href = "${root}";
-                    } else {
-                        // 서버에서 에러가 발생한 경우
-                        alert("서버 오류: " + response.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert("에러 발생: " + error);
+    function deleteAccount() {
+        $.ajax({
+            type: "POST",
+            url: "${root}/mypage/account",
+            data: {
+                "username": $("#username").val(),
+                "userpw": $("#userpw").val()
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert("계정이 성공적으로 삭제되었습니다!");
+                    window.location.href = "${root}";
+                } else {
+                    // 서버에서 에러가 발생한 경우
+                    alert("서버 오류: " + response.message);
                 }
-            });
-        }
-        // 모달 닫힐 때 입력 필드 초기화
-        $('#deleteConfirmationModal, #invalidInfoModal').on('hidden.bs.modal', function (e) {
-            document.getElementById('username').value = "";
-            document.getElementById('userpw').value = "";
-            document.getElementById('checkDelete').checked = false;
+            },
+            error: function(xhr, status, error) {
+                alert("에러 발생: " + error);
+            }
         });
+    }
+
+    // 모달 닫힐 때 입력 필드 초기화
+    $('#deleteConfirmationModal, #invalidInfoModal').on('hidden.bs.modal', function (e) {
+        document.getElementById('username').value = "";
+        document.getElementById('userpw').value = "";
+        document.getElementById('checkDelete').checked = false;
+    });
+});
     </script>
 </head>
 <body>
