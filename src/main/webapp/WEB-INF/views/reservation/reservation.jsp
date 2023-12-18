@@ -19,7 +19,7 @@
 			pay_method : "card", // 'card'만 지원됩니다.
 			merchant_uid : 'merchant_' + new Date().getTime(), // 상점에서 관리하는 주문 번호
 			name : "${CampsiteName}",
-			amount : 1000, // 결제창에 표시될 금액. 실제 승인이 이뤄지지는 않습니다.
+			amount : ${rDto.amount}, // 결제창에 표시될 금액. 실제 승인이 이뤄지지는 않습니다.
 			buyer_email : "${userDto.useremail}",
 			buyer_name : "${userDto.username}",
 			buyer_tel : "${userDto.userphone}",
@@ -43,11 +43,10 @@
 	                    endDate : "${rDto.endDate}",
 	                    adult_count : ${rDto.adult_count},
 	                    child_count : ${rDto.child_count},
-	                    camping_num : ${rDto.camping_num}
-	                    user_num : ${userDto.userid},
+	                    camping_num : ${rDto.camping_num},
                         imp_uid : rsp.imp_uid,
                         merchant_uid : rsp.merchant_uid,
-                       s
+                        amount: ${rDto.amount}
 	                }
 	            });
 			   
