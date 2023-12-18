@@ -33,4 +33,14 @@ public class MypageDto {
 	
 	private String facltNm;
 	
+	private int reservation_id;
+	private int user_num;
+	private Timestamp reservationDate;
+	private Timestamp starDate;
+	private Timestamp endDate;
+	private int adult_count;
+	private int child_count;
+	private String firstImageUrl;
+	
+	
 }

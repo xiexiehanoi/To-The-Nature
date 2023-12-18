@@ -38,9 +38,21 @@ public class MypageController {
 	}
 	
 	@GetMapping("/mypage/reservation")
-	public String myreservation() {
+	public String myreservation(HttpSession session, Model model) {
 		
-		return "mypage/myreservation";
+		String userId = (String) session.getAttribute("userid");
+	    if (userId == null) {
+	        // 적절한 처리를 수행하세요. 예를 들어 로그인 페이지로 리다이렉트
+	        return "redirect:/login";
+	    }
+	    
+	    // Call the service method to get reservation details by user ID
+	    List<Map<String, Object>> userReservations = mypageDao.getReservationDetail(userId);
+
+	    // Add the reservations to the model
+	    model.addAttribute("userReservations", userReservations);
+
+	    return "mypage/myreservation";
 	}
 	
 	@GetMapping("/mypage/review")

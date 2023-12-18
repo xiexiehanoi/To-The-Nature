@@ -100,10 +100,8 @@ function deleteReview(review_num) {
 총 리뷰 ${allReviews.size()}개</div>
  <div class="input-group reviewsearch">	  
 				<select id="field" class="form-select">
-					
 					<option value="facltNm">업체명</option>
 					<option value="user_id">아이디</option>
-					
 				</select>
 				<input type="text" class="form-control" style="margin-left:10px;"
 				id="word" placeholder="검색값입력">
@@ -123,6 +121,60 @@ function deleteReview(review_num) {
             </c:forEach>
             <div class="reviewlist"></div>
  </div>
-         
+ <script type="text/javascript">
+$(document).ready(function () {
+    // 초기 로딩 시 전체 리뷰 목록을 표시
+    list();
+
+    // 검색 버튼 클릭 시 이벤트
+    $("#btnsearch").click(function () {
+        // 선택한 필드와 검색어를 가져오기
+        var field = $("#field").val();
+        var word = $("#word").val();
+
+        // 검색 결과를 표시할 영역 초기화
+        $("div.reviewlist").html("");
+
+        // 검색을 위한 Ajax 요청
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "../admin/reviewfind",
+            data: {"field": field, "word": word},
+            success: function (res) {
+                if (res.length > 0) {
+                    // 검색 결과가 있으면 출력
+                    let s = "";
+                    $.each(res, function (idx, item) {
+                    	s += `<div class="reviewname">${item.facltNm}</div>`;
+                        s += `<div class="reviewdate">${item.created_at}</div><br>`;
+                        s += `<div class="reviewid">${item.user_id}</div>`;
+                        s += `<div class="reviewrate">평점:${item.rate}</div>`;
+                        s += `<br><br>`;
+                        s += `<div>${item.content}</div>`;
+                        s += `<br>`;
+                        s += `<i class="bi bi-x-square-fill reviewdelete" onclick="deleteReview(${item.review_num})" data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"></i><br><hr>`;
+                    });
+                    $("div.reviewlist").html(s);
+                } else {
+                    // 검색 결과가 없을 때 메시지 표시
+                    $("div.reviewlist").html("검색 결과가 없습니다.");
+                }
+            },
+            error: function () {
+                alert("서버와의 통신 중 오류가 발생했습니다.");
+            }
+        });
+    });
+});
+
+function list() {
+    // 전체 리뷰 목록을 표시하는 함수
+    <c:forEach var="review" items="${allReviews}">
+        // 각 리뷰에 대한 처리 (생략)
+    </c:forEach>
+}
+// 삭제 함수 (생략)
+</script>  
 </body>
 </html>

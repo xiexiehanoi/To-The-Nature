@@ -84,9 +84,7 @@ function list()
 }
 </script>
 <body>
-<div class="header">
-<%@ include file="/WEB-INF/views/layout/header.jsp" %>
-</div>
+
 <div class="myreview-all">
 <div class="review-all">리뷰관리<br>
 내가 쓴 총 리뷰 ${userReviews.size()}개</div>
