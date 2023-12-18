@@ -263,6 +263,8 @@ $(document).ready(function () {
     function totalAmount(amount, countdate) {
         var totalAmount = amount * countdate;
         $("#totalAmount").html('<strong>' + new Intl.NumberFormat('ko-KR').format(totalAmount) + ' 원</strong>');
+        $("#totalAmount").html();
+        $("#amount").val(totalAmount);
     }
 
     // 성인과 미성년자 입력 값이 변경될 때 countPerson 함수 호출
@@ -634,6 +636,7 @@ function updateCountWish() {
 								<input type="hidden" name="camping_num" value="${campingNum}" >
 								<input type="hidden" name="userid" value="${userId}">
 								<input type="hidden" name="CampsiteName" value="${dto.facltNm}">
+								<input type="hidden" name="amount" id="amount">
 								<div class="mb-3">
 									<label for="startDate" class="form-label">캠핑장명 :
 										${dto.facltNm}</label>
