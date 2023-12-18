@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="nature.plist.PListDao">
+	<select id="totalCountOfSite" resultType="int">
+		select count(*) from camping_file
+	</select>
+	
+	<select id="selectAllSites" resultType="PListDto" parameterType="Map">
+		select * from camping_file 
+		<if test="searchword!=null">
+		where ${searchfield} like concat('%',#{searchword},'%')
+		</if>
+		order by num desc
+	</select>
+	
+	
+	
+	<delete id="deleteSite" parameterType="int">
+		delete from camping_file where campingNum=#{campingNum}
+	</delete>
+	
 	<select id="selectdetail" parameterType="Map" resultType="Map">
 	    SELECT
     cd.*,
