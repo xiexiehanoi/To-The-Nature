@@ -16,8 +16,11 @@
 <script type="text/javascript"src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=y9u6f6xda4"></script>
 </head>
 <style>
+.body{
+	background-color: white;
+}
 .camp_container {
-    margin: 5% 5%;
+    margin: 5% 5% 1% 10%;
     background-color: white; /* 배경색을 흰색으로 설정 */
 }
 .camp_info_box {
@@ -165,15 +168,39 @@ hr{
   border-radius: 10px
 }
 
-.yellowstar{
-  font-color: gold;
-}
-
 .camp_map{
 	width: 90%;
     height: auto;
     margin: 0 auto;
 }
+
+.reviewtable {
+    width: 100%;
+    font-size: 13px;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    resize: none;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    margin: 0;
+}
+
+
+.table td,
+.table th {
+    padding: 8px;
+    vertical-align: top;
+    border: 1px solid #e0e0e0; /* 각 셀에 테두리 추가 */
+}
+
+.yellowstar {
+    color: gold; /* 별점을 노란색으로 지정 */
+}
+
 </style>
 <%
 String userId = (String) session.getAttribute("userid");
@@ -351,7 +378,7 @@ function getreviewlist(campingNum) {
         success: function (res) {
             var review = "";
             if (res.reviewlist.length>0) {
-                review += '<table class="table table-bordered reviewtable">';
+                review += '<table class="table reviewtable">';
                 review += '<tr>';
                 review += '<th>작성자</th>';
                 review += '<th>리뷰 내용</th>';
@@ -654,7 +681,6 @@ function updateCountWish() {
 	        });
 	    </script>
 	    </div>
-    </div>
 	<br>
 	<hr>
 	<div class="reviewbox">
@@ -663,7 +689,7 @@ function updateCountWish() {
 			<div class="review_total">
 				<h2>캠핑장 리뷰</h2>
 				<h4>점수</h4>
-			</div>
+			</div> <!-- cloase review_total  -->
 
 		<div class ="star_rating">
 		  <span class="star on" value="1"> </span>
@@ -671,16 +697,17 @@ function updateCountWish() {
 		  <span class="star" value="3"> </span>
 		  <span class="star" value="4"> </span>
 		  <span class="star" value="5"> </span>별점을 선택해주세요.
-		</div>
+		</div> <!-- close star_rating -->
 			<div class="input-group start_boxs">
 				<textarea class="star_box" placeholder="리뷰 내용을 작성해주세요." ></textarea>	
 				<input type="submit" class="btn02" value="등록"/>
-			</div>
+			</div> <!-- close star_rating -->
+			<br>
 			<div class="reviewList">
 				
-			</div>
-		</div>	
-	</div>
+			</div> <!-- close reviewList -->
+		</div> <!-- cloase reviewTitle -->	
+	</div> <!-- close reviewbox  -->
 </div>
 </body>
 </html>
