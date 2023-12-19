@@ -1,8 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="nature.mypage.MypageDao">
-<delete id="deleteMember" parameterType="int">
-		delete from user where usernum=#{usernum}
-	</delete>
+	
+	<select id="totalCountOfBoard" resultType="int">
+		select count(*) from review
+	</select>
+	<select id="selectMaxNumOfBoard" resultType="int">
+		select ifnull(max(review_num),0) from review
+	</select>
+	<select id="getReviewsByUserId" parameterType="String" resultType="Map">
+        SELECT r.*, c.facltNm
+        FROM review r
+        JOIN camping_details c ON r.camping_num = c.camping_num
+        WHERE r.user_id = #{user_id}
+    </select>
+    <!-- 사용자의 정보를 가져오는 쿼리 -->
+    <select id="getUserInfoByUserId" parameterType="String" resultType="Map">
+        SELECT userid,username, userbirth, usergender, userphone, useremail
+        FROM user
+        WHERE userid = #{userid}
+    </select>
+	<update id="updatePhotoByNum" parameterType="Map">
+		update user set userphoto=#{userphoto} where usernum=#{usernum}
+	</update>
+	<update id="updatePhotoById" parameterType="Map">
+		update user set userphoto=#{userphoto} where userid=#{userid}
+	</update>
+	<update id="updateUserInfoById" parameterType="Map">
+    UPDATE user
+    SET username=#{username}, userphone=#{userphone}, useremail=#{useremail}, userpw=#{userpw}
+    WHERE userid=#{userid}
+</update>
+	<select id="getAllReviews" parameterType="String" resultType="Map">
+    SELECT r.*, c.facltNm
+        FROM review r
+        JOIN camping_details c ON r.camping_num = c.camping_num
+</select>
+ <delete id="deleteReviewById" parameterType="int">
+        DELETE FROM review WHERE review_num = #{review_num}
+    </delete>
+    <select id="searchUsers" resultType="Map" parameterType="Map">
+		select *
+        from user
+        <if test="searchword != null">
+            where ${searchfield} like concat('%',#{searchword},'%')
+        </if>
+        order by usernum desc
+	</select>
+	<delete id="deleteUserById" parameterType="String">
+        DELETE FROM user WHERE userid = #{userid}
+    </delete>
+    <select id="searchReviews" resultType="Map" parameterType="Map">
+    SELECT r.*, c.facltNm
+    FROM review r
+    JOIN camping_details c ON r.camping_num = c.camping_num
+    <where>
+        <if test="searchword != null and searchfield != null">
+            AND ${searchfield} LIKE CONCAT('%', #{searchword}, '%')
+        </if>
+    </where>
+</select>
+<select id="getReservationDetail" resultType="Map" parameterType="int">
+        SELECT r.reservation_id, r.reservationDate, r.startDate, r.endDate, r.adult_count, r.child_count,
+               u.userid, c.facltNm, c.firstImageUrl
+        FROM reservation r
+        JOIN user u ON r.user_num = u.usernum
+        JOIN camping_details c ON r.camping_num = c.camping_num
+        WHERE r.user_num = #{value}
+    </select>
 
+    <select id="getUserNumByUserId" resultType="int" parameterType="String">
+        SELECT usernum FROM user WHERE userid = #{value}
+    </select>
+     <select id="getAllReservations" resultType="Map">
+        SELECT r.reservation_id, r.reservationDate, r.startDate, r.endDate, r.adult_count, r.child_count,
+               u.userid, c.facltNm, c.firstImageUrl
+        FROM reservation r
+        JOIN user u ON r.user_num = u.usernum
+        JOIN camping_details c ON r.camping_num = c.camping_num
+    </select>
 </mapper>

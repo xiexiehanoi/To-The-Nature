@@ -23,4 +23,10 @@
 	<delete id="deleteReview" parameterType="int">
 		delete from review where review_num = #{reviewNum} 
 	</delete>
+	<select id="selectgetUser" parameterType="String" resultType="UserDto">
+		select * from user where userid = #{userId}
+	</select>
+	<select id="checkPaidUser" parameterType="Map" resultType="ReservationDto">
+		select * from reservation where user_num = #{userNum} AND camping_num = #{campingNum} 
+	</select>
 </mapper>

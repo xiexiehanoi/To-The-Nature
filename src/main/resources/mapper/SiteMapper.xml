@@ -17,4 +17,10 @@
     FROM camping_details cd
     WHERE cd.camping_num = #{campingNum}
 	</select>
+	<select id="selectgetUser" parameterType="String" resultType="UserDto">
+		select * from user where userid = #{userId}
+	</select>
+	<select id="checkPaiduser" parameterType="Map" resultType="ReservationDto">
+		select * from reservation where user_num = #{userNum} AND camping_num = #{campingNum} 
+	</select>
 </mapper>

@@ -35,6 +35,7 @@
     justify-content: space-between; /* 요소들을 가능한 넓게 배치 */
     flex-wrap: wrap; /* 자식 요소들을 랩핑 */
     overflow: hidden;
+	border-radius: 8px;
 }	
 div .img_b{
 	float:left;
@@ -42,12 +43,14 @@ div .img_b{
 	height: auto;
 	box-sizing: border-box;
 	overflow: hidden;
+	border-radius: 8px;
 }
 div .img_b img{
 	width: 100%;
 	height: 484px;
 	object-fit: cover;
-	border-radius: 20px;
+	border-radius: 8px;
+	box-shadow: 0px 4px 20px gray;
 }
 div .camp_tb{
 	float:right;
@@ -126,6 +129,17 @@ i{
 .i_heart{
   color:red;
 }
+
+.camp_map{
+	width: 90%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.camp_location{
+	font-size: 30px;
+}
+
 .star_rating {
   width: 100%; 
   box-sizing: border-box; 
@@ -133,10 +147,11 @@ i{
   float: left;
   flex-direction: row; 
   justify-content: flex-start;
+  margin-left: 2%;
 }
 .star_rating .star {
-  width: 25px; 
-  height: 25px; 
+  width: 35px; 
+  height: 35px; 
   margin-right: 10px;
   display: inline-block; 
   background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2bww%2FbtsviSSBz4Q%2F5UYnwSWgTlFt6CEFZ1L3Q0%2Fimg.png') no-repeat; 
@@ -144,8 +159,8 @@ i{
   box-sizing: border-box; 
 }
 .star_rating .star.on {
-  width: 25px; 
-  height: 25px;
+  width: 35px; 
+  height: 35px;
   margin-right: 10px;
   display: inline-block; 
   background: url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png') no-repeat;
@@ -154,9 +169,10 @@ i{
 }
 
 .start_boxs {
-  width: 90%;
+  width: 88%;
   display: flex;
   justify-content: space-between;
+  margin-left: 2%;
 }
 
 .star_box {
@@ -179,12 +195,6 @@ i{
   border-radius: 10px
 }
 
-.camp_map{
-	width: 90%;
-    height: auto;
-    margin: 0 auto;
-}
-
 .reviewbox {
     width: 90%;
     height: auto;
@@ -192,14 +202,15 @@ i{
     border-radius: 20px;
 }
 
-.reviewbox .reviewtable {
+.reviewtable {
     width: 100%;
-    font-size: 13px;
+    font-size: 16px;
     font-family: sans-serif;
     box-sizing: border-box;
     resize: none;
     border-collapse: collapse;
 }
+
 
 .reviewbox .table {
     width: 100%;
@@ -213,26 +224,38 @@ i{
     vertical-align: top;
     border: 1px solid #e0e0e0;
 }
+.reviewbox .table th{
+    background-color: #528171;
+    font-size: 15px;
+}
+
+.reviewList{
+	margin-left: 2%;
+}
 
 .reviewbox .yellowstar {
     color: gold;
 }
 
-.camp_location{
-	font-size: 30px;
+.review_total{
+	display: felx;
+	justify-content: space-between;
 }
 
 </style>
 <%
 String userId = (String) session.getAttribute("userid");
+String loginStatus = (String) session.getAttribute("loginok");
 %>
 <script type="text/javascript">
     var urlParams = new URLSearchParams(window.location.search);
     var campingNum = urlParams.get('num');
     var userId = '<%= userId %>';
     var iswished = ${campinglist[0].iswished};
-    
-    
+    var loginStatus = "<%= loginStatus %>";
+    <%-- var userNum = <%= userNum %>;
+    console.log(userNum); --%>
+
     <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
@@ -263,6 +286,8 @@ $(document).ready(function () {
     function totalAmount(amount, countdate) {
         var totalAmount = amount * countdate;
         $("#totalAmount").html('<strong>' + new Intl.NumberFormat('ko-KR').format(totalAmount) + ' 원</strong>');
+        $("#totalAmount").html();
+        $("#amount").val(totalAmount);
     }
 
     // 성인과 미성년자 입력 값이 변경될 때 countPerson 함수 호출
@@ -296,9 +321,8 @@ $(document).ready(function () {
 	
         // 찜하기 추가
     $(document).on("click", "#heartIcon", function () {
-    	if(userId == null){
-    		alert("로그인 후 이용 가능하십니다.")
-    	}else{
+   //로그인해서 누를 경우
+    if (loginStatus === "yes") {
         var ajaxUrl = iswished == "0" ? "./detail/insertWish" : "./detail/deleteWish";
         $.ajax({
             type: "POST",
@@ -320,11 +344,14 @@ $(document).ready(function () {
                 console.error("Ajax Error:", error);
             }
         });
-    	}
-    });
+    } else {
+    	iswished = "0";
+        updateHeartIcon();
+        alert("로그인 후 이용 가능하십니다.");
+    }
+});
 
 	//사진 더보기 버튼	
-  
         var visibleImages = 5; // 한 번에 표시할 이미지 수
         var $hiddenImages = $(".hidden-image");
         var $loadButton = $(".load_image");
@@ -364,27 +391,36 @@ $(document).ready(function () {
 	        	var rate = $(".star_rating .star.on").length;
 	        	//내용
 	        	var content = $(".star_box").val();
+	        	/*var isUserPaid = ${reservationDto != null ? 'true' : 'false'};*/
 	        	
-	        	$.ajax({
-	        	    type: "POST",
-	        	    url: "./detail/insertReview",
-	        	    contentType:"application/json",
-	        	    data: JSON.stringify({
-	        	        "userId": userId,
-	        	        "campingNum": campingNum,
-	        	        "rate": rate,
-	        	        "content": content
-	        	    }),
-	        	    success: function (res) {
-	        	        alert("리뷰가 성공적으로 등록되었습니다.");
-	        	        getreviewlist(campingNum);
-	        	    },
-	        	    error: function (xhr, status, error) {
-	        	        console.error("Ajax Error:", error);
-	        	    }
-	        	});
+	        	if (content == ""){
+	        		alert("내용을 입력해주세요.");
+	        		return;
+	        	}else{
+	        		/*if (isUserPaid) {*/
+	                $.ajax({
+	                    type: "POST",
+	                    url: "./detail/insertReview",
+	                    contentType: "application/json",
+	                    data: JSON.stringify({
+	                        "userId": userId,
+	                        "campingNum": campingNum,
+	                        "rate": rate,
+	                        "content": content
+	                    }),
+	                    success: function (res) {
+	                        alert("리뷰가 성공적으로 등록되었습니다.");
+	                        getreviewlist(campingNum);
+	                    },
+	                    error: function (xhr, status, error) {
+	                        console.error("Ajax Error:", error);
+	                    }
+	                });
+	             /*} else {
+	                $(".btn02").hide();
+	            }*/
+	        	}
 	        })
-	    	
 	    });//readyclose
 
 	//review 불러오기
@@ -399,12 +435,12 @@ function getreviewlist(campingNum) {
         success: function (res) {
             var review = "";
             if (res.reviewlist.length>0) {
-                review += '<table class="table reviewtable">';
+                review += '<table class="table reviewtable" style="width:90%">';
                 review += '<tr>';
-                review += '<th>작성자</th>';
-                review += '<th>리뷰 내용</th>';
-                review += '<th>별점</th>';
-                review += '<th>작성일</th>';
+                review += '<th style="width:10%; text-align:center">작성자</th>';
+                review += '<th style="width:68%; text-align:center">리뷰 내용</th>';
+                review += '<th style="width:10%; text-align:center">별점</th>';
+                review += '<th style="width:12%; text-align:center">작성일</th>';
                 review += '</tr>';
                 $.each(res.reviewlist, function (index, item) {
                 	var createdDate = new Date(item.created_at);
@@ -427,19 +463,19 @@ function getreviewlist(campingNum) {
                 	}
                 	
                     review += '<tr>';
-                    review += '<td>' + item.userid + '</td>';
+                    review += '<td style="text-align:center">' + item.userid + '</td>';
                     review += '<td>' + item.content + '</td>';
-                    review += '<td class="ratebox">' + starrate + '</td>';
-                    review += '<td>' + createdate + '</td>';
+                    review += '<td class="ratebox" style="text-align:center">' + starrate + '</td>';
+                    review += '<td style="text-align:center">' + createdate + '</td>';
                     review += '</tr>';
                 });
-                review += '</table>';
+                review += '</table><br>';
             } else { 
                 review = "등록된 리뷰가 없습니다.";
             }
             $(".reviewList").html(review);
             $(".countReview").eq(0).text("리뷰 : " + res.total.count + " 개");
-            $(".review_total h4").eq(0).text(res.total.avg.toFixed(2) + " 점");
+            $(".review_total span").eq(1).text("( " +res.total.avg.toFixed(2) + "점"+")");
             $(".ratebox span").html(starrate);
         },
         error: function (xhr, status, error) {
@@ -634,6 +670,7 @@ function updateCountWish() {
 								<input type="hidden" name="camping_num" value="${campingNum}" >
 								<input type="hidden" name="userid" value="${userId}">
 								<input type="hidden" name="CampsiteName" value="${dto.facltNm}">
+								<input type="hidden" name="amount" id="amount">
 								<div class="mb-3">
 									<label for="startDate" class="form-label">캠핑장명 :
 										${dto.facltNm}</label>
@@ -677,7 +714,7 @@ function updateCountWish() {
 	<hr>
 	<div class="camp_map">
 		<div class="camp_map_title">
-			<span><i class="bi bi-compass-fill icon"></i><span style="font-size:30px;">&nbsp;위치</span></span>
+			<span><i class="bi bi-compass-fill icon"></i><span style="font-size:1.75rem;">&nbsp;위치</span></span>
 		</div>
 		<div id="map" style="width: 100%; height: 400px;"></div>
 	    <script>
@@ -730,8 +767,8 @@ function updateCountWish() {
 		<br>
 		<div class="reviewTitle">
 			<div class="review_total">
-				<h2>캠핑장 리뷰</h2>
-				<h4>점수</h4>
+				<span style="font-size:1.75rem;">캠핑장 리뷰</span>
+				<span style="font-size: 1.3em;"></span>
 			</div> <!-- cloase review_total  -->
 
 		<div class ="star_rating">
@@ -742,15 +779,22 @@ function updateCountWish() {
 		  <span class="star" value="5"> </span>별점을 선택해주세요.
 		</div> <!-- close star_rating -->
 			<div class="input-group start_boxs">
-				<textarea class="star_box" placeholder="리뷰 내용을 작성해주세요." ></textarea>	
+				<textarea class="star_box" placeholder="리뷰 내용을 작성해주세요." ></textarea>
 				<input type="submit" class="btn02" value="등록"/>
-			</div> <!-- close star_rating -->
+			</div> <!-- close star_boxs -->
 			<br>
 			<div class="reviewList">
 				
+
+			
+			</div>
+		</div>	
+	</div>
+
 			</div> <!-- close reviewList -->
 		</div> <!-- cloase reviewTitle -->	
 	</div> <!-- close reviewbox  -->
 </div>
+>>>>>>> branch 'prototype' of https://github.com/xiexiehanoi/To-The-Nature.git
 </body>
 </html>

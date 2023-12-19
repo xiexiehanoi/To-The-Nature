@@ -28,6 +28,6 @@ public class SiteDto {
     private String modifiedAt;
     private String image_url;
     private int iswished;
-    private int coutniwsh;
+    private int countwish;
     private int amount;
 }

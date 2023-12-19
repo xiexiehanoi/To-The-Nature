@@ -25,7 +25,7 @@
     <%@ include file="/WEB-INF/views/layout/header.jsp" %>
 </div>
 <a href="${root}/admin/search">회원조회</a>
-<a href="${root}/admin/request">회원요청</a>
-<a href="${root}/admin/manage">회원관리</a>
+<a href="${root}/admin/reservation">예약관리</a>
+<a href="${root}/admin/manage">리뷰관리</a>
 </body>
 </html>

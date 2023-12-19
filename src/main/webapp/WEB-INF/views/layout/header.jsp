@@ -20,9 +20,55 @@
 
 <script type="text/javascript">
 
+    $(function(){
+        // 로그아웃 버튼
+        $("#btnlogout").click(function(){
+            $.ajax({
+                type: "get",
+                dataType: "text",
+                url: "${root}/login/logout",
+                success: function(res){
+                    // 로그아웃 성공시 페이지 새로고침
+                	window.location.href = "${root}/login/main";
+                },
+                error: function(res) {
+                    // 실패시 처리
+                    alert("로그아웃에 실패했습니다.");
+                }
+            });
+        });
+    });
+
+
+
 </script>
 </head>
 <body>
+
+
+	<%-- <c:if test="${not empty sessionScope.loginok}">
+    	<!-- 세션에 loginok 값이 있으면 (로그인 상태이면) 로그아웃 버튼 표시 -->
+    	<h5>${sessionScope.userid}님</h5><br>
+    	<button type="button" class="btn btn-success" id="btnlogout" style="width: 100px;">로그아웃</button>
+	</c:if>
+</div>
+&nbsp;&nbsp;
+	<div class="mypage-section">
+    <c:choose>
+        <c:when test="${empty sessionScope.loginok}">
+            <!-- 세션에 loginok 값이 없으면 (로그인 상태가 아니면) 로그인 페이지로 이동 -->
+            <a href="${root}/login/main">mypage</a>
+        </c:when>
+        <c:otherwise>
+            <!-- 세션에 loginok 값이 있으면 (로그인 상태이면) mypage 페이지로 이동 -->
+            <a href="${root}/mypage/main">mypage</a>
+        <c:if test="${sessionScope.userid eq 'nature'}">
+        <div class="admin-main"><a href="${root}/admin/main">admin</a></div>
+    	</c:if>
+        </c:otherwise>
+    </c:choose>
+
+</div>  --%>  
 
 </body>
 </html>

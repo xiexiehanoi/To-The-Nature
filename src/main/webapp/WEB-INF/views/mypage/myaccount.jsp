@@ -22,48 +22,85 @@
             justify-content: flex-start;
             margin-left:100px;
         }
-  
+   .error-message {
+            color: red;
+            margin-top: 10px;
+        }     
+  .header,
+    .mypagemain,
+    .delete {
+        display: inline-block;
+        width: 100%; /* 전체 너비로 설정 */
+        
+    }
+
+    .mypagemain {
+        float: left;
+        width: 29%; /* 변경된 부분: 49%로 설정하여 왼쪽에 위치하도록 조정 */
+    	height: 21%
+    }
+
+    .delete {
+        float: right;
+        width: 70%; /* 변경된 부분: 49%로 설정하여 오른쪽에 위치하도록 조정 */
+    	height: 79%
+    }
 </style>
 <script>
-        function check() {
-            var checkbox = document.getElementById('checkDelete');
-            var usernameInput = document.getElementById('username');
-            var userpwInput = document.getElementById('userpw');
+$(document).ready(function() {
+    function check() {
+        var checkbox = document.getElementById('checkDelete');
+        var usernameInput = document.getElementById('username');
+        var userpwInput = document.getElementById('userpw');
 
-       
-            
+        var enteredUsername = usernameInput.value;
+        var enteredUserpw = userpwInput.value;
 
-            if (checkbox.checked && usernameInput.value === username && userpwInput.value === password) {
-                $('#deleteConfirmationModal').modal('show');
-            } else {
-                $('#invalidInfoModal').modal('show');
-                // 입력 필드 초기화
-                usernameInput.value = "";
-                userpwInput.value = "";
+        if (checkbox.checked && enteredUsername === "${sessionScope.userid}" && enteredUserpw === "${sessionScope.userpw}") {
+            $('#deleteConfirmationModal').modal('show');
+        } else {
+            $('#invalidInfoModal').modal('show');
+            // 입력 필드 초기화
+            usernameInput.value = "";
+            userpwInput.value = "";
+        }
+    }
+
+    function deleteAccount() {
+        $.ajax({
+            type: "POST",
+            url: "${root}/mypage/account",
+            data: {
+                "username": $("#username").val(),
+                "userpw": $("#userpw").val()
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert("계정이 성공적으로 삭제되었습니다!");
+                    window.location.href = "${root}";
+                } else {
+                    // 서버에서 에러가 발생한 경우
+                    alert("서버 오류: " + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("에러 발생: " + error);
             }
-
-            return false;
-        }
-
-        function deleteAccount() {
-            // 여기에 계정 삭제 로직을 수행하세요
-            alert("계정이 성공적으로 삭제되었습니다!");
-            window.location.href = "${root}";
-        }
-
-        // 모달 닫힐 때 입력 필드 초기화
-        $('#deleteConfirmationModal, #invalidInfoModal').on('hidden.bs.modal', function (e) {
-            document.getElementById('username').value = "";
-            document.getElementById('userpw').value = "";
-            document.getElementById('checkDelete').checked = false;
         });
+    }
+
+    // 모달 닫힐 때 입력 필드 초기화
+    $('#deleteConfirmationModal, #invalidInfoModal').on('hidden.bs.modal', function (e) {
+        document.getElementById('username').value = "";
+        document.getElementById('userpw').value = "";
+        document.getElementById('checkDelete').checked = false;
+    });
+});
     </script>
 </head>
 <body>
 <c:set var="root" value="<%=request.getContextPath()%>"/>
-<div class="mypagemain">
-<%@ include file="/WEB-INF/views/mypage/mypagemain.jsp" %>
-</div>
+
 <div class="delete">
 <h3>회원탈퇴</h3>
 <ul>
@@ -93,7 +130,7 @@
             <table class="table table-bordered" style="width:300px;">
                 <tr>
                     <th>이름</th>
-                    <td><input type="text" name="username" id="username" class="form-control" minlength="4" maxlength="20" required="required" autofocus="autofocus" ></td>
+                    <td><input type="text" name="username" id="username" class="form-control" minlength="2" maxlength="20" required="required" autofocus="autofocus" ></td>
                 </tr>
                 <tr>
                     <th>비밀번호</th>
@@ -104,6 +141,7 @@
                 <button type="submit" class="btn btn-secondary" id="myaccountdelete" >탈퇴</button>&nbsp;&nbsp;&nbsp;
                 <button type="button" class="myclose" onclick="location.href='./main'">취소</button>
             </div>
+             <div class="error-message" id="errorMessage"></div>
         </form>
     </div>
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
@@ -132,7 +170,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="invalidInfoModalLabel">알림</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
