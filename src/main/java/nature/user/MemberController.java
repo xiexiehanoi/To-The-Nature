@@ -30,34 +30,53 @@ public class MemberController {
 	
 	@NonNull
 	private UserDao userDao;
-	
+
 	@GetMapping("/login/form")
 	public String login()
 	{
 		return "login/userform";
 	}
-	
+
 	@GetMapping("/login/list")
 	public String memberList(Model model)
 	{
 
 		int totalCount=userDao.getTotalCount();
-		
+
 		model.addAttribute("totalCount", totalCount);
-		
+
 		return "login/list";
 	}
-	
+
 	@PostMapping("/login/success")
-	public String addMember(HttpServletRequest request,@ModelAttribute UserDto dto, @RequestParam String usergender)
-	{
-	
+	public String addMember(HttpServletRequest request, @ModelAttribute UserDto dto,
+	                        @RequestParam(value = "upload", required = false) MultipartFile upload,
+	                        @RequestParam String usergender) {
+
+	    String userphoto = null;
+
+	    if (upload != null && !upload.isEmpty()) {
+	        // 파일이 업로드되었을 때의 처리
+	        String path = request.getSession().getServletContext().getRealPath("/resources/upload");
+	        userphoto = UUID.randomUUID().toString();
+
+	        try {
+	            upload.transferTo(new File(path + "/" + userphoto));
+	        } catch (IllegalStateException | IOException e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        // 파일이 업로드되지 않았을 때의 처리
+	        userphoto = "no";
+	    }
+
+	    dto.setUserphoto(userphoto);
 		dto.setUsergender(usergender);
 		userDao.insertMember(dto);
 		
 		return "login/loginsuccess";
 	}
-	
+
 	@GetMapping("/login/idcheck")
 	@ResponseBody public Map<String, Integer> getIdCount(@RequestParam String userid)
 	{
@@ -66,6 +85,6 @@ public class MemberController {
 		map.put("count", count);
 		return map;
 	}
-	
+
 	
 }
