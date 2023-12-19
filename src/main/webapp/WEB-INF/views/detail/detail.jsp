@@ -21,7 +21,7 @@
 	background-color: white;
 }
 .camp_container {
-    margin: 2%;
+    margin: 10%;
     background-color: white; /* 배경색을 흰색으로 설정 */
 }
 .camp_info_box {
@@ -225,14 +225,18 @@ i{
 </style>
 <%
 String userId = (String) session.getAttribute("userid");
+String loginStatus = (String) session.getAttribute("loginok");
+/* Integer userNum = (Integer) session.getAttribute("userNum"); */
 %>
 <script type="text/javascript">
     var urlParams = new URLSearchParams(window.location.search);
     var campingNum = urlParams.get('num');
     var userId = '<%= userId %>';
     var iswished = ${campinglist[0].iswished};
-    
-    
+    var loginStatus = "<%= loginStatus %>";
+    <%-- var userNum = <%= userNum %>;
+    console.log(userNum); --%>
+
     <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
 		  const formData = new FormData(document.getElementById('reservationForm'));
@@ -296,9 +300,8 @@ $(document).ready(function () {
 	
         // 찜하기 추가
     $(document).on("click", "#heartIcon", function () {
-    	if(userId == null){
-    		alert("로그인 후 이용 가능하십니다.")
-    	}else{
+   //로그인해서 누를 경우
+    if (loginStatus === "yes") {
         var ajaxUrl = iswished == "0" ? "./detail/insertWish" : "./detail/deleteWish";
         $.ajax({
             type: "POST",
@@ -320,8 +323,12 @@ $(document).ready(function () {
                 console.error("Ajax Error:", error);
             }
         });
-    	}
-    });
+    } else {
+    	iswished = "0";
+        updateHeartIcon();
+        alert("로그인 후 이용 가능하십니다.");
+    }
+});
 
 	//사진 더보기 버튼	
   
@@ -365,25 +372,30 @@ $(document).ready(function () {
 	        	//내용
 	        	var content = $(".star_box").val();
 	        	
-	        	$.ajax({
-	        	    type: "POST",
-	        	    url: "./detail/insertReview",
-	        	    contentType:"application/json",
-	        	    data: JSON.stringify({
-	        	        "userId": userId,
-	        	        "campingNum": campingNum,
-	        	        "rate": rate,
-	        	        "content": content
-	        	    }),
-	        	    success: function (res) {
-	        	        alert("리뷰가 성공적으로 등록되었습니다.");
-	        	        getreviewlist(campingNum);
-	        	    },
-	        	    error: function (xhr, status, error) {
-	        	        console.error("Ajax Error:", error);
-	        	    }
-	        	});
-	        })
+	        	/*var isUserPaid = ${reservationDto != null ? 'true' : 'false'};*/
+	        	
+	        	/*if (isUserPaid) {*/
+	                $.ajax({
+	                    type: "POST",
+	                    url: "./detail/insertReview",
+	                    contentType: "application/json",
+	                    data: JSON.stringify({
+	                        "userId": userId,
+	                        "campingNum": campingNum,
+	                        "rate": rate,
+	                        "content": content
+	                    }),
+	                    success: function (res) {
+	                        alert("리뷰가 성공적으로 등록되었습니다.");
+	                        getreviewlist(campingNum);
+	                    },
+	                    error: function (xhr, status, error) {
+	                        console.error("Ajax Error:", error);
+	                    }
+	                });
+	             /*} else {
+	                $(".btn02").hide();
+	            }*/
 	    	
 	    });//readyclose
 
