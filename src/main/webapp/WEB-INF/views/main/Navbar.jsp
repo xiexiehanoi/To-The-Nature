@@ -88,16 +88,6 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
 </head>
 <body>
 
-
-<!-- 세부 항목 리스트 블록-->
-<ul class="sub-menu" id="mypageSubMenu">
-      <li><a href="${root}/mypage/change">회원 정보</a></li>
-      <li><a href="${root}/mypage/reservation">예약 내역</a></li>
-      <li><a href="${root}/mypage/review">리뷰 관리</a></li>
-      <li><a href="${root}/mypage/delete">회원 탈퇴</a></li>
-</ul>
-
-
 <!-- Navbar -->
 <nav id="navbar">
   <!-- My Page 영역을 hover 했을 때 세부 목록을 보이게 하는 스크립트 -->
@@ -108,16 +98,14 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left">
-        <span class="navbar-item-inner-icon-wrapper flexbox">
-        <c:if test="${not empty sessionScope.loginok}">
-           <img src="${root}/res/upload/${sessionScope.userphoto}" class="rounded-circle profile_photo"
-	     	width=40 height="40" hspace="10" border=1
-	     	onerror="this.src='${root}/res/photo/noimage.png'"><br>
-        </span>
-        <span class="link-text">${sessionScope.userid} 님</span>
-        </c:if>
-      </a>
+      <c:if test="${not empty sessionScope.loginok}">
+	        <span class="navbar-item-inner-icon-wrapper flexbox">
+           		<img src="${root}/res/upload/${sessionScope.userphoto}" class="rounded-circle profile_photo"
+		     	 width=40 height="40" hspace="10" border=1
+	     		 onerror="this.src='${root}/res/photo/noimage.png'"><br>
+        	</span>
+        	<span class="link-text" style="color:white;">${sessionScope.userid} 님</span>
+      </c:if>
     </li>
    
     <li class="navbar-item flexbox-left login-section">
@@ -132,13 +120,12 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
       </c:if>
      
       <c:if test="${not empty sessionScope.loginok}">
-
-      <div class="navbar-item-inner-icon-wrapper flexbox">
+      	<a class="navbar-item-inner flexbox-left" href="${root}/login/main">
+        	<span class="navbar-item-inner-icon-wrapper flexbox">
           	<i class="bi bi-box-arrow-left" style="font-size: 24px;color: white;margin-right: 6px;"></i>
-      </div>
-      <div class="link-text" style="margin-bottom: 12px;">
-      <span class="link-text" id="btnlogout">로그아웃</span>
-      </div>
+      		</span>
+      		<span class="link-text" id="btnlogout" style="color: white;">로그아웃</span>
+      	</a>
 	  </c:if>
     </li>
    
@@ -205,10 +192,10 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
     		
     		<!-- 세부 항목 리스트 블록-->
 			<ul class="sub-menu" id="mypageSubMenu">
-      			<li><a href="${root}/mypage/main">회원 정보</a></li>
-      			<li><a href="${root}/mypage/main">예약 내역</a></li>
-      			<li><a href="${root}/mypage/main">리뷰 관리</a></li>
-      			<li><a href="${root}/mypage/main">회원 탈퇴</a></li>
+      			<li><a href="${root}/mypage/change">회원 정보</a></li>
+      			<li><a href="${root}/mypage/reservation">예약 내역</a></li>
+      			<li><a href="${root}/mypage/review">리뷰 관리</a></li>
+      			<li><a href="${root}/mypage/delete">회원 탈퇴</a></li>
 			</ul>
 
         </c:otherwise>

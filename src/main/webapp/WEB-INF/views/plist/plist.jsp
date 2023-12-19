@@ -21,7 +21,7 @@
 
 	div.plist{
 		position: absolute;
-		padding-top: 6em;
+		/* padding-top: 6em; */
 		padding-left: 8em;
 		border: 1px solid gray;
 		width: 100%;
