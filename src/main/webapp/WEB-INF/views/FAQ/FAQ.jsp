@@ -41,7 +41,7 @@ body {
 }
 
 .accordion-header {
-    background-color: #6C63FF; /* Soft purple */
+    background-color: #528171;
     color: #FFFFFF; /* White text */
     padding: 15px;
     font-size: 18px;
@@ -58,7 +58,7 @@ body {
 }
 
 .accordion-header:hover {
-    background-color: #5753C9; /* Darker shade of purple */
+    background-color: #528172; /* Darker shade of purple */
 }
 
 .accordion-content {
