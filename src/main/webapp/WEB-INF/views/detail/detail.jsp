@@ -21,7 +21,7 @@
 	background-color: white;
 }
 .camp_container {
-    margin: 2%;
+    margin: 7%;
     background-color: white; /* 배경색을 흰색으로 설정 */
 }
 .camp_info_box {

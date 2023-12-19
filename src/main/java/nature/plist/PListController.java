@@ -19,18 +19,36 @@ public class PListController {
 	@Autowired
 	private PListService plistService;
 	
+	@Autowired
+	private PListDao plistDao;
+	
 	@GetMapping("/plist")
-	public String detail(HttpSession session, Model model,@RequestParam String userId, @RequestParam int num) {
-		
-	    // 필요한 로직 수행
-	    Map<String, Object> plistParam = new HashMap<>();
-	    plistParam.put("userId", userId);
-	    plistParam.put("campingNum", num);
+	public String plist(HttpSession session, Model model,
+	        @RequestParam String userId, @RequestParam int num, @RequestParam(defaultValue = "1") int currentPage) {
 
-	    List<Map<String, Object>> campinglist = plistService.getsearchcamping(plistParam);
-	    model.addAttribute("campinglist", campinglist);
-	    model.addAttribute("userId", userId);
-	    model.addAttribute("campingNum", num);
+	    int perPage = 12; // 한 페이지당 보여지는 게시글의 갯수
+
+	    // 페이징 처리를 위한 변수 계산
+	    int perBlock=5; //한블럭당 보여지는 페이지의 개수
+	    int totalCount = plistService.getTotalCount();
+	    int totalPage = (int) Math.ceil((double) totalCount / perPage);
+	    int startNum = (currentPage - 1) * perPage;
+	    int startPage = (currentPage - 1) / perBlock * perBlock + 1;
+	    int endPage = Math.min(startPage + perBlock - 1, totalPage);
+
+	    // 해당 페이지에 보여줄 게시판 목록
+	    List<PListDto> plist = plistService.getPList(startNum, perPage);
+
+	    int no = totalCount - (currentPage - 1) * perPage;
+
+	    model.addAttribute("plist", plist);
+	    model.addAttribute("totalCount", totalCount);
+	    model.addAttribute("totalPage", totalPage);
+	    model.addAttribute("startPage", startPage);
+	    model.addAttribute("endPage", endPage);
+	    model.addAttribute("currentPage", currentPage);
+	    model.addAttribute("no", no);
+				
 	    return "plist/plist.plist";
 	}
 	

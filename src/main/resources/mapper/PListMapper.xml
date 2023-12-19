@@ -2,37 +2,78 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="nature.plist.PListDao">
 	<select id="totalCountOfSite" resultType="int">
-		select count(*) from camping_file
+		select count(*) from camping_details
 	</select>
 	
 	<select id="selectAllSites" resultType="PListDto" parameterType="Map">
-		select * from camping_file 
+		select * from camping_details 
 		<if test="searchword!=null">
-		where ${searchfield} like concat('%',#{searchword},'%')
+		where #{searchfield1} or #{searchfield2} or #{searchfield3} like concat('%',#{searchword},'%')
 		</if>
-		order by campingNum desc
+		<if test="searchword==null">
+		where camping_num=#{campingNum}
+		</if>
+		order by camping_num desc
 	</select>
 	
+	<select id="selectPagingOfPList" parameterType="Map" resultType="PListDto">
+		select * from camping_details order by camping_num desc limit #{start},#{perpage}
+	</select>
 	
+	<insert id="insertSite" parameterType="PListDto">
+		INSERT INTO camping_details (
+        	camping_contentId, facltNm, intro, doNm, sigunguNm, addr1, mapX, mapY,
+        	tel, homepage, operDeCl, toiletCo, swrmCo, wtrplCo, available_room, sbrsCl, animalCmgCl,
+        	firstImageUrl, createdAt, modifiedAt, amount
+    	) VALUES (
+	        #{campingContentId}, #{facltNm}, #{intro}, #{doNm}, #{sigunguNm}, #{addr1}, #{mapX}, #{mapY},
+        	#{tel}, #{homepage}, #{operDeCl}, #{toiletCo}, #{swrmCo}, #{wtrplCo}, #{available_room}, #{sbrsCl}, #{animalCmgCl},
+        	#{firstImageUrl}, #{createdAt}, #{modifiedAt}, #{amount}
+    	)
+    	<selectKey keyProperty="campingNum" resultType="int" order="AFTER">
+	        SELECT LAST_INSERT_ID()
+	    </selectKey>
+	</insert>
+	
+	<update id="updateSite" parameterType="PListDto">
+		UPDATE camping_details
+    	SET 
+	        campingContentId = #{campingContentId},
+        	facltNm = #{facltNm},
+        	intro = #{intro},
+        	doNm = #{doNm},
+        	sigunguNm = #{sigunguNm},
+        	addr1 = #{addr1},
+        	mapX = #{mapX},
+        	mapY = #{mapY},
+        	tel = #{tel},
+        	homepage = #{homepage},
+        	operDeCl = #{operDeCl},
+        	toiletCo = #{toiletCo},
+        	swrmCo = #{swrmCo},
+        	wtrplCo = #{wtrplCo},
+        	available_room = #{available_room},
+        	sbrsCl = #{sbrsCl},
+        	animalCmgCl = #{animalCmgCl},
+        	firstImageUrl = #{firstImageUrl},
+        	createdAt = #{createdAt},
+        	modifiedAt = #{modifiedAt},
+        	amount = #{amount}
+    	WHERE camping_num = #{camping_num}
+	</update>
 	
 	<delete id="deleteSite" parameterType="int">
-		delete from camping_file where campingNum=#{campingNum}
+		delete from camping_details where camping_num=#{campingNum}
 	</delete>
 	
-	<select id="selectdetail" parameterType="Map" resultType="Map">
+	<select id="selectSitedetail" parameterType="Map" resultType="Map">
 	    SELECT
-    cd.*,
-    COALESCE(
-        TRIM(BOTH ' ' FROM (
-            SELECT GROUP_CONCAT(DISTINCT cf.imageUrl SEPARATOR ', ') FROM camping_file cf WHERE cd.camping_contentId = cf.camping_contentId
-        )),
-        '' 
-    ) AS imageUrl,
-    (CASE WHEN #{userId} IS NOT NULL THEN (
-        SELECT COUNT(*) FROM wish WHERE user_id = #{userId} AND camping_num = cd.camping_num
-    ) ELSE null END) as iswished,
-    (SELECT COUNT(*) FROM wish WHERE camping_num = cd.camping_num) as countwish
-    FROM camping_details cd
-    WHERE cd.camping_num = #{campingNum}
+    	cd.*,
+    	(CASE WHEN #{userId} IS NOT NULL THEN (
+	        SELECT COUNT(*) FROM wish WHERE camping_num = cd.camping_num
+	    ) ELSE null END) as iswished,
+	    (SELECT COUNT(*) FROM wish WHERE camping_num = cd.camping_num) as countwish
+	    FROM camping_details cd
+	    WHERE cd.camping_num = #{campingNum}
 	</select>
 </mapper>

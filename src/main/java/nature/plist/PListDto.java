@@ -20,13 +20,13 @@ public class PListDto {
     private int toiletCo;
     private int swrmCo;
     private int wtrplCo;
-    private int availableRoom;
+    private int available_room;
     private String sbrsCl;
     private String animalCmgCl;
     private String firstImageUrl;
     private String createdAt;
     private String modifiedAt;
-    private String image_url;
+    private String imageUrl;
     private int iswished;
     private int coutniwsh;
 }

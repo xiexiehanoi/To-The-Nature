@@ -11,5 +11,6 @@
 		<typeAlias type="nature.user.UserDto" alias="UserDto"/>
 		<typeAlias type="nature.wish.WishDto" alias="WishDto"/>
 		<typeAlias type="nature.mypage.MypageDto" alias="MypageDto"/>
+		<typeAlias type="nature.plist.PListDto" alias="PListDto"/>
 	</typeAliases>
 </configuration>

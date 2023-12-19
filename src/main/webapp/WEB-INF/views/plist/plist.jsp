@@ -15,28 +15,82 @@
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
+	body{
+		background-color: #C2C9BC;
+	}
+
 	div.plist{
 		position: absolute;
 		padding-top: 6em;
 		padding-left: 8em;
 		border: 1px solid gray;
 		width: 100%;
-		height: 100vh;
+		/* height: 100vh; */
 		overflow-y: auto;
-    	overflow-x: hidden;
+    	/* overflow-x: hidden; */
     	z-index: -2;
 		/* display: flex;
     	justify-content: center;
     	align-items: center; */ 
 	}
 	
-	div.plist .plist-coverimg{
-		width: 100vw;
-		height: 200px;
+	.plist-coverimg{
+		width: 100%;
+		height: 250px;
 		border: 1px solid gray;
 		border-radius: 5px 0px 0px 5px;
 		background-color: gray;
 	}
+	
+	div.plist-content{
+		width: 100%;
+		margin-top: 8px;	
+	}
+	
+	div.plist .plist-search{
+		margin-left: 64px;
+		margin-right: 8px;
+	}
+	
+	div.plist .plist-search:hover{
+		outline: none;
+    	border: none;
+	}
+	
+	div.plist .plist-title-search{
+		width: 100%;
+    	padding-right: 72px; /* 우측에 공백을 주세요 */
+    	box-sizing: border-box; /* 박스 모델 조절 */
+    	margin-bottom: 40px;
+    	margin-right: 8px;
+	}
+	
+	div.plist .plist-list {
+		display: flex;
+		flex-wrap: wrap; /* 필요한 경우 자동으로 줄 바꿈 */
+    	justify-content: flex-start;
+    	align-items: center; 
+	}
+	
+	div.plist .plist-item {
+    	flex-basis: calc(33.333% - 24px); /* 3개씩 나열하고 간격은 10px로 조절 */
+    	margin-right: 10px; /* 오른쪽 간격 설정 */
+    	margin-bottom: 10px; /* 아래쪽 간격 설정 */
+    	border-radius: 8px ;
+    	/* border: 1px solid gray; */
+    	box-shadow: 2px 2px 8px #c4c4c4;
+	}
+	
+	
+		
+	div.plist .plist-item-img{
+		/* flex-basis: calc(33.333% - 0px); */
+		width: 100%;
+    	height: 200px;
+    	object-fit: cover;
+    	border-radius: 10px 10px 0px 0px;
+	}
+	
 	
 </style>
 <%
@@ -46,16 +100,56 @@ String userId = (String) session.getAttribute("userid");
     
 </script>
 <body>
+<div class="plist-coverimg">
+	<img alt="coverimg" src="" class="plist-coverimg">
+</div>
+
 <div class="plist">
-	<div class="plist-coverimg">
-		<img alt="coverimg" src="" class="plist-coverimg">
-	</div>
+	
 	<div class="plist-content">
-		<div class="top-content-image">ffff</div>
-		<div class="top-content-text">aaaaaa</div>
-		<div class="mid-content"></div>
-		<div class="bottom-content-left"></div>
-		<div class="bottom-content-right"></div>
+		<div class="plist-title-search input-group">
+			<h3 class="plist-title">
+				캠핑장 목록
+				<span class="plist-count" style="font-size: 18px;color: #495F37;">총 ${totalCount}개의 캠핑장이 있습니다</span>
+			</h3>
+			<div class="plist-search input-group" style="width: 700px;height:16px;margin-left: 40px;">
+				<input type="text" class="plist-search-input" name="search" style="width: 350px;border-radius: 5px 0px 0px 5px;outline: none;"
+				  placeholder="캠핑장/시/군/구를 검색하세요">
+				<button type="button" id="plist-search-btn" class="plist-search-btn" 
+				  style="width: 100px;background-color: #528171;border:none;border-radius: 0px 5px 5px 0px;">검색</button>
+			</div>
+		</div>
+		
+		<div class="plist-list">
+			<c:forEach var="dto" items="${plist}">
+				<div class="plist-item">
+					<c:choose>
+    					<c:when test="${sessionScope.userid == null}">
+        					<a href="./detail?num=${no}&userId=null" class="plist-item-inner">
+        						<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}">
+								<span class="plist-item-no">
+									${no}.
+									<c:set var="no" value="${no-1}"/>
+									${dto.facltNm}
+								</span>
+      						</a>
+    					</c:when>
+        				<c:otherwise>
+            				<a href="./detail?num=${no}&userId=${sessionScope.userid}" class="plist-item-inner">
+        						<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}">
+								<span class="plist-item-no">
+									${no}
+									<c:set var="no" value="${no-1}"/>
+									${dto.facltNm}
+								</span>
+      						</a>
+        				</c:otherwise>
+      				</c:choose>
+					
+					
+				</div>
+			</c:forEach>
+		</div>
 	</div>
 </div>
 </body>
