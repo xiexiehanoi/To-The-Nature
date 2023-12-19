@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='static/Navstyle.css' />">
 <style>
@@ -86,7 +86,7 @@
       
       <c:choose>
     	<c:when test="${sessionScope.userid == null}">
-        	<a href="./plist?num=1&userId=null" class="navbar-item-inner flexbox-left">
+        	<a href="./plist?userId=null" class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
           			<i class="bi bi-search" style="font-size: 20px;"></i>
         		</span>
@@ -94,7 +94,7 @@
       		</a>
     	</c:when>
         <c:otherwise>
-            <a href="./plist?num=1&userId=${sessionScope.userid}" class="navbar-item-inner flexbox-left">
+            <a href="./plist?userId=${sessionScope.userid}" class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
           			<i class="bi bi-search" style="font-size: 20px;"></i>
         		</span>

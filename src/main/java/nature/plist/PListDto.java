@@ -4,9 +4,8 @@ import lombok.Data;
 
 @Data
 public class PListDto {
-	
-    private int campingNum;
-    private int campingContentId;
+    private int camping_num;
+    private int camping_contentId;
     private String facltNm;
     private String intro;
     private String doNm;
@@ -28,5 +27,5 @@ public class PListDto {
     private String modifiedAt;
     private String imageUrl;
     private int iswished;
-    private int coutniwsh;
+    private int countwish;
 }

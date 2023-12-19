@@ -97,7 +97,30 @@
 String userId = (String) session.getAttribute("userid");
 %>
 <script type="text/javascript">
-    
+	var word=$("search").val();
+	var facltNm=$(".plist-search-input").val();
+	var sigunguNm=$(".plist-search-input").val();
+	var doNm=$(".plist-search-input").val();
+	console.log(word);
+	
+    $(document).on("click","#plist-search-btn",function(){
+    	$.ajax({
+            type: "POST",
+            url: "./plist/search",
+            data: {
+                "word":word,
+                "facltNm":facltNm,
+                "sigunguNm":sigunguNm,
+                "doNm":doNm
+            },
+            dataType: "json",
+            success: function (res) {
+            	console.log("a:"+res);
+            	$(".plist-item-img").html(res.firstImageUrl);
+            }
+    		
+    	})
+    });
 </script>
 <body>
 <div class="plist-coverimg">
@@ -112,7 +135,7 @@ String userId = (String) session.getAttribute("userid");
 				캠핑장 목록
 				<span class="plist-count" style="font-size: 18px;color: #495F37;">총 ${totalCount}개의 캠핑장이 있습니다</span>
 			</h3>
-			<div class="plist-search input-group" style="width: 700px;height:16px;margin-left: 40px;">
+			<div class="plist-search input-group" style="width: 600px;height:16px;margin-left: 40px;">
 				<input type="text" class="plist-search-input" name="search" style="width: 350px;border-radius: 5px 0px 0px 5px;outline: none;"
 				  placeholder="캠핑장/시/군/구를 검색하세요">
 				<button type="button" id="plist-search-btn" class="plist-search-btn" 
@@ -121,25 +144,25 @@ String userId = (String) session.getAttribute("userid");
 		</div>
 		
 		<div class="plist-list">
-			<c:forEach var="dto" items="${plist}">
+			<c:forEach var="dto" items="${plistpage}">
 				<div class="plist-item">
 					<c:choose>
     					<c:when test="${sessionScope.userid == null}">
-        					<a href="./detail?num=${no}&userId=null" class="plist-item-inner">
+        					<a href="./detail?num=${dto.camping_num}&userId=null" class="plist-item-inner">
         						<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}">
 								<span class="plist-item-no">
-									${no}.
-									<c:set var="no" value="${no-1}"/>
+									${dto.camping_num}.
+									<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
 									${dto.facltNm}
 								</span>
       						</a>
     					</c:when>
         				<c:otherwise>
-            				<a href="./detail?num=${no}&userId=${sessionScope.userid}" class="plist-item-inner">
+            				<a href="./detail?num=${dto.camping_num}&userId=${sessionScope.userid}" class="plist-item-inner">
         						<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}">
 								<span class="plist-item-no">
-									${no}
-									<c:set var="no" value="${no-1}"/>
+									${dto.camping_num}
+									<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
 									${dto.facltNm}
 								</span>
       						</a>
@@ -149,7 +172,31 @@ String userId = (String) session.getAttribute("userid");
 					
 				</div>
 			</c:forEach>
+			
 		</div>
+		<div style="text-align: center;">
+		<!-- 이전 -->
+		<c:if test="${startPage>1}">
+			<a href="./plist?currentPage=${startPage-1}">이전</a>
+		</c:if>
+		&nbsp;
+		<c:forEach var="pno" begin="${startPage}" end="${endPage}">
+			<a href="./plist?currentPage=${pno}" style="cursor: pointer;">
+				<c:if test="${pno==currentPage}">
+					<span style="color: red;">${pno}</span>
+				</c:if>
+				<c:if test="${pno!=currentPage}">
+					<span style="color: black;">${pno}</span>
+				</c:if>
+			</a>
+			&nbsp;
+			
+		</c:forEach>
+		<!-- 다음 -->
+		<c:if test="${endPage<totalPage}">
+			<a href="./plist?currentPage=${endPage+1}">다음</a>
+		</c:if>
+	</div>
 	</div>
 </div>
 </body>
