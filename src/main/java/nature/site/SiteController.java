@@ -35,23 +35,15 @@ public class SiteController {
 	    
 	    //로그인한 유저 정보 가져오기
 	    UserDto userDto =siteService.getUser(userId);
-	    /*int userNum = userDto.getUsernum();*/
-	    
-	  //구매유저 정보 가져오기
-		
-		 /*Map<String, Object> reservationParam = new HashMap<>(); 
-		 reservationParam.put("userNum", userNum); 
-		 reservationParam.put("campingNum", num); 
-		 ReservationDto reservationDto = siteService.checkPaidUser(reservationParam);*/ 
-		 
+
 	    List<Map<String, Object>> campinglist = siteService.getsearchcamping(siteParam);
 	    
 	    model.addAttribute("campinglist", campinglist);
 	    model.addAttribute("userId", userId);
 	    model.addAttribute("userDto", userDto);
 	    model.addAttribute("campingNum", num);
-		/*model.addAttribute("reservationDto", reservationDto);*/
 	    
 	    return "detail/detail.site";
 	}
+	
 }

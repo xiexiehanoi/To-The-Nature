@@ -25,12 +25,6 @@ public class SiteService {
 
 		UserDto userDto= siteDao.getUser(userid);
 		return userDto;
-	}
-	
-	 /*public ReservationDto checkPaidUser(Map<String, Object> reservationParm) {
-	 ReservationDto reservationDto = siteDao.checkPaidUser(reservationParm);
-	 return reservationDto; 
-	 }*/
-	 
+	}	 
 
 }
