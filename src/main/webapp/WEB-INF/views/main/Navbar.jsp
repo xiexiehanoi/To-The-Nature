@@ -40,7 +40,7 @@
                 }
             });
         });
-<<<<<<< HEAD
+
     });
      
     $(document).ready(function () {
@@ -81,14 +81,14 @@
         });
     });
    
-=======
+
     });   
->>>>>>> branch 'prototype' of https://github.com/xiexiehanoi/To-The-Nature.git
+
 </script>
 </head>
 <body>
 
-<<<<<<< HEAD
+
 <!-- 세부 항목 리스트 블록-->
 <ul class="sub-menu" id="mypageSubMenu">
       <li><a href="${root}/mypage/change">회원 정보</a></li>
@@ -96,8 +96,8 @@
       <li><a href="${root}/mypage/review">리뷰 관리</a></li>
       <li><a href="${root}/mypage/delete">회원 탈퇴</a></li>
 </ul>
-=======
->>>>>>> branch 'prototype' of https://github.com/xiexiehanoi/To-The-Nature.git
+
+
 <!-- Navbar -->
 <nav id="navbar">
   <!-- My Page 영역을 hover 했을 때 세부 목록을 보이게 하는 스크립트 -->
@@ -172,7 +172,7 @@
       		</a>
         </c:otherwise>
       </c:choose>
->>>>>>> branch 'prototype' of https://github.com/xiexiehanoi/To-The-Nature.git
+
     </li>
     <li class="navbar-item flexbox-left mypage-section" id="mypage">
       <c:choose>
@@ -196,9 +196,9 @@
         		</span>
         		<span class="link-text">My Page</span>
       		</a>
-<<<<<<< HEAD
+
         	
-=======
+
         	<c:if test="${sessionScope.userid eq 'nature'}">
         		<a href="${root}/admin/main">Admin</a>
     		</c:if>
@@ -210,7 +210,7 @@
       			<li><a href="${root}/mypage/main">리뷰 관리</a></li>
       			<li><a href="${root}/mypage/main">회원 탈퇴</a></li>
 			</ul>
->>>>>>> branch 'prototype' of https://github.com/xiexiehanoi/To-The-Nature.git
+
         </c:otherwise>
       </c:choose>
     </li>
@@ -260,11 +260,10 @@
       		</a>
         </c:otherwise>
       </c:choose>
-<<<<<<< HEAD
+
    
      
-=======
->>>>>>> branch 'prototype' of https://github.com/xiexiehanoi/To-The-Nature.git
+
     </li>
     <li class="navbar-item flexbox-left faq">
       <a class="navbar-item-inner flexbox-left">
