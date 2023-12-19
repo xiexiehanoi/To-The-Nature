@@ -10,7 +10,7 @@
 		<if test="searchword!=null">
 		where ${searchfield} like concat('%',#{searchword},'%')
 		</if>
-		order by num desc
+		order by campingNum desc
 	</select>
 	
 	
