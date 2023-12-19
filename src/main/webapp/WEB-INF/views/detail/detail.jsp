@@ -396,7 +396,7 @@ $(document).ready(function () {
 	             /*} else {
 	                $(".btn02").hide();
 	            }*/
-	    	
+	        })
 	    });//readyclose
 
 	//review 불러오기
