@@ -24,4 +24,8 @@ public class ReservationDao {
 		
 		return session.selectOne(nameSpace+"selectgetUser",userid);
 	}
+
+	public void insertReservation(ReservationDto reservationDto) {
+		session.insert(nameSpace+"insertReservation",reservationDto);
+	}
 }
