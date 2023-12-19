@@ -1,9 +1,9 @@
-package nature.site;
+package nature.plist;
 
 import lombok.Data;
 
 @Data
-public class SiteDto {
+public class PListDto {
 	
     private int campingNum;
     private int campingContentId;
@@ -12,8 +12,8 @@ public class SiteDto {
     private String doNm;
     private String sigunguNm;
     private String addr1;
-    private String mapX;
-    private String mapY;
+    private double mapX;
+    private double mapY;
     private String tel;
     private String homepage;
     private String operDeCl;
@@ -29,5 +29,4 @@ public class SiteDto {
     private String image_url;
     private int iswished;
     private int coutniwsh;
-    private int amount;
 }

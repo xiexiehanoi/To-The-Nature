@@ -23,4 +23,10 @@ public class ReservationService {
 		UserDto userDto= reservationDao.getUser(userid);
 		return userDto;
 	}
+
+	public void insertReservation(ReservationDto reservationDto) {
+		
+		reservationDao.insertReservation(reservationDto);
+		
+	}
 }
