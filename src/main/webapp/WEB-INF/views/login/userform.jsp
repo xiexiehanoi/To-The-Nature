@@ -18,6 +18,17 @@
         align-items: center;
         min-height: 100vh;
     }
+    #btnidcheck{
+    	border:1px solid #528171;
+    	color:white;
+    	background-color:#528171;
+    	border-radius:10%;
+    	font-size:12px;
+    }
+    #btnidcheck:hover {
+    	background-color:#528171;
+    	color:white;
+    }
    .genderButtons {
         display: flex;
         justify-content: space-between;
@@ -31,8 +42,8 @@
    .genderButton.active,
     .genderButton:hover {
         background-color: white;
-        color: #6B8E23;
-        border: 2px solid #6B8E23;
+        color: #528171;
+        border: 2px solid #528171;
     }
   form {
         width: 80%;
@@ -103,7 +114,7 @@ $(function(){
 });//close function
 function check(){
 	if(!idok){
-		alert("중복체크 버튼을 눌러주세요");
+		alert("중복확인 버튼을 눌러주세요");
 		return false;
 	}
 	let pass1=$("#pass1").val();
@@ -132,7 +143,7 @@ function check(){
 					
 					<div class="input-group">
 					<input type="text" name="userid" id="userid" class="form-control" minlength="4" maxlength="20" required="required" autofocus="autofocus" placeholder="아이디">
-					<button type="button" class="btn btn-outline-success btn-sm" id="btnidcheck">중복체크</button>
+					<button type="button" class="btn-sm" id="btnidcheck">중복확인</button>
 					</div>
 				<input type="password" name="userpw" id="pass1" class="form-control" minlength="4" maxlength="20" required="required" placeholder="비밀번호">
 				

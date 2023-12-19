@@ -22,9 +22,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 50vh;
-            height: 50vh;
-            border: 1px solid lightgray;
+            width: 60vh;
+            height: 60vh;
+            border: 1px solid gray;
         }
         .search {
             float: left;
@@ -36,14 +36,16 @@
         }
         .search .idtitle,
         .search .pwtitle {
-            margin-right: 20px;
+            margin-right: 0;
         }
         .idtitle {
         	background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
   			background-repeat: no-repeat;
   			background-size: 0% 0%;
   			background-position: 50 88%;
-  			
+  			border: 1px solid white;
+   			border-bottom: 1px solid #ddd;
+   			padding: 10px;
         }
         .idtitle:hover{
   		background-size: 100% 100%;
@@ -51,9 +53,12 @@
         .pwtitle {
         	background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
   			background-repeat: no-repeat;
-  			background-size: 100% 50%;
-  			background-position: 0 88%;
+  			background-size: 100% 0%;
+  			background-position: 0 100%;
   			transition: background-size 0.25s ease-in;
+  			border: 1px solid #ddd;
+    		border-bottom: none;
+    		padding: 10px;
         }
         .pwtitle:hover{
   		background-size: 100% 100%;
@@ -64,7 +69,7 @@
         }
 
         .form-control {
-        	
+        	border:1px solid #B8B8B8;
             margin-bottom: 10px;
         }
 
@@ -88,7 +93,7 @@
             border: 1px solid red;
         }
         .modal-content {
-        width: 70%; /* Adjust the width as per your preference */
+        width: 64%; /* Adjust the width as per your preference */
         height: 150px;
         margin: auto; /* Center the modal horizontally */
         margin-top: 100px; /* Adjust the top margin as per your preference */
@@ -98,16 +103,36 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 30%;
+    
 	}
-    /* Style for buttons in modal footer */
-    .btnlogin, .btnchange {
-        padding: 5px 10px; /* Adjust padding to change the button size */
-        font-size: 14px; /* Adjust font size as needed */
-        border: 1px solid white;
-        background-color: #555;
-        color: white;
+	.modal-footer {
+	height: 40%;
+	}
+    .btnlogin {
+    padding: 5px 10px; /* Adjust padding to change the button size */
+    font-size: 11px; /* Adjust font size as needed */
+    border: 1px solid #528171;
+    background-color: #528171;
+    color: white;
+    text-decoration: none;
+    text-align:center;
+    width: 96px;
     }
+    .btnchange {
+    padding: 5px 10px; /* Adjust padding to change the button size */
+    font-size: 11px; /* Adjust font size as needed */
+    border: 1px solid #528171;
+    background-color: white;
+    color: #528171;
+    text-decoration: none;
+    text-align:center;
+    width: 96px; 
+    }
+    .btnchange:hover {
+    background-color: #528171;
+    color: white;
+}
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
     <script>
@@ -133,7 +158,7 @@
                     $("#login_name + .error-message").remove();
                 }
 
-                if (userid < 5) {
+                if (userid.length < 5) {
                     // 테두리를 빨간색으로 변경
                     $("#login_id").addClass("error-border");
                     // 입력란 아래에 에러 메시지 추가
@@ -148,7 +173,7 @@
                     // 테두리를 빨간색으로 변경
                     $("#login_email").addClass("error-border");
                     // 입력란 아래에 에러 메시지 추가
-                    $("#login_email").after('<div class="error-message">올바른 이메일 형식이 아닙니다.</div>');
+                    $("#login_email").after('<div class="error-message">이메일 주소를 정확히 입력해주세요.</div>');
                     return;
                 } else {
                     // 테두리 및 에러 메시지 삭제
@@ -168,8 +193,8 @@
                         } else {
                             // 결과가 있을 때 모달창으로 임시 비밀번호 표시
                             $("#modal-body").html("임시 비밀번호: " + data);
-                            $("#modal-body").css("font-weight", "bold");
-                            $("#modal-footer").html('<a href="<%=request.getContextPath()%>/login/main" class="btn btn-primary btnlogin">로그인 페이지로 이동</a><a href="./change" class="btn btn-primary btnchange">비밀번호 변경</a>');
+                            
+                            $("#modal-footer").html('<a href="<%=request.getContextPath()%>/login/main" class="btnlogin">로그인</a><a href="./change" class="btnchange">비밀번호 변경</a>');
                             $("#myModal").modal("show");
                         }
                        
@@ -202,7 +227,10 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-               
+               <div class="modal-header">
+                
+                <h5 class="modal-title" style="font-size:14px;font-weight: bold;">비밀번호 찾기</h5>
+             </div>
                 <div class="modal-body text-center" id="modal-body">
                     <!-- 결과 또는 경고 메시지가 이 부분에 표시됩니다. -->
                 </div>

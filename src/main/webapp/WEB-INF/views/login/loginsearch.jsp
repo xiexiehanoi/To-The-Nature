@@ -22,14 +22,15 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 50vh;
-            height: 50vh;
-            border: 1px solid lightgray;
+            width: 60vh;
+            height: 60vh;
+            border: 1px solid gray;
         }
 		
         .search {
             float: left;
             display: flex;
+            
         }
         .search a {
             color: inherit;
@@ -37,36 +38,46 @@
         }
         .search .idtitle,
         .search .pwtitle {
-            margin-right: 20px;
+            margin-right: 0;
+            
         }
         .pwtitle {
         	background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
   			background-repeat: no-repeat;
   			background-size: 0% 0%;
   			background-position: 50 50%;
-  			
+  			border: 1px solid white;
+   			border-bottom: 1px solid #ddd;
+   			padding: 10px;
+  			 
         }
         .pwtitle:hover{
   		background-size: 100% 100%;
-  		
+  		border:1px solid #ddd;
 		}
         .idtitle {
         	background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
   			background-repeat: no-repeat;
-  			background-size: 100% 50%;
-  			background-position: 0 88%;
+  			background-size: 100% 0%;
+  			background-position: 0 100%;
   			transition: background-size 0.25s ease-in;
+  			border: 1px solid #ddd;
+    		border-bottom: none;
+    		padding: 10px;
+    		
         }
         .idtitle:hover{
   		background-size: 100% 100%;
+  		
 		}
         .formsearch {
             width: 60%;
             margin: 0 auto;
+            margin-bottom:45px;
         }
 
         .form-control {
-        	
+        	border:1px solid #B8B8B8;
             margin-bottom: 10px;
         }
 
@@ -91,27 +102,48 @@
         }
        
         .modal-content {
-        width: 70%; /* Adjust the width as per your preference */
+        width: 64%; /* Adjust the width as per your preference */
         height: 150px;
         margin: auto; /* Center the modal horizontally */
         margin-top: 100px; /* Adjust the top margin as per your preference */
+    }
+    .modal-header {
+    height: 30%;
+    
     }
 	.modal-body {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 30%;
+    
 }
-    /* Style for buttons in modal footer */
-    .btnlogin, .btncheck {
-        padding: 5px 10px; /* Adjust padding to change the button size */
-        font-size: 14px; /* Adjust font size as needed */
-        border: 1px solid white;
-        background-color: #555;
-        color: white;
-    }
-   
+	.modal-footer {
+	height: 40%;
+	}
+    .btncheck {
+    padding: 5px 10px; /* Adjust padding to change the button size */
+    font-size: 14px; /* Adjust font size as needed */
+    border: 1px solid #528171;
+    background-color: white;
+    color: #528171;
+    text-decoration: none;
+    width: 64px; /* Adjust the width as per your preference */
+}
+	.btnlogin {
+    padding: 5px 10px; /* Adjust padding to change the button size */
+    font-size: 14px; /* Adjust font size as needed */
+    border: 1px solid #528171;
+    background-color: #528171;
+    color: white;
+    text-decoration: none;
+    width: 64px; /* Adjust the width as per your preference */
+}
+.btncheck:hover {
+    background-color: #528171;
+    color: white;
+}
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
     <script>
@@ -156,12 +188,11 @@
                     success: function (data) {
                         if (data === "Not Found") {
                            
-                        	$(".idsearch").after('<div class="error-message" style="color: red;">일치하는 정보가 없습니다. 다시 확인해주세요.</div>');
+                        	$(".idsearch").after('<div class="error-message" style="color: red;">일치하는 정보가 없습니다.</div>');
                         } else {
                             // 결과가 있을 때 모달창으로 아이디 표시
-                            $("#modal-body").html("아이디: " + data);
-                            $("#modal-body").css("font-weight", "bold");
-                            $("#modal-footer").html('<a href="<%=request.getContextPath()%>/login/main" class="btn btn-primary btnlogin">로그인 페이지로 이동</a><button type="button" class="btn btn-primary btncheck" id="modal-confirm-btn">확인</button>');
+                            $("#modal-body").html("<br>아이디는 " + data + " 입니다.");
+                            $("#modal-footer").html('<a href="<%=request.getContextPath()%>/login/main" class="btnlogin">로그인</a><button type="button" class="btncheck" id="modal-confirm-btn">확인</button>');
                             $("#myModal").modal("show");
                         }
                        
@@ -183,15 +214,16 @@
     </script>
 </head>
 <body>
-    
-           <div class="idtitle">
+    <div class="search-all">
+        <div class="search">
+                        <div class="idtitle">
                             
                                 <a href="./search;">아이디 찾기</a>
                             </div>
                             <div class="pwtitle">
                                 <a href="./find;">비밀번호 찾기</a>
                             </div>
-                     
+                       
                 </div>
         <br><br>
         <form class="formsearch">
@@ -205,7 +237,10 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-               
+               <div class="modal-header">
+                
+                <h5 class="modal-title" style="font-size:14px;font-weight: bold;">아이디 찾기</h5>
+             </div>
                 <div class="modal-body text-center" id="modal-body">
                     <!-- 결과 또는 경고 메시지가 이 부분에 표시됩니다. -->
                 </div>

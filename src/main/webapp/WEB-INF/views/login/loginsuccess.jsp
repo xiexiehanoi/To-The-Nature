@@ -24,28 +24,41 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 40vh;
-            height: 40vh;
-            border: 1px solid lightgray;
+            width: 60vh;
+            height: 60vh;
+            border: 1px solid gray;
   }
-  .welcome a {
-      margin-top: 10px; /* Adjust the top margin as needed */
+  .welcomeicon {
+  	margin-bottom:20px;
+  	font-size:64px;
+  	color:#528171;
   }
-  .welcome a:first-child {
-      margin-top: 0; /* Remove top margin for the first link */
+  .welcome-title {
+ 	font-size:24px;
+ }
+  .welcome-body {
+  	font-size:16px;
   }
   .btnmove {
       display: flex;
       flex-direction: row; /* Set the flex direction to row */
   }
-  .btnmove a {
-      margin-right: 10px; /* Adjust the right margin between links as needed */
-  }
-  .btnlogin, .btnmain {
-  			
-            background-color: beige;
-            border: 1px solid white;
+  
+  .btnlogin {
+  			padding: 5px 10px;
+            background-color: #528171;
+            color:white;
+            border: 1px solid #528171;
+            width: 96px;
+           
         }
+  .btnmain {
+  			padding: 5px 10px;
+            background-color: white;
+            color:#528171;
+            border: 1px solid #528171;
+            width: 96px;
+        }      
 </style>
 <c:set var="root" value="<%=request.getContextPath()%>"/>
 </head>
@@ -54,12 +67,16 @@
     <%@ include file="/WEB-INF/views/layout/header.jsp" %>
 </div>
 <div class="welcome">
-<h5>가입을 환영합니다</h5>
+<i class="bi bi-check-circle welcomeicon"></i>
+<div class="welcome-title">회원가입이 완료되었습니다.</div><br>
+<div class="welcome-body">로그인하시면 더욱 다양한 서비스와 혜택을 제공 받으실 수 있습니다.</div>
+<hr>
 <div class="btnmove">
 <!-- 로그인 버튼 -->
 <button type="button" class="btnlogin" onclick="location.href='./main'">로그인</button>
 <!-- 메인 페이지로 이동하는 버튼 -->
-<button type="button" class="btnmain" onclick="location.href='${root}'">메인 페이지로 이동</button>
+&nbsp;&nbsp;
+<button type="button" class="btnmain" onclick="location.href='${root}'">메인화면</button>
 
 </div>
 </div>
