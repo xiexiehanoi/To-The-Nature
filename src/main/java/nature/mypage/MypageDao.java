@@ -106,4 +106,7 @@ public class MypageDao {
 	    public int getUserNumByUserId(String userId) {
 	        return session.selectOne(nameSpace + "getUserNumByUserId", userId);
 	    }
+	    public List<Map<String, Object>> getAllReservations() {
+	        return session.selectList(nameSpace + "getAllReservations");
+	    }
 }

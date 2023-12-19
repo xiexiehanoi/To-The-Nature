@@ -172,18 +172,19 @@ public class MypageController {
         return result;
     }
 	@GetMapping("/admin/reviewfind")
-    @ResponseBody
-    public List<Map<String, Object>> reviewSearch(
-            @RequestParam(required = false) String field,
-            @RequestParam(required = false) String word,Model model) {
-        List<Map<String, Object>> searchResult = mypageDao.searchReviews(field, word);
-        model.addAttribute("searchResult", searchResult);
-        return searchResult;
-    }
-	@GetMapping("/admin/request")
-	public String adminrequest() {
-		
-		return "admin/adminrequest";
+	@ResponseBody
+	public List<Map<String, Object>> reviewSearch(
+	        @RequestParam(required = false) String field,
+	        @RequestParam(required = false) String word, Model model) {
+	    List<Map<String, Object>> searchResult = mypageDao.searchReviews(field, word);
+	    model.addAttribute("searchResult", searchResult);
+	    return searchResult;
+	}
+	@GetMapping("/admin/reservation")
+	public String listAllReservations(Model model) {
+	    List<Map<String, Object>> allReservations = mypageDao.getAllReservations();
+	    model.addAttribute("allReservations", allReservations);
+	    return "admin/adminreservation";
 	}
 	@GetMapping("/admin/manage")
 	public String adminmanage(Model model) {

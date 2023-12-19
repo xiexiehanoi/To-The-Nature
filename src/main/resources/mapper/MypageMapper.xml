@@ -72,4 +72,11 @@
     <select id="getUserNumByUserId" resultType="int" parameterType="String">
         SELECT usernum FROM user WHERE userid = #{value}
     </select>
+     <select id="getAllReservations" resultType="Map">
+        SELECT r.reservation_id, r.reservationDate, r.startDate, r.endDate, r.adult_count, r.child_count,
+               u.userid, c.facltNm, c.firstImageUrl
+        FROM reservation r
+        JOIN user u ON r.user_num = u.usernum
+        JOIN camping_details c ON r.camping_num = c.camping_num
+    </select>
 </mapper>
