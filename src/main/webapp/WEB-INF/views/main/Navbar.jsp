@@ -266,7 +266,7 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
 
     </li>
     <li class="navbar-item flexbox-left faq">
-      <a class="navbar-item-inner flexbox-left">
+      <a href="/nature/FAQ" class="navbar-item-inner flexbox-left">
         <span class="navbar-item-inner-icon-wrapper flexbox">
           <i class="bi bi-question-circle" style="font-size: 22px;"></i>
         </span>

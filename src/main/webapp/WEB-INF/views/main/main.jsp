@@ -56,12 +56,12 @@
 <%-- 	<img class="main_img" src="${root}/views/main/camping_illustration.png"> --%>
 <%-- 	<script type="module" src="<c:url value='/static/main.js' />"></script> 
 
-
 </div>--%>
 
 <!-- <a href="./detail?num=1">디테일페이지</a> -->
 
 <div id="three-model"></div>
+
 
 </body>
 </html>
