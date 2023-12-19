@@ -183,16 +183,15 @@
     </script>
 </head>
 <body>
-    <div class="search-all">
-        <div class="search">
-                        <div class="idtitle">
+    
+           <div class="idtitle">
                             
                                 <a href="./search;">아이디 찾기</a>
                             </div>
                             <div class="pwtitle">
                                 <a href="./find;">비밀번호 찾기</a>
                             </div>
-                       
+                     
                 </div>
         <br><br>
         <form class="formsearch">

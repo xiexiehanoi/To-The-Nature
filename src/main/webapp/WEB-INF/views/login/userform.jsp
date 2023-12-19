@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입</title>
 <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Jua&family=Lobster&family=Nanum+Pen+Script&family=Permanent+Marker&family=Single+Day&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -31,8 +31,8 @@
    .genderButton.active,
     .genderButton:hover {
         background-color: white;
-        color: #000;
-        border: 5px solid lightgreen;
+        color: #6B8E23;
+        border: 2px solid #6B8E23;
     }
   form {
         width: 80%;
@@ -117,7 +117,7 @@ function check(){
         }).val(selectedGender).appendTo("#yourFormId");
 		return true;//action 호출
 	}else{
-			alert("두개의 비밀번호가 맞지 않습니다");
+		$("#passwordMismatchError").show();
 			return false;//action 이 호출되지 않는다
 		}		
 }
@@ -132,11 +132,12 @@ function check(){
 					
 					<div class="input-group">
 					<input type="text" name="userid" id="userid" class="form-control" minlength="4" maxlength="20" required="required" autofocus="autofocus" placeholder="아이디">
-					<button type="button" class="btn btn-danger btn-sm" id="btnidcheck">중복체크</button>
+					<button type="button" class="btn btn-outline-success btn-sm" id="btnidcheck">중복체크</button>
 					</div>
 				<input type="password" name="userpw" id="pass1" class="form-control" minlength="4" maxlength="20" required="required" placeholder="비밀번호">
 				
-					<input type="password"  id="pass2" class="form-control" minlength="4" maxlength="20" required="required" placeholder="비밀번호재입력">
+					<input type="password"  id="pass2" class="form-control" minlength="4" maxlength="20" required="required" placeholder="비밀번호 재입력">
+					<div id="passwordMismatchError" style="color: red; font-size:12px; display: none;">비밀번호가 일치하지 않습니다.</div>
 					<br>
 					<input type="text" class="form-control" required="required"
 					autofocus="autofocus" name="username" minlength="2" maxlength="20" placeholder="이름">
