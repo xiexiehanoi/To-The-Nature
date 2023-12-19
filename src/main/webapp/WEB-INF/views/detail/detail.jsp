@@ -350,7 +350,6 @@ $(document).ready(function () {
 });
 
 	//사진 더보기 버튼	
-  
         var visibleImages = 5; // 한 번에 표시할 이미지 수
         var $hiddenImages = $(".hidden-image");
         var $loadButton = $(".load_image");
