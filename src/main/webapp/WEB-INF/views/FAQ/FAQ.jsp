@@ -16,17 +16,14 @@
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
-body {
-    font-family: 'Roboto', sans-serif;
-    /* background-color: #F0F2F5; */
-    margin: 0;
-    padding: 0;
+.allbox{
+	margin-top: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100vh;
 }
-
 .accordion-container {
     width: 80%;
     max-width: 600px;

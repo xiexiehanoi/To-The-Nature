@@ -46,4 +46,9 @@ public class SiteController {
 	    return "detail/detail.site";
 	}
 	
+	@GetMapping("/FAQ")
+	public String FAQ()
+	{
+		return "FAQ/FAQ.site";
+	}
 }
