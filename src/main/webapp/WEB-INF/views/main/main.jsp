@@ -47,7 +47,12 @@
             }
         }
     </script>
-    <script type="module" src="static/home.js" defer></script>
+    <!-- <script type="module" src="static/home.js" defer></script> -->
+    <script type="module" src="static/main.js" defer></script>
+    
+    <script>
+    	var isMainPage = true; // 또는 false, 페이지에 따라 다르게 설정
+	</script>
 </head>
 <body>
 <!-- <div class="main_content">
@@ -62,6 +67,9 @@
 
 <div id="three-model"></div>
 
-
+<script>
+    // 로그인 상태를 기반으로 JavaScript 변수 설정
+    const isLoggedIn = ${not empty sessionScope.loginok};
+</script>
 </body>
 </html>
