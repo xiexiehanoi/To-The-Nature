@@ -20,12 +20,17 @@ body {
     font-family: 'Roboto', sans-serif;
     /* background-color: #F0F2F5; */
     margin: 0;
-    padding: 0;
+    padding: 0;   
+}
+
+.allbox{
     display: flex;
-    justify-content: center;
+	justify-content: center;
     align-items: center;
     height: 100vh;
+	flex-direction: column; /* 추가 */
 }
+
 
 .accordion-container {
     width: 80%;
