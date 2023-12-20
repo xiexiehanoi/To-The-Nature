@@ -173,7 +173,7 @@
         		<span class="link-text">Admin</span>
         		</a>
         		<!-- 세부 항목 리스트 블록-->
-				<ul class="sub-menu" id="mypageSubMenu" style="margin-top: 7.5em;">
+				<ul class="sub-menu" id="mypageSubMenu" style="margin-top: 7.2em;">
 	      			<li><a href="${root}/admin/search">회원 조회</a></li>
       				<li><a href="${root}/admin/reservation">예약 관리</a></li>
       				<li><a href="${root}/admin/manage">리뷰 관리</a></li>
