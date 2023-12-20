@@ -18,12 +18,22 @@
 <style>
 .allbox{
 	margin-top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+body {
+    font-family: 'Roboto', sans-serif;
+    /* background-color: #F0F2F5; */
+    margin: 0;
+    padding: 0;   
 }
+
+.allbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+	flex-direction: column; /* 추가 */
+}
+
+
 .accordion-container {
     width: 80%;
     max-width: 600px;
