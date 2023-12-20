@@ -79,10 +79,7 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
                 $('#navbar').removeClass('hover');
             }
         });
-    });
-   
-
-    });   
+    });  
 
 </script>
 </head>
@@ -166,7 +163,6 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
         <c:when test="${empty sessionScope.loginok}">
             <!-- 세션에 loginok 값이 없으면 (로그인 상태가 아니면) 로그인 페이지로 이동 -->
 
-
             <a href="${root}/login/main" class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
           			<i class="bi bi-person" style="font-size: 24px;"></i>
@@ -184,8 +180,6 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
         		<span class="link-text">My Page</span>
       		</a>
 
-        	
-
         	<c:if test="${sessionScope.userid eq 'nature'}">
         		<a href="${root}/admin/main">Admin</a>
     		</c:if>
@@ -197,7 +191,6 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
       			<li><a href="${root}/mypage/review">리뷰 관리</a></li>
       			<li><a href="${root}/mypage/delete">회원 탈퇴</a></li>
 			</ul>
-
         </c:otherwise>
       </c:choose>
     </li>
