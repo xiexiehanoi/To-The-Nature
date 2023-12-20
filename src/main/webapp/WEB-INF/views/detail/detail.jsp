@@ -380,47 +380,60 @@ $(document).ready(function () {
 	        }
 
         });
-	      //별점 등록부분
-	        $('.star_rating > .star').click(function() {
-	        	  $(this).parent().children('span').removeClass('on');
-	        	  $(this).addClass('on').prevAll('span').addClass('on');
-	        	})
-	      //리뷰 등록  	
-	        $(".btn02").click(function(){
-	        	//별점 가져오기
-	        	var rate = $(".star_rating .star.on").length;
-	        	//내용
-	        	var content = $(".star_box").val();
-	        	/*var isUserPaid = ${reservationDto != null ? 'true' : 'false'};*/
-	        	
-	        	if (content == ""){
-	        		alert("내용을 입력해주세요.");
-	        		return;
-	        	}else{
-	        		/*if (isUserPaid) {*/
-	                $.ajax({
-	                    type: "POST",
-	                    url: "./detail/insertReview",
-	                    contentType: "application/json",
-	                    data: JSON.stringify({
-	                        "userId": userId,
-	                        "campingNum": campingNum,
-	                        "rate": rate,
-	                        "content": content
-	                    }),
-	                    success: function (res) {
-	                        alert("리뷰가 성공적으로 등록되었습니다.");
-	                        getreviewlist(campingNum);
-	                    },
-	                    error: function (xhr, status, error) {
-	                        console.error("Ajax Error:", error);
-	                    }
-	                });
-	             /*} else {
-	                $(".btn02").hide();
-	            }*/
-	        	}
-	        })
+	     // 별점 등록부분
+	           $('.star_rating > .star').click(function() {
+	               $(this).parent().children('span').removeClass('on');
+	               $(this).addClass('on').prevAll('span').addClass('on');
+	           });
+
+	           // 리뷰 등록     
+	           $(".btn02").click(function(){
+	               // 별점 가져오기
+	               var rate = $(".star_rating .star.on").length;
+	               // 내용
+	               var content = $(".star_box").val();
+
+	               if (content == "") {
+	                   alert("내용을 입력해주세요.");
+	                   return;
+	               } else {
+	                   $.ajax({
+	                       type: "POST",
+	                       url: "./detail/checkPaidUser",
+	                       contentType: "application/json",
+	                       data: JSON.stringify({
+	                           "userNum": ${userDto.usernum}, // 여기에 사용자 번호를 추가해야 합니다.
+	                           "campingNum": campingNum // 여기에 캠핑 번호를 추가해야 합니다.
+	                       }),
+	                       success: function (res) {
+	                           if (res.imp_uid) {
+	                               $.ajax({
+	                                   type: "POST",
+	                                   url: "./detail/insertReview",
+	                                   contentType: "application/json",
+	                                   data: JSON.stringify({
+	                                       "userId": userId,
+	                                       "campingNum": campingNum,
+	                                       "rate": rate,
+	                                       "content": content
+	                                   }),
+	                                   success: function (res) {
+	                                       alert("리뷰가 등록되었습니다.");
+	                                   },
+	                                   error: function (xhr, status, error) {
+	                                       console.error("Ajax Error:", error);
+	                                   }
+	                               }); //ajax close
+	                           } else {
+	                               alert("결제 내역이 없습니다. 리뷰를 등록할 수 없습니다.");
+	                           }
+	                       },
+	                       error: function (xhr, status, error) {
+	                           console.error("Ajax Error:", error);
+	                       }
+	                   }); //ajax close
+	               }
+	           });
 	    });//readyclose
 
 	//review 불러오기

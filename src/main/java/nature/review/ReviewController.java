@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import nature.reservation.ReservationDto;
+
 
 @Controller
 public class ReviewController {
@@ -40,5 +42,12 @@ public class ReviewController {
 	    Map<String, Object> response = new HashMap<>();
 	    response.put("success", true);
 	    return response;
+	}
+	
+	@GetMapping("/detail/checkPaidUser")
+	@ResponseBody
+	public ReservationDto checkPaidUser(@RequestBody int userNum, @RequestBody int campingNum)
+	{
+		return reviewService.checkPaidUser(userNum, campingNum);
 	}
 }

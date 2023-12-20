@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import nature.reservation.ReservationDto;
+
 @Repository
 public class ReviewDao {
 
@@ -28,5 +30,10 @@ public class ReviewDao {
 	public void insertReview(ReviewDto reviewDto)
 	{
 		session.selectOne(nameSpace+"insertReview", reviewDto);
+	}
+	
+	public ReservationDto checkPaidUser (Map<String, Object> checkParam)
+	{
+		return session.selectOne(nameSpace+"checkPaidUser", checkParam);
 	}
 }
