@@ -99,7 +99,7 @@ public class UserController {
 		boolean bLogin=userDao.isLoginCheck(userid, userpw);
 		if(bLogin)
 		{
-			session.setMaxInactiveInterval(60*60*6);
+			session.setMaxInactiveInterval(60*60*24);
 			session.setAttribute("loginok", "yes");
 			session.setAttribute("saveid", saveid?"yes":"no");
 			session.setAttribute("userid",userid);
@@ -174,12 +174,17 @@ public class UserController {
 			e.printStackTrace();
 		}
 
-		userDao.updatePhoto(fileName, userid);
+		// 프로필 사진 파일명을 DB에 업데이트
+	    userDao.updatePhoto(fileName, userid);
+
+	    // 세션과 무관하게 DB에 저장된 프로필 사진 파일명 가져와 세션에 저장
+	    String updatedFileName = userDao.getPhotoFileName(userid);
+	    session.setAttribute("userphoto", updatedFileName);
 
 
 		session.setAttribute("userphoto", fileName);
 
-		Map<String, String> map=new HashMap<String, String>();
+		Map<String, String> map=new HashMap<>();
 		map.put("fileName", fileName);
 		return map;
 	}

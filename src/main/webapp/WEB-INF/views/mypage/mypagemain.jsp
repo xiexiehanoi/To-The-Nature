@@ -19,79 +19,13 @@
             font-family: 'Jua';
         }
  	
-   
-     
-    ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 25%;
-  background-color: #f1f1f1;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-  
-	}
-	
-	li a {
-  display: block;
-  color: #000;
-  padding: 8px 16px;
-  text-decoration: none;
-	}
-
-	li a.active {
-  background-color: #555;
-  color: white;
-	}
-
-	li a:hover:not(.active) {
-  background-color: #555;
-  color: white;
-	}
-	
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
- <script>
-        $(document).ready(function () {
-            $(".navbar-nav .nav-link3").click(function () {
-                $(".submenu").toggle();
-            });
-            $(".submenu").click(function (e) {
-                e.stopPropagation();
-            });
-
-            $(document).click(function () {
-                $(".submenu").hide();
-            }); 
-        });
-    </script>
+ 
 </head>
 </head>
 
 <body>
-<div class="header">
-<%@ include file="/WEB-INF/views/layout/header.jsp" %>
-	</div>
-	
-    <ul class="navbar-nav navall">
-      <li class="nav-item">
-        <a class="nav-link1" href="${root}/mypage/reservation">예약내역</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link2" href="${root}/mypage/review">리뷰관리</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link3" href="#">회원관리</a> 
-      <ul class="submenu">
-      <li><a href="${root}/mypage/account">회원탈퇴</a></li>
-      <li><a href="${root}/mypage/change">회원수정</a></li>
-      </ul>
-      
-      </li>
-    </ul>
-    
-    
-	
+
 </body>
 </html>

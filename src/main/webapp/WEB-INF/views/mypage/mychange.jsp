@@ -30,10 +30,20 @@
    .genderButton {
    
    			width: 50%;
-            background-color: #fff;
+            background-color: white;
             color: #000;
          	border: 1px solid #ccc;
         }
+    .genderButton:hover {
+   			background-color: white;
+            color: #000;
+            border: 1px solid #ccc;
+   }  
+   .genderButton.active {
+        background-color: #528171 !important; /* !important를 사용하여 우선순위 부여 */
+        color: #fff !important;
+        border: 1px solid #528171 !important;
+    }  
  	form {
         width: 80%;
         max-width: 600px; /* 최대 너비 설정 */
@@ -56,6 +66,9 @@
         height: 120px;
         border:1px solid lightgray;
     }
+    #profileImage {
+    	border-radius:6%;
+    }
     .infogroup {
             width:70% ;
             margin-left: auto;
@@ -71,7 +84,7 @@
         border: 1px solid white; /* 테두리를 흰색으로 설정 */
     }
     .readonly {
-            background-color: #eee; /* 배경색 회색으로 변경 */
+            background-color: #f8f9fa; /* 배경색 회색으로 변경 */
         }
     .error-message {
         color: red;
@@ -96,28 +109,20 @@ function list()
 
     // DOM이 완전히 로드된 후 실행되는 함수
     $(document).ready(function () {
-    	let userGender = '${sessionScope.usergender}';
+    	let userGender = '<%= session.getAttribute("usergender") %>';
     	
         // userGender가 male이면 남성 버튼에 색상 적용 및 비활성화
         if (userGender === 'male') {
-            applyButtonStyle('saveMale');
+            applyButtonStyle('saveMale', '#528171');
         } else if (userGender === 'female') {
             // userGender가 female이면 여성 버튼에 색상 적용 및 비활성화
-            applyButtonStyle('saveFemale');
+            applyButtonStyle('saveFemale', '#528171');
         }
         $('.genderButton').on('click', function () {
-            applyButtonStyle($(this).attr('id'));
+            applyButtonStyle($(this).attr('id'),'#528171');
         });
 
-        // 처음 로드될 때 모든 버튼을 비활성화
-        $('.genderButton').addClass('readonly').attr('disabled', true);
-
-        // 클릭된 버튼에 색상 적용 및 활성화
-        function applyButtonStyle(buttonId) {
-            // 클릭된 버튼을 제외한 다른 버튼 비활성화
-            $('.genderButton').removeClass('active').attr('disabled', true);
-            $('#' + buttonId).addClass('active').attr('disabled', false);
-        }
+        
     });
     }
 	
@@ -164,9 +169,9 @@ function list()
 			<img id="profileImage" src="${root}/res/upload/${sessionScope.userphoto}" onerror="this.src='${root}/res/photo/noimage.png'" class="profile_photo">
 	     <input type="file" id="profile_upload" name="userphoto" style="display: none;">	</div>
 				<div class="infogroup">	
-				<input type="text" name="userid" id="userid" class="form-control" value="${sessionScope.userid}" readonly >
+				<input type="text" name="userid" id="userid" class="form-control readonly" value="${sessionScope.userid}" readonly >
 							
-    			<input type="text" name="userbirth" class="form-control" minlength="8" maxlength="8" value="${userInfo.userbirth}" readonly>
+    			<input type="text" name="userbirth" class="form-control readonly" minlength="8" maxlength="8" value="${userInfo.userbirth}" readonly>
     			<input type="text" class="form-control" required="required"
 					autofocus="autofocus" name="username" minlength="2" maxlength="20" value="${userInfo.username}" placeholder="이름">
 				</div></div>
@@ -175,8 +180,8 @@ function list()
 					<input type="password"  id="pass2" class="form-control" minlength="4" maxlength="20" required="required" placeholder="비밀번호재입력">
 					<br>
     	<div class="genderButtons">
-        <button type="button" class="btn btn-secondary genderButton ${usergender eq 'male' ? 'active' : ''}" data-gender="male" id="saveMale">남성</button>
-        <button type="button" class="btn btn-secondary genderButton ${usergender eq 'female' ? 'active' : ''}" data-gender="female" id="saveFemale">여성</button>
+        <button type="button" class="btn btn-secondary genderButton ${usergender eq 'male' ? 'active' : ''}" data-gender="male" id="saveMale" readonly>남성</button>
+        <button type="button" class="btn btn-secondary genderButton ${usergender eq 'female' ? 'active' : ''}" data-gender="female" id="saveFemale" readonly>여성</button>
     	</div>
     	<input type="text" name="userphone" class="form-control" required="required" minlength="11" maxlength="11" value="${userInfo.userphone}" placeholder="연락처">
     	<input type="email" name="useremail" class="form-control" required="required" minlength="10" maxlength="50" value="${userInfo.useremail}" multiple placeholder="이메일">

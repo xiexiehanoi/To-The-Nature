@@ -761,6 +761,6 @@ function updateCountWish() {
 		</div> <!-- cloase reviewTitle -->	
 	</div> <!-- close reviewbox  -->
 </div>
->>>>>>> branch 'prototype' of https://github.com/xiexiehanoi/To-The-Nature.git
+
 </body>
 </html>

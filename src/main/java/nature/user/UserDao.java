@@ -100,5 +100,8 @@ public class UserDao {
 	    map.put("usernewpw", usernewpw);
 	    session.update(nameSpace + "updatePassword", map);
 	}
-	
+	// 새로 추가된 메서드: 사용자의 프로필 사진 파일명 조회
+    public String getPhotoFileName(String userid) {
+        return session.selectOne(nameSpace + "getPhotoFileName", userid);
+    }
 }

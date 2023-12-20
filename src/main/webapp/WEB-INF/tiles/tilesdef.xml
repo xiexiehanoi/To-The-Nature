@@ -14,7 +14,7 @@
 	
 	
 	<!-- layout1 macro -->
-	<definition name="*/*.login" extends="layout1">
+	<definition name="*/*.mypage" extends="layout1">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"></put-attribute>
 	</definition>
 	
