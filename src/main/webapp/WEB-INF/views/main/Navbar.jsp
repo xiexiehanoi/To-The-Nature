@@ -199,16 +199,14 @@
 
         	
 
-        	<c:if test="${sessionScope.userid eq 'nature'}">
-        		<a href="${root}/admin/main">Admin</a>
-    		</c:if>
+        	
     		
     		<!-- 세부 항목 리스트 블록-->
 			<ul class="sub-menu" id="mypageSubMenu">
-      			<li><a href="${root}/mypage/main">회원 정보</a></li>
-      			<li><a href="${root}/mypage/main">예약 내역</a></li>
-      			<li><a href="${root}/mypage/main">리뷰 관리</a></li>
-      			<li><a href="${root}/mypage/main">회원 탈퇴</a></li>
+      <li><a href="${root}/mypage/change">회원 정보</a></li>
+      <li><a href="${root}/mypage/reservation">예약 내역</a></li>
+      <li><a href="${root}/mypage/review">리뷰 관리</a></li>
+      <li><a href="${root}/mypage/delete">회원 탈퇴</a></li>
 			</ul>
 
         </c:otherwise>

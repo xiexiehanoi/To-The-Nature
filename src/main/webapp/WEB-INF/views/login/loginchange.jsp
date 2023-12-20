@@ -48,7 +48,7 @@
             border: 1px solid white;
         }
         .modal-content {
-        width: 70%; /* Adjust the width as per your preference */
+        width: 64%; /* Adjust the width as per your preference */
         height: 150px;
         margin: auto; /* Center the modal horizontally */
         margin-top: 100px; /* Adjust the top margin as per your preference */
@@ -58,15 +58,21 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    height: 30%;
+	}
+	.modal-footer {
+	height: 40%;
 	}
     /* Style for buttons in modal footer */
     .btncheck {
         padding: 5px 10px; /* Adjust padding to change the button size */
-        font-size: 14px; /* Adjust font size as needed */
-        border: 1px solid white;
-        background-color: #555;
-        color: white;
+        font-size: 11px; /* Adjust font size as needed */
+        border: 1px solid #528171;
+    	background-color: #528171;
+    	color: white;
+    	text-decoration: none;
+    	text-align:center;
+    	width: 64px
     }
 </style>
 <script>
@@ -80,7 +86,15 @@
             if (!userid || !userpw || !usernewpw || !userpwchangeConfirm) {
                 // 모달창으로 경고 메시지 표시
                 $("#modal-body").text("입력란을 모두 작성해주세요");
-                $("#modal-footer").html('<button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>');
+                $("#modal-footer").html('<button type="button" class="btncheck" id="modal-confirm-btn">확인</button>');
+                $("#myModal").modal("show");
+                return;
+            }
+         // 새 비밀번호와 현재 비밀번호가 같은지 확인
+            if (usernewpw === userpw) {
+                // 모달창으로 경고 메시지 표시
+                $("#modal-body").text("새 비밀번호는 현재 비밀번호와 같을 수 없습니다.");
+                $("#modal-footer").html('<button type="button" class="btncheck" id="modal-confirm-btn">확인</button>');
                 $("#myModal").modal("show");
                 return;
             }
@@ -88,7 +102,7 @@
             if (usernewpw !== userpwchangeConfirm) {
                 // 모달창으로 경고 메시지 표시
                 $("#modal-body").text("새 비밀번호가 일치하지 않습니다.");
-                $("#modal-footer").html('<button type="button" class="btn btn-primary" id="modal-confirm-btn">확인</button>');
+                $("#modal-footer").html('<button type="button" class="btncheck" id="modal-confirm-btn">확인</button>');
                 $("#myModal").modal("show");
                 return;
             }
@@ -103,9 +117,9 @@
                         $("#modal-body").text("현재 비밀번호가 일치하지 않습니다.");
                     } else if (data === "Success") {
                         // 성공 시 모달창으로 메시지 표시
-                        $("#modal-body").text("비밀번호가 성공적으로 변경되었습니다.");
+                        $("#modal-body").text("비밀번호가 변경됐습니다.");
                     }
-                    $("#modal-footer").html('<a href="./main" class="btn btn-primary btncheck">확인</a>');
+                    $("#modal-footer").html('<a href="./main" class="btncheck">확인</a>');
                     $("#myModal").modal("show");
                 },
                 error: function (xhr, status, error) {
@@ -140,7 +154,11 @@
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-body" id="modal-body" style="border: none;">
+            <div class="modal-header">
+                
+                <h5 class="modal-title" style="font-size:14px;font-weight: bold;">비밀번호 변경</h5>
+             </div>
+                <div class="modal-body" id="modal-body" style="border: none;font-size:12px;">
                     <!-- 결과 또는 경고 메시지가 이 부분에 표시됩니다. -->
                 </div>
                 <div class="modal-footer" id="modal-footer" style="border: none;">
