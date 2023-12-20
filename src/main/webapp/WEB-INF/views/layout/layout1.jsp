@@ -21,9 +21,9 @@
 		position:fixed;
 		width: 100%; 
 		height: 6em;
-		border: 1px solid blue;
-		/*background-color: transparent; */
-		background-color: white;
+		/* border: 1px solid blue; */
+		background-color: transparent; 
+		/* background-color: white; */
 		/* display: flex;
         justify-content: space-between;
         align-items: center; */

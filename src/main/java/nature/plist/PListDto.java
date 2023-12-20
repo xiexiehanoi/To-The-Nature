@@ -26,6 +26,6 @@ public class PListDto {
     private String createdAt;
     private String modifiedAt;
     private String imageUrl;
-    private int iswished;
     private int countwish;
+    private int countreview;
 }

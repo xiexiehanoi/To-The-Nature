@@ -18,23 +18,27 @@ public class PListService {
 		return plistDao.getTotalCount();
 	}
 
-	public List<PListDto> getAllSites(String word, 
-			String facltNm, String sigunguNm, String doNm)
+	public List<PListDto> getAllSites()
 	{
-		//word 에 검색 단어가 안 들어 있을 경우 null 값을 보내야 where 문이 실행 안된다
-		word=word==null || word.length()==0?null:word;
 		
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("searchfield1", facltNm);
-		map.put("searchfield2", doNm);
-		map.put("searchfield3", sigunguNm);
-		map.put("searchword", word);
-		
-		return plistDao.getAllSites(word, facltNm, sigunguNm, doNm);
+		return plistDao.getAllSites();
 	}
+
+	/*
+	 * public List<PListDto> searchSites(String word, String facltNm, String
+	 * sigunguNm, String doNm) { //word 에 검색 단어가 안 들어 있을 경우 null 값을 보내야 where 문이 실행
+	 * 안된다 word=word==null || word.length()==0?null:word;
+	 * 
+	 * Map<String, Object> map=new HashMap<String, Object>();
+	 * map.put("searchfield1", facltNm); map.put("searchfield2", doNm);
+	 * map.put("searchfield3", sigunguNm); map.put("searchword", word);
+	 * 
+	 * return plistDao.getAllSites(word, facltNm, sigunguNm, doNm); }
+	 */	
 	
 	public List<PListDto> getListPage(int startNum,int perpage)
 	{
+		startNum = Math.max(startNum, 0); // 음수일 경우 0으로 처리
 		Map<String, Integer> map=new HashMap<String, Integer>();
 		map.put("start", startNum);
 		map.put("perpage", perpage);

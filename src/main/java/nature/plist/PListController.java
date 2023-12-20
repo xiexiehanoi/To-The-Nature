@@ -21,11 +21,12 @@ public class PListController {
 	@Autowired
 	private PListService plistService;
 	
-	
 	@GetMapping("/plist")
 	public String plist(HttpSession session, Model model,
 	        @RequestParam(required = false) String userId, @RequestParam(defaultValue = "1") int currentPage) {
-
+		
+		currentPage = Math.max(currentPage, 1); // currentPage가 음수인 경우 1로 처리
+		
 	    int perPage = 12; // 한 페이지당 보여지는 게시글의 갯수
 
 	    // 페이징 처리를 위한 변수 계산
@@ -38,11 +39,15 @@ public class PListController {
 	    
 	    // 해당 페이지에 보여줄 게시판 목록
 	    List<PListDto> plistpage = plistService.getListPage(startNum, perPage);
-		/* System.out.println(plistpage.toString()); */
+	    
+	    List<PListDto> plistAll = plistService.getAllSites();
+		
+	    /* System.out.println(plistpage.toString()); */
 
 	    int no = totalCount - (currentPage - 1) * perPage;
 
 	    model.addAttribute("plistpage", plistpage);
+	    model.addAttribute("plistAll", plistAll);
 	    model.addAttribute("totalCount", totalCount);
 	    model.addAttribute("totalPage", totalPage);
 	    model.addAttribute("startPage", startPage);
@@ -58,7 +63,7 @@ public class PListController {
 	@ResponseBody List<PListDto> plistSearch(String word, 
 			String facltNm, String sigunguNm, String doNm)
 	{
-		List<PListDto> plistsearchRes = plistService.getAllSites(word, facltNm, sigunguNm, doNm);
+		List<PListDto> plistsearchRes = plistService.getAllSites();
 		System.out.println(plistsearchRes);
 		return plistsearchRes;
 	}
