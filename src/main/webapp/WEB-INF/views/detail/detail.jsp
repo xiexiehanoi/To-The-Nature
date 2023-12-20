@@ -784,17 +784,11 @@ function updateCountWish() {
 			</div> <!-- close star_boxs -->
 			<br>
 			<div class="reviewList">
-				
-
-			
-			</div>
-		</div>	
-	</div>
 
 			</div> <!-- close reviewList -->
 		</div> <!-- cloase reviewTitle -->	
 	</div> <!-- close reviewbox  -->
 </div>
->>>>>>> branch 'prototype' of https://github.com/xiexiehanoi/To-The-Nature.git
+
 </body>
 </html>
