@@ -30,11 +30,11 @@
 }
 
 .accordion-item {
-    background-color: #FFFFFF; /* White background for items */
-    border: 1px solid #E0E0E0; /* Light border */
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
     border-radius: 8px;
     margin-bottom: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Softer shadow */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .accordion-header {
@@ -55,7 +55,7 @@
 }
 
 .accordion-header:hover {
-    background-color: #528172; /* Darker shade of purple */
+    background-color: #456e60;
 }
 
 .accordion-content {

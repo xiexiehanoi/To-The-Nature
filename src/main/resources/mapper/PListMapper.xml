@@ -8,10 +8,10 @@
 	<select id="selectAllSites" resultType="PListDto" parameterType="Map">
 		select * from camping_details 
 		<if test="searchword!=null">
-		where #{searchfield1} or #{searchfield2} or #{searchfield3} like concat('%',#{searchword},'%')
+		where facltNm=#{searchfield1} or doNm=#{searchfield2} or sigunguNm=#{searchfield3} like concat('%',#{searchword},'%')
 		</if>
 		<if test="searchword==null">
-		where camping_num=#{campingNum}
+		where camping_num=#{camping_num}
 		</if>
 		order by camping_num desc
 	</select>
@@ -26,11 +26,11 @@
         	tel, homepage, operDeCl, toiletCo, swrmCo, wtrplCo, available_room, sbrsCl, animalCmgCl,
         	firstImageUrl, createdAt, modifiedAt, amount
     	) VALUES (
-	        #{campingContentId}, #{facltNm}, #{intro}, #{doNm}, #{sigunguNm}, #{addr1}, #{mapX}, #{mapY},
+	        #{camping_contentId}, #{facltNm}, #{intro}, #{doNm}, #{sigunguNm}, #{addr1}, #{mapX}, #{mapY},
         	#{tel}, #{homepage}, #{operDeCl}, #{toiletCo}, #{swrmCo}, #{wtrplCo}, #{available_room}, #{sbrsCl}, #{animalCmgCl},
         	#{firstImageUrl}, #{createdAt}, #{modifiedAt}, #{amount}
     	)
-    	<selectKey keyProperty="campingNum" resultType="int" order="AFTER">
+    	<selectKey keyProperty="camping_num" resultType="int" order="AFTER">
 	        SELECT LAST_INSERT_ID()
 	    </selectKey>
 	</insert>
@@ -38,7 +38,7 @@
 	<update id="updateSite" parameterType="PListDto">
 		UPDATE camping_details
     	SET 
-	        campingContentId = #{campingContentId},
+	        camping_contentId = #{camping_contentId},
         	facltNm = #{facltNm},
         	intro = #{intro},
         	doNm = #{doNm},
@@ -63,17 +63,7 @@
 	</update>
 	
 	<delete id="deleteSite" parameterType="int">
-		delete from camping_details where camping_num=#{campingNum}
+		delete from camping_details where camping_num=#{camping_num}
 	</delete>
-	
-	<select id="selectSitedetail" parameterType="Map" resultType="Map">
-	    SELECT
-    	cd.*,
-    	(CASE WHEN #{userId} IS NOT NULL THEN (
-	        SELECT COUNT(*) FROM wish WHERE camping_num = cd.camping_num
-	    ) ELSE null END) as iswished,
-	    (SELECT COUNT(*) FROM wish WHERE camping_num = cd.camping_num) as countwish
-	    FROM camping_details cd
-	    WHERE cd.camping_num = #{campingNum}
-	</select>
+
 </mapper>

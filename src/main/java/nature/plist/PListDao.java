@@ -26,7 +26,7 @@ public class PListDao {
 		//word 에 검색 단어가 안 들어 있을 경우 null 값을 보내야 where 문이 실행 안된다
 		word=word==null || word.length()==0?null:word;
 		
-		Map<String, String> map=new HashMap<String, String>();
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("searchfield1", facltNm);
 		map.put("searchfield2", doNm);
 		map.put("searchfield3", sigunguNm);
@@ -35,7 +35,7 @@ public class PListDao {
 		return session.selectList(nameSpace+"selectAllSites", map);
 	}
 	
-	public List<PListDto> getPList(Map<String, Integer> map)
+	public List<PListDto> getListPage(Map<String, Integer> map)
 	{
 		return session.selectList(nameSpace+"selectPagingOfPList", map);
 	}
@@ -50,9 +50,9 @@ public class PListDao {
 		session.update(nameSpace+"updateSite", dto);
 	}
 	
-	public void deleteSite(int campingNum)
+	public void deleteSite(int camping_num)
 	{
-		session.delete(nameSpace+"deleteSite", campingNum);
+		session.delete(nameSpace+"deleteSite", camping_num);
 	}
 	
 	public List<Map<String, Object>> getsearchdetail(Map<String, Object> plistParam) 
