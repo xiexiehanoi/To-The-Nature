@@ -339,6 +339,7 @@ select {
     position: absolute;
     font-size: calc(var(--navbar-buttons) - 1rem);
 }
+
 .link-text {
     margin: 0;
     width: 0;

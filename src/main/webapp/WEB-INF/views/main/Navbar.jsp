@@ -1,4 +1,4 @@
-s<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -96,12 +96,14 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
     </li>
     <li class="navbar-item flexbox-left">
       <c:if test="${not empty sessionScope.loginok}">
+      	<!-- <a class="navbar-item-inner flexbox-left"> -->
 	        <span class="navbar-item-inner-icon-wrapper flexbox">
-           		<img src="${root}/res/upload/${sessionScope.userphoto}" class="rounded-circle profile_photo"
-		     	 width=40 height="40" hspace="10" border=1
+           		<img src="${root}/res/upload/${sessionScope.userphoto}" class="rounded-circle profile_photo navbar-icon-center"
+		     	 width=40 height="40" hspace="10" border=1 style="margin-left:16px; margin-bottom: 8px;"
 	     		 onerror="this.src='${root}/res/photo/noimage.png'"><br>
         	</span>
-        	<span class="link-text" style="color:white;">${sessionScope.userid} 님</span>
+        	<h6><span class="link-text" style="color:white;">${sessionScope.userid}</span><span  class="link-text" style="font-size: 20px;color: gray;"> 님</span></h6>
+        <!-- </a> -->
       </c:if>
     </li>
    
@@ -119,7 +121,7 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
       <c:if test="${not empty sessionScope.loginok}">
       	<a class="navbar-item-inner flexbox-left" href="${root}/login/main">
         	<span class="navbar-item-inner-icon-wrapper flexbox">
-          	<i class="bi bi-box-arrow-left" style="font-size: 24px;color: white;margin-right: 6px;"></i>
+          	<i class="bi bi-box-arrow-left" style="font-size: 24px;margin-right: 6px;"></i>
       		</span>
       		<span class="link-text" id="btnlogout" style="color: white;">로그아웃</span>
       	</a>
@@ -127,17 +129,6 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
     </li>
    
     <li class="navbar-item flexbox-left">
-      <!-- <a class="navbar-item-inner flexbox-left">
-        <span class="navbar-item-inner-icon-wrapper flexbox">
-          <i class="bi bi-search" style="font-size: 20px;"></i>
-        </span>
-<<<<<<< HEAD
-        <span class="link-text">캠핑장 찾기</span>
-      </a>
-=======
-        <span class="link-text">켐핑장 찾기</span>
-      </a> -->
-      
       <c:choose>
     	<c:when test="${sessionScope.userid == null}">
         	<a href="./plist?userId=null" class="navbar-item-inner flexbox-left">
@@ -173,24 +164,40 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
         </c:when>
         <c:otherwise>
             <!-- 세션에 loginok 값이 있으면 (로그인 상태이면) mypage 페이지로 이동 -->
-            <a href="${root}/mypage/main" class="navbar-item-inner flexbox-left">
+        	<c:if test="${sessionScope.userid eq 'nature'}">
+        		<%-- <a href="${root}/admin/main" class="navbar-item-inner flexbox-left"> --%>
+        		<a class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
           			<i class="bi bi-person" style="font-size: 24px;"></i>
         		</span>
-        		<span class="link-text">My Page</span>
-      		</a>
-
-        	<c:if test="${sessionScope.userid eq 'nature'}">
-        		<a href="${root}/admin/main">Admin</a>
+        		<span class="link-text">Admin</span>
+        		</a>
+        		<!-- 세부 항목 리스트 블록-->
+				<ul class="sub-menu" id="mypageSubMenu" style="margin-top: 7.5em;">
+	      			<li><a href="${root}/admin/search">회원 조회</a></li>
+      				<li><a href="${root}/admin/reservation">예약 관리</a></li>
+      				<li><a href="${root}/admin/manage">리뷰 관리</a></li>
+				</ul>
     		</c:if>
     		
-    		<!-- 세부 항목 리스트 블록-->
-			<ul class="sub-menu" id="mypageSubMenu">
-      			<li><a href="${root}/mypage/change">회원 정보</a></li>
-      			<li><a href="${root}/mypage/reservation">예약 내역</a></li>
-      			<li><a href="${root}/mypage/review">리뷰 관리</a></li>
-      			<li><a href="${root}/mypage/delete">회원 탈퇴</a></li>
-			</ul>
+    		<c:if test="${sessionScope.userid ne 'nature'}">
+    			<!-- userid가 'nature'가 아닌 경우 -->
+    			<%-- <a href="${root}/mypage/main" class="navbar-item-inner flexbox-left"> --%>
+    			<a class="navbar-item-inner flexbox-left">
+        			<span class="navbar-item-inner-icon-wrapper flexbox">
+          				<i class="bi bi-person" style="font-size: 24px;"></i>
+        			</span>
+        			<span class="link-text">My Page</span>
+      			</a>
+      			
+      			<!-- 세부 항목 리스트 블록-->
+				<ul class="sub-menu" id="mypageSubMenu">
+	      			<li><a href="${root}/mypage/change">회원 정보</a></li>
+      				<li><a href="${root}/mypage/reservation">예약 내역</a></li>
+      				<li><a href="${root}/mypage/review">리뷰 관리</a></li>
+      				<li><a href="${root}/mypage/delete">회원 탈퇴</a></li>
+				</ul>
+			</c:if>
         </c:otherwise>
       </c:choose>
     </li>
@@ -261,18 +268,6 @@ s<%@ page language="java" contentType="text/html; charset=UTF-8"
         <span class="link-text">Team</span>
       </a>
     </li>
-    <c:if test="${sessionScope.userid eq 'nature'}">
-    <li class="navbar-item flexbox-left adminlink">
-      <a class="navbar-item-inner flexbox-left" href="${root}/admin/main" style="text-decoration: none;">
-        <span class="navbar-item-inner-icon-wrapper flexbox">
-          <i class="bi bi-search" style="font-size: 20px;"></i>
-        </span>
-       
-        <span class="link-text">
-        		Admin
-    	</span>
-      </a>
-    </li></c:if>
     <!-- <li class="navbar-item flexbox-left">
       <a class="navbar-item-inner flexbox-left">
         <div class="navbar-item-inner-icon-wrapper flexbox">
