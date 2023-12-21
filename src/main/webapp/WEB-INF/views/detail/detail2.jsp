@@ -18,7 +18,7 @@
 <style>
 <style>
 .body{
-	background-color: #E4e4e4;
+	background-color: white;
 }
 .camp_container {
     margin: 7%;
