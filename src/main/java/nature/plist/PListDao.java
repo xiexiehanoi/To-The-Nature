@@ -20,20 +20,22 @@ public class PListDao {
 		return session.selectOne(nameSpace+"totalCountOfSite");
 	}
 	
-	public List<PListDto> getAllSites(String word, 
-			String facltNm, String sigunguNm, String doNm)
+	public List<PListDto> getAllSites()
 	{
-		//word 에 검색 단어가 안 들어 있을 경우 null 값을 보내야 where 문이 실행 안된다
-		word=word==null || word.length()==0?null:word;
 		
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("searchfield1", facltNm);
-		map.put("searchfield2", doNm);
-		map.put("searchfield3", sigunguNm);
-		map.put("searchword", word);
-		
-		return session.selectList(nameSpace+"selectAllSites", map);
+		return session.selectList(nameSpace+"selectAllSites");
 	}
+	/*
+	 * public List<PListDto> searchSites(String word, String facltNm, String
+	 * sigunguNm, String doNm) { //word 에 검색 단어가 안 들어 있을 경우 null 값을 보내야 where 문이 실행
+	 * 안된다 word=word==null || word.length()==0?null:word;
+	 * 
+	 * Map<String, Object> map=new HashMap<String, Object>();
+	 * map.put("searchfield1", facltNm); map.put("searchfield2", doNm);
+	 * map.put("searchfield3", sigunguNm); map.put("searchword", word);
+	 * 
+	 * return session.selectList(nameSpace+"selectAllSites", map); }
+	 */
 	
 	public List<PListDto> getListPage(Map<String, Integer> map)
 	{

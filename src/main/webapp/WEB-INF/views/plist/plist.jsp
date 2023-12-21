@@ -16,14 +16,23 @@
 </head>
 <style>
 	body{
-		background-color: #C2C9BC;
+		/* background-color: #C2C9BC; */
+		/* background-color: #EBEADE; */
+		background-color: #E4e4e4;
+		font-family: 'Gowun Dodum', sans-serif;
 	}
-
+	
+	.plist-content h1{
+		font-weight: 900;
+		/* color: #2F2F3D; */
+		color: #495F37;
+	}
+	
 	div.plist{
 		position: absolute;
 		/* padding-top: 6em; */
 		padding-left: 8em;
-		border: 1px solid gray;
+		/* border: 1px solid gray; */
 		width: 100%;
 		/* height: 100vh; */
 		overflow-y: auto;
@@ -37,32 +46,56 @@
 	.plist-coverimg{
 		width: 100%;
 		height: 250px;
-		border: 1px solid gray;
+		object-fit: cover;
+		/* border: 1px solid gray; */
 		border-radius: 5px 0px 0px 5px;
-		background-color: gray;
+		background-color: #2F2F3D; 
+		margin-top: -16px;
+		box-shadow: 0px -6px 12px 0px rgba(20, 20, 20, 0.7) inset;
 	}
 	
 	div.plist-content{
 		width: 100%;
-		margin-top: 8px;	
-	}
-	
-	div.plist .plist-search{
-		margin-left: 64px;
-		margin-right: 8px;
-	}
-	
-	div.plist .plist-search:hover{
-		outline: none;
-    	border: none;
+		margin-top: 32px;	
 	}
 	
 	div.plist .plist-title-search{
-		width: 100%;
-    	padding-right: 72px; /* 우측에 공백을 주세요 */
-    	box-sizing: border-box; /* 박스 모델 조절 */
+		flex-basis: calc(100% - 32px);
+    	padding-right: 48px; /* 우측에 공백을 주세요 */
+    	/* box-sizing: border-box; */ /* 박스 모델 조절 */
     	margin-bottom: 40px;
-    	margin-right: 8px;
+    	/* margin-right: 8px; */
+    	display: flex;
+    	justify-content: space-between;
+    	align-items: baseline;
+	}
+	
+	div.plist .plist-search{
+		/* margin-left: 48px; */
+		/* margin-right: 8px; */
+	}
+	
+	div.plist .plist-title-b{
+		font-weight: 900;
+		/* color: #2F2F3D; */
+		color: #495F37;
+		font-size: 48px;
+	}
+	
+	div.plist .plist-search-input{
+		outline: none;
+    	border: none;
+		box-shadow: -3px -3px 6px 0px #FFF inset, 5px 5px 10px 0px rgba(0, 0, 0, 0.20) inset;
+	}
+	
+	div.plist #plist-search-btn{
+		outline: none;
+    	border: none;
+		box-shadow: -3px -3px 6px 0px #FFF, 5px 5px 10px 0px rgba(0, 0, 0, 0.20);
+		font-family: 'Noto Sans KR', sans-serif;
+		font-size: 17px;
+		color: #e4e4e4;
+		font-weight: 400;
 	}
 	
 	div.plist .plist-list {
@@ -73,15 +106,16 @@
 	}
 	
 	div.plist .plist-item {
-    	flex-basis: calc(33.333% - 24px); /* 3개씩 나열하고 간격은 10px로 조절 */
-    	margin-right: 10px; /* 오른쪽 간격 설정 */
-    	margin-bottom: 10px; /* 아래쪽 간격 설정 */
+    	/* flex-basis: calc(33.333% - 32px); */ /* 3개씩 나열하고 간격은 10px로 조절 */
+    	flex-basis: calc(25% - 32px); /* 3개씩 나열하고 간격은 10px로 조절 */
+    	margin-right: 24px; /* 오른쪽 간격 설정 */
+    	margin-bottom: 32px; /* 아래쪽 간격 설정 */
     	border-radius: 8px ;
-    	/* border: 1px solid gray; */
-    	box-shadow: 2px 2px 8px #c4c4c4;
+    	/border: 1px solid gray;
+    	/* box-shadow: 2px 2px 8px #898989; */
+    	box-shadow: 4px 4px 12px 0px rgba(40, 40, 40, 0.25);
+    	background-color: #e4e4e4;
 	}
-	
-	
 		
 	div.plist .plist-item-img{
 		/* flex-basis: calc(33.333% - 0px); */
@@ -91,8 +125,13 @@
     	border-radius: 10px 10px 0px 0px;
 	}
 	
+	.plist-pagination{
+		margin: 56px;
+	}
 	
 </style>
+<c:set var="root" value="<%=request.getContextPath()%>"/>
+
 <%
 String userId = (String) session.getAttribute("userid");
 %>
@@ -124,18 +163,18 @@ String userId = (String) session.getAttribute("userid");
 </script>
 <body>
 <div class="plist-coverimg">
-	<img alt="coverimg" src="" class="plist-coverimg">
+	<img alt="coverimg" src="${root}/views/main/camping-coverimg.jpg" class="plist-coverimg">
 </div>
 
 <div class="plist">
 	
 	<div class="plist-content">
 		<div class="plist-title-search input-group">
-			<h3 class="plist-title">
-				캠핑장 목록
+			<span class="plist-title">
+				<span class="plist-title-b">캠핑장 목록</span>
 				<span class="plist-count" style="font-size: 18px;color: #495F37;">총 ${totalCount}개의 캠핑장이 있습니다</span>
-			</h3>
-			<div class="plist-search input-group" style="width: 600px;height:16px;margin-left: 40px;">
+			</span>
+			<div class="plist-search input-group" style="width: 450px;height:16px;">
 				<input type="text" class="plist-search-input" name="search" style="width: 350px;border-radius: 5px 0px 0px 5px;outline: none;"
 				  placeholder="캠핑장/시/군/구를 검색하세요">
 				<button type="button" id="plist-search-btn" class="plist-search-btn" 
@@ -145,58 +184,70 @@ String userId = (String) session.getAttribute("userid");
 		
 		<div class="plist-list">
 			<c:forEach var="dto" items="${plistpage}">
-				<div class="plist-item">
-					<c:choose>
-    					<c:when test="${sessionScope.userid == null}">
-        					<a href="./detail?num=${dto.camping_num}&userId=null" class="plist-item-inner">
-        						<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}">
-								<span class="plist-item-no">
-									${dto.camping_num}.
-									<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
-									${dto.facltNm}
-								</span>
-      						</a>
-    					</c:when>
-        				<c:otherwise>
-            				<a href="./detail?num=${dto.camping_num}&userId=${sessionScope.userid}" class="plist-item-inner">
-        						<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}">
-								<span class="plist-item-no">
-									${dto.camping_num}
-									<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
-									${dto.facltNm}
-								</span>
-      						</a>
-        				</c:otherwise>
-      				</c:choose>
-					
-					
-				</div>
+				<%-- <c:choose>
+					<c:when test="${not empty plistpage}">
+                		<c:set var="currentList" value="${plistpage}" />
+            		</c:when>
+            		<c:otherwise>
+                		<c:set var="currentList" value="${plistAll}" />
+            		</c:otherwise>
+				</c:choose>
+				<c:forEach var="dto" items="${plistpage}"> --%>
+					<div class="plist-item">
+						<c:choose>
+    						<c:when test="${sessionScope.userid == null}">
+	        					<a href="./detail?num=${dto.camping_num}&userId=null" class="plist-item-inner">
+        							<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}" onerror="this.src='${root}/views/main/noimage.jpg'">
+									<span class="plist-item-no">
+										${dto.camping_num}.
+										<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
+										${dto.facltNm}
+									</span>
+      							</a>
+    						</c:when>
+        					<c:otherwise>
+	            				<a href="./detail?num=${dto.camping_num}&userId=${sessionScope.userid}" class="plist-item-inner">
+        							<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}">
+									<span class="plist-item-no">
+										${dto.camping_num}
+										<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
+										${dto.facltNm}
+									</span>
+      							</a>
+        					</c:otherwise>
+      					</c:choose>
+						<div class="plist-wish">${dto.countwish}</div>
+						<div class="plist-wish">${dto.countreview}</div>
+					</div>
+				<%-- </c:forEach> --%>
 			</c:forEach>
-			
 		</div>
-		<div style="text-align: center;">
-		<!-- 이전 -->
-		<c:if test="${startPage>1}">
-			<a href="./plist?currentPage=${startPage-1}">이전</a>
-		</c:if>
-		&nbsp;
-		<c:forEach var="pno" begin="${startPage}" end="${endPage}">
-			<a href="./plist?currentPage=${pno}" style="cursor: pointer;">
-				<c:if test="${pno==currentPage}">
-					<span style="color: red;">${pno}</span>
-				</c:if>
-				<c:if test="${pno!=currentPage}">
-					<span style="color: black;">${pno}</span>
-				</c:if>
-			</a>
+		
+		<!-- Pagination -->
+		<div style="text-align: center;" class="plist-pagination">
+			<!-- 이전 -->
+			<c:if test="${startPage>1}">
+				<a href="./plist?currentPage=${startPage-1}">이전</a>
+			</c:if>
 			&nbsp;
-			
-		</c:forEach>
-		<!-- 다음 -->
-		<c:if test="${endPage<totalPage}">
-			<a href="./plist?currentPage=${endPage+1}">다음</a>
-		</c:if>
-	</div>
+			<c:forEach var="pno" begin="${startPage}" end="${endPage}">
+				<a href="./plist?currentPage=${pno}" style="cursor: pointer;">
+					<c:if test="${pno==currentPage}">
+						<!-- <p class="plist-pagingnum" style="background-color: #528171;width: 16px;"> -->
+							<span style="color: #528171;">${pno}</span>
+						<!-- </p> -->
+					</c:if>
+					<c:if test="${pno!=currentPage}">
+						<span style="color: #8C8C8C;">${pno}</span>
+					</c:if>
+				</a>
+				&nbsp;
+			</c:forEach>
+			<!-- 다음 -->
+			<c:if test="${endPage<totalPage}">
+				<a href="./plist?currentPage=${endPage+1}">다음</a>
+			</c:if>
+		</div>
 	</div>
 </div>
 </body>
