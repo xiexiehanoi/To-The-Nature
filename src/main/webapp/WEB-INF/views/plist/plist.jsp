@@ -80,6 +80,7 @@
 		font-size: 16px;
 		font-weight: 400;
 		color: #c4c4c4;
+		background-color: #e4e4e4;
 		border: none;
 		cursor: pointer;
 		box-shadow: -3px -3px 6px 0px #e8e8e8, 3px 3px 6px 0px rgba(140, 140, 140, 0.20);
@@ -263,7 +264,7 @@ String userId = (String) session.getAttribute("userid");
             	    $.each(res, function (index, item) {
             	        var listItem = '<div class="plist-item">' +
             	        			   '<a href="./detail?num='+item.camping_num+'&userId=null" class="plist-item-inner">'+
-            	        			   '<img alt="캠핑장 이미지" class="plist-item-img" src="'+item.firstImageUrl+'" onerror="this.src='+`'${root}/views/main/noimage.jpg'`+'">'+
+            	        			   '<img alt="캠핑장 이미지" class="plist-item-img" src="'+item.firstImageUrl+'" onerror="this.src='+`'${root}/res/photo/noimage_big.jpg'`+'">'+
             	                       '<span class="plist-item-no">' + item.camping_num + '. ' +
             	                       '<c:set var="dto.camping_num" value="'+item.camping_num-1'"/>'+item.facltNm + '</span>' +
             	                       '<span class="plist-item-room" style="font-size: 14px;color: #528171;">'+
@@ -279,7 +280,7 @@ String userId = (String) session.getAttribute("userid");
        								   '<i class="bi bi-calendar-check" style="font-size: 18px;"></i>'+
        								   '</td>'+
        								   '<td class="plist-options plist-item-info-pet">'+
-       								   '<img alt="pet-icon" src="${root}/views/main/img/pet-icon2.png" style="height: 27px;">'+
+       								   '<img alt="pet-icon" src="${root}/res/photo/img/pet-icon2.png" style="height: 27px;">'+
        								   '</td>'+
        								   '</tr>'+
        								   '<tr class="plist-item-info-des">'+
@@ -306,7 +307,7 @@ String userId = (String) session.getAttribute("userid");
 </script>
 <body>
 <div class="plist-coverimg">
-	<img alt="coverimg" src="${root}/views/main/img/camping-coverimg.jpg" class="plist-coverimg">
+	<img alt="coverimg" src="${root}/res/photo/camping-coverimg.jpg" class="plist-coverimg">
 </div>
 
 <div class="plist">
@@ -340,7 +341,7 @@ String userId = (String) session.getAttribute("userid");
 					<c:choose>
 						<c:when test="${sessionScope.userid == null}">
 	        				<a href="./detail?num=${dto.camping_num}&userId=null" class="plist-item-inner">
-	        					<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}" onerror="this.src='${root}/views/main/noimage.jpg'">
+	        					<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}" onerror="this.src='${root}/res/photo/noimage_big.jpg'">
 								<span class="plist-item-no">
 									${dto.camping_num}.
 									<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
@@ -359,7 +360,7 @@ String userId = (String) session.getAttribute("userid");
 												<i class="bi bi-calendar-check" style="font-size: 18px;"></i>
 											</td>
 											<td class="plist-options plist-item-info-pet">
-												<img alt="pet-icon" src="${root}/views/main/img/pet-icon2.png" style="height: 27px;">
+												<img alt="pet-icon" src="${root}/res/photo/pet-icon2.png" style="height: 27px;">
 											</td>
 										</tr>
 										<tr class="plist-item-info-des">

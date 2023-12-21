@@ -56,7 +56,7 @@ class App {
     		// Set up click event on the models
     		model1.addEventListener('click', () => this.onModelClick("nature/login/main"));
     		model2.addEventListener('click', () => this.onModelClick("nature/plist?userId=null"));
-    		model3.addEventListener('click', () => this.onModelClick("nature/mypage/main"));
+    		model3.addEventListener('click', () => this.onModelClick("nature/mypage/change"));
 		} else {
     		// 로그인하지 않은 경우
     		// 특정 모델만 추가하고 이벤트 리스너를 설정할 수 있습니다.
@@ -68,7 +68,7 @@ class App {
     		// Set up click event on the models
     		model1.addEventListener('click', () => this.onModelClick("nature/login/main"));
     		model2.addEventListener('click', () => this.onModelClick("nature/plist?userId=null"));
-    		model5.addEventListener('click', () => this.onModelClick("nature/mypage/main"));
+    		model5.addEventListener('click', () => this.onModelClick("nature/mypage/change"));
 		}
 		
 	    // Add models to the group
@@ -234,7 +234,7 @@ class App {
     	// isMainPage 변수에 따라 상대 경로를 결정
     	var basePath = isMainPage ? '../' : '../../'; // 예시에 따라 조절
     	
-    	if(path=="nature/mypage/main"){
+    	if(path=="nature/mypage/change"){
     		// 페이지 이동
     		if (isLoggedIn) {
         		// 로그인한 경우
@@ -245,7 +245,7 @@ class App {
     		}
     	}
     	
-    	if(path!="nature/mypage/main"){
+    	if(path!="nature/mypage/change"){
     		// 페이지 이동
     		window.location.href = basePath + path;
     	}
