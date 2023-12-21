@@ -164,7 +164,6 @@
         </c:when>
         <c:otherwise>
             <!-- 세션에 loginok 값이 있으면 (로그인 상태이면) mypage 페이지로 이동 -->
-<<<<<<< HEAD
         	<c:if test="${sessionScope.userid eq 'nature'}">
         		<%-- <a href="${root}/admin/main" class="navbar-item-inner flexbox-left"> --%>
         		<a class="navbar-item-inner flexbox-left">
@@ -180,20 +179,7 @@
       				<li><a href="${root}/admin/manage">리뷰 관리</a></li>
 				</ul>
     		</c:if>
-=======
-            <a href="${root}/mypage/main" class="navbar-item-inner flexbox-left">
-        		<span class="navbar-item-inner-icon-wrapper flexbox">
-          			<i class="bi bi-person" style="font-size: 24px;"></i>
-        		</span>
-        		<span class="link-text">My Page</span>
-      		</a>
-
-        	
-
-        	
->>>>>>> refs/remotes/origin/feature/login
     		
-<<<<<<< HEAD
     		<c:if test="${sessionScope.userid ne 'nature'}">
     			<!-- userid가 'nature'가 아닌 경우 -->
     			<%-- <a href="${root}/mypage/main" class="navbar-item-inner flexbox-left"> --%>
@@ -212,16 +198,6 @@
       				<li><a href="${root}/mypage/delete">회원 탈퇴</a></li>
 				</ul>
 			</c:if>
-=======
-    		<!-- 세부 항목 리스트 블록-->
-			<ul class="sub-menu" id="mypageSubMenu">
-      <li><a href="${root}/mypage/change">회원 정보</a></li>
-      <li><a href="${root}/mypage/reservation">예약 내역</a></li>
-      <li><a href="${root}/mypage/review">리뷰 관리</a></li>
-      <li><a href="${root}/mypage/delete">회원 탈퇴</a></li>
-			</ul>
-
->>>>>>> refs/remotes/origin/feature/login
         </c:otherwise>
       </c:choose>
     </li>
