@@ -59,7 +59,7 @@ $(function(){
 	$(document).on("click", ".delete-icon", function() {
 	    // 클릭된 delete-icon에서 writeday 속성을 가져옴
 	    var userid = $(this).closest('tr').find('td:first').text().trim();
-        console.log("Clicked delete-icon. UserId:", userid);
+        
         // 사용자를 삭제하기 위한 함수 호출
         deleteUser(userid);
     })
@@ -121,9 +121,7 @@ function list()
             });
 			
 		},
-        error: function (xhr, status, error) {
-            console.error(xhr.responseText);
-        }
+       
     });
 }
 

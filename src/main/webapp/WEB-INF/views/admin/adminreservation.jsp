@@ -15,13 +15,48 @@
    body * {
        font-family: 'Jua';
    }
-  .reservationfirstImageUrl img {
-        width: 200px; /* 이미지의 최대 너비를 부모 요소의 100%로 설정 */
-        height: auto; /* 이미지의 높이를 자동으로 조정하여 가로세로 비율 유지 */
-        display: block; /* 이미지 간격 문제 해결을 위해 블록 요소로 설정 */
-        margin: 0; /* 이미지를 가운데 정렬 */
-        /* 추가적으로 필요한 스타일을 여기에 추가할 수 있습니다. */
-    }
+  .myreservation-all {
+  	display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    width:72%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .reservation-all {
+  	margin-right:700px;
+  	white-space: nowrap;
+  }
+  .reservation-subject {
+  	font-size:32px;
+  }
+  .reservation-table {
+  	width: 64%;
+    max-width: 100%;
+  	
+  }
+  .tableFacility {
+  width:150px;
+  }
+  .tableid {
+  width:50px;
+  }
+  .tablein {
+  width:100px;
+  }
+  .tableout {
+  width:100px;
+  }
+  .tableadult {
+  width:30px;
+  }
+  .tablechild {
+  width:30px;
+  }
+  .tabledate {
+  width:100px;
+  }
 </style>
 </head>
 <script type="text/javascript">
@@ -45,7 +80,7 @@ function listAllresevation() {
                     ${item.endDate}<br>
                     ${item.adult_count}
                     ${item.child_count}
-                    ${item.reservationDate}<br><hr>
+                    ${item.reservationDate}<br>
                      `;
             });
             $("div.reservationlist").html(s);
@@ -57,25 +92,43 @@ function listAllresevation() {
 <body>
 
 <div class="myreservation-all">
-<div class="reservation-all">예약관리<br>
+<div class="reservation-all">
+<div class="reservation-subject">예약관리</div><br>
 총 예약내역 ${allReservations.size()}개</div>
 <hr>
  
-      <c:forEach var="reservation" items="${allReservations}">
-      			<div class="reservationfirstImageUrl"><img src="${reservation.firstImageUrl}"></div>
-                <div class="reservation-contain">
-                <div class="reservationname">${reservation.facltNm}</div>
-                <div class="reservationduring">예약기간&nbsp;
-                <div class="reservationstarDate">${reservation.startDate}</div>
-                <div class="reservationendDate">${reservation.endDate}</div>
-                </div>
-                <div class="person">
-                <div class="reservationadult_count">성인: ${reservation.adult_count}</div>
-                <div class="reservationchild_count">아동: ${reservation.child_count}</div>
-                </div>
-                <div class="reservationreservationDate">${reservation.reservationDate}</div><hr>
-            	 </div>
-            </c:forEach>
+      <table class="reservation-table">
+            <thead>
+                <tr>
+                    <th class="tableFacility">Facility Name</th>
+                    <th class="tableid">ID</th>
+                    <th class="tablein">CheckIn</th>
+                    <th class="tableout">CheckOut</th>
+                    <th class="tableadult">Adult</th>
+                    <th class="tablechild">Child</th>
+                    <th class="tabledate">Reservation Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr colspan="7" style="border-bottom: 2px solid black;"></tr>
+                <c:forEach var="reservation" items="${allReservations}">
+                    <tr>
+                        <td>${reservation.facltNm}</td>
+                        <td>${reservation.userid}</td>
+                        <td>${reservation.startDate}</td>
+                        <td>${reservation.endDate}</td>
+                        <td>${reservation.adult_count}</td>
+                         <td>${reservation.child_count}</td>
+                        <td>${reservation.reservationDate}</td>
+                    </tr>
+                     <c:if test="${!loop.last}">
+        <tr>
+            <td colspan="7" style="border-bottom: 1px solid #ddd; height: 10px;"></td>
+        </tr>
+    </c:if>
+                </c:forEach>
+            </tbody>
+        </table>
  </div>      
 </body>
 </html>
