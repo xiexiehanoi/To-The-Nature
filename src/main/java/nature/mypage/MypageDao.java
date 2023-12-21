@@ -110,6 +110,6 @@ public class MypageDao {
 	        return session.selectList(nameSpace + "getAllReservations");
 	    }
 	    public void deleteReservationById(int reservation_id) {
-	        session.delete(nameSpace + "deleteReviewById", reservation_id);
+	        session.delete(nameSpace + "deleteReservationById", reservation_id);
 	    }
 }

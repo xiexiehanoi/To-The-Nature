@@ -65,13 +65,14 @@
 </style>
 </head>
 <script type="text/javascript">
+var reservation_id = '${reservation_id}';
 $(document).ready(function() {
     listAllresevation();
     
 });
 function listAllresevation() {
 	
-	var reservation_id = '${reservation_id}';
+	
     $.ajax({
         type: "get",
         dataType: "json",
@@ -90,7 +91,7 @@ function listAllresevation() {
                     ${item.child_count}
                     ${item.reservationDate}<br>
                      `;
-                s += `<a href="javascript:void(0);" onclick="deleteReservation(${item.reservation_id})">삭제</a>`;
+                s += `<a href="javascript:void(0);" onclick="deleteReservation(${reservation_id})">삭제</a>`;
             });
             $("div.reservationlist").html(s);
         }
@@ -99,15 +100,17 @@ function listAllresevation() {
 //예약 삭제 요청 함수
 
 function deleteReservation(reservation_id) {
+	console.log("Deleting reservation with ID:", reservation_id);
     $.ajax({
         type: "POST",
         url: "../admin/deleteReservation",
         data: {"reservation_id": reservation_id},
         success: function(res) {
+        	
             if (res.success) {
                 alert("예약을 삭제했습니다.");
                 $(`div[data-reservation-id="${reservation_id}"]`).remove();
-                location.reload();
+                listAllresevation();
             } else {
                 alert("예약 삭제에 실패했습니다.");
             }
