@@ -19,8 +19,15 @@
 		/* background-color: #C2C9BC; */
 		/* background-color: #EBEADE; */
 		background-color: #E4e4e4;
+		font-family: 'Gowun Dodum', sans-serif;
 	}
-
+	
+	.plist-content h1{
+		font-weight: 900;
+		/* color: #2F2F3D; */
+		color: #495F37;
+	}
+	
 	div.plist{
 		position: absolute;
 		/* padding-top: 6em; */
@@ -68,6 +75,13 @@
 		/* margin-right: 8px; */
 	}
 	
+	div.plist .plist-title-b{
+		font-weight: 900;
+		/* color: #2F2F3D; */
+		color: #495F37;
+		font-size: 48px;
+	}
+	
 	div.plist .plist-search-input{
 		outline: none;
     	border: none;
@@ -78,6 +92,10 @@
 		outline: none;
     	border: none;
 		box-shadow: -3px -3px 6px 0px #FFF, 5px 5px 10px 0px rgba(0, 0, 0, 0.20);
+		font-family: 'Noto Sans KR', sans-serif;
+		font-size: 17px;
+		color: #e4e4e4;
+		font-weight: 400;
 	}
 	
 	div.plist .plist-list {
@@ -88,7 +106,8 @@
 	}
 	
 	div.plist .plist-item {
-    	flex-basis: calc(33.333% - 32px); /* 3개씩 나열하고 간격은 10px로 조절 */
+    	/* flex-basis: calc(33.333% - 32px); */ /* 3개씩 나열하고 간격은 10px로 조절 */
+    	flex-basis: calc(25% - 32px); /* 3개씩 나열하고 간격은 10px로 조절 */
     	margin-right: 24px; /* 오른쪽 간격 설정 */
     	margin-bottom: 32px; /* 아래쪽 간격 설정 */
     	border-radius: 8px ;
@@ -151,10 +170,10 @@ String userId = (String) session.getAttribute("userid");
 	
 	<div class="plist-content">
 		<div class="plist-title-search input-group">
-			<h1 class="plist-title">
-				캠핑장 목록
+			<span class="plist-title">
+				<span class="plist-title-b">캠핑장 목록</span>
 				<span class="plist-count" style="font-size: 18px;color: #495F37;">총 ${totalCount}개의 캠핑장이 있습니다</span>
-			</h1>
+			</span>
 			<div class="plist-search input-group" style="width: 450px;height:16px;">
 				<input type="text" class="plist-search-input" name="search" style="width: 350px;border-radius: 5px 0px 0px 5px;outline: none;"
 				  placeholder="캠핑장/시/군/구를 검색하세요">
@@ -178,7 +197,7 @@ String userId = (String) session.getAttribute("userid");
 						<c:choose>
     						<c:when test="${sessionScope.userid == null}">
 	        					<a href="./detail?num=${dto.camping_num}&userId=null" class="plist-item-inner">
-        							<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}">
+        							<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}" onerror="this.src='${root}/views/main/noimage.jpg'">
 									<span class="plist-item-no">
 										${dto.camping_num}.
 										<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
