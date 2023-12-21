@@ -22,9 +22,9 @@ public class PListDao {
 	
 	public List<PListDto> getAllSites(String word, String search)
 	{
-		Map<String, Object> map=new HashMap<String, Object>();
+		Map<String, Object> map=new HashMap<>();
 		map.put("search", search);
-		map.put("searchword", word);
+		map.put("word", word);
 		return session.selectList(nameSpace+"selectAllSites", map);
 	}
 	/*

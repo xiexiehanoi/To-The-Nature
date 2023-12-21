@@ -21,11 +21,6 @@ public class PListService {
 
 	public List<PListDto> getAllSites(String word ,String search)
 	{
-
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("search", search);
-		map.put("word", word);
-		
 		return plistDao.getAllSites(word,search);
 	}
 

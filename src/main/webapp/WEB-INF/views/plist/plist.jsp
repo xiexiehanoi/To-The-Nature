@@ -138,7 +138,7 @@ String userId = (String) session.getAttribute("userid");
 <script type="text/javascript">
 	
     $(document).on("click","#plist-search-btn",function(){
-    var word=$(".word").val();
+    var word=$(".plist-search-input").val();
 	if(word=="" || null){
 		alert("검색어를 입력해주세요")
 		return;
@@ -156,13 +156,18 @@ String userId = (String) session.getAttribute("userid");
             dataType: "json",
             success: function (res) {
             	console.log("a:"+res);
-            	$(".plist-item-img").html(res.firstImageUrl);
-            	$(".plist-item-no").html(res.camping_num);
-            	$(".plist-item-no").html(res.facltNm);
-            }
-    		
-    	})
-	  }
+            	 var resultList = $(".plist-list");
+            	    resultList.empty();
+            	    $.each(res, function (index, item) {
+            	        var listItem = '<div class="plist-item">' +
+            	                       '<img src="' + item.firstImageUrl + '" class="plist-item-img">' +
+            	                       '<span class="plist-item-no">' + item.camping_num + '. ' + item.facltNm + '</span>' +
+            	                       '</div>';
+            	        resultList.append(listItem);
+            	    });
+            	}
+    		})
+	  	}
     });
 </script>
 <body>
@@ -177,20 +182,14 @@ String userId = (String) session.getAttribute("userid");
 			<span class="plist-title">
 				<span class="plist-title-b">캠핑장 목록</span>
 				<span class="plist-count" style="font-size: 18px;color: #495F37;">총 ${totalCount}개의 캠핑장이 있습니다</span>
-<<<<<<< HEAD
-			</h3>
-			<div class="plist-search input-group" style="width: 600px;height:16px;margin-left: 40px;">
-				<select id="selectbox" name="selectbox" onchange=""	class="form-select" >
+			</span>
+			<div class="plist-search input-group" style="width: 450px;height:16px;">
+				<select id="selectbox" name="selectbox" onchange=""	class="form-select" style="width:40px;">
 					<option value="facltNm">캠핑장</option>
 					<option value="doNm">도</option>
 					<option value="sigunguNm">시/군/구</option>
 				</select>
-				<input type="text" class="plist-search-input word" name="search" style="width: 350px;border-radius: 5px 0px 0px 5px;outline: none;"
-=======
-			</span>
-			<div class="plist-search input-group" style="width: 450px;height:16px;">
 				<input type="text" class="plist-search-input" name="search" style="width: 350px;border-radius: 5px 0px 0px 5px;outline: none;"
->>>>>>> branch 'prototype' of https://github.com/xiexiehanoi/To-The-Nature.git
 				  placeholder="캠핑장/시/군/구를 검색하세요">
 				<button type="button" id="plist-search-btn" class="plist-search-btn" 
 				  style="width: 100px;background-color: #528171;border:none;border-radius: 0px 5px 5px 0px;">검색</button>
