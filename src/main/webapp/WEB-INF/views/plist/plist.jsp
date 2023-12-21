@@ -336,45 +336,88 @@ String userId = (String) session.getAttribute("userid");
 		<!-- Camping Site List -->
 		<div class="plist-list">
 			<c:forEach var="dto" items="${plistpage}">
-					<div class="plist-item">
-	        			<a href="./detail?num=${dto.camping_num}&userId=null" class="plist-item-inner">
-        					<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}" onerror="this.src='${root}/views/main/noimage.jpg'">
-							<span class="plist-item-no">
-								${dto.camping_num}.
-								<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
-								${dto.facltNm}
-							</span>
-							<span class="plist-item-room" style="font-size: 14px;color: #528171;">
-								(${dto.available_room}개 대여 가능)
-							</span>
-							<table class="plist-item-info">
-								<tbody style=" width: 100%;">
-									<tr class="plist-item-info-icon">
-										<td class="plist-options plist-item-info-location">
-											<i class="bi bi-geo-alt-fill" style="font-size: 18px;"></i>
-										</td>
-										<td class="plist-options plist-item-info-operdays">
-											<i class="bi bi-calendar-check" style="font-size: 18px;"></i>
-										</td>
-										<td class="plist-options plist-item-info-pet">
-											<img alt="pet-icon" src="${root}/views/main/img/pet-icon2.png" style="height: 27px;">
-										</td>
-									</tr>
-									<tr class="plist-item-info-des">
-										<td class="plist-item-info-location">
-											${dto.doNm} ${dto.sigunguNm}
-										</td>
-										<td class="plist-item-info-operdays">
-											${dto.operDeCl}
-										</td>
-										<td class="plist-item-info-pet">
-											${dto.animalCmgCl}
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</a>
-					</div>
+				<div class="plist-item">
+					<c:choose>
+						<c:when test="${sessionScope.userid == null}">
+	        				<a href="./detail?num=${dto.camping_num}&userId=null" class="plist-item-inner">
+	        					<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}" onerror="this.src='${root}/views/main/noimage.jpg'">
+								<span class="plist-item-no">
+									${dto.camping_num}.
+									<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
+									${dto.facltNm}
+								</span>
+								<span class="plist-item-room" style="font-size: 14px;color: #528171;">
+									(${dto.available_room}개 대여 가능)
+								</span>
+								<table class="plist-item-info">
+									<tbody style=" width: 100%;">
+										<tr class="plist-item-info-icon">
+											<td class="plist-options plist-item-info-location">
+												<i class="bi bi-geo-alt-fill" style="font-size: 18px;"></i>
+											</td>
+											<td class="plist-options plist-item-info-operdays">
+												<i class="bi bi-calendar-check" style="font-size: 18px;"></i>
+											</td>
+											<td class="plist-options plist-item-info-pet">
+												<img alt="pet-icon" src="${root}/views/main/img/pet-icon2.png" style="height: 27px;">
+											</td>
+										</tr>
+										<tr class="plist-item-info-des">
+											<td class="plist-item-info-location">
+												${dto.doNm} ${dto.sigunguNm}
+											</td>
+											<td class="plist-item-info-operdays">
+												${dto.operDeCl}
+											</td>
+											<td class="plist-item-info-pet">
+												${dto.animalCmgCl}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</a>
+						</c:when>
+        				<c:otherwise>
+        					<a href="./detail?num=${dto.camping_num}&userId=${sessionScope.userid}" class="plist-item-inner">
+	        					<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}" onerror="this.src='${root}/views/main/noimage.jpg'">
+								<span class="plist-item-no">
+									${dto.camping_num}.
+									<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
+									${dto.facltNm}
+								</span>
+								<span class="plist-item-room" style="font-size: 14px;color: #528171;">
+									(${dto.available_room}개 대여 가능)
+								</span>
+								<table class="plist-item-info">
+									<tbody style=" width: 100%;">
+										<tr class="plist-item-info-icon">
+											<td class="plist-options plist-item-info-location">
+												<i class="bi bi-geo-alt-fill" style="font-size: 18px;"></i>
+											</td>
+											<td class="plist-options plist-item-info-operdays">
+												<i class="bi bi-calendar-check" style="font-size: 18px;"></i>
+											</td>
+											<td class="plist-options plist-item-info-pet">
+												<img alt="pet-icon" src="${root}/views/main/img/pet-icon2.png" style="height: 27px;">
+											</td>
+										</tr>
+										<tr class="plist-item-info-des">
+											<td class="plist-item-info-location">
+												${dto.doNm} ${dto.sigunguNm}
+											</td>
+											<td class="plist-item-info-operdays">
+												${dto.operDeCl}
+											</td>
+											<td class="plist-item-info-pet">
+												${dto.animalCmgCl}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</a>
+        				</c:otherwise>
+      				</c:choose>
+				</div>
 				<%-- </c:forEach> --%>
 			</c:forEach>
 		</div>
