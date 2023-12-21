@@ -25,7 +25,6 @@ public class PListDao {
 		Map<String, Object> map=new HashMap<>();
 		map.put("search", search);
 		map.put("word", word);
-		System.out.println("dao : "+map);
 		return session.selectList(nameSpace+"selectAllSites", map);
 	}
 	/*

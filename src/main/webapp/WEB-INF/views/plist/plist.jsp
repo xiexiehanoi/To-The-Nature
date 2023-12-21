@@ -257,7 +257,6 @@ String userId = (String) session.getAttribute("userid");
             },
             dataType: "json",
             success: function (res) {
-            	console.log("a:"+res);
             	 var resultList = $(".plist-list");
             	    resultList.empty();
             	    $.each(res, function (index, item) {
