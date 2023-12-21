@@ -242,6 +242,14 @@ i{
 	justify-content: space-between;
 }
 
+.datainput1{
+ 	width: 20% !important;
+	border-radius: 8px !important;
+}
+.datainput2{
+ 	width: 10% !important;
+	border-radius: 8px !important;
+}
 </style>
 <%
 String userId = (String) session.getAttribute("userid");
@@ -673,8 +681,7 @@ function updateCountWish() {
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="reservationModalLabel">Reservation
-								Details</h5>
+							<h5 class="modal-title" id="reservationModalLabel">예약 정보 입력</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
 								aria-label="Close"></button>
 						</div>
@@ -690,18 +697,18 @@ function updateCountWish() {
 								</div>
 								<div class="mb-3 input-group">
 									<label for="startDate" class="form-label">입실일</label> <input
-										type="date" class="form-control datainput" id="startDate"
+										type="date" class="form-control datainput1" id="startDate"
 										name="startDate" required> <label for="endDate"
 										class="form-label">퇴실일</label> <input type="date"
-										class="form-control datainput" id="endDate" name="endDate"
+										class="form-control datainput1" id="endDate" name="endDate"
 										required>
 								</div>
 								<div class="mb-3 input-group">
 									<label for="adults" class="form-label">성인</label> 
-									<input type="number" class="form-control datainput" id="adults"
+									<input type="number" class="form-control datainput2" id="adults"
 										name="adult_count" min="1" value="1" required> <label for="children"
 										class="form-label">미성년자(만0세~17세)</label> <input type="number"
-										class="form-control datainput" value="0" id="children" name="children_count"
+										class="form-control datainput2" value="0" id="children" name="children_count"
 										min="0" required>
 								</div>
 								<div class="mb-3">
