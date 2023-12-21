@@ -20,7 +20,10 @@
 	<select id="selectgetUser" parameterType="String" resultType="UserDto">
 		select * from user where userid = #{userId}
 	</select>
-	<select id="checkPaiduser" parameterType="Map" resultType="ReservationDto">
-		select * from reservation where user_num = #{userNum} AND camping_num = #{campingNum} 
+	<select id="countReservationByUsernum" parameterType="Map" resultType="int">
+		select count(*) from reservation where user_num = #{userNum} AND camping_num = #{campingNum} 
+	</select>
+	<select id="countReviewByUserum" parameterType="Map" resultType="int">
+		select count(*) from review where user_num = ${userNum} AND camping_num = #{campingNum}
 	</select>
 </mapper>

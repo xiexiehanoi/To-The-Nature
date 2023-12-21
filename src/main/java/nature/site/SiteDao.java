@@ -28,10 +28,16 @@ public class SiteDao {
 	}
 	
 	
-	 /*public ReservationDto checkPaidUser(Map<String, Object> reservationParm) 
-	 {
+	public int countReservationByuserNum(Map<Integer, Integer> reserParam) 
+	{
 	
-	 return session.selectOne(nameSpace+"checkPaiduser",reservationParm); 
-	 }*/
+		return session.selectOne(nameSpace+"countReservationByUsernumr",reserParam); 
+	}
+	
+	public int countReviewByUsernum(Map<Integer, Integer> reviewParam) 
+	{
+		 
+		 return session.selectOne(nameSpace+"countReviewByUserumr",reviewParam); 
+	}
 	
 }

@@ -25,6 +25,18 @@ public class SiteService {
 
 		UserDto userDto= siteDao.getUser(userid);
 		return userDto;
-	}	 
+	}
+	
+	public int countReservationByuserNum(Map<Integer, Integer> reserParam) 
+	{
+		int reservationCount = siteDao.countReservationByuserNum(reserParam); 
+		return  reservationCount;
+	}
+	
+	public int countReviewByUsernum(Map<Integer, Integer> reviwParam) 
+	{
+		 int reviewCount = siteDao.countReviewByUsernum(reviwParam);
+		 return reviewCount;
+	}
 
 }
