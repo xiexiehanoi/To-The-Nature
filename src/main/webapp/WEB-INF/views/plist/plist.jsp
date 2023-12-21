@@ -97,29 +97,33 @@
 String userId = (String) session.getAttribute("userid");
 %>
 <script type="text/javascript">
-	var word=$("search").val();
-	var facltNm=$(".plist-search-input").val();
-	var sigunguNm=$(".plist-search-input").val();
-	var doNm=$(".plist-search-input").val();
-	console.log(word);
 	
     $(document).on("click","#plist-search-btn",function(){
+    var word=$(".word").val();
+	if(word=="" || null){
+		alert("검색어를 입력해주세요")
+		return;
+	}else{
+	var select=$("#selectbox option:selected").val();
+	console.log(word);
+	console.log(select);	
     	$.ajax({
             type: "POST",
             url: "./plist/search",
             data: {
                 "word":word,
-                "facltNm":facltNm,
-                "sigunguNm":sigunguNm,
-                "doNm":doNm
+                "select": select
             },
             dataType: "json",
             success: function (res) {
             	console.log("a:"+res);
             	$(".plist-item-img").html(res.firstImageUrl);
+            	$(".plist-item-no").html(res.camping_num);
+            	$(".plist-item-no").html(res.facltNm);
             }
     		
     	})
+	  }
     });
 </script>
 <body>
@@ -136,7 +140,12 @@ String userId = (String) session.getAttribute("userid");
 				<span class="plist-count" style="font-size: 18px;color: #495F37;">총 ${totalCount}개의 캠핑장이 있습니다</span>
 			</h3>
 			<div class="plist-search input-group" style="width: 600px;height:16px;margin-left: 40px;">
-				<input type="text" class="plist-search-input" name="search" style="width: 350px;border-radius: 5px 0px 0px 5px;outline: none;"
+				<select id="selectbox" name="selectbox" onchange=""	class="form-select" >
+					<option value="facltNm">캠핑장</option>
+					<option value="doNm">도</option>
+					<option value="sigunguNm">시/군/구</option>
+				</select>
+				<input type="text" class="plist-search-input word" name="search" style="width: 350px;border-radius: 5px 0px 0px 5px;outline: none;"
 				  placeholder="캠핑장/시/군/구를 검색하세요">
 				<button type="button" id="plist-search-btn" class="plist-search-btn" 
 				  style="width: 100px;background-color: #528171;border:none;border-radius: 0px 5px 5px 0px;">검색</button>

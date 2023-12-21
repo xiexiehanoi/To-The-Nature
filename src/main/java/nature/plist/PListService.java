@@ -18,19 +18,16 @@ public class PListService {
 		return plistDao.getTotalCount();
 	}
 
-	public List<PListDto> getAllSites(String word, 
-			String facltNm, String sigunguNm, String doNm)
+	public List<PListDto> getAllSites(String word ,String search)
 	{
 		//word 에 검색 단어가 안 들어 있을 경우 null 값을 보내야 where 문이 실행 안된다
 		word=word==null || word.length()==0?null:word;
 		
 		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("searchfield1", facltNm);
-		map.put("searchfield2", doNm);
-		map.put("searchfield3", sigunguNm);
-		map.put("searchword", word);
+		map.put("search", search);
+		map.put("word", word);
 		
-		return plistDao.getAllSites(word, facltNm, sigunguNm, doNm);
+		return plistDao.getAllSites(word,search);
 	}
 	
 	public List<PListDto> getListPage(int startNum,int perpage)

@@ -6,14 +6,22 @@
 	</select>
 	
 	<select id="selectAllSites" resultType="PListDto" parameterType="Map">
-		select * from camping_details 
-		<if test="searchword!=null">
-		where facltNm=#{searchfield1} or doNm=#{searchfield2} or sigunguNm=#{searchfield3} like concat('%',#{searchword},'%')
-		</if>
-		<if test="searchword==null">
-		where camping_num=#{camping_num}
-		</if>
-		order by camping_num desc
+		select * from camping_details
+		<where>
+			<if test="search != null">
+				<choose>
+					<when test="facltNm != null">				
+						where facltNm=#{searchfield1} like concat('%',#{searchword},'%')
+					</when>
+					<when test="doNm != null">				
+						where facltNm=#{searchfield1} like concat('%',#{searchword},'%')
+					</when>
+					<when test="sigunguNm != null">				
+						where facltNm=#{searchfield1} like concat('%',#{searchword},'%')
+					</when>
+				</choose>
+			</if>
+		</where> 
 	</select>
 	
 	<select id="selectPagingOfPList" parameterType="Map" resultType="PListDto">

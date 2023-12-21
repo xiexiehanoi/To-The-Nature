@@ -56,10 +56,10 @@ public class PListController {
 	
 	@PostMapping("plist/search")
 	@ResponseBody List<PListDto> plistSearch(String word, 
-			String facltNm, String sigunguNm, String doNm)
+			String facltNm, String sigunguNm, String doNm, String select)
 	{
-		List<PListDto> plistsearchRes = plistService.getAllSites(word, facltNm, sigunguNm, doNm);
-		System.out.println(plistsearchRes);
+		List<PListDto> plistsearchRes = plistService.getAllSites(word, select);
+		System.out.println("서비스:" +plistsearchRes);
 		return plistsearchRes;
 	}
 }
