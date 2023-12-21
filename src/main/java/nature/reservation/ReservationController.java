@@ -40,7 +40,6 @@ public class ReservationController {
 		
 		//로그인한 유저 정보 가져오기
 		UserDto userDto =reservationService.getUser(userid);
-		System.out.println(userDto.getUsernum());
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = currentDate.format(formatter);
