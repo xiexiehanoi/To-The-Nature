@@ -246,10 +246,19 @@ i{
  	width: 20% !important;
 	border-radius: 8px !important;
 }
+
 .datainput2{
  	width: 10% !important;
 	border-radius: 8px !important;
 }
+
+.r_button{
+	background-color: #528171;
+	border-radius: 8px;
+	color: white;
+	border: none;
+}
+
 </style>
 <%
 String userId = (String) session.getAttribute("userid");
@@ -595,7 +604,7 @@ function updateCountWish() {
 					<!-- 예약하기 버튼 -->
 					<span>
 				      <!--  <button type="button" id="reservationbutton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button> -->
-				       <button type="button" id="reservationbutton" class="btn btn-primary">예약하기</button>
+				       <button type="button" id="reservationbutton" class="r_button">예약하기</button>
 					</span>
 				</div>
 			</div>
@@ -721,8 +730,8 @@ function updateCountWish() {
 			                        <label for="totalAmount" class="form-label">총 금액 : <span id="totalAmount"></span></label>
 			                    	<input type="hidden" id="campingAmount" value="${dto.amount}">
 			                    </div>
-								<button type="button" class="btn btn-primary"
-									onclick="submitReservation()">Confirm Reservation</button>
+								<button type="button" class="r_button"
+									onclick="submitReservation()">예약 완료</button>
 							</form>
 						</div>
 					</div>
