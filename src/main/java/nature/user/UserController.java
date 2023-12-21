@@ -177,11 +177,6 @@ public class UserController {
 		// 프로필 사진 파일명을 DB에 업데이트
 	    userDao.updatePhoto(fileName, userid);
 
-	    // 세션과 무관하게 DB에 저장된 프로필 사진 파일명 가져와 세션에 저장
-	    String updatedFileName = userDao.getPhotoFileName(userid);
-	    session.setAttribute("userphoto", updatedFileName);
-
-
 		session.setAttribute("userphoto", fileName);
 
 		Map<String, String> map=new HashMap<>();

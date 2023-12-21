@@ -67,16 +67,16 @@
 <script type="text/javascript">
 $(document).ready(function() {
     listAllresevation();
-    deleteReservation();
+    
 });
 function listAllresevation() {
 	
-	var reservation_id = '${reservationId}';
+	var reservation_id = '${reservation_id}';
     $.ajax({
         type: "get",
         dataType: "json",
         url: "../admin/reservation", // URL을 올바른 엔드포인트로 업데이트
-        data:{"reservation_id":${reservation.reservation_id}},
+        data:{"reservation_id":reservation_id},
         success: function (res) {
             let s = "";
             $.each(res, function (idx, item) {
@@ -140,7 +140,7 @@ function deleteReservation(reservation_id) {
                 </tr>
             </thead>
             <tbody>
-            <tr colspan="8" style="border-bottom: 2px solid black;"></tr>
+            <tr style="border-bottom: 2px solid black;"></tr>
                 <c:forEach var="reservation" items="${allReservations}">
                     <tr>
                         <td>${reservation.facltNm}</td>
