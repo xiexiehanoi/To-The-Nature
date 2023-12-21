@@ -20,6 +20,7 @@
         }
         .myreservation-all {
     margin: 0 auto; /* 가로 중앙 정렬을 위해 margin을 auto로 설정합니다. */
+    margin-top: 50px;
     }
     .reservation-title {
     	font-size:32px;
@@ -111,7 +112,7 @@ function list()
 
 <div class="myreservation-all">
 <div class="reservation-all"><span class="reservation-title">예약관리</span><br><br>
-예약내역 ${userReservations.size()}개</div>
+<i class="bi bi-calendar-check"></i>&nbsp;예약내역 ${userReservations.size()}개</div>
 <hr>
   
       <c:forEach var="reservation" items="${userReservations}">

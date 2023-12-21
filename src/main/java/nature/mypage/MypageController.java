@@ -122,11 +122,7 @@ public class MypageController {
 	    // 프로필 페이지 또는 적절한 페이지로 리디렉션
 	    return "redirect:/";
 	}
-	@GetMapping("/mypage/delete")
-	public String mywithdrawal() {
-		
-		return "mypage/mydelete";
-	}
+	
 	
 	@GetMapping("/admin/main")
 	public String adminmain() {
@@ -159,11 +155,11 @@ public class MypageController {
         Map<String, Object> result = new HashMap<>();
        
         try {
-            // 리뷰 삭제를 위한 DAO 메소드 직접 호출
+            
             mypageDao.deleteUserById(userid);
             result.put("success", true);
         } catch (Exception e) {
-            // 삭제 실패 시 예외 처리
+            
             result.put("success", false);
             result.put("message", "계정 삭제 중 오류가 발생했습니다.");
             e.printStackTrace();
@@ -174,11 +170,12 @@ public class MypageController {
 	@GetMapping("/admin/reviewfind")
 	@ResponseBody
 	public List<Map<String, Object>> reviewSearch(
-	        @RequestParam(required = false) String field,
-	        @RequestParam(required = false) String word, Model model) {
-	    List<Map<String, Object>> searchResult = mypageDao.searchReviews(field, word);
-	    model.addAttribute("searchResult", searchResult);
-	    return searchResult;
+	    @RequestParam(required = false) String field,
+	    @RequestParam(required = false) String word
+	    ) {
+	    List<Map<String, Object>> reviews = mypageDao.searchReviews(field, word);
+	    
+	    return reviews;
 	}
 	@GetMapping("/admin/reservation")
 	public String listAllReservations(Model model) {
