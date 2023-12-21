@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="nature.reservation.ReservationDao">
-	<select id="selectRoomCount" parameterType="int" resultType="int">
-		select available_room from camping_details where camping_num =#{num}
-	</select>
 	
 	<select id="selectgetUser" parameterType="String" resultType="UserDto">
 		select * from user where userid = #{userid}
@@ -13,4 +10,15 @@
 		insert into reservation (user_num,reservationDate,startDate,endDate,adult_count,child_count,camping_num,merchant_uid,imp_uid,amount) 
 		values (#{user_num},#{reservationDate},#{startDate},#{endDate},#{adult_count},#{child_count},#{camping_num},#{merchant_uid},#{imp_uid},#{amount})
 	</insert>
+	
+	<select id="selectRoomCount" parameterType="int" resultType="int">
+		select available_room from camping_details where camping_num =#{num}
+	</select>
+
+	<update id="updateAvailability" parameterType="map">
+		UPDATE rooms
+		SET available_rooms = available_rooms - #{decrement}
+		WHERE date = #{date} AND camping_num = #{campingNum}
+	</update>
+	
 </mapper>

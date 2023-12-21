@@ -33,7 +33,11 @@ public class ReservationController {
 		int reservationdays = startDate.until(endDate).getDays();
 		int remainingDays =currentDate.until(startDate).getDays();
 		//남은 방 개수 가져오기
+		
 		int roomCount=reservationService.roomCount(rDto.getCamping_num());
+		
+		
+		
 		//로그인한 유저 정보 가져오기
 		UserDto userDto =reservationService.getUser(userid);
 		System.out.println(userDto.getUsernum());
@@ -54,11 +58,11 @@ public class ReservationController {
 	
 	@PostMapping("/reservation")
 	@ResponseBody public void reservation(@ModelAttribute ReservationDto reservationDto) {
-		System.out.println("111");
 		System.out.println(reservationDto.toString());
 		reservationService.insertReservation(reservationDto);
+		reservationService.ensureAvailability(reservationDto);
+		System.out.println("아니 야발 이거 왜 쳐 안나오는거야");
 		
 	}
-	
 
 }
