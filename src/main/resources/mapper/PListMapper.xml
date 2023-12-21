@@ -5,12 +5,20 @@
 		select count(*) from camping_details
 	</select>
 	
-	<select id="selectAllSites" parameterType="Map" resultType="PListDto">
-		SELECT cd.*,
-    	(SELECT COUNT(*) FROM wish WHERE camping_num = cd.camping_num) as countwish,
-    	(SELECT COUNT(*) FROM review WHERE camping_num = cd.camping_num) as countreview
-        FROM camping_details cd
-		order by camping_num desc
+	<select id="selectAllSites" resultType="PListDto" parameterType="Map">
+	    select * from camping_details
+	    <where>
+	        <if test="search == 'facltNm'">
+	            and facltNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'doNm'">
+	            and doNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'sigunguNm'">
+	            and sigunguNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	    </where>
+	    order by camping_num desc
 	</select>
 	
 	<select id="selectPagingOfPList" parameterType="Map" resultType="PListDto">

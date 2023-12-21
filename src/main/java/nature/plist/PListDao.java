@@ -20,10 +20,13 @@ public class PListDao {
 		return session.selectOne(nameSpace+"totalCountOfSite");
 	}
 	
-	public List<PListDto> getAllSites()
+	public List<PListDto> getAllSites(String word, String search)
 	{
-		
-		return session.selectList(nameSpace+"selectAllSites");
+		Map<String, Object> map=new HashMap<>();
+		map.put("search", search);
+		map.put("word", word);
+		System.out.println("dao : "+map);
+		return session.selectList(nameSpace+"selectAllSites", map);
 	}
 	/*
 	 * public List<PListDto> searchSites(String word, String facltNm, String

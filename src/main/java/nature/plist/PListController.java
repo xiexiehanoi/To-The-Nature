@@ -39,15 +39,12 @@ public class PListController {
 	    
 	    // 해당 페이지에 보여줄 게시판 목록
 	    List<PListDto> plistpage = plistService.getListPage(startNum, perPage);
-	    
-	    List<PListDto> plistAll = plistService.getAllSites();
 		
 	    /* System.out.println(plistpage.toString()); */
 
 	    int no = totalCount - (currentPage - 1) * perPage;
 
 	    model.addAttribute("plistpage", plistpage);
-	    model.addAttribute("plistAll", plistAll);
 	    model.addAttribute("totalCount", totalCount);
 	    model.addAttribute("totalPage", totalPage);
 	    model.addAttribute("startPage", startPage);
@@ -60,11 +57,10 @@ public class PListController {
 	}
 	
 	@PostMapping("plist/search")
-	@ResponseBody List<PListDto> plistSearch(String word, 
-			String facltNm, String sigunguNm, String doNm)
+	@ResponseBody List<PListDto> plistSearch(@RequestParam String word, @RequestParam String select)
 	{
-		List<PListDto> plistsearchRes = plistService.getAllSites();
-		System.out.println(plistsearchRes);
+		List<PListDto> plistsearchRes = plistService.getAllSites(word, select);
+		/* System.out.println("서비스:" +plistsearchRes); */
 		return plistsearchRes;
 	}
 }
