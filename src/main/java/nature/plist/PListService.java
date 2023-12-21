@@ -18,10 +18,9 @@ public class PListService {
 		return plistDao.getTotalCount();
 	}
 
-	public List<PListDto> getAllSites()
+	public List<PListDto> getAllSites(String word ,String search)
 	{
-		
-		return plistDao.getAllSites();
+		return plistDao.getAllSites(word,search);
 	}
 
 	/*

@@ -112,18 +112,18 @@
     	<!-- 세션에 loginok 값이 없으면 (로그인 상태가 아니면) 로그인 링크 표시 -->
       	<a class="navbar-item-inner flexbox-left" href="${root}/login/main">
         	<span class="navbar-item-inner-icon-wrapper flexbox">
-          		<i class="bi bi-box-arrow-in-right" style="font-size: 24px;"></i>
+          		<i class="bi bi-box-arrow-in-right" style="font-size: 24px;margin-left: 6px;"></i>
         	</span>
-        	<span class="link-text">로그인</span>
+        	<span class="link-text" style="margin-top: 3px;">로그인</span>
       	</a>
       </c:if>
      
       <c:if test="${not empty sessionScope.loginok}">
       	<a class="navbar-item-inner flexbox-left" href="${root}/login/main">
         	<span class="navbar-item-inner-icon-wrapper flexbox">
-          	<i class="bi bi-box-arrow-left" style="font-size: 24px;margin-right: 6px;"></i>
+          		<i class="bi bi-box-arrow-left" style="font-size: 24px;margin-right: 6px;margin-left: 6px;"></i>
       		</span>
-      		<span class="link-text" id="btnlogout" style="color: white;">로그아웃</span>
+      		<span class="link-text" id="btnlogout" style="color: white;margin-top: 3px;">로그아웃</span>
       	</a>
 	  </c:if>
     </li>
@@ -133,17 +133,17 @@
     	<c:when test="${sessionScope.userid == null}">
         	<a href="./plist?userId=null" class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
-          			<i class="bi bi-search" style="font-size: 20px;"></i>
+          			<i class="bi bi-search" style="font-size: 20px;margin-left: 6px;"></i>
         		</span>
-        		<span class="link-text">켐핑장 찾기</span>
+        		<span class="link-text" style="margin-top: 3px;">켐핑장 찾기</span>
       		</a>
     	</c:when>
         <c:otherwise>
             <a href="./plist?userId=${sessionScope.userid}" class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
-          			<i class="bi bi-search" style="font-size: 20px;"></i>
+          			<i class="bi bi-search" style="font-size: 20px;margin-left: 6px;"></i>
         		</span>
-        		<span class="link-text">켐핑장 찾기</span>
+        		<span class="link-text" style="margin-top: 3px;">켐핑장 찾기</span>
       		</a>
         </c:otherwise>
       </c:choose>
@@ -156,10 +156,10 @@
 
             <a href="${root}/login/main" class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
-          			<i class="bi bi-person" style="font-size: 24px;"></i>
+          			<i class="bi bi-person" style="font-size: 24px;margin-left: 6px;"></i>
         		</span>
 
-        		<span class="link-text">My Page</span>
+        		<span class="link-text" style="margin-top: 3px;">My Page</span>
       		</a>
         </c:when>
         <c:otherwise>
@@ -168,9 +168,9 @@
         		<%-- <a href="${root}/admin/main" class="navbar-item-inner flexbox-left"> --%>
         		<a class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
-          			<i class="bi bi-person" style="font-size: 24px;"></i>
+          			<i class="bi bi-person" style="font-size: 24px;margin-left: 6px;"></i>
         		</span>
-        		<span class="link-text">Admin</span>
+        		<span class="link-text" style="margin-top: 3px;">Admin</span>
         		</a>
         		<!-- 세부 항목 리스트 블록-->
 				<ul class="sub-menu" id="mypageSubMenu" style="margin-top: 7.2em;">
@@ -185,9 +185,9 @@
     			<%-- <a href="${root}/mypage/main" class="navbar-item-inner flexbox-left"> --%>
     			<a class="navbar-item-inner flexbox-left">
         			<span class="navbar-item-inner-icon-wrapper flexbox">
-          				<i class="bi bi-person" style="font-size: 24px;"></i>
+          				<i class="bi bi-person" style="font-size: 24px;margin-left: 6px;"></i>
         			</span>
-        			<span class="link-text">My Page</span>
+        			<span class="link-text" style="margin-top: 3px;">My Page</span>
       			</a>
       			
       			<!-- 세부 항목 리스트 블록-->
@@ -201,71 +201,21 @@
         </c:otherwise>
       </c:choose>
     </li>
-    <%-- <li class="navbar-item flexbox-left mypage-section">
-    	<div class="navbar-item-inner flexbox-left">
-	        <div class="navbar-item-inner-icon-wrapper flexbox">
-            	<i class="bi bi-person" style="font-size: 24px;"></i>
-        	</div>
-        	<span class="link-text">My Page</span>
-    	</div>
-    	<!-- 세부 항목 리스트 블록 -->
-    	<ul class="sub-menu">
-	        <c:choose>
-            	<c:when test="${not empty sessionScope.loginok}">
-	                <!-- 로그인한 경우에만 표시 -->
-                	<li><a href="${root}/mypage/profile">Profile</a></li>
-                	<c:if test="${sessionScope.userid eq 'nature'}">
-	                    <!-- admin으로 로그인한 경우에만 표시 -->
-                    	<li><a href="${root}/admin/main">Admin Page</a></li>
-                	</c:if>
-                	<!-- 다른 세부 항목들을 필요에 따라 추가하세요 -->
-                	<li><a href="${root}/mypage/settings">Settings</a></li>
-            	</c:when>
-            	<c:otherwise>
-	                <!-- 로그인하지 않은 경우에만 표시 -->
-                	<li><a href="${root}/login/main">Login</a></li>
-            	</c:otherwise>
-        	</c:choose>
-    	</ul>
-	</li> --%>
-    <li class="navbar-item flexbox-left">
-      <c:choose>
-    	<c:when test="${sessionScope.userid == null}">
-        	<a href="./detail?num=1&userId=null" class="navbar-item-inner flexbox-left">
-        		<span class="navbar-item-inner-icon-wrapper flexbox">
-          			<i class="bi bi-info-circle" style="font-size: 22px;"></i>
-        		</span>
-        		<span class="link-text">Detail Page</span>
-      		</a>
-    	</c:when>
-        <c:otherwise>
-            <a href="./detail?num=1&userId=${sessionScope.userid}" class="navbar-item-inner flexbox-left">
-        		<span class="navbar-item-inner-icon-wrapper flexbox">
-          			<i class="bi bi-info-circle" style="font-size: 22px;"></i>
-        		</span>
-        		<span class="link-text">Detail Page</span>
-      		</a>
-        </c:otherwise>
-      </c:choose>
-
-   
-     
-
-    </li>
+    
     <li class="navbar-item flexbox-left faq">
       <a href="/nature/FAQ" class="navbar-item-inner flexbox-left">
         <span class="navbar-item-inner-icon-wrapper flexbox">
-          <i class="bi bi-question-circle" style="font-size: 22px;"></i>
+          <i class="bi bi-question-circle" style="font-size: 22px;margin-left: 6px;"></i>
         </span>
-        <span class="link-text">FAQ</span>
+        <span class="link-text" style="margin-top: 3px;">FAQ</span>
       </a>
     </li>
     <li class="navbar-item flexbox-left">
       <a class="navbar-item-inner flexbox-left">
         <span class="navbar-item-inner-icon-wrapper flexbox">
-          <i class="bi bi-people" style="font-size: 22px;"></i>
+          <i class="bi bi-people" style="font-size: 22px;margin-left: 6px;"></i>
         </span>
-        <span class="link-text">Team</span>
+        <span class="link-text" style="margin-top: 3px;">Team</span>
       </a>
     </li>
     <!-- <li class="navbar-item flexbox-left">
