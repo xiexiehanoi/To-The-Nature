@@ -21,7 +21,7 @@
     /* misc */
     --transition-main: .175, .685, .32;
     /* Fonts */
-    --font-main: "Poppins";
+    --font-main:'Noto Sans KR', sans-serif;
 }
 
 /* ===========
@@ -40,7 +40,9 @@ html, body {
     height: 0;
     width: 100%;
     color: hsl(var(--text-primary));
-    font-family: var(--font-main);
+    /* font-family: 'Gowun Dodum', sans-serif; */
+    font-family: 'Noto Sans KR', sans-serif;
+    /* font-family: var(--font-main); */
     /* background-color: hsl(var(--background)); */
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;

@@ -21,11 +21,12 @@ public class PListController {
 	@Autowired
 	private PListService plistService;
 	
-	
 	@GetMapping("/plist")
 	public String plist(HttpSession session, Model model,
 	        @RequestParam(required = false) String userId, @RequestParam(defaultValue = "1") int currentPage) {
-
+		
+		currentPage = Math.max(currentPage, 1); // currentPage가 음수인 경우 1로 처리
+		
 	    int perPage = 12; // 한 페이지당 보여지는 게시글의 갯수
 
 	    // 페이징 처리를 위한 변수 계산
@@ -38,7 +39,8 @@ public class PListController {
 	    
 	    // 해당 페이지에 보여줄 게시판 목록
 	    List<PListDto> plistpage = plistService.getListPage(startNum, perPage);
-		/* System.out.println(plistpage.toString()); */
+
+	    /* System.out.println(plistpage.toString()); */
 
 	    int no = totalCount - (currentPage - 1) * perPage;
 

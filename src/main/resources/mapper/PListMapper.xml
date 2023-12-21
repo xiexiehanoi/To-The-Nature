@@ -4,7 +4,7 @@
 	<select id="totalCountOfSite" resultType="int">
 		select count(*) from camping_details
 	</select>
-	
+
 	<select id="selectAllSites" resultType="PListDto" parameterType="Map">
 		select * from camping_details
 		<where>

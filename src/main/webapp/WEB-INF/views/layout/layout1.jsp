@@ -8,6 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Gaegu:wght@300;400;700&family=Gamja+Flower&family=Gasoek+One&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Gowun+Dodum&family=Gugi&family=Hi+Melody&family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&family=Jua&family=Nanum+Gothic+Coding:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&family=Sunflower:wght@300;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Open+Sans:wght@600&family=Jua&family=Lobster&family=Nanum+Pen+Script&family=Permanent+Marker&family=Single+Day&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -21,9 +24,9 @@
 		position:fixed;
 		width: 100%; 
 		height: 6em;
-		border: 1px solid blue;
-		/*background-color: transparent; */
-		background-color: white;
+		/* border: 1px solid blue; */
+		background-color: transparent; 
+		/* background-color: white; */
 		/* display: flex;
         justify-content: space-between;
         align-items: center; */
