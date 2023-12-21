@@ -16,31 +16,56 @@
        font-family: 'Jua';
    }
   .myreview-all {
-			width:70%;
+			width:72%;
             padding: 10px;
             margin: 0 auto;
-           
         }
-      .reviewname {
-      	display: inline-block;
-      	font-size:1.5em;
+      .review-all {
+       	margin-top:48px;
+       	margin-left:200px;
+       }
+       .reviewsubject {
+       font-size:32px;
+       }
+       .reviewsearch {
+       	width:400px;
+       	margin-left: auto;
+       	margin-right: 150px;
+       	display: flex;
+        justify-content: flex-end;
+       }
+       .table {
+       width:64%;
+       text-align:center;
+       }
+      .reviewfacltNm {
+      width:200px;
       }
-     .reviewdate {
-     	display: inline-block;
-     	float: right;
-     	
-     }
-     .reviewid {
-        display: inline-block;
-        margin-right: 10px;
-     }
-     .reviewrate {
-        display: inline-block;
-     }
+      .reviewid {
+      width:80px;
+      }
+      .reviewrate {
+      width:50px;
+      }
+      .reviewcontent {
+      width:200px;
+      }
+      .reviewdate {
+      width:200px;
+      }
      .reviewdelete{
-     float:right;
+     width:30px;
      cursor: pointer;
      }
+     #btnsearch {
+		width: 48px;
+		background-color:#528171;
+		color:white;
+		border: white;
+	}
+	.hidden {
+        display: none;
+    }
 </style>
 </head>
 <script type="text/javascript">
@@ -51,7 +76,7 @@ function list()
         let review_num=${review.review_num};
         let loginok='${sessionScope.loginok}';
         let loginid='${sessionScope.myid}';
-        // 댓글 출력하는 함수
+        
         $.ajax({
             type:"get",
             dataType:"json",
@@ -60,7 +85,7 @@ function list()
             success:function(res){
                 let s="";
                 $.each(res, function (idx, item) {
-                    s+= `<div>${item.facltNm} ${item.rate} (${item.content})<br>`;
+                    s+= `<div>${item.facltNm} ${item.rate} (${item.content})`;
                     s += `<a href="javascript:void(0);" onclick="deleteReview(${review_num})">삭제</a>`;
                     s += `<br>`;
                 });
@@ -70,6 +95,33 @@ function list()
         });
     </c:forEach>
 }
+//Search function
+$("#btnsearch").click(function () {
+	let selectedField = $("#field option:selected").val() || "";
+    let word = $("#word").val();
+
+    // AJAX request to fetch search results
+    $.ajax({
+        type: "get",
+        dataType: "json",
+        url: "../admin/reviewfind", // Replace with your actual search URL
+        data: {"field": selectedField, "word": word},
+        success: function (res) {
+            let s = "";
+            // Process search results and update UI
+            // Update the logic based on the actual structure of your search results
+            $.each(res, function (idx, item) {
+                s += `<div>${item.facltNm} ${item.rate} (${item.content})`;
+                s += `<a href="javascript:void(0);" onclick="deleteReview(${item.review_num})">삭제</a>`;
+                s += `<br>`;
+            });
+
+            $("div.reviewlist").addClass("hidden");
+            $("div#searchResult").removeClass("hidden");
+            $("div#searchResult").html(s);
+        }
+    });
+});
 //삭제 함수
 function deleteReview(review_num) {
     // 삭제 처리를 수행하는 Ajax 요청
@@ -96,8 +148,9 @@ function deleteReview(review_num) {
 </script>
 <body>
 <div class="myreview-all">
-<div class="review-all">리뷰관리<br>
-총 리뷰 ${allReviews.size()}개</div>
+<div class="review-all">
+<div class="reviewsubject">리뷰관리</div><br>
+</div> 
  <div class="input-group reviewsearch">	  
 				<select id="field" class="form-select">
 					<option value="facltNm">업체명</option>
@@ -105,76 +158,44 @@ function deleteReview(review_num) {
 				</select>
 				<input type="text" class="form-control" style="margin-left:10px;"
 				id="word" placeholder="검색값입력">
-				<button type="button" class="btn btn-success btn-sm" id="btnsearch"
+				<button type="button" class="btn-sm" id="btnsearch"
 				style="margin-left:10px;">검색</button><br><br></div>
-<hr>
- 
-      <c:forEach var="review" items="${allReviews}">
-                <div class="reviewname">${review.facltNm}</div>
-                <div class="reviewdate"><fmt:formatDate value="${review.created_at}" pattern="yyyy-MM-dd HH:mm"/></div><br>
-                    <div class="reviewid">${review.user_id}</div>
-                    <div class="reviewrate">평점:${review.rate}</div>
-                    <br><br>
-                    <div>${review.content}</div>
-                <br>
-                <i class="bi bi-x-square-fill reviewdelete" onclick="deleteReview(${review.review_num})" data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"></i><br><hr>
-            </c:forEach>
+
+ <br>
+      <table class="table mx-auto">
+    <thead>
+        <tr>
+            <th class="reviewfacltNm">Facility Name</th>
+            <th class="reviewid">User ID</th>
+            <th class="reviewrate">Rate</th>
+            <th class="reviewcontent">Content</th>
+            <th class="reviewdate">Date</th>
+            <th class="reviewdelete">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <c:forEach var="review" items="${allReviews}">
+            <tr>
+                <td>${review.facltNm}</td>
+                <td>${review.user_id}</td>
+                <td>${review.rate}</td>
+                <td>${review.content}</td>
+                <td><fmt:formatDate value="${review.created_at}" pattern="yyyy-MM-dd HH:mm"/></td>
+                
+                <td>
+                    <i class="bi bi-x-square-fill reviewdelete" onclick="deleteReview(${review.review_num})"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"></i>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6"></td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
             <div class="reviewlist"></div>
+            <div id="searchResult" class="reviewsearch hidden"></div>
  </div>
- <script type="text/javascript">
-$(document).ready(function () {
-    // 초기 로딩 시 전체 리뷰 목록을 표시
-    list();
-
-    // 검색 버튼 클릭 시 이벤트
-    $("#btnsearch").click(function () {
-        // 선택한 필드와 검색어를 가져오기
-        var field = $("#field").val();
-        var word = $("#word").val();
-
-        // 검색 결과를 표시할 영역 초기화
-        $("div.reviewlist").html("");
-
-        // 검색을 위한 Ajax 요청
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: "../admin/reviewfind",
-            data: {"field": field, "word": word},
-            success: function (res) {
-                if (res.length > 0) {
-                    // 검색 결과가 있으면 출력
-                    let s = "";
-                    $.each(res, function (idx, item) {
-                    	s += `<div class="reviewname">${item.facltNm}</div>`;
-                        s += `<div class="reviewdate">${item.created_at}</div><br>`;
-                        s += `<div class="reviewid">${item.user_id}</div>`;
-                        s += `<div class="reviewrate">평점:${item.rate}</div>`;
-                        s += `<br><br>`;
-                        s += `<div>${item.content}</div>`;
-                        s += `<br>`;
-                        s += `<i class="bi bi-x-square-fill reviewdelete" onclick="deleteReview(${item.review_num})" data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"></i><br><hr>`;
-                    });
-                    $("div.reviewlist").html(s);
-                } else {
-                    // 검색 결과가 없을 때 메시지 표시
-                    $("div.reviewlist").html("검색 결과가 없습니다.");
-                }
-            },
-            error: function () {
-                alert("서버와의 통신 중 오류가 발생했습니다.");
-            }
-        });
-    });
-});
-
-function list() {
-    // 전체 리뷰 목록을 표시하는 함수
-    <c:forEach var="review" items="${allReviews}">
-        // 각 리뷰에 대한 처리 (생략)
-    </c:forEach>
-}
-// 삭제 함수 (생략)
-</script>  
+  
 </body>
 </html>

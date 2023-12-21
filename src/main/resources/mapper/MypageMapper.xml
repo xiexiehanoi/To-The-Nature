@@ -9,7 +9,7 @@
 		select ifnull(max(review_num),0) from review
 	</select>
 	<select id="getReviewsByUserId" parameterType="String" resultType="Map">
-        SELECT r.*, c.facltNm
+        SELECT r.*, c.facltNm, c.firstImageUrl, c.doNm, c.sigunguNm
         FROM review r
         JOIN camping_details c ON r.camping_num = c.camping_num
         WHERE r.user_id = #{user_id}
@@ -50,19 +50,19 @@
 	<delete id="deleteUserById" parameterType="String">
         DELETE FROM user WHERE userid = #{userid}
     </delete>
-    <select id="searchReviews" resultType="Map" parameterType="Map">
-    SELECT r.*, c.facltNm
+   <select id="searchReviews" parameterType="map" resultType="Map">
+    SELECT r.review_num, r.user_id, r.camping_num, r.rate, r.content, r.created_at,
+           c.facltNm
     FROM review r
     JOIN camping_details c ON r.camping_num = c.camping_num
-    <where>
-        <if test="searchword != null and searchfield != null">
-            AND ${searchfield} LIKE CONCAT('%', #{searchword}, '%')
+   
+    <if test="searchword != null">
+            where ${searchfield} like concat('%',#{searchword},'%')
         </if>
-    </where>
 </select>
 <select id="getReservationDetail" resultType="Map" parameterType="int">
         SELECT r.reservation_id, r.reservationDate, r.startDate, r.endDate, r.adult_count, r.child_count,
-               u.userid, c.facltNm, c.firstImageUrl
+               u.userid, c.facltNm, c.firstImageUrl, c.addr1
         FROM reservation r
         JOIN user u ON r.user_num = u.usernum
         JOIN camping_details c ON r.camping_num = c.camping_num
@@ -79,4 +79,7 @@
         JOIN user u ON r.user_num = u.usernum
         JOIN camping_details c ON r.camping_num = c.camping_num
     </select>
+    <delete id="deleteReservationById" parameterType="int">
+    DELETE FROM reservation WHERE reservation_id = #{reservation_id}
+</delete>
 </mapper>

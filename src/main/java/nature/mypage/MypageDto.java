@@ -32,6 +32,7 @@ public class MypageDto {
 	private Timestamp deleted_at;
 	
 	private String facltNm;
+	private String addr1;
 	
 	private int reservation_id;
 	private int user_num;

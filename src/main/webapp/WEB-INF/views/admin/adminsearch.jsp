@@ -35,7 +35,12 @@
             width: 400px; /* Set the width as needed */
             z-index: 1; /* Set a higher z-index to keep it above other elements */
         }
-	
+	#btnsearch {
+		width: 48px;
+		background-color:#528171;
+		color:white;
+		border: white;
+	}
         #resultTable {
             max-height: 800px; /* Set the max height for the resultTable */
             overflow-y: auto; /* Add a scrollbar when the content exceeds the height */
@@ -53,16 +58,16 @@ $(function(){
     });
 	$(document).on("click", ".delete-icon", function() {
 	    // 클릭된 delete-icon에서 writeday 속성을 가져옴
-	    var writeday = $(this).closest('tr').data("writeday");
-        console.log("Clicked delete-icon. UserId:", userId);
+	    var userid = $(this).closest('tr').find('td:first').text().trim();
+        
         // 사용자를 삭제하기 위한 함수 호출
-        deleteUser(writeday);
+        deleteUser(userid);
     })
 function list()
 {
 	let selectedField = $("#field option:selected").val() || "";
     let word = $("#word").val() || "";
-
+    
 	$.ajax({
 		type:"get",
 		dataType:"json",
@@ -92,7 +97,7 @@ function list()
 
 				s+=
 					`
-	<tr data-writeday="${item.writeday}">
+	<tr id="user-${item.userid}">
       <th scope="row"></th>
       <td>\${item.userid}</td>
       <td>\${item.username}</td>
@@ -101,36 +106,35 @@ function list()
       <td>\${item.userphone}</td>
       <td>\${item.useremail}</td>
       <td>\${item.writeday}</td>
-      <td>&nbsp;&nbsp;&nbsp;<i class="bi bi-x-square-fill delete-icon" data-writeday="${item.writeday}"></i></td>
+      
+ 	 
+      <td>&nbsp;&nbsp;&nbsp;<i class="bi bi-x-square-fill delete-icon" data-userid="${item.userid}"></i></td>
     </tr>
 					`;
 			});
 			
 			s+="</tbody><table>";
 			$("#resultTable").html(s);
+			
 			$("#resultTable tbody tr").each(function(index, element) {
                 $(element).find("th:first").text(index + 1);
             });
+			
 		},
-        error: function (xhr, status, error) {
-            console.error(xhr.responseText);
-        }
+       
     });
 }
 
-	function deleteUser(writeday) {
+	function deleteUser(userid) {
         $.ajax({
             type: "POST",
             url: "../admin/userdelete",
-            data: { writeday: writeday },
+            data: { userid: userid },
             success: function (res) {
                 // 삭제가 성공하면 사용자 목록을 새로 고침
                 list();
             },
-            error: function (xhr, status, error) {
-            	console.error("Error deleting user:", error);
-            	console.log("Error deleting user. UserID: " + userId);
-            }
+            
         });
     }
 });
@@ -151,8 +155,10 @@ function list()
 				</select>
 				<input type="text" class="form-control" style="margin-left:10px;"
 				id="word" placeholder="검색값입력">
-				<button type="button" class="btn btn-success btn-sm" id="btnsearch"
-				style="margin-left:10px;">검색</button><br><br></div>
+				<button type="button" class="btn-sm" id="btnsearch"
+				style="margin-left:10px;">검색</button><br>
+				
+				<br></div>
 				<div id="resultTable"></div>
 
 </div>

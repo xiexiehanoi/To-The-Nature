@@ -21,23 +21,49 @@
  	
      
 	.myreview-all {
-			width:70%;
+			width:48%;
             padding: 10px;
             margin: 0 auto;
             
         }
+        
+       .reviewtitle {
+       	font-size:32px;
+       	margin-top:100px;
+       }
+       .review-entry {
+        display: flex; /* Use flexbox to align children horizontally */
+    }
+       
+       .reviewphoto img {
+        max-width: 100px;
+        max-height: 100px;
+        border-radius:8%;
+    }
+    .reviewaddr {
+    	color:gray;
+    }
+    .reviewplace {
+        display: flex;
+        flex-direction: column;
+        margin-left: 10px; /* Add margin to separate photo and place */
+    }
       .reviewname {
-      	display: inline-block;
+      	
       	font-size:1.5em;
       }
      .reviewdate {
-     	display: inline-block;
+     	color:gray;
      	float: right;
      	
      }
+     .startext {
+        display: flex; /* Use flexbox to align children horizontally */
+        margin-right: 5px;
+    }
      .star {
-        color: gold; /* or any other color you prefer for the yellow stars */
-        font-size: 1.5em; /* Adjust the size of the stars */
+        color: #FFE700; /* or any other color you prefer for the yellow stars */
+        font-size: 14px; /* Adjust the size of the stars */
         margin-right: 2px; /* Adjust the spacing between stars */
     }  
     </style>
@@ -45,6 +71,7 @@
 
 </head>
 <script type="text/javascript">
+
 
 function list()
 {
@@ -60,12 +87,15 @@ function list()
 		success:function(res){
 			let s="";
 			$.each(res, function (idx, item) {
-                
+				let starrate = '★'.repeat(item.rate);
 				s+=
 					`
+					${item.firstImageUrl}
+					${item.doNm}
+					${item.sigunguNm}
 					${item.facltNm}
 					${item.rate}
-					
+					${starrate}
 					(${item.content})<br>
 					`;
 				}
@@ -82,21 +112,34 @@ function list()
 	    }
 	});
 }
+
 </script>
 <body>
 
 <div class="myreview-all">
-<div class="review-all">리뷰관리<br>
-내가 쓴 총 리뷰 ${userReviews.size()}개</div>
+<div class="review-all">
+<div class="reviewtitle">리뷰관리</div><br>
+<i class="bi bi-chat-right-text"></i>
+작성 리뷰 ${userReviews.size()}개</div>
 <hr>
   
       <c:forEach var="review" items="${userReviews}">
+      <div class="review-entry">
+                <div class="reviewphoto"><img src="${review.firstImageUrl}"></div>
+                <div class="reviewplace">
+                <div class="reviewaddr">${review.doNm}&nbsp; ${review.sigunguNm}</div>
                 <div class="reviewname">${review.facltNm}</div>
-                <div class="reviewdate"><fmt:formatDate value="${review.created_at}" pattern="yyyy-MM-dd HH:mm"/></div><br>
-                    <div>평점:${review.rate}</div>
+                </div>
+                </div>
+                <div class="startext">별점&nbsp;
+                    <div class="star">
+                     <c:forEach begin="1" end="${review.rate}" varStatus="loop">
+  				 <c:out value="★"/>
+				</c:forEach></div></div>
                     <br>
                     <div>${review.content}</div>
-                <br><br><hr>
+                    <div class="reviewdate"><fmt:formatDate value="${review.created_at}" pattern="yyyy-MM-dd HH:mm"/></div>
+                <br><hr>
             </c:forEach>
  </div>      
 </body>
