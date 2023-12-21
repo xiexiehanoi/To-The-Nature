@@ -9,6 +9,7 @@
 <!-- PortOne SDK -->
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<link rel="stylesheet" type="text/css" href="../res/css/reservation.css">
 <script>
 	var IMP = window.IMP;
 	IMP.init("imp00141082");
@@ -44,17 +45,19 @@
 	                    adult_count : ${rDto.adult_count},
 	                    child_count : ${rDto.child_count},
 	                    camping_num : ${rDto.camping_num},
+	                    roomCount:${roomCount},
                         imp_uid : rsp.imp_uid,
                         merchant_uid : rsp.merchant_uid,
                         amount: ${rDto.amount}
 	                }
 	            });
+		        window.location.href = '../login/main';
 			   
 	        } else {
 	            var msg = '결제에 실패하였습니다.';
-	            msg += '에러내용 : ' + rsp.error_msg;
-	        }
-	        alert(msg);
+	            $("#reservationModal_title").html(msg);
+		        $("#reservationModal").modal('show');
+s	        }
 	    }); 
 	}; 
 </script>
@@ -104,6 +107,15 @@
 	});
 </script>
 <body>
+
+   
+   <div class="flex-container">
+    <div class="left-column">
+        <!-- Content for the left column -->
+    </div>
+    <div class="right-column">
+        <!-- Content for the right column -->
+   
 	<section class="product-info content-w100">
 		<h3 class="section-title">상품정보</h3>
 		<p class="body-large fw-bold">${CampsiteName}</p>
@@ -317,7 +329,7 @@
 
 	<section class="bottom-section">
 		<div class="bottom-btn d-flex justify-content-center">
-			<a href="javascript:;"> 예약하기 &nbsp;|&nbsp; <span>150,000</span>원
+			<a href="javascript:;"> 예약하기 &nbsp;|&nbsp; <span>${rDto.amount}</span>원
 				(<span>${reservationdays}</span>박)
 			</a>
 		</div>
@@ -355,6 +367,25 @@
 			</div>
 		</div>
 	</div>
+	
+	
+		<!-- 결제 모달 -->
+		<div class="modal" id="reservationModal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 id="reservationModal_title" class="modal-title"></h5>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="okButton3" class="btn btn-primary">OK</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	 </div>
+</div>
+	
 
 	<!-- hidden form -->
 	<form id="myForm" class="hidden-form">
@@ -364,7 +395,7 @@
 			type="text" name="userphone" value="${userDto.userphone}"> <input
 			type="text" name="useremail" value="${userDto.useremail}">
 	</form>
-
+	 
 
 </body>
 <script>
@@ -462,6 +493,12 @@
 							// 여기에 "OK" 버튼 클릭 시 수행할 동작 추가
 							// 모달을 닫고 싶다면 아래 코드를 사용
 							$('#agreementModal').modal('hide');
+						});
+						
+						$('#okButton3').on('click', function() {
+							// 여기에 "OK" 버튼 클릭 시 수행할 동작 추가
+							// 모달을 닫고 싶다면 아래 코드를 사용
+							$('#reservationModal').modal('hide');
 						});
 					});
 </script>
