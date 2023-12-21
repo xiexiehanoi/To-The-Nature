@@ -207,5 +207,23 @@ public class MypageController {
 
         return result;
     }
+	@PostMapping("/admin/deleteReservation")
+	@ResponseBody
+	public Map<String, Object> deleteReservation(@RequestParam int reservation_id) {
+	    Map<String, Object> result = new HashMap<>();
+
+	    try {
+	        // Delete reservation using DAO method
+	        mypageDao.deleteReservationById(reservation_id);
+	        result.put("success", true);
+	    } catch (Exception e) {
+	        // Handle deletion failure
+	        result.put("success", false);
+	        result.put("message", "예약 삭제 중 오류가 발생했습니다.");
+	        e.printStackTrace();
+	    }
+
+	    return result;
+	}
 	
 }

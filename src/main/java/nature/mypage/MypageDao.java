@@ -109,4 +109,7 @@ public class MypageDao {
 	    public List<Map<String, Object>> getAllReservations() {
 	        return session.selectList(nameSpace + "getAllReservations");
 	    }
+	    public void deleteReservationById(int reservation_id) {
+	        session.delete(nameSpace + "deleteReviewById", reservation_id);
+	    }
 }

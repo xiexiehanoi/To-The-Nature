@@ -34,6 +34,8 @@
   .reservation-table {
   	width: 64%;
     max-width: 100%;
+    height:80%;
+    max-height:100%;
   	
   }
   .tableFacility {
@@ -57,18 +59,24 @@
   .tabledate {
   width:100px;
   }
+  .tabledelete {
+  width:30px;
+  }
 </style>
 </head>
 <script type="text/javascript">
 $(document).ready(function() {
     listAllresevation();
+    deleteReservation();
 });
 function listAllresevation() {
+	
+	var reservation_id = '${reservationId}';
     $.ajax({
         type: "get",
         dataType: "json",
-        url: "../admin/resevation", // URL을 올바른 엔드포인트로 업데이트
-        data:{"reservation_id":reservation_id},
+        url: "../admin/reservation", // URL을 올바른 엔드포인트로 업데이트
+        data:{"reservation_id":${reservation.reservation_id}},
         success: function (res) {
             let s = "";
             $.each(res, function (idx, item) {
@@ -82,12 +90,33 @@ function listAllresevation() {
                     ${item.child_count}
                     ${item.reservationDate}<br>
                      `;
+                s += `<a href="javascript:void(0);" onclick="deleteReservation(${item.reservation_id})">삭제</a>`;
             });
             $("div.reservationlist").html(s);
         }
     });
 }
+//예약 삭제 요청 함수
 
+function deleteReservation(reservation_id) {
+    $.ajax({
+        type: "POST",
+        url: "../admin/deleteReservation",
+        data: {"reservation_id": reservation_id},
+        success: function(res) {
+            if (res.success) {
+                alert("예약을 삭제했습니다.");
+                $(`div[data-reservation-id="${reservation_id}"]`).remove();
+                location.reload();
+            } else {
+                alert("예약 삭제에 실패했습니다.");
+            }
+        },
+        error: function() {
+            alert("서버와의 통신 중 오류가 발생했습니다.");
+        }
+    });
+}
 </script>
 <body>
 
@@ -107,10 +136,11 @@ function listAllresevation() {
                     <th class="tableadult">Adult</th>
                     <th class="tablechild">Child</th>
                     <th class="tabledate">Reservation Date</th>
+                    <th class="tabledelete">Delete</th>
                 </tr>
             </thead>
             <tbody>
-            <tr colspan="7" style="border-bottom: 2px solid black;"></tr>
+            <tr colspan="8" style="border-bottom: 2px solid black;"></tr>
                 <c:forEach var="reservation" items="${allReservations}">
                     <tr>
                         <td>${reservation.facltNm}</td>
@@ -120,10 +150,14 @@ function listAllresevation() {
                         <td>${reservation.adult_count}</td>
                          <td>${reservation.child_count}</td>
                         <td>${reservation.reservationDate}</td>
+                        <td>
+                    <i class="bi bi-x-square-fill reservationdelete" onclick="deleteReservation(${reservation.reservation_id})"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"></i>
+                </td>
                     </tr>
                      <c:if test="${!loop.last}">
         <tr>
-            <td colspan="7" style="border-bottom: 1px solid #ddd; height: 10px;"></td>
+            <td colspan="8" style="border-bottom: 1px solid #ddd; height: 10px;"></td>
         </tr>
     </c:if>
                 </c:forEach>
