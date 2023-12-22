@@ -167,14 +167,13 @@ public class MypageController {
 
         return result;
     }
-	@GetMapping("/admin/reviewfind")
+	@PostMapping("/admin/reviewfind")
 	@ResponseBody
 	public List<Map<String, Object>> reviewSearch(
-	    @RequestParam(required = false) String field,
+	    @RequestParam(required = false) String searchword,
 	    @RequestParam(required = false) String word
 	    ) {
-	    List<Map<String, Object>> reviews = mypageDao.searchReviews(field, word);
-	    
+	    List<Map<String, Object>> reviews = mypageDao.searchReviews(searchword, word);
 	    return reviews;
 	}
 	@GetMapping("/admin/reservation")
