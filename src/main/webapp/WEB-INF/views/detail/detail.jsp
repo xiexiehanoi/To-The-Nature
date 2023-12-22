@@ -243,6 +243,9 @@ i{
 }
 
 </style>
+
+<c:set var="root" value="<%=request.getContextPath()%>"/>
+
 <%
 String userId = (String) session.getAttribute("userid");
 String loginStatus = (String) session.getAttribute("loginok");
@@ -503,7 +506,7 @@ function updateCountWish() {
 	<div class="camp_info_box">
 			<!-- 메인 사진 부분 -->
 			<div class="img_b">
-				<img src="${dto.firstImageUrl}" alt="캠핑장 메인 이미지">
+				<img src="${dto.firstImageUrl}" alt="캠핑장 메인 이미지" onerror="this.src='${root}/res/photo/noimage_big.jpg'">
 			</div>
 			<!-- 메인 정보 테이블-->
 			<!-- 테이블 부분 -->
