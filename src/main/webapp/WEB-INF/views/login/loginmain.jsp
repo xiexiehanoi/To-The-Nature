@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
     <style>
       body {
         display: flex;
@@ -181,6 +181,19 @@
         <div class="footer">
             <button type="submit" class="btnlogin" id="btnlogin">로그인</button>
         </div>
+		    <!-- 네이버 로그인 버튼 노출 영역 -->
+		  <div id="naver_id_login" style="text-align: center; margin-top: 10px;"></div>
+		  <!-- //네이버 로그인 버튼 노출 영역 -->
+		  <script type="text/javascript">
+		  	var naver_id_login = new naver_id_login("PPrEmBV42EmjjizVxM97", "http://localhost:8080/nature/login/success");
+		  	var state = naver_id_login.getUniqState();
+		  	naver_id_login.setButton("white", 2,40);
+		  	naver_id_login.setDomain("http://localhost:8080/nature/");
+		  	naver_id_login.setState(state);
+		  	naver_id_login.setPopup();
+		  	naver_id_login.init_naver_id_login();
+		  </script>
     </form>
+
 </body>
 </html>

@@ -216,7 +216,31 @@
        <version>0.155.0</version> <!-- Three.js의 원하는 버전으로 변경 -->
    	  </dependency>
    	  
-   	  
+   	     	  <!-- 네이버 로그인시 필요한  -->
+   	  <dependency> <!-- oauth 라이브러리 -->
+		<groupId>com.github.scribejava</groupId>
+		<artifactId>scribejava-core</artifactId>
+		<version>3.3.0</version>
+	</dependency>
+	
+	<dependency>  <!-- 유틸 라이브러리 -->
+		<groupId>commons-lang</groupId>
+		<artifactId>commons-lang</artifactId>
+		<version>2.3</version>
+	</dependency>
+	
+	<dependency>  <!-- json 라이브러리 -->
+		<groupId>com.googlecode.json-simple</groupId>
+		<artifactId>json-simple</artifactId>
+		<version>1.1.1</version>
+	</dependency>
+	
+	<dependency> <!-- github -->
+        <groupId>com.github.scribejava</groupId>
+        <artifactId>scribejava-core</artifactId>
+        <version>2.8.1</version>
+    </dependency>
+   	 
    	 
               
    </dependencies>
