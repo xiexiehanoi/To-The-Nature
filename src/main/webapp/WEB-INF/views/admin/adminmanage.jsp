@@ -81,7 +81,6 @@ $(document).ready(function () {
             url: "../admin/reviewfind",
             data: {"searchword": selectedField, "word": word},
             success: function (res) {
-            	console.log(res);
                 let tbody = $("tbody.table_list");
                 tbody.empty();
 

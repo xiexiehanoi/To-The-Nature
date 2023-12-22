@@ -98,6 +98,13 @@ public class MypageDao {
 		    params.put("word", word);
 		    return session.selectList(nameSpace + "searchReviews", params);
 		}
+	 public List<Map<String, Object>> searchReservation(String searchword, String word) {
+		 word = (word == null || word.length() == 0) ? null : word;  
+		 Map<String, Object> params = new HashMap<>();
+		 params.put("searchword", searchword);
+		 params.put("word", word);
+		 return session.selectList(nameSpace + "searchReservation", params);
+	 }
 	 public List<Map<String, Object>> getReservationDetail(String userId) {
 	        int userNum = getUserNumByUserId(userId);
 	        return session.selectList(nameSpace + "getReservationDetail", userNum);

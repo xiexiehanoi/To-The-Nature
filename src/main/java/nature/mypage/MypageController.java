@@ -132,10 +132,10 @@ public class MypageController {
 	
 	@GetMapping("/admin/search")
     public String adminsearch(
-            @RequestParam(required = false) String field,
+            @RequestParam(required = false) String searchword,
             @RequestParam(required = false) String word,
             Model model) {
-        List<MypageDto> searchResult = mypageDao.searchUsers(field, word);
+        List<MypageDto> searchResult = mypageDao.searchUsers(searchword, word);
 
         // 모델에 검색 결과 추가
         model.addAttribute("searchResult", searchResult);
@@ -175,6 +175,16 @@ public class MypageController {
 	    ) {
 	    List<Map<String, Object>> reviews = mypageDao.searchReviews(searchword, word);
 	    return reviews;
+	}
+	
+	@PostMapping("/admin/reservationfind")
+	@ResponseBody
+	public List<Map<String, Object>> reservationSearch(
+			@RequestParam(required = false) String searchword,
+			@RequestParam(required = false) String word
+			) {
+		List<Map<String, Object>> reservation = mypageDao.searchReservation(searchword, word);
+		return reservation;
 	}
 	@GetMapping("/admin/reservation")
 	public String listAllReservations(Model model) {
