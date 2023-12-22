@@ -31,10 +31,10 @@ public class MypageController {
 	@Autowired
 	private MypageService mypageService;
 	
-	@GetMapping("/mypage/main")
-	public String mypage() {
+	@GetMapping("/mypage/account")
+	public String account() {
 		
-		return "mypage/mypagemain";
+		return "mypage/myaccount.mypage";
 	}
 	
 	@GetMapping("/mypage/reservation")
@@ -52,7 +52,7 @@ public class MypageController {
 	    // Add the reservations to the model
 	    model.addAttribute("userReservations", userReservations);
 
-	    return "mypage/myreservation";
+	    return "mypage/myreservation.mypage";
 	}
 	
 	@GetMapping("/mypage/review")
