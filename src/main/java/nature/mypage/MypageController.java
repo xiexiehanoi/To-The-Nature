@@ -66,7 +66,7 @@ public class MypageController {
 	    // Add the reviews to the model
 	    model.addAttribute("userReviews", userReviews);
 	    model.addAttribute("totalCount", mypageService.getTotalCount());
-	    return "mypage/myreview";
+	    return "mypage/myreview.mypage";
 	}
 	
 	@GetMapping("/mypage/change")
@@ -85,7 +85,7 @@ public class MypageController {
             model.addAttribute("userInfo", userInfo);
         }
 
-	    return "mypage/mychange";
+	    return "mypage/mychange.mypage";
 	}
 	
 	@PostMapping("/mypage/info")
@@ -127,7 +127,7 @@ public class MypageController {
 	@GetMapping("/admin/main")
 	public String adminmain() {
 		
-		return "admin/adminmain";
+		return "admin/adminmain.mypage";
 	}
 	
 	@GetMapping("/admin/search")
@@ -140,7 +140,7 @@ public class MypageController {
         // 모델에 검색 결과 추가
         model.addAttribute("searchResult", searchResult);
 
-        return "admin/adminsearch";
+        return "admin/adminsearch.mypage";
     }
 	@GetMapping("/admin/result")
 	@ResponseBody
@@ -180,13 +180,13 @@ public class MypageController {
 	public String listAllReservations(Model model) {
 	    List<Map<String, Object>> allReservations = mypageDao.getAllReservations();
 	    model.addAttribute("allReservations", allReservations);
-	    return "admin/adminreservation";
+	    return "admin/adminreservation.mypage";
 	}
 	@GetMapping("/admin/manage")
 	public String adminmanage(Model model) {
 		List<Map<String, Object>> allReviews = mypageDao.getAllReviews();
 		model.addAttribute("allReviews", allReviews);
-		return "admin/adminmanage";
+		return "admin/adminmanage.mypage";
 	}
 	@PostMapping("/admin/delete")
     @ResponseBody
