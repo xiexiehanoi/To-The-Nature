@@ -80,9 +80,10 @@
 		font-size: 16px;
 		font-weight: 400;
 		color: #c4c4c4;
+		background-color: #d9d9d9;
 		border: none;
 		cursor: pointer;
-		box-shadow: -3px -3px 6px 0px #e8e8e8, 3px 3px 6px 0px rgba(140, 140, 140, 0.20);
+		box-shadow: -3px -3px 6px 0px #e8e8e8, 3px 3px 6px 0px rgba(140, 140, 140, 0.40);
 	}
 	
 	div.plist .plist-search-input{
@@ -120,6 +121,7 @@
     	/* box-shadow: 2px 2px 8px #898989; */
     	box-shadow: 4px 4px 12px 0px rgba(40, 40, 40, 0.25);
     	background-color: #e4e4e4;
+    	overflow: hidden;
 	}
 	
 	div.plist .plist-item-inner {
@@ -159,12 +161,30 @@
     	margin-bottom: 8px;
 	}
 	
+	div.plist .plist-item-nm{
+		width: 100%;
+		overflow: hidden;
+		display: flex;
+    	justify-content: inherit;
+    	align-items: baseline;
+		flex-direction: row;
+	}
+	
 	div.plist .plist-item-no {
     	margin-left: 8px;
-    	/* width: 100%;
+    	/* width: 100%;*/
     	white-space: nowrap;
-  		overflow: hidden;
-    	text-overflow: ellipsis; */
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	max-width: 60%; /* 또는 다른 값으로 조정 가능 */
+	}
+	
+	div.plist .plist-item-room {
+    	white-space: nowrap;
+    	margin-left: 8px;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	max-width: 40%;
 	}
 	
 	div.plist table.plist-item-info{
@@ -212,6 +232,9 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		white-space: nowrap;
+    	overflow: hidden;
+    	/* text-overflow: ellipsis; */
 	}
 	
 	.plist-pagination {
@@ -229,6 +252,13 @@
 		font-size: 20px;
 		font-weight: 900;
 		color: #88B2A5;
+	}
+	
+	@media screen and (max-width: 1200px) {
+    	div.plist-item-no,
+    	div.plist-item-room {
+        	white-space: nowrap;
+    	}
 	}
 	
 </style>
@@ -257,16 +287,21 @@ String userId = (String) session.getAttribute("userid");
             },
             dataType: "json",
             success: function (res) {
+            	/* console.log("a:"+res); */
             	 var resultList = $(".plist-list");
             	    resultList.empty();
+            	    /* resultList.append('<div><h3>"'+word+'"에 대한 검색 결과</h3></div><br>'); */
             	    $.each(res, function (index, item) {
-            	        var listItem = '<div class="plist-item">' +
+            	        var listItem = 
+            	        			   '<div class="plist-item">' +
             	        			   '<a href="./detail?num='+item.camping_num+'&userId=null" class="plist-item-inner">'+
-            	        			   '<img alt="캠핑장 이미지" class="plist-item-img" src="'+item.firstImageUrl+'" onerror="this.src='+`'${root}/views/main/noimage.jpg'`+'">'+
-            	                       '<span class="plist-item-no">' + item.camping_num + '. ' +
+            	        			   '<img alt="캠핑장 이미지" class="plist-item-img" src="'+item.firstImageUrl+'" onerror="this.src='+`'${root}/res/photo/noimage_big.jpg'`+'">'+
+            	                       '<span class="plist-item-nm">'+
+            	        			   '<span class="plist-item-no">' + item.camping_num + '. ' +
             	                       '<c:set var="dto.camping_num" value="'+item.camping_num-1'"/>'+item.facltNm + '</span>' +
             	                       '<span class="plist-item-room" style="font-size: 14px;color: #528171;">'+
        								   ' ('+item.available_room+'개 대여 가능)'+
+       								   '</span>'+
        								   '</span>'+
        								   '<table class="plist-item-info">'+
        								   '<tbody style=" width: 100%;">'+
@@ -278,7 +313,7 @@ String userId = (String) session.getAttribute("userid");
        								   '<i class="bi bi-calendar-check" style="font-size: 18px;"></i>'+
        								   '</td>'+
        								   '<td class="plist-options plist-item-info-pet">'+
-       								   '<img alt="pet-icon" src="${root}/views/main/img/pet-icon2.png" style="height: 27px;">'+
+       								   '<img alt="pet-icon" src="${root}/res/photo/pet-icon2.png" style="height: 27px;">'+
        								   '</td>'+
        								   '</tr>'+
        								   '<tr class="plist-item-info-des">'+
@@ -305,7 +340,7 @@ String userId = (String) session.getAttribute("userid");
 </script>
 <body>
 <div class="plist-coverimg">
-	<img alt="coverimg" src="${root}/views/main/img/camping-coverimg.jpg" class="plist-coverimg">
+	<img alt="coverimg" src="${root}/res/photo/camping-coverimg.jpg" class="plist-coverimg">
 </div>
 
 <div class="plist">
@@ -339,14 +374,16 @@ String userId = (String) session.getAttribute("userid");
 					<c:choose>
 						<c:when test="${sessionScope.userid == null}">
 	        				<a href="./detail?num=${dto.camping_num}&userId=null" class="plist-item-inner">
-	        					<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}" onerror="this.src='${root}/views/main/noimage.jpg'">
-								<span class="plist-item-no">
-									${dto.camping_num}.
-									<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
-									${dto.facltNm}
-								</span>
-								<span class="plist-item-room" style="font-size: 14px;color: #528171;">
-									(${dto.available_room}개 대여 가능)
+	        					<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}" onerror="this.src='${root}/res/photo/noimage_big.jpg'">
+								<span class="plist-item-nm">
+									<span class="plist-item-no">
+										${dto.camping_num}.
+										<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
+										${dto.facltNm}
+									</span>
+									<span class="plist-item-room" style="font-size: 14px;color: #528171;">
+										(${dto.available_room}개 대여 가능)
+									</span>
 								</span>
 								<table class="plist-item-info">
 									<tbody style=" width: 100%;">
@@ -358,7 +395,7 @@ String userId = (String) session.getAttribute("userid");
 												<i class="bi bi-calendar-check" style="font-size: 18px;"></i>
 											</td>
 											<td class="plist-options plist-item-info-pet">
-												<img alt="pet-icon" src="${root}/views/main/img/pet-icon2.png" style="height: 27px;">
+												<img alt="pet-icon" src="${root}/res/photo/pet-icon2.png" style="height: 27px;">
 											</td>
 										</tr>
 										<tr class="plist-item-info-des">
@@ -378,14 +415,16 @@ String userId = (String) session.getAttribute("userid");
 						</c:when>
         				<c:otherwise>
         					<a href="./detail?num=${dto.camping_num}&userId=${sessionScope.userid}" class="plist-item-inner">
-	        					<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}" onerror="this.src='${root}/views/main/noimage.jpg'">
-								<span class="plist-item-no">
-									${dto.camping_num}.
-									<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
-									${dto.facltNm}
-								</span>
-								<span class="plist-item-room" style="font-size: 14px;color: #528171;">
-									(${dto.available_room}개 대여 가능)
+	        					<img alt="캠핑장 이미지" class="plist-item-img" src="${dto.firstImageUrl}" onerror="this.src='${root}/res/photo/noimage_big.jpg'">
+								<span class="plist-item-nm">
+									<span class="plist-item-no">
+										${dto.camping_num}.
+										<c:set var="dto.camping_num" value="${dto.camping_num-1}"/>
+										${dto.facltNm}
+									</span>
+									<span class="plist-item-room" style="font-size: 14px;color: #528171;">
+										(${dto.available_room}개 대여 가능)
+									</span>
 								</span>
 								<table class="plist-item-info">
 									<tbody style=" width: 100%;">
@@ -397,7 +436,7 @@ String userId = (String) session.getAttribute("userid");
 												<i class="bi bi-calendar-check" style="font-size: 18px;"></i>
 											</td>
 											<td class="plist-options plist-item-info-pet">
-												<img alt="pet-icon" src="${root}/views/main/img/pet-icon2.png" style="height: 27px;">
+												<img alt="pet-icon" src="${root}/res/photo/pet-icon2.png" style="height: 27px;">
 											</td>
 										</tr>
 										<tr class="plist-item-info-des">
