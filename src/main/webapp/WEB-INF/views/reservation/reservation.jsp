@@ -6,6 +6,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <style>
+        /* 기본 스타일 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        /* .bottom-section에 적용할 스타일 */
+        .bottom-section {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #528171; /* 시각적으로 확인하기 쉽도록 빨간색 배경 */
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+            max-width: 450px; /* 고정 너비 */
+            margin-right: 10%;
+        }
+        
+
+        
+
+      
+    </style>
 <!-- PortOne SDK -->
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -118,25 +147,24 @@ s	        }
    
 	<section class="product-info content-w100">
 		<h3 class="section-title">상품정보</h3>
-		<p class="body-large fw-bold">${CampsiteName}</p>
+		<p class="productNm fw-bold" style="color: #528171;">${CampsiteName}</p>
 		<div class="schedule d-flex my-2">
 			<div class="col-6">
 				<div class="date d-flex gap-1">
-					<i class="bi bi-calendar-check fs-6"></i>
-					<p class="fs-6">입실일</p>
+					<i class="bi bi-calendar-check calendaricon" style="color: #528171;"></i>
+					<p class="fs-6 checkindate"> 입실일</p>
 				</div>
 				<h5>${rDto.startDate}</h5>
 			</div>
 			<div class="col-6">
 				<div class="date d-flex gap-1">
-					<i class="bi bi-calendar-minus fs-6"></i>
-					<p class="fs-6">퇴실일</p>
+					<i class="bi bi-calendar-minus calendaricon" style="color: #528171;"></i>
+					<p class="fs-6 checkoutdate"> 퇴실일</p>
 				</div>
 				<h5>${rDto.endDate}</h5>
 			</div>
 		</div>
-		<div
-			class="d-flex align-items-center justify-content-center d-day text-center visitor-counter">
+		<div class="d-day text-center visitor-counter">
 			<p>캠핑 가는 날&emsp;</p>
 			<span class="fw-bold mb-0">D - <span>${remainingDays}</span></span>
 		</div>
@@ -147,11 +175,11 @@ s	        }
 	<section class="reserved-room-count content-w100">
 		<h3 class="section-title">예약 객실 수</h3>
 		<p>최대 ${roomCount}개 선택가능</p>
-		<div class="d-flex align-items-center justify-content-between">
+		<div class="d-flex room-number justify-content-between">
 			<div class="d-flex justify-content-center">
 				<sapn>객실 수</sapn>
 			</div>
-			<div class="d-flex align-items-center">
+			<div class="d-flex room-number">
 				<button type="button" class="counter-btn minus">-</button>
 				<span class="result flex-grow-1">1</span>
 				<button type="button" class="counter-btn plus counter-active">+</button>
@@ -164,7 +192,7 @@ s	        }
 	<section class="division2 content-w100">
 		<form>
 			<h3 class="section-title">예약자 정보</h3>
-			<div class="d-flex flex-column body-normal">
+			<div class="flex-column body-normal">
 				<div class="d-flex align-items-center justify-content-between mb-0">
 					<label for="closeSite1" class="first-column-division2">이름 <span
 						class="required">(필수)</span></label> <input type="text" id="closeSite1"
@@ -326,7 +354,7 @@ s	        }
 				책임 등 모든 거래에 대한 책임은 가맹점에게 있습니다.</p>
 		</div>
 	</section>
-
+	
 	<section class="bottom-section">
 		<div class="bottom-btn d-flex justify-content-center">
 			<a href="javascript:;"> 예약하기 &nbsp;|&nbsp; <span>${rDto.amount}</span>원
@@ -334,8 +362,6 @@ s	        }
 			</a>
 		</div>
 	</section>
-
-
 
 
 	<!-- 필수 항목 미동의 모달 창 -->
@@ -385,6 +411,8 @@ s	        }
 	
 	 </div>
 </div>
+
+
 	
 
 	<!-- hidden form -->
@@ -395,6 +423,8 @@ s	        }
 			type="text" name="userphone" value="${userDto.userphone}"> <input
 			type="text" name="useremail" value="${userDto.useremail}">
 	</form>
+	
+	
 	 
 
 </body>
