@@ -287,12 +287,13 @@ String userId = (String) session.getAttribute("userid");
             },
             dataType: "json",
             success: function (res) {
-            	console.log("a:"+res);
+            	/* console.log("a:"+res); */
             	 var resultList = $(".plist-list");
             	    resultList.empty();
             	    /* resultList.append('<div><h3>"'+word+'"에 대한 검색 결과</h3></div><br>'); */
             	    $.each(res, function (index, item) {
-            	        var listItem = '<div class="plist-item">' +
+            	        var listItem = 
+            	        			   '<div class="plist-item">' +
             	        			   '<a href="./detail?num='+item.camping_num+'&userId=null" class="plist-item-inner">'+
             	        			   '<img alt="캠핑장 이미지" class="plist-item-img" src="'+item.firstImageUrl+'" onerror="this.src='+`'${root}/res/photo/noimage_big.jpg'`+'">'+
             	                       '<span class="plist-item-nm">'+
