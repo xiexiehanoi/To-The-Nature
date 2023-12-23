@@ -122,7 +122,7 @@ hr{
     display: block;
 }
 
-i{
+.camp_container i{
   font-size: 30px;
   color: #f5dcb7;
 }
