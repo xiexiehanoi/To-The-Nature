@@ -425,14 +425,14 @@ s	        }
 								alt="home" /> <span>홈</span>
 						</a></li>
 						<li class="flex-fill d-flex justify-content-center"><a
-							href="/booking/campList"
+							href="./plist?userId=${sessionScope.userid}"
 							class="d-flex flex-column align-items-center justify-content-center">
 								<img
 								src="https://static.campingtalk.me/local/images/icon/bottom_nav/search.svg"
 								alt="home" /> <span>캠핑장 찾기</span>
 						</a></li>
 						<li class="flex-fill d-flex justify-content-center"><a
-							href="/support/main"
+							href="/nature/FAQ""
 							class="d-flex flex-column align-items-center justify-content-center">
 								<img
 								src="https://static.campingtalk.me/local/images/icon/bottom_nav/customer-support.svg"
