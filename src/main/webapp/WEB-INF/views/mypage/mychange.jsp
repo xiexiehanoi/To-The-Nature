@@ -17,10 +17,14 @@
     <style>
     body {
        
+       
+       
+    }
+    .changeinfo {
+    
         display: flex;
         justify-content: center;
         align-items: center;
-       
     }
     .genderButtons {
         display: flex;
@@ -157,7 +161,7 @@ function list()
 
 </script>
 <body>
-
+<div class="changeinfo">
 	<form id="yourFormId" action="./info" method="post" enctype="multipart/form-data" onsubmit="return check()">
 		
 			<h2 style="margin-bottom:50px;">회원정보 수정</h2>
@@ -189,7 +193,7 @@ function list()
 	</c:if>
 					
 					<button type="submit" class="btn btn-secondary" id="memberchange" >회원수정</button>
-			</form>
+			</form></div>
 <script type="text/javascript">
 $(function(){
 	$("#profile_upload").change(function(){

@@ -50,16 +50,39 @@
 	<delete id="deleteUserById" parameterType="String">
         DELETE FROM user WHERE userid = #{userid}
     </delete>
-   <select id="searchReviews" parameterType="map" resultType="Map">
-    SELECT r.review_num, r.user_id, r.camping_num, r.rate, r.content, r.created_at,
+   <select id="searchReviews" parameterType="Map" resultType="Map">
+     SELECT r.review_num, r.user_id, r.camping_num, r.rate, r.content, r.created_at,
            c.facltNm
     FROM review r
     JOIN camping_details c ON r.camping_num = c.camping_num
-   
-    <if test="searchword != null">
-            where ${searchfield} like concat('%',#{searchword},'%')
-        </if>
-</select>
+	    <where>
+	        <if test="searchword != null and searchword != ''">
+	            <if test="searchword == 'facltNm'">
+	                and facltNm like concat('%', #{word}, '%')
+	            </if>
+	            <if test="searchword == 'user_id'">
+	                and user_id like concat('%', #{word}, '%')
+	            </if>
+	        </if>
+	    </where>
+	</select>
+   <select id="searchReservation" parameterType="Map" resultType="Map">
+     SELECT r.reservation_id, r.reservationDate, r.startDate, r.endDate, r.adult_count, r.child_count,
+               u.userid, c.facltNm, c.firstImageUrl
+        FROM reservation r
+        JOIN user u ON r.user_num = u.usernum
+        JOIN camping_details c ON r.camping_num = c.camping_num
+	    <where>
+	        <if test="searchword != null and searchword != ''">
+	            <if test="searchword == 'facltNm'">
+	                and facltNm like concat('%', #{word}, '%')
+	            </if>
+	            <if test="searchword == 'user_id'">
+	                and userid like concat('%', #{word}, '%')
+	            </if>
+	        </if>
+	    </where>
+	</select>
 <select id="getReservationDetail" resultType="Map" parameterType="int">
         SELECT r.reservation_id, r.reservationDate, r.startDate, r.endDate, r.adult_count, r.child_count,
                u.userid, c.facltNm, c.firstImageUrl, c.addr1

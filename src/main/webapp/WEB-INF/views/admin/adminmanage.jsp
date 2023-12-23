@@ -70,6 +70,51 @@
 </head>
 <script type="text/javascript">
 
+$(document).ready(function () {
+    $(document).on("click", "#btnsearch", function() {
+        let selectedField = $("#field option:selected").val() || "";
+        let word = $("#word").val();
+        
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "../admin/reviewfind",
+            data: {"searchword": selectedField, "word": word},
+            success: function (res) {
+                let tbody = $("tbody.table_list");
+                tbody.empty();
+
+                $.each(res, function (idx, item) {
+					let createdDate = new Date(item.created_at);
+                	
+                	let year = createdDate.getFullYear();
+                	let month = String(createdDate.getMonth() + 1).padStart(2, '0');
+                	let day = String(createdDate.getDate()).padStart(2, '0');
+                	let hour = String(createdDate.getHours()).padStart(2, '0');
+                	let minute = String(createdDate.getMinutes()).padStart(2, '0');
+
+                	let createdate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+                	
+                    let s = `<tr>
+                        <td>\${item.facltNm}</td>
+                        <td>\${item.user_id}</td>
+                        <td>\${item.rate}</td>
+                        <td>\${item.content}</td>
+                        <td>\${createdate}</td>
+                        <td>
+                            <i class="bi bi-x-square-fill reviewdelete" onclick="deleteReview(\${item.review_num})"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"></i>
+                        </td>
+                    </tr>`;
+                    tbody.append(s);
+                });
+
+                $("div.reviewlist").addClass("hidden");
+                $("div#searchResult").removeClass("hidden");
+            }
+        });
+    });
+});
 function list()
 {
     <c:forEach var="review" items="${userReviews}">
@@ -95,33 +140,7 @@ function list()
         });
     </c:forEach>
 }
-//Search function
-$("#btnsearch").click(function () {
-	let selectedField = $("#field option:selected").val() || "";
-    let word = $("#word").val();
 
-    // AJAX request to fetch search results
-    $.ajax({
-        type: "get",
-        dataType: "json",
-        url: "../admin/reviewfind", // Replace with your actual search URL
-        data: {"field": selectedField, "word": word},
-        success: function (res) {
-            let s = "";
-            // Process search results and update UI
-            // Update the logic based on the actual structure of your search results
-            $.each(res, function (idx, item) {
-                s += `<div>${item.facltNm} ${item.rate} (${item.content})`;
-                s += `<a href="javascript:void(0);" onclick="deleteReview(${item.review_num})">삭제</a>`;
-                s += `<br>`;
-            });
-
-            $("div.reviewlist").addClass("hidden");
-            $("div#searchResult").removeClass("hidden");
-            $("div#searchResult").html(s);
-        }
-    });
-});
 //삭제 함수
 function deleteReview(review_num) {
     // 삭제 처리를 수행하는 Ajax 요청
@@ -144,7 +163,6 @@ function deleteReview(review_num) {
         }
     });
 }
-
 </script>
 <body>
 <div class="myreview-all">
@@ -173,7 +191,7 @@ function deleteReview(review_num) {
             <th class="reviewdelete">Delete</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table_list">
         <c:forEach var="review" items="${allReviews}">
             <tr>
                 <td>${review.facltNm}</td>

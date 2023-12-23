@@ -91,13 +91,20 @@ public class MypageDao {
 	 public void deleteUserById(String userid) {
 	        session.delete(nameSpace + "deleteUserById", userid);
 	    }
-	 public List<Map<String, Object>> searchReviews(String field, String word) {
+	 public List<Map<String, Object>> searchReviews(String searchword, String word) {
 		    word = (word == null || word.length() == 0) ? null : word;  
-		    Map<String, String> params = new HashMap<>();
-		    params.put("searchfield", field);
-		    params.put("searchword", word);
+		    Map<String, Object> params = new HashMap<>();
+		    params.put("searchword", searchword);
+		    params.put("word", word);
 		    return session.selectList(nameSpace + "searchReviews", params);
 		}
+	 public List<Map<String, Object>> searchReservation(String searchword, String word) {
+		 word = (word == null || word.length() == 0) ? null : word;  
+		 Map<String, Object> params = new HashMap<>();
+		 params.put("searchword", searchword);
+		 params.put("word", word);
+		 return session.selectList(nameSpace + "searchReservation", params);
+	 }
 	 public List<Map<String, Object>> getReservationDetail(String userId) {
 	        int userNum = getUserNumByUserId(userId);
 	        return session.selectList(nameSpace + "getReservationDetail", userNum);
@@ -110,6 +117,6 @@ public class MypageDao {
 	        return session.selectList(nameSpace + "getAllReservations");
 	    }
 	    public void deleteReservationById(int reservation_id) {
-	        session.delete(nameSpace + "deleteReviewById", reservation_id);
+	        session.delete(nameSpace + "deleteReservationById", reservation_id);
 	    }
 }
