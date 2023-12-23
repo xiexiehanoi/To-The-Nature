@@ -23,6 +23,7 @@
     width:72%;
     margin-left: auto;
     margin-right: auto;
+    z-index: -1;
   }
   .reservation-all {
   	margin-right:700px;
@@ -31,12 +32,13 @@
   .reservation-subject {
   	font-size:32px;
   }
+  
   .reservation-table {
   	width: 64%;
     max-width: 100%;
     height:80%;
     max-height:100%;
-  	
+  	overflow-y: auto;
   }
   .tableFacility {
   width:150px;
@@ -66,6 +68,7 @@
 </head>
 <script type="text/javascript">
 var reservation_id = '${reservation_id}';
+
 $(document).ready(function() {
     listAllresevation();
     
@@ -127,7 +130,8 @@ function deleteReservation(reservation_id) {
 <div class="reservation-all">
 <div class="reservation-subject">예약관리</div><br>
 총 예약내역 ${allReservations.size()}개</div>
-<hr>
+
+<br>
  
       <table class="reservation-table">
             <thead>

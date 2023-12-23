@@ -31,11 +31,6 @@ public class MypageController {
 	@Autowired
 	private MypageService mypageService;
 	
-	@GetMapping("/mypage/account")
-	public String account() {
-		
-		return "mypage/myaccount.mypage";
-	}
 	
 	@GetMapping("/mypage/reservation")
 	public String myreservation(HttpSession session, Model model) {
@@ -124,12 +119,6 @@ public class MypageController {
 	}
 	
 	
-	@GetMapping("/admin/main")
-	public String adminmain() {
-		
-		return "admin/adminmain.mypage";
-	}
-	
 	@GetMapping("/admin/search")
     public String adminsearch(
             @RequestParam(required = false) String field,
@@ -182,6 +171,7 @@ public class MypageController {
 	    model.addAttribute("allReservations", allReservations);
 	    return "admin/adminreservation.mypage";
 	}
+	
 	@GetMapping("/admin/manage")
 	public String adminmanage(Model model) {
 		List<Map<String, Object>> allReviews = mypageDao.getAllReviews();
@@ -224,5 +214,6 @@ public class MypageController {
 
 	    return result;
 	}
+	
 	
 }

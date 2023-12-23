@@ -88,4 +88,5 @@
     <delete id="deleteReservationById" parameterType="int">
     DELETE FROM reservation WHERE reservation_id = #{reservation_id}
 </delete>
+
 </mapper>

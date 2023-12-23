@@ -12,7 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <style>
-   body *:not(.search-contain) {
+   body * {
 	
    }
  
@@ -23,9 +23,9 @@
        transform: translate(-50%, -50%);
        max-width: 1000px; /* Set the width as needed */
        width: 72%;
-       height: 500px;
+       height: 64%;
        overflow-y: auto; 
-       
+       z-index: -1;
    }
    .usersearch {
         font-size: 24px; /* 수정된 부분: 폰트 크기를 늘림 */
@@ -35,12 +35,14 @@
             position: fixed;
             top: 10px;
             right: 10px;
-            width: 400px; /* Set the width as needed */
+            width: 350px; /* Set the width as needed */
+            margin-right:20px;
             z-index: 1; /* Set a higher z-index to keep it above other elements */
         }
 	#btnsearch {
-		width: 56px;
-		
+		width: 64px;
+		text-align: center;
+		white-space: nowrap;
 		background-color:#528171;
 		color:white;
 		border: white;

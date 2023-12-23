@@ -112,4 +112,5 @@ public class MypageDao {
 	    public void deleteReservationById(int reservation_id) {
 	        session.delete(nameSpace + "deleteReservationById", reservation_id);
 	    }
+	   
 }

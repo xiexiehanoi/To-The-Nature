@@ -31,7 +31,7 @@
        	width:400px;
        	margin-left: auto;
        	margin-right: 150px;
-       	display: flex;
+       	
         justify-content: flex-end;
        }
        .table {
@@ -58,10 +58,13 @@
      cursor: pointer;
      }
      #btnsearch {
-		width: 48px;
+		width: 56px;
 		background-color:#528171;
 		color:white;
 		border: white;
+		text-align: center;
+		white-space: nowrap;
+		margin-right:40px;
 	}
 	.hidden {
         display: none;
