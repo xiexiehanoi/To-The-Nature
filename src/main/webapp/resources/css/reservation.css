@@ -84,7 +84,7 @@
 
 /* 예약 객실 수 섹션 스타일 */
 .reserved-room-count {
-    background-color: #ffffff; /* 섹션의 배경색 */
+    background-color: #f5f5f5; /* 섹션의 배경색 */
     padding: 20px;
     margin: 20px 0;
     border: 1px solid #ccc;
@@ -94,7 +94,7 @@
 
 /* 예약자 정보 섹션 스타일 */
 .division2 {
-    background-color: #eef2f7; /* 섹션의 배경색 */
+    background-color: #f5f5f5; /* 섹션의 배경색 */
     padding: 20px;
     margin: 20px 0;
     border: 1px solid #bbe1fa;
@@ -104,7 +104,7 @@
 
 /* 예약자 질의응답 섹션 스타일 */
 .guest-qaa {
-    background-color: #f2f2f2; /* 연한 회색 배경 */
+    background-color: #f5f5f5; /* 연한 회색 배경 */
     padding: 30px;
     margin: 20px 0;
     border: 1px solid #d1d1d1; /* 더 섬세한 테두리 색상 */
@@ -205,7 +205,7 @@
 <!-- 예약자 정보 -->
 
 .division2 {
-    background-color: #ffffff; /* 배경 색상 */
+    background-color: #f5f5f5; /* 배경 색상 */
     padding: 20px; /* 내부 여백 */
     border: 1px solid #ddd; /* 테두리 */
     border-radius: 5px; /* 모서리 둥글게 */
@@ -227,15 +227,7 @@
 
 <!-- 약관 동의 -->
 
-/* 약관 동의 섹션 스타일 개선 */
-.terms-agree {
-    background-color: #e9f5f5; /* 연한 터키색 배경 */
-    padding: 25px;
-    margin: 20px 0;
-    border: 1px solid #b4d8d8; /* 테두리 색상 변경 */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
-}
+
 
 /* 섹션 타이틀 스타일 개선 */
 .terms-agree .section-title {
@@ -249,7 +241,7 @@
 .terms-agree .agreement label {
     margin-left: 10px;
     color: #333;
-    font-size: 14px; /* 폰트 크기 조정 */
+    font-size: 12px; /* 폰트 크기 조정 */
 }
 
 /* 체크박스 스타일 */
@@ -259,7 +251,7 @@
 
 /* 버튼 스타일 개선 */
 .terms-agree button {
-    background-color: #4ca6a6; /* 버튼 배경색 변경 */
+    background-color: #528171; /* 버튼 배경색 변경 */
     color: white;
     border: none;
     padding: 6px 12px;
@@ -268,9 +260,7 @@
     cursor: pointer;
 }
 
-.terms-agree button:hover {
-    background-color: #367575; /* 호버 시 배경색 변경 */
-}
+
 
 /* 각 항목의 여백 조정 */
 .terms-agree .agreement div {
@@ -279,25 +269,11 @@
 
 
 
-/* 섹션 타이틀 스타일 */
-.section-title {
-    font-size: 1.2em; /* 폰트 크기 */
-    margin-bottom: 15px; /* 제목 아래 여백 */
-    color: #333; /* 글자 색상 */
-}
 
-/* 체크박스와 라벨 스타일 */
-.agree-all label,
-.agreement label {
-    margin-left: 10px; /* 라벨 좌측 여백 */
-    color: #333; /* 글자 색상 */
-    font-size: 0.9em; /* 폰트 크기 */
-}
 
-/* 체크박스 스타일 */
-input[type="checkbox"] {
-    accent-color: #007bff; /* 체크박스 색상 (대부분의 브라우저에서 지원) */
-}
+
+
+
 
 /* 버튼 스타일 */
 button {
@@ -310,9 +286,7 @@ button {
     cursor: pointer; /* 마우스 오버 시 커서 변경 */
 }
 
-button:hover {
-    background-color: #0056b3; /* 호버 시 배경색 변경 */
-}
+
 
 
 
@@ -331,6 +305,9 @@ button:hover {
 	flex-direction: row;
 }
 
+.cpt-footer{
+	margin-bottom: 170px;
+}
 
 <!-- 하단 버튼 -->
   
@@ -338,7 +315,4 @@ button:hover {
 
 
 
-/* 기타 섹션에 대한 스타일 (필요한 경우) */
-.other-section {
-    margin-bottom: 60px; /* 하단 고정 섹션에 의해 가려지는 것을 방지 */
-}
+
