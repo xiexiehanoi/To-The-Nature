@@ -23,6 +23,7 @@
     width:72%;
     margin-left: auto;
     margin-right: auto;
+    z-index: -1;
   }
   .reservation-all {
   	margin-right:700px;
@@ -31,12 +32,13 @@
   .reservation-subject {
   	font-size:32px;
   }
+  
   .reservation-table {
   	width: 64%;
     max-width: 100%;
     height:80%;
     max-height:100%;
-  	
+  	overflow-y: auto;
   }
   .tableFacility {
   width:150px;
@@ -62,92 +64,97 @@
   .tabledelete {
   width:30px;
   }
-  .reservationsearch {
-   	width:400px;
-   	margin-left: auto;
-   	margin-right: 150px;
-   	display: flex;
-    justify-content: flex-end;
-   }
+  .reservationsearch{
+  width:400px;
+  margin-left: auto;
+  margin-right: 150px;
+  justify-content: flex-end;
+ }
+  #btnsearch {
+  width: 56px;
+  background-color:#528171;
+  color:white;
+  border: white;
+  text-align: center;
+  white-space: nowrap;
+  margin-right:40px;
+	}
 </style>
 </head>
 <script type="text/javascript">
-var reservation_id = '${reservation_id}';
+
 $(document).ready(function() {
     listAllresevation();
     
-    $(document).on("click", "#btnsearch", function() {
+    $(document).on("click", ".reservationdelete", function() {
+        let reservation_id = $(this).closest("tr").data("reservationId");
+        deleteReservation(reservation_id);
+    });
+    
+    
+    $("#btnsearch").click(function() {
         let selectedField = $("#field option:selected").val() || "";
         let word = $("#word").val();
         
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "../admin/reservationfind",
+            url: "./reservationfind",
             data: {"searchword": selectedField, "word": word},
             success: function (res) {
-            	console.log(res);
-                let tbody = $("tbody.table_list");
+
+                let tbody = $("tbody");
                 tbody.empty();
 
                 $.each(res, function (idx, item) {
-					let startDate = new Date(item.startDate);
-					let endDate = new Date(item.endDate);
-                	
-                	let year = createdDate.getFullYear();
-                	let month = String(createdDate.getMonth() + 1).padStart(2, '0');
-                	let day = String(createdDate.getDate()).padStart(2, '0');
-                	let hour = String(createdDate.getHours()).padStart(2, '0');
-                	let minute = String(createdDate.getMinutes()).padStart(2, '0');
-
-                	let startdate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
-                	let enddate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
-                	
+					
                     let s = `<tr>
-                    	<td>\${item.firstImageUrl}</td>
                         <td>\${item.facltNm}</td>
-                        <td>startdate</td>
-                        <td>enddate</td>
+                        <td>\${item.userid}</td>
+                        <td>\${item.startDate}</td>
+                        <td>\${item.endDate}</td>
                         <td>\${item.adult_count}</td>
                         <td>\${item.child_count}</td>
-                        <td>\${item.reservationDate}</td>
+                        <td>\${item.reservationDate}</td><br>
+                        <td>
+                            <i class="bi bi-x-square-fill reservationdelete" onclick="deleteReservation(${item.reservation_id})"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"></i>
+                        </td>
                     </tr>`;
                     tbody.append(s);
                 });
-
-                $("div.reservationlist").addClass("hidden");
-                $("div#searchResult").removeClass("hidden");
             }
         });
     });
 });
 
+
 function listAllresevation() {
     $.ajax({
         type: "get",
         dataType: "json",
-        url: "../admin/searchReservation", // URL을 올바른 엔드포인트로 업데이트
-        data:{"reservation_id":reservation_id},
+        url: "./reservation",
         success: function (res) {
             let s = "";
+            let reservation_id = res.reservation_id;
             $.each(res, function (idx, item) {
-                s +=
-                    `
-                    ${item.firstImageUrl}
-                    ${item.facltNm}<br>
-                    ${item.startDate}
-                    ${item.endDate}<br>
-                    ${item.adult_count}
-                    ${item.child_count}
-                    ${item.reservationDate}<br>
-                     `;
-                s += `<a href="javascript:void(0);" onclick="deleteReservation(${reservation_id})">삭제</a>`;
+                s += `
+                    <tr>
+                        <td>${item.firstImageUrl}</td>
+                        <td>${item.facltNm}</td>
+                        <td>${item.startDate}</td>
+                        <td>${item.endDate}</td>
+                        <td>${item.adult_count}</td>
+                        <td>${item.child_count}</td>
+                        <td>${item.reservationDate}</td>
+                        <td><a href="javascript:void(0);" onclick="deleteReservation(${item.reservation_id})">삭제</a></td>
+                    </tr>`;
             });
-            $("div.reservationlist").html(s);
+            $("tbody").html(s);
         }
     });
 }
-//예약 삭제 요청 함수
+
 
 function deleteReservation(reservation_id) {
 	console.log("Deleting reservation with ID:", reservation_id);
@@ -156,10 +163,9 @@ function deleteReservation(reservation_id) {
         url: "../admin/deleteReservation",
         data: {"reservation_id": reservation_id},
         success: function(res) {
-        	
             if (res.success) {
                 alert("예약을 삭제했습니다.");
-                $(`div[data-reservation-id="${reservation_id}"]`).remove();
+                $(`tr[data-reservation-id="${reservation_id}"]`).remove();
                 listAllresevation();
             } else {
                 alert("예약 삭제에 실패했습니다.");
@@ -171,40 +177,43 @@ function deleteReservation(reservation_id) {
     });
 }
 </script>
+
 <body>
 
 <div class="myreservation-all">
 <div class="reservation-all">
 <div class="reservation-subject">예약관리</div><br>
 총 예약내역 ${allReservations.size()}개</div>
-<hr>
+
  <div class="input-group reservationsearch">	  
 				<select id="field" class="form-select">
-					<option value="facltNm">캠핑장명</option>
+					<option value="facltNm">업체명</option>
 					<option value="user_id">아이디</option>
 				</select>
 				<input type="text" class="form-control" style="margin-left:10px;"
 				id="word" placeholder="검색값입력">
 				<button type="button" class="btn-sm" id="btnsearch"
 				style="margin-left:10px;">검색</button><br><br></div>
-				<br>
+
+<br>
+ 
       <table class="reservation-table">
             <thead>
                 <tr>
-                    <th class="tableFacility">캠핑장명</th>
+                    <th class="tableFacility">Facility Name</th>
                     <th class="tableid">ID</th>
-                    <th class="tablein">입실일</th>
-                    <th class="tableout">퇴실일</th>
-                    <th class="tableadult">성인</th>
-                    <th class="tablechild">어린이</th>
-                    <th class="tabledate">예약일</th>
-                    <th class="tabledelete">삭제</th>
+                    <th class="tablein">CheckIn</th>
+                    <th class="tableout">CheckOut</th>
+                    <th class="tableadult">Adult</th>
+                    <th class="tablechild">Child</th>
+                    <th class="tabledate">Reservation Date</th>
+                    <th class="tabledelete">Delete</th>
                 </tr>
             </thead>
-            <tbody class="table_list">
+            <tbody>
             <tr style="border-bottom: 2px solid black;"></tr>
                 <c:forEach var="reservation" items="${allReservations}">
-                    <tr>
+                	<tr data-reservation-id="${reservation.reservation_id}">
                         <td>${reservation.facltNm}</td>
                         <td>${reservation.userid}</td>
                         <td>${reservation.startDate}</td>
@@ -212,10 +221,11 @@ function deleteReservation(reservation_id) {
                         <td>${reservation.adult_count}</td>
                          <td>${reservation.child_count}</td>
                         <td>${reservation.reservationDate}</td>
-                        <td>
-                    <i class="bi bi-x-square-fill reservationdelete" onclick="deleteReservation(${reservation.reservation_id})"
-                        data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"></i>
-                </td>
+                         <td>
+			                <i class="bi bi-x-square-fill reservationdelete" 
+			                   data-reservation-id="${reservation.reservation_id}"  
+			                   data-bs-toggle="tooltip" data-bs-placement="top" title="삭제"></i>
+			            </td>
                     </tr>
                      <c:if test="${!loop.last}">
         <tr>
@@ -225,8 +235,6 @@ function deleteReservation(reservation_id) {
                 </c:forEach>
             </tbody>
         </table>
-        <div class="reservationlist"></div>
-            <div id="searchResult" class="reservationsearch hidden"></div>
  </div>      
 </body>
 </html>
