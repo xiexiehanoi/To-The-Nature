@@ -12,60 +12,60 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <style>
-   body * {
-       font-family: 'Jua';
-   }
-  .myreview-all {
-			width:72%;
-            padding: 10px;
-            margin: 0 auto;
-        }
-      .review-all {
-       	margin-top:48px;
-       	margin-left:200px;
+  body * {
+      font-family: 'Jua';
+  }
+ .myreview-all {
+		width:72%;
+           padding: 10px;
+           margin: 0 auto;
        }
-       .reviewsubject {
-       font-size:32px;
-       }
-       .reviewsearch {
-       	width:400px;
-       	margin-left: auto;
-       	margin-right: 150px;
-       	display: flex;
-        justify-content: flex-end;
-       }
-       .table {
-       width:64%;
-       text-align:center;
-       }
-      .reviewfacltNm {
-      width:200px;
+     .review-all {
+      	margin-top:48px;
+      	margin-left:200px;
       }
-      .reviewid {
-      width:80px;
+      .reviewsubject {
+      font-size:32px;
       }
-      .reviewrate {
-      width:50px;
+      .reviewsearch {
+    	width:300px;
+margin-left: auto;
+margin-right: 200px;
+display: flex;
+justify-content: flex-end;
       }
-      .reviewcontent {
-      width:200px;
+      .table {
+      width:64%;
+      text-align:center;
       }
-      .reviewdate {
-      width:200px;
-      }
-     .reviewdelete{
-     width:30px;
-     cursor: pointer;
+     .reviewfacltNm {
+     width:200px;
      }
-     #btnsearch {
-		width: 48px;
-		background-color:#528171;
-		color:white;
-		border: white;
-	}
-	.hidden {
-        display: none;
+     .reviewid {
+     width:80px;
+     }
+     .reviewrate {
+     width:50px;
+     }
+     .reviewcontent {
+     width:200px;
+     }
+     .reviewdate {
+     width:200px;
+     }
+    .reviewdelete{
+    width:30px;
+    cursor: pointer;
     }
+    #btnsearch {
+	width: 48px;
+	background-color:#528171;
+	color:white;
+	border: white;
+}
+.hidden {
+       display: none;
+   }
 </style>
 </head>
 <script type="text/javascript">
