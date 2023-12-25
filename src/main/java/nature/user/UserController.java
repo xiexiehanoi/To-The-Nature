@@ -73,6 +73,16 @@ public class UserController {
 
 	    return temporaryPassword;
 	}
+	
+	//이메일 인증번호
+	@PostMapping("/login/authenticationNumber")
+	@ResponseBody
+	public String authenticationNumber() {
+		
+		return "";
+	}
+	
+	
 
 	// 임시 비밀번호 생성 메서드
 	private String generateTemporaryPassword() {

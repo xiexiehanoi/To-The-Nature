@@ -100,7 +100,7 @@
 	        <span class="navbar-item-inner-icon-wrapper flexbox">
            		<img src="${root}/res/upload/${sessionScope.userphoto}" class="rounded-circle profile_photo navbar-icon-center"
 		     	 width=40 height="40" hspace="10" border=1 style="margin-left:16px; margin-bottom: 8px;"
-	     		 onerror="this.src='${root}/res/img/noimage.png'"><br>
+	     		 onerror="this.src='${root}/res/photo/noimage.png'"><br>
         	</span>
         	<h6><span class="link-text" style="color:white; margin-left: 8px;font-size: 24px;">${sessionScope.userid}</span><span class="link-text" style="font-size: 20px;color: gray;"> 님</span></h6>
         <!-- </a> -->

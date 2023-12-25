@@ -27,7 +27,7 @@
 	</bean>	
 	
 	
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+    <!--  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.naver.com" />
         <property name="port" value="465" />    
         <property name="username" value="tjftjrgus@naver.com" />
@@ -44,7 +44,7 @@
                 <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
             </props>
         </property>
-    </bean>
+    </bean>-->
 	
 	
 </beans>
