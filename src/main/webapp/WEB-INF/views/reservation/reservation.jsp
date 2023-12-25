@@ -98,7 +98,6 @@
 			buyer_tel : "${userDto.userphone}",
 
 		}, function(rsp) {
-			console.log(rsp);
 
 			if (rsp.success) {
 				var msg = '결제가 완료되었습니다.';

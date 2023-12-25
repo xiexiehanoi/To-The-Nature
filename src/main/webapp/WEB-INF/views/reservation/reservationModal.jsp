@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>예약모달창</title>
 </head>
 <body>
 		<div class="modal" id="agreeModal" tabindex="-1" role="dialog">

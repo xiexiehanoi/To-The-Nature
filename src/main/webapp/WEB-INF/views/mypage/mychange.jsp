@@ -197,8 +197,6 @@ function list()
 <script type="text/javascript">
 $(function(){
 	$("#profile_upload").change(function(){
-		  console.log("1:"+$(this)[0].files.length);
-		  console.log("2:"+$(this)[0].files[0]);
 		  //정규표현식
 		var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
 		var f=$(this)[0].files[0];//현재 선택한 파일
