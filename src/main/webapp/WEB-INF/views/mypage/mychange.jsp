@@ -1,112 +1,155 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>change</title>
-    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Jua&family=Lobster&family=Nanum+Pen+Script&family=Permanent+Marker&family=Single+Day&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-   
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>change</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Jua&family=Lobster&family=Nanum+Pen+Script&family=Permanent+Marker&family=Single+Day&display=swap"
+	rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 
-    <style>
-    body {
-       
-       
-       
-    }
-    .changeinfo {
-    
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .genderButtons {
-        display: flex;
-        justify-content: space-between;
-       
-    }
-   .genderButton {
-   
-   			width: 50%;
-            background-color: white;
-            color: #000;
-         	border: 1px solid #ccc;
-        }
-    .genderButton:hover {
-   			background-color: white;
-            color: #000;
-            border: 1px solid #ccc;
-   }  
-   .genderButton.active {
-        background-color: #528171 !important; /* !important를 사용하여 우선순위 부여 */
-        color: #fff !important;
-        border: 1px solid #528171 !important;
-    }  
- 	form {
-        width: 80%;
-        max-width: 600px; /* 최대 너비 설정 */
-        height: 100%;
-        max-height: 1600px;
-        margin-top:200px;
-    }
-    .photoinfo {
-        display: flex;
-        justify-content: space-between;
-    }
-    .photoinsert {
-    	width:30%;
-    	height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-    .photoinsert img {
-        width: 160px;
-        height: 120px;
-        border:1px solid lightgray;
-    }
-    #profileImage {
-    	border-radius:6%;
-    }
-    .infogroup {
-            width:70% ;
-            margin-left: auto;
-            height: 100%; /* photoinsert와 높이를 맞추기 위해 100%로 설정 */
-        display: flex;
-        flex-direction: column; /* 내부 요소를 세로 방향으로 정렬 */
-        justify-content: space-between;
-        }
-   button#memberchange {
-        width: 100%; /* 입력란과 같은 너비로 설정 */
-        background-color: beige; /* 베이지 색상으로 설정 */
-        color: #000000; /* 글자 색상을 검정으로 설정 */
-        border: 1px solid white; /* 테두리를 흰색으로 설정 */
-    }
-    .readonly {
-            background-color: #f8f9fa; /* 배경색 회색으로 변경 */
-        }
-    .error-message {
-        color: red;
-        font-size: 12px;
-    }
 
-    /* 입력 오류 시 테두리 스타일 */
-    .error-border {
-        border: 1px solid red;
-    }    
-    </style>
-    <c:set var="root" value="<%=request.getContextPath()%>"/>
+<style>
+body {
+	
+}
+
+.changeinfo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.genderButtons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.genderButton {
+	width: 50%;
+	background-color: white;
+	color: #000;
+	border: 1px solid #ccc;
+}
+
+.genderButton:hover {
+	background-color: white;
+	color: #000;
+	border: 1px solid #ccc;
+}
+
+.genderButton.active {
+	background-color: #528171 !important; /* !important를 사용하여 우선순위 부여 */
+	color: #fff !important;
+	border: 1px solid #528171 !important;
+}
+
+form {
+	width: 80%;
+	max-width: 600px; /* 최대 너비 설정 */
+	height: 100%;
+	max-height: 1600px;
+	margin-top: 200px;
+}
+
+.photoinfo {
+	display: flex;
+	justify-content: space-between;
+}
+
+.photoinsert {
+	width: 30%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.photoinsert img {
+	width: 160px;
+	height: 120px;
+	border: 1px solid lightgray;
+}
+
+#profileImage {
+	border-radius: 6%;
+}
+
+.infogroup {
+	width: 70%;
+	margin-left: auto;
+	height: 100%; /* photoinsert와 높이를 맞추기 위해 100%로 설정 */
+	display: flex;
+	flex-direction: column; /* 내부 요소를 세로 방향으로 정렬 */
+	justify-content: space-between;
+}
+
+button#memberchange {
+	width: 100%; /* 입력란과 같은 너비로 설정 */
+	background-color: beige; /* 베이지 색상으로 설정 */
+	color: #000000; /* 글자 색상을 검정으로 설정 */
+	border: 1px solid white; /* 테두리를 흰색으로 설정 */
+}
+
+button#memberDelete {
+	margin-top:10px;
+	width:600px;
+	background-color: beige; /* 베이지 색상으로 설정 */
+	color: #000000; /* 글자 색상을 검정으로 설정 */
+	border: 1px solid white; /* 테두리를 흰색으로 설정 */
+}
+button#memberDelete:hover {
+	color:white;
+    background-color: red; /* 호버 시 더 어두운 색상 */
+}
+
+.readonly {
+	background-color: #f8f9fa; /* 배경색 회색으로 변경 */
+}
+
+.error-message {
+	color: red;
+	font-size: 12px;
+}
+
+/* 입력 오류 시 테두리 스타일 */
+.error-border {
+	border: 1px solid red;
+}
+</style>
+<c:set var="root" value="<%=request.getContextPath()%>" />
 </head>
 <script type="text/javascript">
+$(document).ready(function () {
+	
+	$("#memberDelete").on('click', function() {
+			var userid = "${sessionScope.userid}"
+			var url = '../delete'; 
+		    var fullUrl = url + '?userid=' + userid; 
+		    var isConfirmed = confirm("정말 회원탈퇴 하시겠습니까?");
+
+		    if (isConfirmed) {
+		        window.location.href = fullUrl;
+		    } else {
+		    }
+    
+});
+});
 
 function list()
 {
-	let userid=${dto.userid};
+	let userid="${dto.userid}";
 	let loginok='${sessionScope.loginok}';
 	let loginid='${sessionScope.myid}';
 	
@@ -128,7 +171,6 @@ function list()
 
         
     });
-    }
 	
 	$.ajax({
 		type:"get",
@@ -147,54 +189,79 @@ function list()
 					${item.userphone}
 					${item.useremail}
 					`;
-				}
+				});
 
 				
 				
 				s+="<br>";
-			});
+			}
 
 			
-	    }
 	});
+	
+	
 }
+
+
 
 </script>
 <body>
-<div class="changeinfo">
-	<form id="yourFormId" action="./info" method="post" enctype="multipart/form-data" onsubmit="return check()">
-		
-			<h2 style="margin-bottom:50px;">회원정보 수정</h2>
-			<br>
-			<br>
+	<div class="changeinfo">
+		<form id="yourFormId" action="./info" method="post"
+			enctype="multipart/form-data" onsubmit="return check()">
+
+			<h2 style="margin-bottom: 50px;">회원정보 수정</h2>
+			<br> <br>
 			<c:if test="${not empty userInfo}">
-			<div class="photoinfo">
-			<div class="photoinsert">
-			<img id="profileImage" src="${root}/res/upload/${sessionScope.userphoto}" onerror="this.src='${root}/res/photo/noimage.png'" class="profile_photo">
-	     <input type="file" id="profile_upload" name="userphoto" style="display: none;">	</div>
-				<div class="infogroup">	
-				<input type="text" name="userid" id="userid" class="form-control readonly" value="${sessionScope.userid}" readonly >
-							
-    			<input type="text" name="userbirth" class="form-control readonly" minlength="8" maxlength="8" value="${userInfo.userbirth}" readonly>
-    			<input type="text" class="form-control" required="required"
-					autofocus="autofocus" name="username" minlength="2" maxlength="20" value="${userInfo.username}" placeholder="이름">
-				</div></div>
-				<br><input type="password" name="userpw" id="pass1" class="form-control" minlength="4" maxlength="20" required="required" placeholder="비밀번호">
-				
-					<input type="password"  id="pass2" class="form-control" minlength="4" maxlength="20" required="required" placeholder="비밀번호재입력">
-					<br>
-    	<div class="genderButtons">
-        <button type="button" class="btn btn-secondary genderButton ${usergender eq 'male' ? 'active' : ''}" data-gender="male" id="saveMale" readonly>남성</button>
-        <button type="button" class="btn btn-secondary genderButton ${usergender eq 'female' ? 'active' : ''}" data-gender="female" id="saveFemale" readonly>여성</button>
-    	</div>
-    	<input type="text" name="userphone" class="form-control" required="required" minlength="11" maxlength="11" value="${userInfo.userphone}" placeholder="연락처">
-    	<input type="email" name="useremail" class="form-control" required="required" minlength="10" maxlength="50" value="${userInfo.useremail}" multiple placeholder="이메일">
-    	<br><br>
-	</c:if>
-					
-					<button type="submit" class="btn btn-secondary" id="memberchange" >회원수정</button>
-			</form></div>
-<script type="text/javascript">
+				<div class="photoinfo">
+					<div class="photoinsert">
+						<img id="profileImage"
+							src="${root}/res/upload/${sessionScope.userphoto}"
+							onerror="this.src='${root}/res/photo/noimage.png'"
+							class="profile_photo"> <input type="file"
+							id="profile_upload" name="userphoto" style="display: none;">
+					</div>
+					<div class="infogroup">
+						<input type="text" name="userid" id="userid"
+							class="form-control readonly" value="${sessionScope.userid}"
+							readonly> <input type="text" name="userbirth"
+							class="form-control readonly" minlength="8" maxlength="8"
+							value="${userInfo.userbirth}" readonly> <input
+							type="text" class="form-control" required="required"
+							autofocus="autofocus" name="username" minlength="2"
+							maxlength="20" value="${userInfo.username}" placeholder="이름">
+					</div>
+				</div>
+				<br>
+				<input type="password" name="userpw" id="pass1" class="form-control"
+					minlength="4" maxlength="20" required="required" placeholder="비밀번호">
+
+				<input type="password" id="pass2" class="form-control" minlength="4"
+					maxlength="20" required="required" placeholder="비밀번호재입력">
+				<br>
+				<div class="genderButtons">
+					<button type="button"
+						class="btn btn-secondary genderButton ${usergender eq 'male' ? 'active' : ''}"
+						data-gender="male" id="saveMale" readonly>남성</button>
+					<button type="button"
+						class="btn btn-secondary genderButton ${usergender eq 'female' ? 'active' : ''}"
+						data-gender="female" id="saveFemale" readonly>여성</button>
+				</div>
+				<input type="text" name="userphone" class="form-control"
+					required="required" minlength="11" maxlength="11"
+					value="${userInfo.userphone}" placeholder="연락처">
+				<input type="email" name="useremail" class="form-control"
+					required="required" minlength="10" maxlength="50"
+					value="${userInfo.useremail}" multiple placeholder="이메일">
+				<br>
+				<br>
+			</c:if>
+
+			<button type="submit" class="btn btn-secondary" id="memberchange">회원수정</button>
+			<button type="button" class="btn btn-secondary" id="memberDelete">회원탈퇴</button>
+		</form>
+	</div>
+	<script type="text/javascript">
 $(function(){
 	$("#profile_upload").change(function(){
 		  //정규표현식
@@ -235,6 +302,6 @@ $(function(){
 	    return true; // Allow form submission
 	}	
 </script>
-	
+
 </body>
 </html>

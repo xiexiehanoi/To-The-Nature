@@ -3,13 +3,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
+
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +27,9 @@ public class UserController {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	public  JavaMailSender mailSender;
 
 	@GetMapping("/login/main")
 	public String login()
@@ -77,9 +85,58 @@ public class UserController {
 	//이메일 인증번호
 	@PostMapping("/login/authenticationNumber")
 	@ResponseBody
-	public String authenticationNumber() {
+	public Map authenticationNumber(@RequestParam String userid,@RequestParam String useremail) {
 		
-		return "";
+		Map map = new HashMap();
+		
+		UserDto userDto=userDao.getData(userid);
+		if(userDto !=null) {
+			Random r = new Random();
+	        int num = r.nextInt(999999); //랜덤 난수 
+	        
+	        StringBuilder sb = new StringBuilder();
+	        
+	        // DB에 저장된 email            입력받은 email
+	        if(userDto.getUseremail().equals(useremail)) {//이메일 정보 또한 동일하다면 
+	    
+	            String setFrom = "tjftjrgus@naver.com";//발신자 이메일
+	            String tomail = userDto.getUseremail();//수신자 이메일
+	            String title = "[To The Nature] 비밀번호 변경 인증 이메일입니다.";
+	            sb.append(String.format("안녕하세요 %s님\n", userDto.getUserid()));
+	            sb.append(String.format("To The Nature 비밀번호 찾기(변경) 인증번호는 %d입니다.", num));
+	            String content = sb.toString();
+	            
+	            try {
+	                MimeMessage msg = mailSender.createMimeMessage();
+	                MimeMessageHelper msgHelper = new MimeMessageHelper(msg, true, "utf-8");
+	                
+	                msgHelper.setFrom(setFrom);
+	                msgHelper.setTo(tomail);
+	                msgHelper.setSubject(title);
+	                msgHelper.setText(content);
+	                
+	                //메일 전송
+	                mailSender.send(msg);
+	                
+	            }catch (Exception e) {
+	                // TODO: handle exception
+	                System.out.println(e.getMessage());
+	            }
+	            
+	            //성공적으로 메일을 보낸 경우
+	            map.put("status", true);
+	            map.put("num", num);
+	            map.put("m_idx", userDto.getUsernum());
+	            
+	        }else {
+	        	map.put("status", false);
+			
+	        }
+		}else {
+			map.put("status", false);
+		}
+		return map;
+		
 	}
 	
 	
@@ -126,6 +183,8 @@ public class UserController {
 		}
 		return map;
 	}
+	
+	
 
 	@GetMapping("/login/change")
 	public String change()
@@ -193,6 +252,16 @@ public class UserController {
 		Map<String, String> map=new HashMap<>();
 		map.put("fileName", fileName);
 		return map;
+	}
+	
+	@GetMapping("/delete")
+	public String deleteUser(@RequestParam String userid, HttpSession session) {
+		System.out.println(userid);
+		userDao.deleteUser(userid);
+		 session.removeAttribute("loginok");
+		  session.removeAttribute("saveid");
+		  session.removeAttribute("userid");
+		return "redirect:/";
 	}
 
 	
