@@ -420,7 +420,6 @@ $(document).ready(function () {
 	        })
 	    });//readyclose
 
-
 	//review 불러오기
 function getreviewlist(campingNum) {
     $.ajax({

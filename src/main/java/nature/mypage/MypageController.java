@@ -54,7 +54,7 @@ public class MypageController {
 	    // Add the reservations to the model
 	    model.addAttribute("userReservations", userReservations);
 
-	    return "mypage/myreservation";
+	    return "mypage/myreservation.mypage";
 	}
 	
 	@GetMapping("/mypage/review")
@@ -68,7 +68,7 @@ public class MypageController {
 	    // Add the reviews to the model
 	    model.addAttribute("userReviews", userReviews);
 	    model.addAttribute("totalCount", mypageService.getTotalCount());
-	    return "mypage/myreview";
+	    return "mypage/myreview.mypage";
 	}
 	
 	@GetMapping("/mypage/change")
