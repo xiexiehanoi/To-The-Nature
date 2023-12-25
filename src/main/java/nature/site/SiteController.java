@@ -37,7 +37,7 @@ public class SiteController {
 	    UserDto userDto =siteService.getUser(userId);
 
 	    List<Map<String, Object>> campinglist = siteService.getsearchcamping(siteParam);
-	    
+	    System.out.println(campinglist.toString());
 	    model.addAttribute("campinglist", campinglist);
 	    model.addAttribute("userId", userId);
 	    model.addAttribute("userDto", userDto);

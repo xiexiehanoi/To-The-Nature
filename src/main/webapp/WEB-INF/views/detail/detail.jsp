@@ -255,6 +255,8 @@ String loginStatus = (String) session.getAttribute("loginok");
     var campingNum = urlParams.get('num');
     var userId = '<%= userId %>';
     var iswished = ${campinglist[0].iswished};
+    
+    console.log(iswished)
     var loginStatus = "<%= loginStatus %>";
 
     <%-- 예약 내용 보내기 --%>
@@ -332,7 +334,14 @@ $(document).ready(function () {
                 if (res.success) {
                     iswished = iswished == "0" ? "1" : "0";
                     updateHeartIcon();
-                    $("#countWish").text(res.updatedCountWish);
+                    var countWish = parseInt($("#countWish").text(), 10);
+                    if(iswished== "1"){
+                    	countWish+1
+                    	$("#countWish").text(countWish+1);
+                    }else{
+                    	$("#countWish").text(countWish-1);
+                    }
+                    
                 } else {
                     console.error("Error:", res.error);
                 }
@@ -384,6 +393,10 @@ $(document).ready(function () {
 	        	})
 	      //리뷰 등록  	
 	        $(".btn02").click(function(){
+	        	if("${sessionScope.loginok}"!="yes"){
+	        		alert("로그인 후 사용가능합니다.")
+	        		return false
+	        	}
 	        	//별점 가져오기
 	        	var rate = $(".star_rating .star.on").length;
 	        	//내용
