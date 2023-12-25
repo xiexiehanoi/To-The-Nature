@@ -22,7 +22,19 @@
 	</select>
 	
 	<select id="selectPagingOfPList" parameterType="Map" resultType="PListDto">
-		select * from camping_details order by camping_num desc limit #{start},#{perpage}
+		select * from camping_details 
+		<where>
+	        <if test="search == 'facltNm'">
+	            and facltNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'doNm'">
+	            and doNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'sigunguNm'">
+	            and sigunguNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	    </where>
+		order by camping_num desc limit #{start},#{perpage}
 	</select>
 	
 	<insert id="insertSite" parameterType="PListDto">
@@ -70,5 +82,19 @@
 	<delete id="deleteSite" parameterType="int">
 		delete from camping_details where camping_num=#{camping_num}
 	</delete>
-
+	
+	<select id="serchTotalCountOfSite" parameterType="Map" resultType="int">
+		select count(*) from camping_details  
+		<where>
+	        <if test="search == 'facltNm'">
+	            and facltNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'doNm'">
+	            and doNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'sigunguNm'">
+	            and sigunguNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	    </where>
+	</select>
 </mapper>

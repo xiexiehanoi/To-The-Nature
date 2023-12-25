@@ -143,6 +143,7 @@ public class UserController {
 	    // 세션을 비우고 아이디 저장 여부를 확인하여 세션에 저장
 	    session.removeAttribute("loginok");
 	    session.removeAttribute("saveid");
+	    session.removeAttribute("userid");
 	    String userId = (String) session.getAttribute("userid");
 
 	    // 클라이언트에게 저장된 쿠키 삭제를 알리기 위해 응답 헤더에 Set-Cookie 설정

@@ -27,7 +27,6 @@
 	</bean>	
 	
 	
-	 <!-- Root Context: defines shared resources visible to all other web components 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.naver.com" />
         <property name="port" value="465" />    
@@ -45,7 +44,7 @@
                 <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
             </props>
         </property>
-    </bean>-->
+    </bean>
 	
 	
 </beans>

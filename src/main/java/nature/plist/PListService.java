@@ -35,12 +35,14 @@ public class PListService {
 	 * return plistDao.getAllSites(word, facltNm, sigunguNm, doNm); }
 	 */	
 	
-	public List<PListDto> getListPage(int startNum,int perpage)
+	public List<PListDto> getListPage(int startNum,int perpage,String word,String select)
 	{
 		startNum = Math.max(startNum, 0); // 음수일 경우 0으로 처리
-		Map<String, Integer> map=new HashMap<String, Integer>();
+		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("start", startNum);
 		map.put("perpage", perpage);
+		map.put("word", word);
+		map.put("search", select);
 		return plistDao.getListPage(map);
 	}
 	
@@ -63,6 +65,10 @@ public class PListService {
 	public List<Map<String, Object>> getsearchcamping(Map<String, Object> plistParam)
 	{
 		return plistDao.getsearchdetail(plistParam);
+	}
+
+	public int getSerchTotalCount(String word, String select) {
+		return plistDao.getSerchTotalCount(word,select);
 	}
 
 }

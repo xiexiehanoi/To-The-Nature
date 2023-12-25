@@ -131,7 +131,7 @@
     <li class="navbar-item flexbox-left">
       <c:choose>
     	<c:when test="${sessionScope.userid == null}">
-        	<a href="./plist?userId=null" class="navbar-item-inner flexbox-left">
+        	<a href="/nature/plist?userId=null" class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
           			<i class="bi bi-search" style="font-size: 20px;margin-left: 6px;"></i>
         		</span>
@@ -139,7 +139,7 @@
       		</a>
     	</c:when>
         <c:otherwise>
-            <a href="./plist?userId=${sessionScope.userid}" class="navbar-item-inner flexbox-left">
+            <a href="/nature/plist?userId=${sessionScope.userid}" class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
           			<i class="bi bi-search" style="font-size: 20px;margin-left: 6px;"></i>
         		</span>

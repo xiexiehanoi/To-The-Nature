@@ -275,6 +275,11 @@ String userId = (String) session.getAttribute("userid");
 		alert("검색어를 입력해주세요")
 		return;
 	}else{
+	var selectValue = document.getElementById('selectbox').value;
+	var inputValue = document.querySelector('.plist-search-input').value;
+	var url = './plist?select=' + encodeURIComponent(selectValue) + '&word=' + encodeURIComponent(inputValue);
+	window.location.href = url;
+	/*
 	var select=$("#selectbox option:selected").val();
 	console.log(word);
 	console.log(select);	
@@ -287,10 +292,10 @@ String userId = (String) session.getAttribute("userid");
             },
             dataType: "json",
             success: function (res) {
-            	/* console.log("a:"+res); */
+            	 console.log("a:"+res); 
             	 var resultList = $(".plist-list");
             	    resultList.empty();
-            	    /* resultList.append('<div><h3>"'+word+'"에 대한 검색 결과</h3></div><br>'); */
+            	     resultList.append('<div><h3>"'+word+'"에 대한 검색 결과</h3></div><br>'); 
             	    $.each(res, function (index, item) {
             	        var listItem = 
             	        			   '<div class="plist-item">' +
@@ -335,6 +340,7 @@ String userId = (String) session.getAttribute("userid");
             	    });
             	}
     		})
+    		​*/
 	  	}
     });
 </script>
@@ -459,17 +465,28 @@ String userId = (String) session.getAttribute("userid");
 				<%-- </c:forEach> --%>
 			</c:forEach>
 		</div>
+<script>
+    function setPaginationLink(page,event) {
+    	event.preventDefault()
+        var selectValue = "${select}";
+        var inputValue = "${word}";
+        var url = './plist?currentPage=' + page + '&select=' + encodeURIComponent(selectValue) + '&word=' + encodeURIComponent(inputValue);
+        window.location.href = url;
+    }
+</script>
 		
 		
 		<!-- Pagination -->
 		<div style="text-align: center;" class="plist-pagination">
 			<!-- 이전 -->
 			<c:if test="${startPage>1}">
-				<a href="./plist?currentPage=${startPage-1}">이전</a>
+				<a href="#" onclick="setPaginationLink(${startPage-1})">이전</a>
+				<!-- <a href="./plist?currentPage=${startPage-1}">이전</a> -->
 			</c:if>
 			&nbsp;
 			<c:forEach var="pno" begin="${startPage}" end="${endPage}">
-				<a href="./plist?currentPage=${pno}" style="cursor: pointer;">
+				<!--<a href="./plist?currentPage=${pno}" style="cursor: pointer;">-->
+				<a href="#" onclick="setPaginationLink(${pno},event)" style="cursor: pointer;">
 					<c:if test="${pno==currentPage}">
 						<!-- <p class="plist-pagingnum" style="background-color: #528171;width: 16px;"> -->
 							<span style="color: #528171;">${pno}</span>
@@ -483,7 +500,8 @@ String userId = (String) session.getAttribute("userid");
 			</c:forEach>
 			<!-- 다음 -->
 			<c:if test="${endPage<totalPage}">
-				<a href="./plist?currentPage=${endPage+1}">다음</a>
+				<a href="#" onclick="setPaginationLink(${endPage+1})">다음</a>
+				<!--<a href="./plist?currentPage=${endPage+1}">다음</a>-->
 			</c:if>
 		</div>
 	</div>

@@ -123,13 +123,13 @@
                         amount: ${rDto.amount}
 	                }
 	            });
-		        window.location.href = '../login/main';
+		        window.location.href = './mypage/reservation';
 			   
 	        } else {
 	            var msg = '결제에 실패하였습니다.';
 	            $("#reservationModal_title").html(msg);
 		        $("#reservationModal").modal('show');
-s	        }
+	        }
 	    }); 
 	}; 
 </script>
@@ -169,7 +169,7 @@ s	        }
 		// 증가 버튼
 		$('.plus').on('click', function() {
 			// 서버에서 설정한 roomCount 값을 직접 넣어주세요.
-			var roomCount = ${roomCount}
+			var roomCount = 3
 
 			if (currentValue < roomCount) {
 				currentValue++;
@@ -418,28 +418,28 @@ s	        }
 				<nav>
 					<ul class="d-flex justify-content-center" role="button">
 						<li class="flex-fill d-flex justify-content-center"><a
-							href="/"
+							href="../"
 							class="d-flex flex-column align-items-center justify-content-center">
 								<img
 								src="https://static.campingtalk.me/local/images/icon/bottom_nav/home.svg"
 								alt="home" /> <span>홈</span>
 						</a></li>
 						<li class="flex-fill d-flex justify-content-center"><a
-							href="./plist?userId=${sessionScope.userid}"
+							href="../plist?userId=${sessionScope.userid}"
 							class="d-flex flex-column align-items-center justify-content-center">
 								<img
 								src="https://static.campingtalk.me/local/images/icon/bottom_nav/search.svg"
 								alt="home" /> <span>캠핑장 찾기</span>
 						</a></li>
 						<li class="flex-fill d-flex justify-content-center"><a
-							href="/nature/FAQ""
+							href="../FAQ""
 							class="d-flex flex-column align-items-center justify-content-center">
 								<img
 								src="https://static.campingtalk.me/local/images/icon/bottom_nav/customer-support.svg"
 								alt="home" /> <span>고객센터</span>
 						</a></li>
 						<li class="flex-fill d-flex justify-content-center"><a
-							@click="goMyInfo"
+							href="../mypage/change"
 							class="d-flex flex-column align-items-center justify-content-center">
 								<img
 								src="https://static.campingtalk.me/local/images/icon/bottom_nav/user.svg"

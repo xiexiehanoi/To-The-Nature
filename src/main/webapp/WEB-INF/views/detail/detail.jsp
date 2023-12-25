@@ -798,6 +798,16 @@ function updateCountWish() {
 		</div> <!-- cloase reviewTitle -->	
 	</div> <!-- close reviewbox  -->
 </div>
->>>>>>> branch 'prototype' of https://github.com/xiexiehanoi/To-The-Nature.git
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var today = new Date();
+        var day = String(today.getDate()).padStart(2, '0');
+        var month = String(today.getMonth() + 1).padStart(2, '0'); // 1월은 0부터 시작하므로 1을 더합니다.
+        var year = today.getFullYear();
+        today = year + '-' + month + '-' + day;
+        document.getElementById("startDate").setAttribute("min", today);
+        document.getElementById("endDate").setAttribute("min", today);
+    });
+</script>
 </body>
 </html>
