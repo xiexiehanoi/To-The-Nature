@@ -216,7 +216,7 @@ function list()
 				<div class="photoinfo">
 					<div class="photoinsert">
 						<img id="profileImage"
-							src="${root}/res/upload/${sessionScope.userphoto}"
+							src="${root}/res/photo/${sessionScope.userphoto}"
 							onerror="this.src='${root}/res/photo/noimage.png'"
 							class="profile_photo"> <input type="file"
 							id="profile_upload" name="userphoto" style="display: none;">

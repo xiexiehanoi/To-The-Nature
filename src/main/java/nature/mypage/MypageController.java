@@ -101,7 +101,7 @@ public class MypageController {
 
 	    // 새로운 사진이 제공되면 파일 업로드를 처리합니다.
 	    if (!userphoto.isEmpty()) {
-	        String path = session.getServletContext().getRealPath("/resources/upload");
+	        String path = session.getServletContext().getRealPath("/res/photo");
 	        String fileName = UUID.randomUUID().toString();
 	        try {
 	            userphoto.transferTo(new File(path + "/" + fileName));
