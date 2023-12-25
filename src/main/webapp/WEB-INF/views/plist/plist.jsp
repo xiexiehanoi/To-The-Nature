@@ -480,7 +480,7 @@ String userId = (String) session.getAttribute("userid");
 		<div style="text-align: center;" class="plist-pagination">
 			<!-- 이전 -->
 			<c:if test="${startPage>1}">
-				<a href="#" onclick="setPaginationLink(${startPage-1})">이전</a>
+				<a href="#" onclick="setPaginationLink(${startPage-1},event)">이전</a>
 				<!-- <a href="./plist?currentPage=${startPage-1}">이전</a> -->
 			</c:if>
 			&nbsp;
@@ -500,7 +500,7 @@ String userId = (String) session.getAttribute("userid");
 			</c:forEach>
 			<!-- 다음 -->
 			<c:if test="${endPage<totalPage}">
-				<a href="#" onclick="setPaginationLink(${endPage+1})">다음</a>
+				<a href="#" onclick="setPaginationLink(${endPage+1},event)">다음</a>
 				<!--<a href="./plist?currentPage=${endPage+1}">다음</a>-->
 			</c:if>
 		</div>
