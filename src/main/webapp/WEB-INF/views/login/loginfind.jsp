@@ -155,7 +155,7 @@
     <script>
     var emailok=false;
     var dataNum;
-    var status;
+    var responseStatus;
         $(document).ready(function () {
             $("#pwsearchBtn").click(function () {
             	
@@ -209,6 +209,11 @@
                 var emailNumber = $("#email-Authentication-number").val();
                 console.log(emailNumber);
                 console.log(dataNum);
+                if(emailNumber==""){
+                	alert("인증번호를 입력해주세요");
+                	return false;
+                }
+                
                 if(dataNum!=emailNumber){
                 	alert("인증번호가 일치하지 않습니다");
                 	return false;
@@ -259,16 +264,19 @@
                 $.ajax({
                     url: "<%=request.getContextPath()%>/login/authenticationNumber",
                     method: "POST",
-                    data: {  "userid": userid, "useremail": useremail },
+                    data: { "username":username ,"userid": userid, "useremail": useremail },
                     success: function (data) {
                     	console.log(data);
+                    	console.log(typeof data.status)
+                    	console.log("111");
+                    	console.log(data.status);
                         dataNum= data.num;
-                        status =data.status;
+                        responseStatus = data.status;
                         emailok=true;
-                        if(!status){
-                        	alert("사용자 정보가 일치하지 않습니다");
+                        if (responseStatus === false) { // 엄격한 비교 사용
+                            alert("사용자 정보가 일치하지 않습니다");
+                            return false;
                         }
-                        
                         
                     },
                     error: function () {

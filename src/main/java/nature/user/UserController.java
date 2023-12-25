@@ -85,7 +85,7 @@ public class UserController {
 	//이메일 인증번호
 	@PostMapping("/login/authenticationNumber")
 	@ResponseBody
-	public Map authenticationNumber(@RequestParam String userid,@RequestParam String useremail) {
+	public Map authenticationNumber(@RequestParam String username,@RequestParam String userid,@RequestParam String useremail) {
 		
 		Map map = new HashMap();
 		
