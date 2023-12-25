@@ -122,7 +122,7 @@
                         amount: ${rDto.amount}
 	                }
 	            });
-		        window.location.href = './mypage/reservation';
+		        window.location.href = '../mypage/reservation';
 			   
 	        } else {
 	            var msg = '결제에 실패하였습니다.';
