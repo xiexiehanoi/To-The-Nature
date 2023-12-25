@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상세페이지</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -256,8 +256,6 @@ String loginStatus = (String) session.getAttribute("loginok");
     var userId = '<%= userId %>';
     var iswished = ${campinglist[0].iswished};
     var loginStatus = "<%= loginStatus %>";
-    <%-- var userNum = <%= userNum %>;
-    console.log(userNum); --%>
 
     <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
@@ -305,10 +303,6 @@ $(document).ready(function () {
         var startDate = $("#startDate").val();
         var endDate = $("#endDate").val();
         var campingAmount = parseInt(document.getElementById("campingAmount").value);
-        
-        console.log("startDate:", startDate);
-        console.log("endDate:", endDate);
-        console.log("campingAmount:", campingAmount);
 
         if (!isNaN(new Date(startDate).getTime()) && !isNaN(new Date(endDate).getTime())) {
             var timeDiff = Math.abs(new Date(endDate).getTime() - new Date(startDate).getTime());

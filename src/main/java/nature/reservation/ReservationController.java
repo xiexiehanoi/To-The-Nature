@@ -50,17 +50,16 @@ public class ReservationController {
 		model.addAttribute("reservationdays",reservationdays);
 		model.addAttribute("CampsiteName",CampsiteName);
 		model.addAttribute("roomCount",roomCount);
-		System.out.println(rDto.toString());
+		//System.out.println(rDto.toString());
 //		return "reservation/reservation.reservation";
 		return "reservation/reservation";
 	}
 	
 	@PostMapping("/reservation")
 	@ResponseBody public void reservation(@ModelAttribute ReservationDto reservationDto) {
-		System.out.println(reservationDto.toString());
+		//.out.println(reservationDto.toString());
 		reservationService.insertReservation(reservationDto);
 		reservationService.ensureAvailability(reservationDto);
-		System.out.println("아니 야발 이거 왜 쳐 안나오는거야");
 		
 	}
 

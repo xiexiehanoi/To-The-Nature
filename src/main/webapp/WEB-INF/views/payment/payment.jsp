@@ -30,7 +30,7 @@
       }
     </script>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>결제</title>
 </head>
 <body>
 

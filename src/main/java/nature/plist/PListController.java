@@ -32,7 +32,7 @@ public class PListController {
 	    // 페이징 처리를 위한 변수 계산
 	    int perBlock=5; //한블럭당 보여지는 페이지의 개수
 	    int totalCount = plistService.getSerchTotalCount(word,select);
-	    System.out.println(totalCount);
+	    //System.out.println(totalCount);
 	    int totalPage = (int) Math.ceil((double) totalCount / perPage);
 	    int startNum = (currentPage - 1) * perPage;
 	    int startPage = (currentPage - 1) / perBlock * perBlock + 1;
@@ -40,7 +40,7 @@ public class PListController {
 	    
 	    // 해당 페이지에 보여줄 게시판 목록
 	    List<PListDto> plistpage = plistService.getListPage(startNum, perPage,word,select);
-		System.out.println(plistpage);
+		//System.out.println(plistpage);
 	    /* System.out.println(plistpage.toString()); */
 
 	    int no = totalCount - (currentPage - 1) * perPage;

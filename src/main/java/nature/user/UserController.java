@@ -103,7 +103,7 @@ public class UserController {
 	@ResponseBody Map<String, Object> login(@RequestParam boolean saveid,
 			@RequestParam String userid,@RequestParam String userpw,HttpSession session)
 	{
-		System.out.println("saveid:"+saveid);
+		//System.out.println("saveid:"+saveid);
 		Map<String, Object> map=new HashMap<String, Object>();
 
 		boolean bLogin=userDao.isLoginCheck(userid, userpw);
