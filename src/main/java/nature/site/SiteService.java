@@ -6,6 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import nature.reservation.ReservationDto;
+import nature.user.UserDto;
+
 @Service
 public class SiteService {
 	
@@ -17,5 +20,11 @@ public class SiteService {
 	{
 		return siteDao.getsearchcamping(siteParam);
 	}
+	
+	public UserDto getUser(String userid) {
+
+		UserDto userDto= siteDao.getUser(userid);
+		return userDto;
+	}	 
 
 }

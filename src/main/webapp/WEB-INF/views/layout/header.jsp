@@ -14,31 +14,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 
 <style type="text/css">
-	/* .header{
-		border: 1px solid blue;
-		display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-	}
-	div.header_container{
-		display: flex;
-	}
-	div.header_container div.header_menu{
-		margin-left: auto;
-		padding-right: 30px;
-	}	
-	.login-section {
-        margin-left: auto;
-    }
-    .mypage-section a{
-    	text-decoration: none;
-    	color: black;
-    }
+	
 </style>
 <c:set var="root" value="<%=request.getContextPath()%>"/>
 
 <script type="text/javascript">
+
     $(function(){
         // 로그아웃 버튼
         $("#btnlogout").click(function(){
@@ -48,7 +29,7 @@
                 url: "${root}/login/logout",
                 success: function(res){
                     // 로그아웃 성공시 페이지 새로고침
-                    location.reload();
+                	window.location.href = "${root}/login/main";
                 },
                 error: function(res) {
                     // 실패시 처리
@@ -57,19 +38,15 @@
             });
         });
     });
+
+
+
 </script>
 </head>
 <body>
-	<div class="header">
-		<h1>header</h1>
-	</div>
-	<div class="login-section">
-	<c:if test="${empty sessionScope.loginok}">
-    	<!-- 세션에 loginok 값이 없으면 (로그인 상태가 아니면) 로그인 링크 표시 -->
-    	<a href="${root}/login/main">로그인</a>
-	</c:if>
 
-	<c:if test="${not empty sessionScope.loginok}">
+
+	<%-- <c:if test="${not empty sessionScope.loginok}">
     	<!-- 세션에 loginok 값이 있으면 (로그인 상태이면) 로그아웃 버튼 표시 -->
     	<h5>${sessionScope.userid}님</h5><br>
     	<button type="button" class="btn btn-success" id="btnlogout" style="width: 100px;">로그아웃</button>
@@ -86,11 +63,12 @@
             <!-- 세션에 loginok 값이 있으면 (로그인 상태이면) mypage 페이지로 이동 -->
             <a href="${root}/mypage/main">mypage</a>
         <c:if test="${sessionScope.userid eq 'nature'}">
-        <a href="${root}/admin/main">admin</a>
+        <div class="admin-main"><a href="${root}/admin/main">admin</a></div>
     	</c:if>
         </c:otherwise>
     </c:choose>
-   
-</div>
+
+</div>  --%>  
+
 </body>
 </html>

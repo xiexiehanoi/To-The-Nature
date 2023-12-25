@@ -31,6 +31,8 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String home(Locale locale, Model model) {
+		// Set attribute to indicate if it's the main page
+        model.addAttribute("isMainPage", true);
 		
 		return "main/main.main";
 	}
