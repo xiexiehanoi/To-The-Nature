@@ -631,7 +631,7 @@ function updateCountWish() {
 								<li><span><i class="bi bi-cup-hot"></i></span><span>${sbrcl}</span></li>
 							</c:when>
 							<c:when test="${sbrcl == '트렘폴린'}">
-								<li><span><img src="./res/photo/trampoline.svg" style="color:#f5dcb7;padding:2px;"></span>&nbsp;<span>${sbrcl}</span></li>
+								<li><span><img src="./res/img/trampoline.svg" style="color:#f5dcb7;padding:2px;"></span>&nbsp;<span>${sbrcl}</span></li>
 							</c:when>
 							<c:when test="${sbrcl == '물놀이장'}">
 								<li><span><i class="bi bi-droplet"></i></span><span>${sbrcl}</span></li>
