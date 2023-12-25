@@ -135,7 +135,7 @@
         		<span class="navbar-item-inner-icon-wrapper flexbox">
           			<i class="bi bi-search" style="font-size: 20px;margin-left: 6px;"></i>
         		</span>
-        		<span class="link-text" style="margin-top: 3px;">켐핑장 찾기</span>
+        		<span class="link-text" style="margin-top: 3px;">캠핑장 찾기</span>
       		</a>
     	</c:when>
         <c:otherwise>
@@ -143,7 +143,7 @@
         		<span class="navbar-item-inner-icon-wrapper flexbox">
           			<i class="bi bi-search" style="font-size: 20px;margin-left: 6px;"></i>
         		</span>
-        		<span class="link-text" style="margin-top: 3px;">켐핑장 찾기</span>
+        		<span class="link-text" style="margin-top: 3px;">캠핑장 찾기</span>
       		</a>
         </c:otherwise>
       </c:choose>

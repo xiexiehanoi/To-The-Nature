@@ -388,6 +388,10 @@ select {
   cursor: pointer;
 }
 
+#mypage #mypageSubMenu li a{
+	color: hsl(var(--quite-gray));
+}
+
 #mypage #mypageSubMenu li a:hover{
 	color: white;
 }
