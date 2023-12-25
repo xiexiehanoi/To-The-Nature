@@ -1,6 +1,7 @@
 // app.css
 import * as THREE from "three";
 //import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 class App {
 	constructor() {
@@ -14,7 +15,10 @@ class App {
 		renderer.setPixelRatio(window.devicePixelRatio);
 		divContainer.appendChild(renderer.domElement);
 		this._renderer = renderer;
-
+		
+    	// 모델 로더를 생성할 때 GLTFLoader를 사용합니다.
+    	const loader = new GLTFLoader();
+		
 		const scene = new THREE.Scene();
 		// _scene 객체 필드화
 		this._scene = scene;
@@ -29,46 +33,95 @@ class App {
 		// Create a group to hold multiple models
     	this.modelGroup = new THREE.Group();
     	this._scene.add(this.modelGroup);
+    	
+		const modelPath1 = 'models/Camping-bg-final.glb';
+		const modelPath2 = 'models/Camping-cabin.glb';
+		const modelPath3 = 'models/Camping-sign-final.glb';
+		const modelPath4 = 'models/Camping-cabin-ping.glb';
+		const modelPath5 = 'models/Camping-sign-ping.glb';
+		
+		// 모델 로드 부분도 변경합니다.
+    	let model1, model2, model3, model4, model5;
+
+		loader.load(modelPath1, (gltf) => {
+    		model1 = gltf.scene;
+    		model1.position.set(0, 0, 0);
+    		checkModelsLoaded.call(this);
+		});
+
+		loader.load(modelPath2, (gltf) => {
+    		model2 = gltf.scene;
+    		model2.position.set(0, 0, 0);
+    		checkModelsLoaded.call(this);
+		});
+
+		loader.load(modelPath3, (gltf) => {
+    		model3 = gltf.scene;
+    		model3.position.set(-0.1, 0, -0.2);
+    		checkModelsLoaded.call(this);
+		});
+		
+		loader.load(modelPath4, (gltf) => {
+    		model4 = gltf.scene;
+    		model4.position.set(0, 2, 0);
+    		checkModelsLoaded.call(this);
+		});
+		
+		loader.load(modelPath5, (gltf) => {
+    		model5 = gltf.scene;
+    		model5.position.set(-0.1, 1, -0.2);
+    		checkModelsLoaded.call(this);
+		});
+    	
 		
 	    // Add models to the group
-	    const model1 = this.createColoredCube(0x528171); // 어두운 초록
-	    const model2 = this.createColoredCube(0x2F2F3D); // 검정
-	    const model3 = this.createColoredCube(0xC1E2D7); // 연한 초록
-	    const model4 = this.createGroundCube(0x999999); // 회색
+	    //const model1 = this.createColoredCube(0x528171); // 어두운 초록
+	    //const model2 = this.createColoredCube(0x2F2F3D); // 검정
+	    //const model3 = this.createColoredCube(0xC1E2D7); // 연한 초록
+	    //const model4 = this.createGroundCube(0x999999); // 회색
 	    
-	    const model5 = this.createColoredCube(0x96A8EA); // 연한 파랑
+	    //const model5 = this.createColoredCube(0x96A8EA); // 연한 파랑
 	
 	    // Set positions for the cubes
-	    model1.position.set(-0.3, 0, 0);
-	    model2.position.set(0.25, 0, 0.3);
-	    model3.position.set(0.25, 0, -0.3);
-	    model4.position.set(0, -0.21, 0);
-	    model5.position.set(0.25, 0, -0.3);
+	    //model1.position.set(-0.3, 0, 0);
+	    //model2.position.set(0.25, 0, 0.3);
+	    //model3.position.set(0.25, 0, -0.3);
+	    //model4.position.set(0, -0.21, 0);
+	    //model5.position.set(0.25, 0, -0.3);
 		
-		// Add models to the group based on login status
-		if (isLoggedIn) {
-    		// 로그인한 경우
-    		this.modelGroup.add(model1);
-    		this.modelGroup.add(model2);
-    		this.modelGroup.add(model3);
-    		this.modelGroup.add(model4);
-		
-    		// Set up click event on the models
-    		model1.addEventListener('click', () => this.onModelClick("nature/login/main"));
-    		model2.addEventListener('click', () => this.onModelClick("nature/plist?userId=null"));
-    		model3.addEventListener('click', () => this.onModelClick("nature/mypage/change"));
-		} else {
-    		// 로그인하지 않은 경우
-    		// 특정 모델만 추가하고 이벤트 리스너를 설정할 수 있습니다.
-    		this.modelGroup.add(model1);
-    		this.modelGroup.add(model2);
-    		this.modelGroup.add(model5);
-    		this.modelGroup.add(model4);
-		
-    		// Set up click event on the models
-    		model1.addEventListener('click', () => this.onModelClick("nature/login/main"));
-    		model2.addEventListener('click', () => this.onModelClick("nature/plist?userId=null"));
-    		model5.addEventListener('click', () => this.onModelClick("nature/mypage/change"));
+		function checkModelsLoaded() {
+    		// 모든 모델이 로드되었는지 확인
+    		if (model1 && model2 && model3 && model4 && model5) {
+    			// 각 모델에 스케일 적용
+        		model1.scale.set(0.16, 0.16, 0.16);
+        		model2.scale.set(0.18, 0.18, 0.18);
+        		model3.scale.set(0.2, 0.2, 0.2);
+        		model4.scale.set(0.2, 0.2, 0.2);
+        		model5.scale.set(0.2, 0.2, 0.2);
+    		
+        		// 로그인 상태에 따라 모델 추가
+        		if (isLoggedIn) {
+            		this.modelGroup.add(model1);
+            		this.modelGroup.add(model2);
+            		this.modelGroup.add(model3);
+            		this.modelGroup.add(model4);
+            		this.modelGroup.add(model5);
+        		} else {
+            		this.modelGroup.add(model1);
+            		this.modelGroup.add(model2);
+            		this.modelGroup.add(model3);
+            		this.modelGroup.add(model4);
+            		this.modelGroup.add(model5);
+        		}
+
+        		// 모델 클릭 이벤트 설정
+        		//model1.addEventListener('click', () => this.onModelClick("nature/login/main"));
+        		model2.userData = { path: "nature/plist?userId=null" };
+                model2.addEventListener('click', () => this.onModelClick("nature/plist?userId=null"));
+
+                model3.userData = { path: "nature/mypage/change" };
+                model3.addEventListener('click', () => this.onModelClick("nature/mypage/change"));
+    		}
 		}
 		
 	    // Add models to the group
@@ -111,8 +164,8 @@ class App {
 		console.log(width);
 		console.log(height);
 		// 카메라 객체 생성
-		const camera = new THREE.PerspectiveCamera(20, width / height, 0.1, 100);
-		camera.position.set(0, 2, 4); // 카메라 위치 수정
+		const camera = new THREE.PerspectiveCamera(22, width / height, 0.1, 100);
+		camera.position.set(0, 2, 2.7); // 카메라 위치 수정
     	camera.lookAt(0, 0, 0); // 카메라가 바라보는 지점 수정
 		//camera.position.z = 2;
 		this._camera = camera;
@@ -138,19 +191,19 @@ class App {
 		this._scene.add(light); // scene 객체의 구성 요소로 추가
 	}
 	
-	createColoredCube(color) {
-    	const geometry = new THREE.BoxGeometry(0.35, 0.35, 0.35);
-    	const material = new THREE.MeshPhongMaterial({ color });
-    	const cube = new THREE.Mesh(geometry, material);
-    	return cube;
-  	}
+	//createColoredCube(color) {
+    //	const geometry = new THREE.BoxGeometry(0.35, 0.35, 0.35);
+    //	const material = new THREE.MeshPhongMaterial({ color });
+    //	const cube = new THREE.Mesh(geometry, material);
+    //	return cube;
+  	//}
   	
-	createGroundCube(color) {
-    	const geometry = new THREE.BoxGeometry(1.15, 0.07, 1.15);
-    	const material = new THREE.MeshPhongMaterial({ color });
-    	const cube = new THREE.Mesh(geometry, material);
-    	return cube;
-  	}
+	//createGroundCube(color) {
+    //	const geometry = new THREE.BoxGeometry(1.15, 0.07, 1.15);
+    //	const material = new THREE.MeshPhongMaterial({ color });
+    //	const cube = new THREE.Mesh(geometry, material);
+    //	return cube;
+  	//}
 
 	//_setupModel() {
 		
@@ -159,10 +212,8 @@ class App {
 	//    // 색상 적용
 	//    const material = new THREE.MeshPhongMaterial({ color: 0x44a88 });
 	//    // geometry와 material를 통해서 Mesh를 만듦
-	//   const cube = new THREE.Mesh(geometry, material);
-	    
-	//    material.side = THREE.DoubleSide; // 양면을 보이도록 설정
-	    
+	//   const cube = new THREE.Mesh(geometry, material);	    
+	//    material.side = THREE.DoubleSide; // 양면을 보이도록 설정	    
 	//    this._scene.add(cube);
 	//    this._cube = cube;
 
@@ -192,7 +243,7 @@ class App {
 		time *= 0.001; // ms => s 단위로 표기
 		// 회전값에 시간을 지정 -> 값이 계속 바뀜
 		//this.modelGroup.rotation.x = time/4;
-		this.modelGroup.rotation.y = time/4;
+		this.modelGroup.rotation.y = time/5;
 		
 		// 추가된 부분: OrbitControls 업데이트
         //this._controls.update();
@@ -204,7 +255,7 @@ class App {
     //	// 여기에 회전 애니메이션을 설정하는 코드를 추가하세요.
     //	// 예를 들어, this.modelGroup.rotation.x 또는 this.modelGroup.rotation.y를 조정하는 등의 코드를 넣으면 됩니다.
     //	time *= 0.001;
-    //	this.modelGroup.rotation.y = time/4;
+    //	this.modelGroup.rotation.y = time/5;
   	//}
 	
 	onModelClick(path) {
@@ -214,7 +265,7 @@ class App {
     	//var absolutePath = root + '/' + path;
     	
     	// isMainPage 변수에 따라 상대 경로를 결정
-    	var basePath = isMainPage ? '../' : '../../'; // 예시에 따라 조절
+    	const basePath = isMainPage ? '../' : '../../'; // 예시에 따라 조절
     	
     	if(path=="nature/mypage/change"){
     		// 페이지 이동
@@ -231,12 +282,22 @@ class App {
         		// 로그인하지 않은 경우
         		window.location.href = basePath + 'nature/login/main';
     		}
+    	} else {
+        	// 기존 코드에서 path가 "nature/mypage/change"가 아닌 경우에 대한 이동 로직을 그대로 가져옴
+        	window.location.href = basePath + path;
     	}
     	
-    	if(path!="nature/mypage/change"){
-    		// 페이지 이동
-    		window.location.href = basePath + path;
-    	}
+    	//if(path!="nature/mypage/change"){
+    	//	// 페이지 이동
+    	//	window.location.href = basePath + path;
+    	//}
+    	
+    	// 디버깅을 위해 경로와 basePath를 기록
+    	console.log("경로:", path);
+    	console.log("BasePath:", basePath);
+
+    	// 테스트를 위해 클릭한 경로로의 이동을 강제로 수행
+    	// window.location.href = basePath + path;
   	}
 	
 	// Mouse control events
@@ -260,7 +321,9 @@ class App {
 	
 	    if (intersects.length > 0) {
         	// 추가: 클릭한 객체가 있으면 해당 객체의 클릭 이벤트를 발생시킵니다.
-        	intersects[0].object.dispatchEvent({ type: 'click' });
+        	//intersects[0].object.dispatchEvent({ type: 'click' });
+        	const clickedObject = intersects[0].object;
+        	this.onModelClick(clickedObject.userData.path);
     	}
     }
 
