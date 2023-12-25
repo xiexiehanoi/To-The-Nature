@@ -12,8 +12,8 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <style>
-   body * {
-       font-family: 'Jua';
+   body *:not(.search-contain) {
+	
    }
  
    .search-contain {
@@ -21,8 +21,11 @@
        top: 40%;
        left: 50%;
        transform: translate(-50%, -50%);
-       width: 900px; /* Set the width as needed */
+       max-width: 1000px; /* Set the width as needed */
+       width: 72%;
        height: 500px;
+       overflow-y: auto; 
+       
    }
    .usersearch {
         font-size: 24px; /* 수정된 부분: 폰트 크기를 늘림 */
@@ -36,14 +39,15 @@
             z-index: 1; /* Set a higher z-index to keep it above other elements */
         }
 	#btnsearch {
-		width: 48px;
+		width: 56px;
+		
 		background-color:#528171;
 		color:white;
 		border: white;
 	}
         #resultTable {
             max-height: 800px; /* Set the max height for the resultTable */
-            overflow-y: auto; /* Add a scrollbar when the content exceeds the height */
+            /* Add a scrollbar when the content exceeds the height */
        		margin-top: 80px;
         }
     .delete-icon {

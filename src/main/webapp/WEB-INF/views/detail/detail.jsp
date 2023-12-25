@@ -18,7 +18,7 @@
 <style>
 <style>
 .body{
-	background-color: #E4e4e4;
+	background-color: white;
 }
 .camp_container {
     margin: 7%;
@@ -122,7 +122,7 @@ hr{
     display: block;
 }
 
-i{
+.camp_container i{
   font-size: 30px;
   color: #f5dcb7;
 }
@@ -243,6 +243,9 @@ i{
 }
 
 </style>
+
+<c:set var="root" value="<%=request.getContextPath()%>"/>
+
 <%
 String userId = (String) session.getAttribute("userid");
 String loginStatus = (String) session.getAttribute("loginok");
@@ -500,78 +503,10 @@ function updateCountWish() {
 <input type="hidden" name="userId" value="${sessionScope.userid}">
 <div class="camp_container">
 <c:forEach var="dto" items="${campinglist}">
-	<!-- Container for the image gallery -->
-	<!-- <div class="camp_imgslider">
-	
-  		Full-width images with number text
-  		<div class="camp_imgslider_slides">
-		    <div class="numbertext">1 / 6</div>
-      		<img src="img_woods_wide.jpg" style="width:100%">
-  		</div>
-		
-	  	<div class="mySlides">
-	    	<div class="numbertext">2 / 6</div>
-      		<img src="img_5terre_wide.jpg" style="width:100%">
-  		</div>
-		
-	  	<div class="mySlides">
-	    	<div class="numbertext">3 / 6</div>
-      		<img src="img_mountains_wide.jpg" style="width:100%">
-  		</div>
-			
-	  	<div class="mySlides">
-	    	<div class="numbertext">4 / 6</div>
-      		<img src="img_lights_wide.jpg" style="width:100%">
-  		</div>
-		
-	  	<div class="mySlides">
-	    	<div class="numbertext">5 / 6</div>
-      		<img src="img_nature_wide.jpg" style="width:100%">
-  		</div>
-		
-	  	<div class="mySlides">
-		    	<div class="numbertext">6 / 6</div>
-      		<img src="img_snow_wide.jpg" style="width:100%">
-  		</div>
-		
-	  	Next and previous buttons
-	  	<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-	  	<a class="next" onclick="plusSlides(1)">&#10095;</a>
-		
-	  	Image text
-	  	<div class="caption-container">
-	    	<p id="caption"></p>
-  		</div>
-		
-	  	Thumbnail images
-	  	<div class="row">
-	    	<div class="column">
-	      		<img class="demo cursor" src="img_woods.jpg" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
-    		</div>
-    		<div class="column">
-      			<img class="demo cursor" src="img_5terre.jpg" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
-    		</div>
-    		<div class="column">
-	      		<img class="demo cursor" src="img_mountains.jpg" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
-    		</div>
-    		<div class="column">
-	      		<img class="demo cursor" src="img_lights.jpg" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
-    		</div>
-    		<div class="column">
-	      		<img class="demo cursor" src="img_nature.jpg" style="width:100%" onclick="currentSlide(5)" alt="Nature and sunrise">
-    		</div>
-	    	<div class="column">
-	      		<img class="demo cursor" src="img_snow.jpg" style="width:100%" onclick="currentSlide(6)" alt="Snowy Mountains">
-    		</div>
-  		</div>
-	</div> -->
-	
-	
-		
 	<div class="camp_info_box">
 			<!-- 메인 사진 부분 -->
 			<div class="img_b">
-				<img src="${dto.firstImageUrl}" alt="캠핑장 메인 이미지">
+				<img src="${dto.firstImageUrl}" alt="캠핑장 메인 이미지" onerror="this.src='${root}/res/photo/noimage_big.jpg'">
 			</div>
 			<!-- 메인 정보 테이블-->
 			<!-- 테이블 부분 -->
@@ -852,11 +787,27 @@ function updateCountWish() {
 			</div> <!-- close star_boxs -->
 			<br>
 			<div class="reviewList">
+				
+
+			
+			</div>
+		</div>	
+	</div>
 
 			</div> <!-- close reviewList -->
 		</div> <!-- cloase reviewTitle -->	
 	</div> <!-- close reviewbox  -->
 </div>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var today = new Date();
+        var day = String(today.getDate()).padStart(2, '0');
+        var month = String(today.getMonth() + 1).padStart(2, '0'); // 1월은 0부터 시작하므로 1을 더합니다.
+        var year = today.getFullYear();
+        today = year + '-' + month + '-' + day;
+        document.getElementById("startDate").setAttribute("min", today);
+        document.getElementById("endDate").setAttribute("min", today);
+    });
+</script>
 </body>
 </html>

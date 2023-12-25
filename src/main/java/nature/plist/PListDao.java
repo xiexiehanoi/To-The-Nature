@@ -39,7 +39,7 @@ public class PListDao {
 	 * return session.selectList(nameSpace+"selectAllSites", map); }
 	 */
 	
-	public List<PListDto> getListPage(Map<String, Integer> map)
+	public List<PListDto> getListPage(Map<String, Object> map)
 	{
 		return session.selectList(nameSpace+"selectPagingOfPList", map);
 	}
@@ -62,6 +62,13 @@ public class PListDao {
 	public List<Map<String, Object>> getsearchdetail(Map<String, Object> plistParam) 
 	{
 		return session.selectList(nameSpace + "selectSitedetail", plistParam);
+	}
+
+	public int getSerchTotalCount(String word, String select) {
+		Map<String, Object> map=new HashMap<>();
+		map.put("search", select);
+		map.put("word", word);
+		return session.selectOne(nameSpace+"serchTotalCountOfSite",map);
 	}
 	
 }

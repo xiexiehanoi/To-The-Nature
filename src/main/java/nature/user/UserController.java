@@ -75,6 +75,16 @@ public class UserController {
 
 	    return temporaryPassword;
 	}
+	
+	//이메일 인증번호
+	@PostMapping("/login/authenticationNumber")
+	@ResponseBody
+	public String authenticationNumber() {
+		
+		return "";
+	}
+	
+	
 
 	// 임시 비밀번호 생성 메서드
 	private String generateTemporaryPassword() {
@@ -145,6 +155,7 @@ public class UserController {
 	    // 세션을 비우고 아이디 저장 여부를 확인하여 세션에 저장
 	    session.removeAttribute("loginok");
 	    session.removeAttribute("saveid");
+	    session.removeAttribute("userid");
 	    String userId = (String) session.getAttribute("userid");
 
 	    // 클라이언트에게 저장된 쿠키 삭제를 알리기 위해 응답 헤더에 Set-Cookie 설정
@@ -178,11 +189,6 @@ public class UserController {
 
 		// 프로필 사진 파일명을 DB에 업데이트
 	    userDao.updatePhoto(fileName, userid);
-
-	    // 세션과 무관하게 DB에 저장된 프로필 사진 파일명 가져와 세션에 저장
-	    String updatedFileName = userDao.getPhotoFileName(userid);
-	    session.setAttribute("userphoto", updatedFileName);
-
 
 		session.setAttribute("userphoto", fileName);
 

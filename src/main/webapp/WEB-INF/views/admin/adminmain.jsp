@@ -15,6 +15,7 @@
 <style>
    body * {
        font-family: 'Jua';
+       
    }
    
 </style>

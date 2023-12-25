@@ -26,7 +26,10 @@
             margin: 0 auto;
             
         }
-        
+       .navbar {
+            width: 20%; /* Navbar 영역의 너비를 20%로 설정 */
+            /* 다른 스타일을 필요에 따라 추가하세요. */
+        } 
        .reviewtitle {
        	font-size:32px;
        	margin-top:100px;
@@ -68,7 +71,7 @@
     }  
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
-
+	<%@ include file="/WEB-INF/views/main/Navbar.jsp" %>
 </head>
 <script type="text/javascript">
 

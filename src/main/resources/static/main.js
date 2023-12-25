@@ -39,11 +39,11 @@ class App {
 	    const model5 = this.createColoredCube(0x96A8EA); // 연한 파랑
 	
 	    // Set positions for the cubes
-	    model1.position.set(-0.5, 0, 0);
-	    model2.position.set(0.25, 0, 0.5);
-	    model3.position.set(0.25, 0, -0.5);
-	    model4.position.set(0, -0.3, 0);
-	    model5.position.set(0.25, 0, -0.5);
+	    model1.position.set(-0.3, 0, 0);
+	    model2.position.set(0.25, 0, 0.3);
+	    model3.position.set(0.25, 0, -0.3);
+	    model4.position.set(0, -0.21, 0);
+	    model5.position.set(0.25, 0, -0.3);
 		
 		// Add models to the group based on login status
 		if (isLoggedIn) {
@@ -56,7 +56,7 @@ class App {
     		// Set up click event on the models
     		model1.addEventListener('click', () => this.onModelClick("nature/login/main"));
     		model2.addEventListener('click', () => this.onModelClick("nature/plist?userId=null"));
-    		model3.addEventListener('click', () => this.onModelClick("nature/mypage/main"));
+    		model3.addEventListener('click', () => this.onModelClick("nature/mypage/change"));
 		} else {
     		// 로그인하지 않은 경우
     		// 특정 모델만 추가하고 이벤트 리스너를 설정할 수 있습니다.
@@ -68,7 +68,7 @@ class App {
     		// Set up click event on the models
     		model1.addEventListener('click', () => this.onModelClick("nature/login/main"));
     		model2.addEventListener('click', () => this.onModelClick("nature/plist?userId=null"));
-    		model5.addEventListener('click', () => this.onModelClick("nature/mypage/main"));
+    		model5.addEventListener('click', () => this.onModelClick("nature/mypage/change"));
 		}
 		
 	    // Add models to the group
@@ -111,8 +111,10 @@ class App {
 		console.log(width);
 		console.log(height);
 		// 카메라 객체 생성
-		const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 100);
-		camera.position.z = 2;
+		const camera = new THREE.PerspectiveCamera(20, width / height, 0.1, 100);
+		camera.position.set(0, 2, 4); // 카메라 위치 수정
+    	camera.lookAt(0, 0, 0); // 카메라가 바라보는 지점 수정
+		//camera.position.z = 2;
 		this._camera = camera;
 	}
 	
@@ -132,19 +134,19 @@ class App {
 		// 광원 생성
 		const light = new THREE.DirectionalLight(color, intensity);
 		//light.position.set(-1, 2, 4); // 광원 위치
-		light.position.set(0, 0, 1); // 광원 위치
+		light.position.set(0, 2, 2); // 광원 위치
 		this._scene.add(light); // scene 객체의 구성 요소로 추가
 	}
 	
 	createColoredCube(color) {
-    	const geometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+    	const geometry = new THREE.BoxGeometry(0.35, 0.35, 0.35);
     	const material = new THREE.MeshPhongMaterial({ color });
     	const cube = new THREE.Mesh(geometry, material);
     	return cube;
   	}
   	
 	createGroundCube(color) {
-    	const geometry = new THREE.BoxGeometry(2, 0.1, 2);
+    	const geometry = new THREE.BoxGeometry(1.15, 0.07, 1.15);
     	const material = new THREE.MeshPhongMaterial({ color });
     	const cube = new THREE.Mesh(geometry, material);
     	return cube;
@@ -163,26 +165,6 @@ class App {
 	    
 	//    this._scene.add(cube);
 	//    this._cube = cube;
-	    
-		
-	//    // 모델에 마우스 오버 이벤트를 추가합니다.
-	//   //this._cube.addEventListener('mouseover', () => {
-    //    //	// Change cursor to pointer when the mouse is over the cube
-    //    //	this._divContainer.style.cursor = 'pointer';
-    //	//});
-	
-	//    // 모델에서 마우스가 벗어날 때 이벤트를 추가하여 cursor를 초기 상태로 변경합니다.
-	//    //this._cube.addEventListener('mouseout', () => {
-    //    //	// Change cursor to auto when the mouse is not over the cube
-    //    //	this._divContainer.style.cursor = 'auto';
-    //	//});
-    	
-    //	// Add mousemove event listener for the container
-    //	this._divContainer.addEventListener('mousemove', this.onMouseMove.bind(this));
-
-    //	// Set initial cursor style
-    //	this._divContainer.style.cursor = 'auto';
-	//}
 
 
 	// 창 크기 변경시 호출되는 메소드
@@ -234,18 +216,24 @@ class App {
     	// isMainPage 변수에 따라 상대 경로를 결정
     	var basePath = isMainPage ? '../' : '../../'; // 예시에 따라 조절
     	
-    	if(path=="nature/mypage/main"){
+    	if(path=="nature/mypage/change"){
     		// 페이지 이동
     		if (isLoggedIn) {
         		// 로그인한 경우
-        		window.location.href = basePath + path;
+        		if(isAdmin) {
+        			//Nature-admin 계정일때
+        			window.location.href = basePath + 'nature/admin/search';
+        		} else {
+        			//다른 모든 계정일때
+        			window.location.href = basePath + path;
+        		}
     		} else {
         		// 로그인하지 않은 경우
         		window.location.href = basePath + 'nature/login/main';
     		}
     	}
     	
-    	if(path!="nature/mypage/main"){
+    	if(path!="nature/mypage/change"){
     		// 페이지 이동
     		window.location.href = basePath + path;
     	}

@@ -131,19 +131,19 @@
     <li class="navbar-item flexbox-left">
       <c:choose>
     	<c:when test="${sessionScope.userid == null}">
-        	<a href="./plist?userId=null" class="navbar-item-inner flexbox-left">
+        	<a href="/nature/plist?userId=null" class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
           			<i class="bi bi-search" style="font-size: 20px;margin-left: 6px;"></i>
         		</span>
-        		<span class="link-text" style="margin-top: 3px;">켐핑장 찾기</span>
+        		<span class="link-text" style="margin-top: 3px;">캠핑장 찾기</span>
       		</a>
     	</c:when>
         <c:otherwise>
-            <a href="./plist?userId=${sessionScope.userid}" class="navbar-item-inner flexbox-left">
+            <a href="/nature/plist?userId=${sessionScope.userid}" class="navbar-item-inner flexbox-left">
         		<span class="navbar-item-inner-icon-wrapper flexbox">
           			<i class="bi bi-search" style="font-size: 20px;margin-left: 6px;"></i>
         		</span>
-        		<span class="link-text" style="margin-top: 3px;">켐핑장 찾기</span>
+        		<span class="link-text" style="margin-top: 3px;">캠핑장 찾기</span>
       		</a>
         </c:otherwise>
       </c:choose>
@@ -195,7 +195,7 @@
 	      			<li><a href="${root}/mypage/change">회원 정보</a></li>
       				<li><a href="${root}/mypage/reservation">예약 내역</a></li>
       				<li><a href="${root}/mypage/review">리뷰 관리</a></li>
-      				<li><a href="${root}/mypage/delete">회원 탈퇴</a></li>
+      				<li><a href="${root}/mypage/account">회원 탈퇴</a></li>
 				</ul>
 			</c:if>
         </c:otherwise>

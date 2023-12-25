@@ -136,8 +136,13 @@
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
     <script>
+    var emailok=false;
         $(document).ready(function () {
             $("#pwsearchBtn").click(function () {
+            	if(!emailok){
+            		alert("인증번호 받기 버튼을 눌러주세요");
+            		return false;
+            	}
                 var username = $("#login_name").val();
                 var userid = $("#login_id").val();
                 var useremail = $("#login_email").val();
@@ -204,8 +209,40 @@
                     }
                 });
             });
+            $("#email-Authentication").click(function () {
+            	var userid = $("#login_id").val();
+                var useremail = $("#login_email").val();
+            	
+            	// AJAX로 서버에 요청 보내기
+                $.ajax({
+                    url: "<%=request.getContextPath()%>/login/authenticationNumber",
+                    method: "POST",
+                    data: {  userid: userid, useremail: useremail },
+                    success: function (data) {
+                        if (data === "Not Found") {
+                            // 결과가 없을 때 모달창으로 메시지 표시
+                        	$(".pwsearch").after('<div class="error-message" style="color: red;">일치하는 정보가 없습니다. 다시 확인해주세요.</div>');
+                        } else {
+                            // 결과가 있을 때 모달창으로 임시 비밀번호 표시
+                            $("#modal-body").html("임시 비밀번호: " + data);
+                            
+                            $("#modal-footer").html('<a href="<%=request.getContextPath()%>/login/main" class="btnlogin">로그인</a><a href="./change" class="btnchange">비밀번호 변경</a>');
+                            $("#myModal").modal("show");
+                        }
+                       
+                    },
+                    error: function () {
+                    	alert("오류가 발생했습니다.");
+                    }
+                });
+            	
+            	
+				
+			});
 
         });
+        
+       
     </script>
 </head>
 <body>
@@ -219,6 +256,7 @@
         <input type="text" id="login_name" name="username" class="form-control" maxlength="20" placeholder="이름">
         <input type="text" id="login_id" name="userid" class="form-control" maxlength="20" placeholder="아이디">
         <input type="text" id="login_email" name="useremail" class="form-control" maxlength="50" placeholder="이메일">
+        <button type="button" id="email-Authentication" name="email-Authentication"  >인증번호 받기</button>
         <br>
         <button type="button" class="pwsearch" id="pwsearchBtn">비밀번호 찾기</button>
     </form>

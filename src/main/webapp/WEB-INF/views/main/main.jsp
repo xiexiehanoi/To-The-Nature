@@ -71,5 +71,9 @@
     // 로그인 상태를 기반으로 JavaScript 변수 설정
     const isLoggedIn = ${not empty sessionScope.loginok};
 </script>
+<script>
+    // 로그인 userid 가 nature 인지 판별
+    const isAdmin = ${sessionScope.userid eq 'nature'};
+</script>
 </body>
 </html>
