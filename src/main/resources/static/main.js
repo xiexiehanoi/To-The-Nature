@@ -34,7 +34,7 @@ class App {
     	this.modelGroup = new THREE.Group();
     	this._scene.add(this.modelGroup);
     	
-		const modelPath1 = 'models/Camping-bg-final.glb';
+		const modelPath1 = 'models/Camping-cabin-finalf.glb';
 		const modelPath2 = 'models/Camping-cabin.glb';
 		const modelPath3 = 'models/Camping-sign-final.glb';
 		const modelPath4 = 'models/Camping-cabin-ping.glb';
