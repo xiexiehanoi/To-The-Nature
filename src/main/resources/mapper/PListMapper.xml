@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nature.plist.PListDao">
+	<select id="totalCountOfSite" resultType="int">
+		select count(*) from camping_details
+	</select>
+	
+	<select id="selectAllSites" resultType="PListDto" parameterType="Map">
+	    select * from camping_details
+	    <where>
+	        <if test="search == 'facltNm'">
+	            and facltNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'doNm'">
+	            and doNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'sigunguNm'">
+	            and sigunguNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	    </where>
+	    order by camping_num desc
+	</select>
+	
+	<select id="selectPagingOfPList" parameterType="Map" resultType="PListDto">
+		select * from camping_details 
+		<where>
+	        <if test="search == 'facltNm'">
+	            and facltNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'doNm'">
+	            and doNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'sigunguNm'">
+	            and sigunguNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	    </where>
+		order by camping_num desc limit #{start},#{perpage}
+	</select>
+	
+	<insert id="insertSite" parameterType="PListDto">
+		INSERT INTO camping_details (
+        	camping_contentId, facltNm, intro, doNm, sigunguNm, addr1, mapX, mapY,
+        	tel, homepage, operDeCl, toiletCo, swrmCo, wtrplCo, available_room, sbrsCl, animalCmgCl,
+        	firstImageUrl, createdAt, modifiedAt, amount
+    	) VALUES (
+	        #{camping_contentId}, #{facltNm}, #{intro}, #{doNm}, #{sigunguNm}, #{addr1}, #{mapX}, #{mapY},
+        	#{tel}, #{homepage}, #{operDeCl}, #{toiletCo}, #{swrmCo}, #{wtrplCo}, #{available_room}, #{sbrsCl}, #{animalCmgCl},
+        	#{firstImageUrl}, #{createdAt}, #{modifiedAt}, #{amount}
+    	)
+    	<selectKey keyProperty="camping_num" resultType="int" order="AFTER">
+	        SELECT LAST_INSERT_ID()
+	    </selectKey>
+	</insert>
+	
+	<update id="updateSite" parameterType="PListDto">
+		UPDATE camping_details
+    	SET 
+	        camping_contentId = #{camping_contentId},
+        	facltNm = #{facltNm},
+        	intro = #{intro},
+        	doNm = #{doNm},
+        	sigunguNm = #{sigunguNm},
+        	addr1 = #{addr1},
+        	mapX = #{mapX},
+        	mapY = #{mapY},
+        	tel = #{tel},
+        	homepage = #{homepage},
+        	operDeCl = #{operDeCl},
+        	toiletCo = #{toiletCo},
+        	swrmCo = #{swrmCo},
+        	wtrplCo = #{wtrplCo},
+        	available_room = #{available_room},
+        	sbrsCl = #{sbrsCl},
+        	animalCmgCl = #{animalCmgCl},
+        	firstImageUrl = #{firstImageUrl},
+        	createdAt = #{createdAt},
+        	modifiedAt = #{modifiedAt},
+        	amount = #{amount}
+    	WHERE camping_num = #{camping_num}
+	</update>
+	
+	<delete id="deleteSite" parameterType="int">
+		delete from camping_details where camping_num=#{camping_num}
+	</delete>
+	
+	<select id="serchTotalCountOfSite" parameterType="Map" resultType="int">
+		select count(*) from camping_details  
+		<where>
+	        <if test="search == 'facltNm'">
+	            and facltNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'doNm'">
+	            and doNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	        <if test="search == 'sigunguNm'">
+	            and sigunguNm LIKE CONCAT('%', #{word}, '%')
+	        </if>
+	    </where>
+	</select>
+</mapper>

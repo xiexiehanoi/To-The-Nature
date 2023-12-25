@@ -1,6 +1,7 @@
 package nature.reservation;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import nature.user.UserDto;
 
@@ -31,10 +33,17 @@ public class ReservationController {
 		int reservationdays = startDate.until(endDate).getDays();
 		int remainingDays =currentDate.until(startDate).getDays();
 		//남은 방 개수 가져오기
+		
 		int roomCount=reservationService.roomCount(rDto.getCamping_num());
+		
+		
+		
 		//로그인한 유저 정보 가져오기
 		UserDto userDto =reservationService.getUser(userid);
 		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = currentDate.format(formatter);
+		rDto.setReservationDate(formattedDate);
 		model.addAttribute("userDto",userDto);
 		model.addAttribute("rDto",rDto);
 		model.addAttribute("remainingDays",remainingDays);
@@ -47,9 +56,12 @@ public class ReservationController {
 	}
 	
 	@PostMapping("/reservation")
-	public void reservation() {
+	@ResponseBody public void reservation(@ModelAttribute ReservationDto reservationDto) {
+		System.out.println(reservationDto.toString());
+		reservationService.insertReservation(reservationDto);
+		reservationService.ensureAvailability(reservationDto);
+		System.out.println("아니 야발 이거 왜 쳐 안나오는거야");
 		
 	}
-	
 
 }

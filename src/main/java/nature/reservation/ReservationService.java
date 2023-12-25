@@ -1,5 +1,7 @@
 package nature.reservation;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +25,21 @@ public class ReservationService {
 		UserDto userDto= reservationDao.getUser(userid);
 		return userDto;
 	}
+
+	public void insertReservation(ReservationDto reservationDto) {
+
+		reservationDao.insertReservation(reservationDto);
+
+	}
+
+	public void ensureAvailability(ReservationDto reservationDto) {
+		LocalDate startDate = LocalDate.parse(reservationDto.getStartDate());
+		LocalDate endDate = LocalDate.parse(reservationDto.getEndDate());
+		int campingNum = reservationDto.getCamping_num();
+		for (LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+			reservationDao.updateAvailability(date, campingNum, reservationDto.getRoomCount());
+		}
+	}
+
+
 }

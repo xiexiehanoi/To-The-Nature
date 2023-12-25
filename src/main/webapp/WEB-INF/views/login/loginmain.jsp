@@ -44,8 +44,7 @@
         text-decoration: none; /* Remove underline */
         color: #000000; /* Set color to black */
     }
-  
-   
+  	
      .footer button {
         width: 100%;
         background-color: beige; /* Set background color to beige */
@@ -54,6 +53,10 @@
         height: 60px; /* Increase height */
         
     }  
+    
+    .error-message {
+            color: red;
+        }
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
 
@@ -75,17 +78,28 @@
                 let userid = $("#login_myid").val();
                 let userpw = $("#login_pass").val();
 
-                if (userid === "" || userpw === "") {
-                    // userid가 없으면 팝업 창에 버튼과 닫기 버튼 추가
-                    let popupContent = `
-                        <div>
-                            <p>아이디와 비밀번호를 입력해주세요.</p>
-                            <button onclick="window.location.href='${root}/login/form'">회원가입</button>
-                            <button onclick="$('#myModal').modal('hide')">닫기</button>
-                        </div>
-                    `;
-                    $("#popupContent").html(popupContent);
-                    $('#myModal').modal('show');
+             // 유효성 검사
+                let isValid = true;
+
+                if (userid === "") {
+                    $("#userid-error").text("아이디를 입력해주세요.");
+                    $("#login_myid").css("border-color", "red");
+                    isValid = false;
+                } else {
+                    $("#userid-error").text("");
+                    $("#login_myid").css("border-color", "");
+                }
+
+                if (userpw === "") {
+                    $("#userpw-error").text("비밀번호를 입력해주세요.");
+                    $("#login_pass").css("border-color", "red");
+                    isValid = false;
+                } else {
+                    $("#userpw-error").text("");
+                    $("#login_pass").css("border-color", "");
+                }
+
+                if (!isValid) {
                     return;
                 }
 
@@ -99,7 +113,7 @@
                         if (res.success) {
                             window.location.href = "${root}";
                         } else {
-                            alert("아이디나 비밀번호가 맞지 않습니다");
+                            alert("아이디 또는 비밀번호가 일치하지 않습니다.");
                         }
                     }
                 });
@@ -113,25 +127,11 @@
             if (parts.length === 2) return parts.pop().split(";").shift();
         }
     </script>
+
 </head>
-
+<h3></h3>
 <body>
-    <!-- 팝업 창을 위한 모달 코드 추가 -->
-    <div class="modal" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- 모달 헤더 -->
-                <div class="modal-header">
-                    <h4 class="modal-title">알림</h4>
-                </div>
-                <!-- 모달 바디 -->
-                <div class="modal-body" id="popupContent">
-                    <!-- 팝업 창에 표시될 내용 -->
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
     <form class="loginform" action="${root}/process" method="get">
         <div class="header">
             <h3>로그인</h3>
@@ -142,6 +142,7 @@
                 <input type="hidden" name="saveid" id="saveid" value="${sessionScope.saveid}">
                 <c:if test="${sessionScope.saveid==null || sessionScope.saveid=='no' }">
                     <input type="text" id="login_myid" name="userid" class="form-control" placeholder="아이디">
+                	<div id="userid-error" class="error-message"></div>
                 </c:if>
                 <c:if test="${sessionScope.saveid=='yes' }">
                     <input type="text" id="login_myid" name="userid" class="form-control" value="${sessionScope.userid}" >
@@ -150,6 +151,7 @@
             
             <div class="userpw">
                 <input type="password" id="login_pass" name="userpw" class="form-control" placeholder="비밀번호">
+            	<div id="userpw-error" class="error-message"></div>
             </div>
         </div>
         <div class="userenter-container">
