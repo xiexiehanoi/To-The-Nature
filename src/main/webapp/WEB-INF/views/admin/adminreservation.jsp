@@ -163,9 +163,9 @@ function deleteReservation(reservation_id) {
         data: {"reservation_id": reservation_id},
         success: function(res) {
             if (res.success) {
+                $("tr[data-reservation-id=reservation_id]").remove();
+                console
                 alert("예약을 삭제했습니다.");
-                $(`tr[data-reservation-id="${reservation_id}"]`).remove();
-                listAllresevation();
             } else {
                 alert("예약 삭제에 실패했습니다.");
             }

@@ -27,12 +27,11 @@
         // 로그아웃 버튼
         $("#btnlogout").click(function(){
             $.ajax({
-                type: "get",
-                dataType: "text",
+                type: "POST",
                 url: "${root}/login/logout",
                 success: function(res){
                     // 로그아웃 성공시 페이지 새로고침
-                    location.reload();
+                	window.location.reload(true);
                 },
                 error: function(res) {
                     // 실패시 처리
@@ -195,7 +194,6 @@
 	      			<li><a href="${root}/mypage/change">회원 정보</a></li>
       				<li><a href="${root}/mypage/reservation">예약 내역</a></li>
       				<li><a href="${root}/mypage/review">리뷰 관리</a></li>
-      				<li><a href="${root}/mypage/account">회원 탈퇴</a></li>
 				</ul>
 			</c:if>
         </c:otherwise>
