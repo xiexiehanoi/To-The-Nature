@@ -85,9 +85,9 @@ public class UserController {
 	//이메일 인증번호
 	@PostMapping("/login/authenticationNumber")
 	@ResponseBody
-	public Map authenticationNumber(@RequestParam String userid,@RequestParam String useremail) {
+	public Map<String, Object> authenticationNumber(@RequestParam String username,@RequestParam String userid,@RequestParam String useremail) {
 		
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		UserDto userDto=userDao.getData(userid);
 		if(userDto !=null) {
@@ -229,7 +229,7 @@ public class UserController {
 
 		String userid=(String)session.getAttribute("userid");
 
-		String path=request.getSession().getServletContext().getRealPath("/resources/upload");
+		String path=request.getSession().getServletContext().getRealPath("/resources/photo");
 		System.out.println(path);
 
 		String fileName=UUID.randomUUID().toString();
