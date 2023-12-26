@@ -103,12 +103,7 @@
         JOIN camping_details c ON r.camping_num = c.camping_num
     </select>
     <delete id="deleteReservationById" parameterType="int">
-<<<<<<< HEAD
+
    		DELETE FROM reservation WHERE reservation_id = #{reservation_id}
 	</delete>
-=======
-    DELETE FROM reservation WHERE reservation_id = #{reservation_id}
-</delete>
-
->>>>>>> refs/remotes/origin/feature/login
 </mapper>

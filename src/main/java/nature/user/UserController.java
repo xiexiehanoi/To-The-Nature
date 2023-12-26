@@ -229,7 +229,7 @@ public class UserController {
 
 
 	@PostMapping("/login/photochange")
-	@ResponseBody Map<String, String> photoChange(@RequestParam MultipartFile upload,
+	@ResponseBody Map<String, String> photoChange(@RequestParam MultipartFile userphoto,
 			HttpSession session,HttpServletRequest request)
 	{
 
@@ -241,7 +241,7 @@ public class UserController {
 		String fileName=UUID.randomUUID().toString();
 
 		try {
-			upload.transferTo(new File(path+"/"+fileName));
+			userphoto.transferTo(new File(path+"/"+fileName));
 		} catch (IllegalStateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
