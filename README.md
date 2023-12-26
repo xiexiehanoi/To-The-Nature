@@ -1,16 +1,49 @@
 # To-The-Nature
 
 ## 프로젝트 소개
-To-The-Nature 프로젝트는 캠핑장에 관련된 웹 애플리케이션입니다. 사용자가 쉽게 캠핑장을 찾고 예약할 수 있는 기능을 제공합니다.
+'To-The-Nature'는 사용자가 쉽게 캠핑장을 찾고 예약할 수 있는 웹 애플리케이션입니다. 이 프로젝트는 효율적인 캠핑장 검색 기능과 사용자 친화적인 예약 시스템을 제공합니다.
 
 ## 참가 인원
-- 김상우
-- 이준일
-- 이진경
-- 설석현
+<div>
+  <img src="![Team](https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/26d1ba63-08cd-4765-a6e3-0c680f5aad46)">
+</div>
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/xiexiehanoi">
+        <img src="PROFILE_IMAGE_LINK_FOR_김상우" width="100px;" alt=""/>
+        <br />
+        <sub><b>김상우</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/GaleRhee">
+        <img src="PROFILE_IMAGE_LINK_FOR_이준일" width="100px;" alt=""/>
+        <br />
+        <sub><b>이준일</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/w0wjk13">
+        <img src="PROFILE_IMAGE_LINK_FOR_이진경" width="100px;" alt=""/>
+        <br />
+        <sub><b>이진경</b></sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/tjftjrgus777">
+        <img src="PROFILE_IMAGE_LINK_FOR_설석현" width="100px;" alt=""/>
+        <br />
+        <sub><b>설석현</b></sub>
+      </a>
+    </td>
+  </tr>
+</table>
 
 ## 프로젝트 기간
-2023.11.27~2023.12.26
+`2023.11.27` ~ `2023.12.26`
+
 
 ## 사용 기술
 
