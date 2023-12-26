@@ -213,6 +213,7 @@ function list()
 			<h2 style="margin-bottom: 50px;">회원정보 수정</h2>
 			<br> <br>
 			<c:if test="${not empty userInfo}">
+<<<<<<< HEAD
 				<div class="photoinfo">
 					<div class="photoinsert">
 						<img id="profileImage"
@@ -262,6 +263,35 @@ function list()
 		</form>
 	</div>
 	<script type="text/javascript">
+=======
+			<div class="photoinfo">
+			<div class="photoinsert">
+			<img id="profileImage" src="${root}/res/photo/${sessionScope.userphoto}" onerror="this.src='${root}/res/photo/noimage.png'" class="profile_photo">
+	     <input type="file" id="profile_upload" name="userphoto" style="display: none;">	</div>
+				<div class="infogroup">	
+				<input type="text" name="userid" id="userid" class="form-control readonly" value="${sessionScope.userid}" readonly >
+							
+    			<input type="text" name="userbirth" class="form-control readonly" minlength="8" maxlength="8" value="${userInfo.userbirth}" readonly>
+    			<input type="text" class="form-control" required="required"
+					autofocus="autofocus" name="username" minlength="2" maxlength="20" value="${userInfo.username}" placeholder="이름">
+				</div></div>
+				<br><input type="password" name="userpw" id="pass1" class="form-control" minlength="4" maxlength="20" required="required" placeholder="비밀번호">
+				
+					<input type="password"  id="pass2" class="form-control" minlength="4" maxlength="20" required="required" placeholder="비밀번호재입력">
+					<br>
+    	<div class="genderButtons">
+        <button type="button" class="btn btn-secondary genderButton ${usergender eq 'male' ? 'active' : ''}" data-gender="male" id="saveMale" readonly>남성</button>
+        <button type="button" class="btn btn-secondary genderButton ${usergender eq 'female' ? 'active' : ''}" data-gender="female" id="saveFemale" readonly>여성</button>
+    	</div>
+    	<input type="text" name="userphone" class="form-control" required="required" minlength="11" maxlength="11" value="${userInfo.userphone}" placeholder="연락처">
+    	<input type="email" name="useremail" class="form-control" required="required" minlength="10" maxlength="50" value="${userInfo.useremail}" multiple placeholder="이메일">
+    	<br><br>
+	</c:if>
+					
+					<button type="submit" class="btn btn-secondary" id="memberchange" >회원수정</button>
+			</form></div>
+<script type="text/javascript">
+>>>>>>> refs/remotes/origin/feature/login
 $(function(){
 	$("#profile_upload").change(function(){
 		  //정규표현식

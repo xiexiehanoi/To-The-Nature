@@ -1,6 +1,7 @@
 package nature.user;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -206,14 +207,24 @@ public class UserController {
 
 	    return "Success";
 	}
-	@PostMapping("/login/logout")
+	@GetMapping("/login/logout")
 	@ResponseBody
-	public void logout(HttpSession session) {
+	public void logout(HttpSession session, HttpServletResponse response) {
 	    // 세션을 비우고 아이디 저장 여부를 확인하여 세션에 저장
 	    session.removeAttribute("loginok");
 	    session.removeAttribute("saveid");
-	    session.removeAttribute("userid");
+	    String userId = (String) session.getAttribute("userid");
 
+	    // 클라이언트에게 저장된 쿠키 삭제를 알리기 위해 응답 헤더에 Set-Cookie 설정
+	    Cookie cookie = new Cookie("savedUserId", userId);
+	    cookie.setMaxAge(60 * 60 * 24 * 30); // 쿠키 만료 시간을 30일로 설정
+	    response.addCookie(cookie);
+	    
+	    // Cache-Control 헤더 설정
+	    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+	    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+	    response.setHeader("Expires", "0"); // Proxies
+	    
 	}
 
 

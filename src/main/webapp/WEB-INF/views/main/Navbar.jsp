@@ -24,14 +24,22 @@
 
 <script type="text/javascript">
     $(function(){
-        // 로그아웃 버튼
+    	 // 로그아웃 버튼
+        $("#btnlogout").click(function(){
+            var logoutUrl = "${root}/login/logout";
+            
+            // 추가된 조건: 현재 페이지가 관리자 페이지인 경우 로그인 페이지로 이동
+            if (isAdministratorPage()) {
+                logoutUrl = "${root}/login/main";
+            }
         $("#btnlogout").click(function(){
             $.ajax({
-                type: "POST",
-                url: "${root}/login/logout",
+                type: "get",
+                dataType: "text",
+                url: logoutUrl,
                 success: function(res){
                     // 로그아웃 성공시 페이지 새로고침
-                	window.location.reload(true);
+                    location.reload();
                 },
                 error: function(res) {
                     // 실패시 처리
@@ -41,7 +49,12 @@
         });
 
     });
-     
+        function isAdministratorPage() {
+            var currentPage = window.location.href;
+            return currentPage.indexOf("${root}/admin/search") !== -1 ||
+                   currentPage.indexOf("${root}/admin/reservation") !== -1 ||
+                   currentPage.indexOf("${root}/admin/manage") !== -1;
+        }
     $(document).ready(function () {
         var isNavbarHovered = false;
 

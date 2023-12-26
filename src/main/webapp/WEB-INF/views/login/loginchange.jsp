@@ -115,12 +115,12 @@
                    	 usernewpw: usernewpw,
                      userpwchangeConfirm: userpwchangeConfirm},
                 success: function (data) {
-                    if (data === "IncorrectPassword") {
+                    if (data === "UserNotFound") {
+                        // 등록된 userid와 userpw가 일치하지 않을 때 모달창으로 메시지 표시
+                        $("#modal-body").text("등록된 아이디가 아닙니다.");
+                    } else if (data === "IncorrectPassword") {
                         // 현재 비밀번호가 일치하지 않을 때 모달창으로 메시지 표시
                         $("#modal-body").text("현재 비밀번호가 일치하지 않습니다.");
-                    } else if (data === "PasswordMismatch") {
-                        // 등록된 userid와 userpw가 일치하지 않을 때 모달창으로 메시지 표시
-                        $("#modal-body").text("등록된 정보가 일치하지 않습니다.");
                     } else if (data === "Success") {
                         // 성공 시 모달창으로 메시지 표시
                         $("#modal-body").text("비밀번호가 변경됐습니다.");

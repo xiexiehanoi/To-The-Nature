@@ -82,6 +82,10 @@
 </style>
 </head>
 <script type="text/javascript">
+<<<<<<< HEAD
+=======
+var reservation_id = '${reservation_id}';
+>>>>>>> refs/remotes/origin/feature/login
 
 $(document).ready(function() {
     listAllresevation();
@@ -184,6 +188,7 @@ function deleteReservation(reservation_id) {
 <div class="reservation-subject">예약관리</div><br>
 총 예약내역 ${allReservations.size()}개</div>
 
+<<<<<<< HEAD
  <div class="input-group reservationsearch">	  
 				<select id="field" class="form-select">
 					<option value="facltNm">업체명</option>
@@ -194,6 +199,8 @@ function deleteReservation(reservation_id) {
 				<button type="button" class="btn-sm" id="btnsearch"
 				style="margin-left:10px;">검색</button><br><br></div>
 
+=======
+>>>>>>> refs/remotes/origin/feature/login
 <br>
  
       <table class="reservation-table">
