@@ -37,11 +37,11 @@ class App {
 		const modelPath1 = 'models/Camping-cabin-finalf.glb';
 		const modelPath2 = 'models/Camping-cabin.glb';
 		const modelPath3 = 'models/Camping-sign-final.glb';
-		const modelPath4 = 'models/Camping-cabin-ping.glb';
-		const modelPath5 = 'models/Camping-sign-ping.glb';
+		//const modelPath4 = 'models/Camping-cabin-ping.glb';
+		//const modelPath5 = 'models/Camping-sign-ping.glb';
 		
 		// 모델 로드 부분도 변경합니다.
-    	let model1, model2, model3, model4, model5;
+    	let model1, model2, model3;
 
 		loader.load(modelPath1, (gltf) => {
     		model1 = gltf.scene;
@@ -61,17 +61,17 @@ class App {
     		checkModelsLoaded.call(this);
 		});
 		
-		loader.load(modelPath4, (gltf) => {
-    		model4 = gltf.scene;
-    		model4.position.set(0, 0.37, 0);
-    		checkModelsLoaded.call(this);
-		});
+		//loader.load(modelPath4, (gltf) => {
+    	//	model4 = gltf.scene;
+    	//	model4.position.set(0, -0.2, 0);
+    	//	checkModelsLoaded.call(this);
+		//});
 		
-		loader.load(modelPath5, (gltf) => {
-    		model5 = gltf.scene;
-    		model5.position.set(-0.1, 0.25, -0.2);
-    		checkModelsLoaded.call(this);
-		});
+		//loader.load(modelPath5, (gltf) => {
+    	//	model5 = gltf.scene;
+    	//	model5.position.set(-0.1, -0.15, -0.2);
+    	//	checkModelsLoaded.call(this);
+		//});
     	
 		
 	    // Add models to the group
@@ -91,36 +91,36 @@ class App {
 		
 		function checkModelsLoaded() {
     		// 모든 모델이 로드되었는지 확인
-    		if (model1 && model2 && model3 && model4 && model5) {
+    		if (model1 && model2 && model3) {
     			// 각 모델에 스케일 적용
-        		model1.scale.set(0.16, 0.16, 0.16);
-        		model2.scale.set(0.18, 0.18, 0.18);
-        		model3.scale.set(0.2, 0.2, 0.2);
-        		model4.scale.set(0.2, 0.2, 0.2);
-        		model5.scale.set(0.2, 0.2, 0.2);
+        		model1.scale.set(0.14, 0.14, 0.14);
+        		model2.scale.set(0.16, 0.16, 0.16);
+        		model3.scale.set(0.18, 0.18, 0.18);
+        		//model4.scale.set(0.18, 0.18, 0.18);
+        		//model5.scale.set(0.18, 0.18, 0.18);
     		
         		// 로그인 상태에 따라 모델 추가
         		if (isLoggedIn) {
             		this.modelGroup.add(model1);
             		this.modelGroup.add(model2);
             		this.modelGroup.add(model3);
-            		this.modelGroup.add(model4);
-            		this.modelGroup.add(model5);
+            		//this.modelGroup.add(model4);
+            		//this.modelGroup.add(model5);
         		} else {
             		this.modelGroup.add(model1);
             		this.modelGroup.add(model2);
             		this.modelGroup.add(model3);
-            		this.modelGroup.add(model4);
-            		this.modelGroup.add(model5);
+            		//this.modelGroup.add(model4);
+            		//this.modelGroup.add(model5);
         		}
 
         		// 모델 클릭 이벤트 설정
-        		//model1.addEventListener('click', () => this.onModelClick("nature/login/main"));
-        		model2.userData = { path: "nature/plist?userId=null" };
-                model2.addEventListener('click', () => this.onModelClick("nature/plist?userId=null"));
+        		//model1.addEventListener('click', () => this.onModelClick("./login/main"));
+        		//model2.userData = { path: "./plist?userId=null" };
+                //model2.addEventListener('click', () => this.onModelClick("./plist?userId=null"));
 
-                model3.userData = { path: "nature/mypage/change" };
-                model3.addEventListener('click', () => this.onModelClick("nature/mypage/change"));
+                //model3.userData = { path: "./mypage/change" };
+                //model3.addEventListener('click', () => this.onModelClick("./mypage/change"));
     		}
 		}
 		
@@ -258,47 +258,47 @@ class App {
     //	this.modelGroup.rotation.y = time/5;
   	//}
 	
-	onModelClick(path) {
-    	// Handle the click event for individual models and navigate to the specified path
-    	console.log("Clicked on model. Path:",path);
-    	// 절대 경로 생성
-    	//var absolutePath = root + '/' + path;
-    	
-    	// isMainPage 변수에 따라 상대 경로를 결정
-    	const basePath = isMainPage ? '../' : '../../'; // 예시에 따라 조절
-    	
-    	if(path=="nature/mypage/change"){
-    		// 페이지 이동
-    		if (isLoggedIn) {
-        		// 로그인한 경우
-        		if(isAdmin) {
-        			//Nature-admin 계정일때
-        			window.location.href = basePath + 'nature/admin/search';
-        		} else {
-        			//다른 모든 계정일때
-        			window.location.href = basePath + path;
-        		}
-    		} else {
-        		// 로그인하지 않은 경우
-        		window.location.href = basePath + 'nature/login/main';
-    		}
-    	} else {
-        	// 기존 코드에서 path가 "nature/mypage/change"가 아닌 경우에 대한 이동 로직을 그대로 가져옴
-        	window.location.href = basePath + path;
-    	}
-    	
-    	//if(path!="nature/mypage/change"){
-    	//	// 페이지 이동
-    	//	window.location.href = basePath + path;
-    	//}
-    	
-    	// 디버깅을 위해 경로와 basePath를 기록
-    	console.log("경로:", path);
-    	console.log("BasePath:", basePath);
+	//onModelClick(path) {
+    //	// Handle the click event for individual models and navigate to the specified path
+    //	console.log("Clicked on model. Path:",path);
+    //	// 절대 경로 생성
+    //	//var absolutePath = root + '/' + path;
+    //	
+    //	// isMainPage 변수에 따라 상대 경로를 결정
+    //	const basePath = isMainPage ? '../' : '../../'; // 예시에 따라 조절
+    //	
+    //	if(path=="nature/mypage/change"){
+    //		// 페이지 이동
+    //		if (isLoggedIn) {
+    //   		// 로그인한 경우
+    //   		if(isAdmin) {
+    //    			//Nature-admin 계정일때
+    //    			window.location.href = basePath + 'nature/admin/search';
+    //    		} else {
+    //    			//다른 모든 계정일때
+    //    			window.location.href = basePath + path;
+    //    		}
+    //		} else {
+    //    		// 로그인하지 않은 경우
+    //   		window.location.href = basePath + 'nature/login/main';
+    //		}
+    //	} else {
+    //   	// 기존 코드에서 path가 "nature/mypage/change"가 아닌 경우에 대한 이동 로직을 그대로 가져옴
+    //    	window.location.href = basePath + path;
+    //	}
+    //	
+    //	//if(path!="nature/mypage/change"){
+    //	//	// 페이지 이동
+    //	//	window.location.href = basePath + path;
+    //	//}
+    //	
+    //	// 디버깅을 위해 경로와 basePath를 기록
+    //	console.log("경로:", path);
+    //	console.log("BasePath:", basePath);
 
-    	// 테스트를 위해 클릭한 경로로의 이동을 강제로 수행
-    	// window.location.href = basePath + path;
-  	}
+    //	// 테스트를 위해 클릭한 경로로의 이동을 강제로 수행
+    //	// window.location.href = basePath + path;
+  	//}
 	
 	// Mouse control events
     onMouseDown(event) {
