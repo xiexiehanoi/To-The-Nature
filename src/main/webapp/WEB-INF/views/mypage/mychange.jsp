@@ -170,7 +170,7 @@ function list()
 			<c:if test="${not empty userInfo}">
 			<div class="photoinfo">
 			<div class="photoinsert">
-			<img id="profileImage" src="${root}/res/upload/${sessionScope.userphoto}" onerror="this.src='${root}/res/photo/noimage.png'" class="profile_photo">
+			<img id="profileImage" src="${root}/res/photo/${sessionScope.userphoto}" onerror="this.src='${root}/res/photo/noimage.png'" class="profile_photo">
 	     <input type="file" id="profile_upload" name="userphoto" style="display: none;">	</div>
 				<div class="infogroup">	
 				<input type="text" name="userid" id="userid" class="form-control readonly" value="${sessionScope.userid}" readonly >

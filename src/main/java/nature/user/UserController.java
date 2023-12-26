@@ -1,6 +1,7 @@
 package nature.user;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -149,6 +150,12 @@ public class UserController {
 	    Cookie cookie = new Cookie("savedUserId", userId);
 	    cookie.setMaxAge(60 * 60 * 24 * 30); // 쿠키 만료 시간을 30일로 설정
 	    response.addCookie(cookie);
+	    
+	    // Cache-Control 헤더 설정
+	    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+	    response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+	    response.setHeader("Expires", "0"); // Proxies
+	    
 	}
 
 
@@ -159,7 +166,7 @@ public class UserController {
 
 		String userid=(String)session.getAttribute("userid");
 
-		String path=request.getSession().getServletContext().getRealPath("/resources/upload");
+		String path=request.getSession().getServletContext().getRealPath("/resources/photo");
 		System.out.println(path);
 
 		String fileName=UUID.randomUUID().toString();
