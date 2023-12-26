@@ -27,12 +27,11 @@
         // 로그아웃 버튼
         $("#btnlogout").click(function(){
             $.ajax({
-                type: "get",
-                dataType: "text",
+                type: "POST",
                 url: "${root}/login/logout",
                 success: function(res){
                     // 로그아웃 성공시 페이지 새로고침
-                    location.reload();
+                	window.location.reload(true);
                 },
                 error: function(res) {
                     // 실패시 처리

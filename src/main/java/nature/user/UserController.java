@@ -206,14 +206,13 @@ public class UserController {
 
 	    return "Success";
 	}
-	@GetMapping("/login/logout")
+	@PostMapping("/login/logout")
 	@ResponseBody
 	public void logout(HttpSession session) {
 	    // 세션을 비우고 아이디 저장 여부를 확인하여 세션에 저장
 	    session.removeAttribute("loginok");
 	    session.removeAttribute("saveid");
 	    session.removeAttribute("userid");
-	    String userId = (String) session.getAttribute("userid");
 
 	}
 
