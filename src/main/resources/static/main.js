@@ -63,13 +63,13 @@ class App {
 		
 		loader.load(modelPath4, (gltf) => {
     		model4 = gltf.scene;
-    		model4.position.set(0, 2, 0);
+    		model4.position.set(0, 0.37, 0);
     		checkModelsLoaded.call(this);
 		});
 		
 		loader.load(modelPath5, (gltf) => {
     		model5 = gltf.scene;
-    		model5.position.set(-0.1, 1, -0.2);
+    		model5.position.set(-0.1, 0.25, -0.2);
     		checkModelsLoaded.call(this);
 		});
     	
