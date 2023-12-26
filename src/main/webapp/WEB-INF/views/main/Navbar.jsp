@@ -211,7 +211,7 @@
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left">
+     	<a href="/nature/team" class="navbar-item-inner flexbox-left">
         <span class="navbar-item-inner-icon-wrapper flexbox">
           <i class="bi bi-people" style="font-size: 22px;margin-left: 6px;"></i>
         </span>

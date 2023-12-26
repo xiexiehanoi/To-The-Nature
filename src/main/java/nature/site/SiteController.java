@@ -51,4 +51,10 @@ public class SiteController {
 	{
 		return "FAQ/FAQ.site";
 	}
+	
+	@GetMapping("/team")
+	public String Team()
+	{
+		return "team/team.site";
+	}
 }
