@@ -179,7 +179,7 @@
                     $("#login_name + .error-message").remove();
                 }
 
-                if (userid.length < 5) {
+                if (userid.length < 4) {
                     // 테두리를 빨간색으로 변경
                     $("#login_id").addClass("error-border");
                     // 입력란 아래에 에러 메시지 추가

@@ -195,7 +195,6 @@
 	      			<li><a href="${root}/mypage/change">회원 정보</a></li>
       				<li><a href="${root}/mypage/reservation">예약 내역</a></li>
       				<li><a href="${root}/mypage/review">리뷰 관리</a></li>
-      				<li><a href="${root}/mypage/account">회원 탈퇴</a></li>
 				</ul>
 			</c:if>
         </c:otherwise>
