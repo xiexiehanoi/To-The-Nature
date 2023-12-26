@@ -21,7 +21,7 @@
     padding: 10px;
     z-index: 900;
     max-width: 450px; /* 고정 너비 */
-    margin-left: 890px;
+    margin-left: 1100px;
     height: 60px;
 }
 
@@ -65,7 +65,7 @@
 	padding: 10px;
 	z-index: 1000;
 	max-width: 450px; /* 고정 너비 */
-	margin-left: 890px;
+	margin-left: 1100px;
 }
 /* 약관 동의 섹션 스타일 개선 */
 .terms-agree {
