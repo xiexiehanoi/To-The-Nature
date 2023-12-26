@@ -82,10 +82,6 @@
 </style>
 </head>
 <script type="text/javascript">
-<<<<<<< HEAD
-=======
-var reservation_id = '${reservation_id}';
->>>>>>> refs/remotes/origin/feature/login
 
 $(document).ready(function() {
     listAllresevation();
