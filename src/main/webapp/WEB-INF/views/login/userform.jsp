@@ -156,8 +156,8 @@ function check(){
 					
     				<input type="text" name="userbirth" class="form-control" required="required" minlength="8" maxlength="8" placeholder="생년월일 8자리"><br>
    					<div class="genderButtons">
-					<button type="button" class="btn btn-secondary genderButton" data-gender="male" id="saveMale">남성</button>
-					<button type="button" class="btn btn-secondary genderButton" data-gender="female" id="saveFemale">여성</button>
+					<button type="button" class="btn btn-secondary genderButton" data-gender="남성" id="saveMale">남성</button>
+					<button type="button" class="btn btn-secondary genderButton" data-gender="여성" id="saveFemale">여성</button>
 					</div>
 					<input type="text" name="userphone" class="form-control" required="required" minlength="11" maxlength="11" placeholder="휴대전화번호">
 					
