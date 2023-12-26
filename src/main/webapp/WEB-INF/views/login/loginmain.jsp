@@ -47,11 +47,13 @@
   	
      .footer button {
         width: 100%;
-        background-color: beige; /* Set background color to beige */
-        color: #000000; /* Set text color to black */
+        background-color: #528171; /* Set background color to beige */
+        color: #ffffff; /* Set text color to black */
         border: 1px solid white; /* Set border to white */
         height: 60px; /* Increase height */
-        
+        border-radius: 8px;
+        font-weight: 400;
+        font-size: 18px;
     }  
     
     .error-message {
