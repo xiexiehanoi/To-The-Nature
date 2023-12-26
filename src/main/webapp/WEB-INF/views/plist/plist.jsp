@@ -245,6 +245,7 @@
 		text-decoration: none;
 		font-size: 20px;
 		font-weight: 900;
+		color: #a2a2a2;
 	}
 	
 	.plist-pagination a:hover{
