@@ -28,6 +28,8 @@ class App {
 		this._setupLight();
 		//this._setupModel();
 		
+		
+		
 		//this._setupControls(); // _setupControls 메소드 호출
 		
 		// Create a group to hold multiple models
@@ -165,7 +167,7 @@ class App {
 		console.log(height);
 		// 카메라 객체 생성
 		const camera = new THREE.PerspectiveCamera(22, width / height, 0.1, 100);
-		camera.position.set(0, 2, 2.7); // 카메라 위치 수정
+		camera.position.set(0, 0.7, 2.5); // 카메라 위치 수정
     	camera.lookAt(0, 0, 0); // 카메라가 바라보는 지점 수정
 		//camera.position.z = 2;
 		this._camera = camera;
@@ -183,11 +185,11 @@ class App {
 	// 광원 생성
 	_setupLight() {
 		const color = 0xffffff; // 광원 색상
-		const intensity = 1; // 광원 세기
+		const intensity = 1.8; // 광원 세기
 		// 광원 생성
 		const light = new THREE.DirectionalLight(color, intensity);
 		//light.position.set(-1, 2, 4); // 광원 위치
-		light.position.set(0, 2, 2); // 광원 위치
+		light.position.set(-4, 8, 6); // 광원 위치
 		this._scene.add(light); // scene 객체의 구성 요소로 추가
 	}
 	
