@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,11 +31,6 @@ public class MypageController {
 	@Autowired
 	private MypageService mypageService;
 	
-	@GetMapping("/mypage/main")
-	public String mypage() {
-		
-		return "mypage/mypagemain";
-	}
 	
 	@GetMapping("/mypage/reservation")
 	public String myreservation(HttpSession session, Model model) {
@@ -87,7 +80,7 @@ public class MypageController {
             model.addAttribute("userInfo", userInfo);
         }
 
-	    return "mypage/mychange";
+	    return "mypage/mychange.mypage";
 	}
 	
 	@PostMapping("/mypage/info")
@@ -126,12 +119,6 @@ public class MypageController {
 	}
 	
 	
-	@GetMapping("/admin/main")
-	public String adminmain() {
-		
-		return "admin/adminmain";
-	}
-	
 	@GetMapping("/admin/search")
     public String adminsearch(
             @RequestParam(required = false) String field,
@@ -142,7 +129,7 @@ public class MypageController {
         // 모델에 검색 결과 추가
         model.addAttribute("searchResult", searchResult);
 
-        return "admin/adminsearch";
+        return "admin/adminsearch.mypage";
     }
 	@GetMapping("/admin/result")
 	@ResponseBody
@@ -178,45 +165,24 @@ public class MypageController {
 	    List<Map<String, Object>> reviews = mypageDao.searchReviews(searchword, word);
 	    return reviews;
 	}
-	@GetMapping("admin/reservation")
+	@GetMapping("/admin/reservation")
 	public String listAllReservations(Model model) {
 	    List<Map<String, Object>> allReservations = mypageDao.getAllReservations();
 	    model.addAttribute("allReservations", allReservations);
-	    return "admin/adminreservation";
+	    return "admin/adminreservation.mypage";
 	}
-	@PostMapping("/admin/reservationfind")
-	@ResponseBody
-	public List<Map<String, Object>> reservationSearch(
-	    @RequestParam(required = false) String searchword,
-	    @RequestParam(required = false) String word
-	    ) {
-	    List<Map<String, Object>> reservation = mypageDao.searchReservation(searchword, word);
-//	    System.out.println(reservation);
-	    return reservation;
-	}
-	@PostMapping("/admin/deleteReservation")
-	@ResponseBody
-	public Map<String, Object> deleteReservation(@RequestParam int reservation_id) {
-	    Map<String, Object> result = new HashMap<>();
-	    try {
-	        mypageDao.deleteReservationById(reservation_id);
-	        result.put("success", true);
-	    } catch (Exception e) {
-	        result.put("success", false);
-	    }
-	    return result;
-	}
+	
 	@GetMapping("/admin/manage")
 	public String adminmanage(Model model) {
 		List<Map<String, Object>> allReviews = mypageDao.getAllReviews();
 		model.addAttribute("allReviews", allReviews);
-		return "admin/adminmanage";
+		return "admin/adminmanage.mypage";
 	}
 	@PostMapping("/admin/delete")
     @ResponseBody
     public Map<String, Object> deleteReview(@RequestParam int review_num) {
         Map<String, Object> result = new HashMap<>();
-//        System.out.println("1: "+result);
+       
         try {
             // 리뷰 삭제를 위한 DAO 메소드 직접 호출
             mypageDao.deleteReviewById(review_num);
@@ -230,5 +196,24 @@ public class MypageController {
 
         return result;
     }
+	@PostMapping("/admin/deleteReservation")
+	@ResponseBody
+	public Map<String, Object> deleteReservation(@RequestParam int reservation_id) {
+	    Map<String, Object> result = new HashMap<>();
+
+	    try {
+	        // Delete reservation using DAO method
+	        mypageDao.deleteReservationById(reservation_id);
+	        result.put("success", true);
+	    } catch (Exception e) {
+	        // Handle deletion failure
+	        result.put("success", false);
+	        result.put("message", "예약 삭제 중 오류가 발생했습니다.");
+	        e.printStackTrace();
+	    }
+
+	    return result;
+	}
+	
 	
 }

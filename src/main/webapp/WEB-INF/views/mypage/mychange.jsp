@@ -213,6 +213,7 @@ function list()
 			<h2 style="margin-bottom: 50px;">회원정보 수정</h2>
 			<br> <br>
 			<c:if test="${not empty userInfo}">
+
 				<div class="photoinfo">
 					<div class="photoinsert">
 						<img id="profileImage"
@@ -262,6 +263,7 @@ function list()
 		</form>
 	</div>
 	<script type="text/javascript">
+
 $(function(){
 	$("#profile_upload").change(function(){
 		  //정규표현식

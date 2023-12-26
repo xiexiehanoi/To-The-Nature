@@ -584,7 +584,7 @@ function updateCountWish() {
 					<!-- 예약하기 버튼 -->
 					<span>
 				      <!--  <button type="button" id="reservationbutton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button> -->
-				       <button type="button" id="reservationbutton" class="btn btn-primary">예약하기</button>
+				       <button type="button" id="reservationbutton" class="btn btn-primary" style="background-color:#528171">예약하기</button>
 					</span>
 				</div>
 			</div>
@@ -670,8 +670,7 @@ function updateCountWish() {
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="reservationModalLabel">Reservation
-								Details</h5>
+							<h5 class="modal-title" id="reservationModalLabel">날짜 선택</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
 								aria-label="Close"></button>
 						</div>
@@ -712,7 +711,7 @@ function updateCountWish() {
 			                    	<input type="hidden" id="campingAmount" value="${dto.amount}">
 			                    </div>
 								<button type="button" class="btn btn-primary"
-									onclick="submitReservation()">Confirm Reservation</button>
+									onclick="submitReservation()" style="background-color:#528171">예약 페이지 이동</button>
 							</form>
 						</div>
 					</div>
