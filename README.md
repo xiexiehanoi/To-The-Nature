@@ -21,7 +21,6 @@ To-The-Nature 프로젝트는 캠핑장에 관련된 웹 애플리케이션입�
 ## 사용 Stack
 
 ### 백엔드
-### 백엔드
 | ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white) | ![JSP](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white) | ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white) | ![MyBatis](https://img.shields.io/badge/MyBatis-FF0000?style=for-the-badge&logo=mybatis&logoColor=white) |
 | ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | Spring                                                                                                | JSP                                                                                          | MySQL                                                                                              | MyBatis                                                                                             |
