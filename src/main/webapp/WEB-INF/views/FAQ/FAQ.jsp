@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>자주묻는질문</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -158,9 +158,21 @@ $(document).ready(function() {
             <div class="accordion-content">
                 <p>A. 
                 <br>
-                예약 취소 후 간편결제 사업자, 은행 또는 신용카드사에 따라 환불 절차에 일정 시간이 소요될 수 있습니다.
-                <br>
-                영업일 기준(토/일/공휴일 제외) 실시간 계좌이체는 2~3일, 신용카드는 3~5일 소요됩니다.
+                취소수수료는 숙소별로 상이합니다.
+				<br>
+				취소수수료는 예약 시점과는 무관하게 입실일로부터 
+				<br>
+				남은 날짜 기준으로 부과되며, 
+				<br>
+				결제하신 금액에서 취소수수료를 차감한 금액이 환불됩니다.
+				<br>
+				환불 예정 금액은 조회 시점 또는 실제 환불 진행 시점에 따라 
+				<br>
+				달라질 수 있으므로,
+				<br>
+				예약/결제 진행 당시 안내된 취소/환불 규정을 
+				<br>
+				<b>반드시</b> 숙지해주시길 바랍니다.
                 </p>
             </div>
         </div>

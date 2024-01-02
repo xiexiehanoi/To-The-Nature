@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메인list</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -245,6 +245,7 @@
 		text-decoration: none;
 		font-size: 20px;
 		font-weight: 900;
+		color: #a2a2a2;
 	}
 	
 	.plist-pagination a:hover{
@@ -480,7 +481,7 @@ String userId = (String) session.getAttribute("userid");
 		<div style="text-align: center;" class="plist-pagination">
 			<!-- 이전 -->
 			<c:if test="${startPage>1}">
-				<a href="#" onclick="setPaginationLink(${startPage-1})">이전</a>
+				<a href="#" onclick="setPaginationLink(${startPage-1},event)">이전</a>
 				<!-- <a href="./plist?currentPage=${startPage-1}">이전</a> -->
 			</c:if>
 			&nbsp;
@@ -500,7 +501,7 @@ String userId = (String) session.getAttribute("userid");
 			</c:forEach>
 			<!-- 다음 -->
 			<c:if test="${endPage<totalPage}">
-				<a href="#" onclick="setPaginationLink(${endPage+1})">다음</a>
+				<a href="#" onclick="setPaginationLink(${endPage+1},event)">다음</a>
 				<!--<a href="./plist?currentPage=${endPage+1}">다음</a>-->
 			</c:if>
 		</div>

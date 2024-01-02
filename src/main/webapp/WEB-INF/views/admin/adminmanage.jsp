@@ -12,60 +12,63 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
 <style>
-  body * {
-      font-family: 'Jua';
-  }
- .myreview-all {
-		width:72%;
-           padding: 10px;
-           margin: 0 auto;
-       }
-     .review-all {
-      	margin-top:48px;
-      	margin-left:200px;
-      }
-      .reviewsubject {
-      font-size:32px;
-      }
-      .reviewsearch {
-    	width:300px;
-margin-left: auto;
-margin-right: 200px;
-display: flex;
-justify-content: flex-end;
-      }
-      .table {
-      width:64%;
-      text-align:center;
-      }
-     .reviewfacltNm {
-     width:200px;
-     }
-     .reviewid {
-     width:80px;
-     }
-     .reviewrate {
-     width:50px;
-     }
-     .reviewcontent {
-     width:200px;
-     }
-     .reviewdate {
-     width:200px;
-     }
-    .reviewdelete{
-    width:30px;
-    cursor: pointer;
-    }
-    #btnsearch {
-	width: 48px;
-	background-color:#528171;
-	color:white;
-	border: white;
-}
-.hidden {
-       display: none;
+   body * {
+       font-family: 'Jua';
    }
+  .myreview-all {
+			width:72%;
+            padding: 10px;
+            margin: 0 auto;
+        }
+      .review-all {
+       	margin-top:48px;
+       	margin-left:200px;
+       }
+       .reviewsubject {
+       font-size:32px;
+       }
+       .reviewsearch {
+       	width:400px;
+       	margin-left: auto;
+       	margin-right: 150px;
+       	
+        justify-content: flex-end;
+       }
+       .table {
+       width:64%;
+       text-align:center;
+       }
+      .reviewfacltNm {
+      width:200px;
+      }
+      .reviewid {
+      width:80px;
+      }
+      .reviewrate {
+      width:50px;
+      }
+      .reviewcontent {
+      width:200px;
+      }
+      .reviewdate {
+      width:200px;
+      }
+     .reviewdelete{
+     width:30px;
+     cursor: pointer;
+     }
+     #btnsearch {
+		width: 56px;
+		background-color:#528171;
+		color:white;
+		border: white;
+		text-align: center;
+		white-space: nowrap;
+		margin-right:40px;
+	}
+	.hidden {
+        display: none;
+    }
 </style>
 </head>
 <script type="text/javascript">
@@ -81,6 +84,7 @@ $(document).ready(function () {
             url: "../admin/reviewfind",
             data: {"searchword": selectedField, "word": word},
             success: function (res) {
+            	console.log(res);
                 let tbody = $("tbody.table_list");
                 tbody.empty();
 

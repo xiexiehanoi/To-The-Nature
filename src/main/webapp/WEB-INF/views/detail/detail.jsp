@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상세페이지</title>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -255,9 +255,9 @@ String loginStatus = (String) session.getAttribute("loginok");
     var campingNum = urlParams.get('num');
     var userId = '<%= userId %>';
     var iswished = ${campinglist[0].iswished};
+    
+    console.log(iswished)
     var loginStatus = "<%= loginStatus %>";
-    <%-- var userNum = <%= userNum %>;
-    console.log(userNum); --%>
 
     <%-- 예약 내용 보내기 --%>
 	function submitReservation() {
@@ -305,10 +305,6 @@ $(document).ready(function () {
         var startDate = $("#startDate").val();
         var endDate = $("#endDate").val();
         var campingAmount = parseInt(document.getElementById("campingAmount").value);
-        
-        console.log("startDate:", startDate);
-        console.log("endDate:", endDate);
-        console.log("campingAmount:", campingAmount);
 
         if (!isNaN(new Date(startDate).getTime()) && !isNaN(new Date(endDate).getTime())) {
             var timeDiff = Math.abs(new Date(endDate).getTime() - new Date(startDate).getTime());
@@ -338,7 +334,14 @@ $(document).ready(function () {
                 if (res.success) {
                     iswished = iswished == "0" ? "1" : "0";
                     updateHeartIcon();
-                    $("#countWish").text(res.updatedCountWish);
+                    var countWish = parseInt($("#countWish").text(), 10);
+                    if(iswished== "1"){
+                    	countWish+1
+                    	$("#countWish").text(countWish+1);
+                    }else{
+                    	$("#countWish").text(countWish-1);
+                    }
+                    
                 } else {
                     console.error("Error:", res.error);
                 }
@@ -390,6 +393,10 @@ $(document).ready(function () {
 	        	})
 	      //리뷰 등록  	
 	        $(".btn02").click(function(){
+	        	if("${sessionScope.loginok}"!="yes"){
+	        		alert("로그인 후 사용가능합니다.")
+	        		return false
+	        	}
 	        	//별점 가져오기
 	        	var rate = $(".star_rating .star.on").length;
 	        	//내용
@@ -577,7 +584,7 @@ function updateCountWish() {
 					<!-- 예약하기 버튼 -->
 					<span>
 				      <!--  <button type="button" id="reservationbutton" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservationModal">예약하기</button> -->
-				       <button type="button" id="reservationbutton" class="btn btn-primary">예약하기</button>
+				       <button type="button" id="reservationbutton" class="btn btn-primary" style="background-color:#528171">예약하기</button>
 					</span>
 				</div>
 			</div>
@@ -636,7 +643,7 @@ function updateCountWish() {
 								<li><span><i class="bi bi-cup-hot"></i></span><span>${sbrcl}</span></li>
 							</c:when>
 							<c:when test="${sbrcl == '트렘폴린'}">
-								<li><span><img src="./res/photo/trampoline.svg" style="color:#f5dcb7;padding:2px;"></span>&nbsp;<span>${sbrcl}</span></li>
+								<li><span><img src="./res/img/trampoline.svg" style="color:#f5dcb7;padding:2px;"></span>&nbsp;<span>${sbrcl}</span></li>
 							</c:when>
 							<c:when test="${sbrcl == '물놀이장'}">
 								<li><span><i class="bi bi-droplet"></i></span><span>${sbrcl}</span></li>
@@ -663,8 +670,7 @@ function updateCountWish() {
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="reservationModalLabel">Reservation
-								Details</h5>
+							<h5 class="modal-title" id="reservationModalLabel">날짜 선택</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
 								aria-label="Close"></button>
 						</div>
@@ -705,7 +711,7 @@ function updateCountWish() {
 			                    	<input type="hidden" id="campingAmount" value="${dto.amount}">
 			                    </div>
 								<button type="button" class="btn btn-primary"
-									onclick="submitReservation()">Confirm Reservation</button>
+									onclick="submitReservation()" style="background-color:#528171">예약 페이지 이동</button>
 							</form>
 						</div>
 					</div>

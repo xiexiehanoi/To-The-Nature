@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>adminreservation</title>
 <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Jua&family=Lobster&family=Nanum+Pen+Script&family=Permanent+Marker&family=Single+Day&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -157,16 +157,15 @@ function listAllresevation() {
 
 
 function deleteReservation(reservation_id) {
-	console.log("Deleting reservation with ID:", reservation_id);
     $.ajax({
         type: "POST",
         url: "../admin/deleteReservation",
         data: {"reservation_id": reservation_id},
         success: function(res) {
             if (res.success) {
+                $("tr[data-reservation-id=reservation_id]").remove();
+                console
                 alert("예약을 삭제했습니다.");
-                $(`tr[data-reservation-id="${reservation_id}"]`).remove();
-                listAllresevation();
             } else {
                 alert("예약 삭제에 실패했습니다.");
             }
@@ -185,6 +184,7 @@ function deleteReservation(reservation_id) {
 <div class="reservation-subject">예약관리</div><br>
 총 예약내역 ${allReservations.size()}개</div>
 
+<<<<<<< HEAD
  <div class="input-group reservationsearch">	  
 				<select id="field" class="form-select">
 					<option value="facltNm">업체명</option>
@@ -195,6 +195,8 @@ function deleteReservation(reservation_id) {
 				<button type="button" class="btn-sm" id="btnsearch"
 				style="margin-left:10px;">검색</button><br><br></div>
 
+=======
+>>>>>>> refs/remotes/origin/feature/login
 <br>
  
       <table class="reservation-table">

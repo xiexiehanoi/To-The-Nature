@@ -21,7 +21,7 @@
     padding: 10px;
     z-index: 900;
     max-width: 450px; /* 고정 너비 */
-    margin-left: 890px;
+    margin-left: 1100px;
     height: 60px;
 }
 
@@ -65,7 +65,7 @@
 	padding: 10px;
 	z-index: 1000;
 	max-width: 450px; /* 고정 너비 */
-	margin-left: 890px;
+	margin-left: 1100px;
 }
 /* 약관 동의 섹션 스타일 개선 */
 .terms-agree {
@@ -98,7 +98,6 @@
 			buyer_tel : "${userDto.userphone}",
 
 		}, function(rsp) {
-			console.log(rsp);
 
 			if (rsp.success) {
 				var msg = '결제가 완료되었습니다.';
@@ -123,7 +122,7 @@
                         amount: ${rDto.amount}
 	                }
 	            });
-		        window.location.href = './mypage/reservation';
+		        window.location.href = '../mypage/reservation';
 			   
 	        } else {
 	            var msg = '결제에 실패하였습니다.';
@@ -358,32 +357,28 @@
 							<input type="checkbox" name="agree" id="privateInfoAgree0">
 							<label for="privateInfoAgree0">(필수) 취소 및 환불 수수료에 동의합니다.</label>
 						</div>
-						<button data-bs-toggle="modal" data-bs-target="#legalNotice"
-							id="agreement-modal1" class="body-small">보기</button>
+						
 					</div>
 					<div class="d-flex align-items-center justify-content-between">
 						<div class="d-flex align-items-center">
 							<input type="checkbox" name="agree" id="privateInfoAgree1">
 							<label for="privateInfoAgree1">(필수) 이용 시 주의사항에 동의합니다.</label>
 						</div>
-						<button data-bs-toggle="modal" data-bs-target="#legalNotice"
-							id="agreement-modal2" class="body-small">보기</button>
+						
 					</div>
 					<div class="d-flex align-items-center justify-content-between">
 						<div class="d-flex align-items-center">
 							<input type="checkbox" name="agree" id="privateInfoAgree2">
 							<label for="privateInfoAgree2">(필수) 개인 정보 수집 및 이용에 동의합니다.</label>
 						</div>
-						<button data-bs-toggle="modal" data-bs-target="#legalNotice"
-							id="agreement-modal3" class="body-small">보기</button>
+						
 					</div>
 					<div class="d-flex align-items-center justify-content-between">
 						<div class="d-flex align-items-center">
 							<input type="checkbox" name="agree" id="privateInfoAgree3">
 							<label for="privateInfoAgree3">(필수) 개인 정보 제 3자 제공에 동의합니다.</label>
 						</div>
-						<button data-bs-toggle="modal" data-bs-target="#legalNotice"
-							id="agreement-modal4" class="body-small">보기</button>
+						
 					</div>
 					<div class="d-flex align-items-center justify-content-between">
 						<div class="d-flex align-items-center">
@@ -391,8 +386,7 @@
 							<label for="privateInfoAgree4">(필수) 예약자는 성인이며, 서비스 이용약관에
 								동의합니다.</label>
 						</div>
-						<button data-bs-toggle="modal" data-bs-target="#legalNotice"
-							id="agreement-modal5" class="body-small">보기</button>
+						
 					</div>
 				</div>
 			</section>

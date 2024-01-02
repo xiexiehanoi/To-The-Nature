@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>제목 입력</title>
+<title>회원정보수정</title>
 <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Jua&family=Lobster&family=Nanum+Pen+Script&family=Permanent+Marker&family=Single+Day&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -115,12 +115,12 @@
                    	 usernewpw: usernewpw,
                      userpwchangeConfirm: userpwchangeConfirm},
                 success: function (data) {
-                    if (data === "IncorrectPassword") {
+                    if (data === "UserNotFound") {
+                        // 등록된 userid와 userpw가 일치하지 않을 때 모달창으로 메시지 표시
+                        $("#modal-body").text("등록된 아이디가 아닙니다.");
+                    } else if (data === "IncorrectPassword") {
                         // 현재 비밀번호가 일치하지 않을 때 모달창으로 메시지 표시
                         $("#modal-body").text("현재 비밀번호가 일치하지 않습니다.");
-                    } else if (data === "PasswordMismatch") {
-                        // 등록된 userid와 userpw가 일치하지 않을 때 모달창으로 메시지 표시
-                        $("#modal-body").text("등록된 정보가 일치하지 않습니다.");
                     } else if (data === "Success") {
                         // 성공 시 모달창으로 메시지 표시
                         $("#modal-body").text("비밀번호가 변경됐습니다.");

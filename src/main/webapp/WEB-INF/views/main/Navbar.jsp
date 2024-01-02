@@ -24,12 +24,19 @@
 
 <script type="text/javascript">
     $(function(){
-        // 로그아웃 버튼
+    	 // 로그아웃 버튼
+        $("#btnlogout").click(function(){
+            var logoutUrl = "${root}/login/logout";
+            
+            // 추가된 조건: 현재 페이지가 관리자 페이지인 경우 로그인 페이지로 이동
+            if (isAdministratorPage()) {
+                logoutUrl = "${root}/login/main";
+            }
         $("#btnlogout").click(function(){
             $.ajax({
                 type: "get",
                 dataType: "text",
-                url: "${root}/login/logout",
+                url: logoutUrl,
                 success: function(res){
                     // 로그아웃 성공시 페이지 새로고침
                     location.reload();
@@ -42,7 +49,12 @@
         });
 
     });
-     
+        function isAdministratorPage() {
+            var currentPage = window.location.href;
+            return currentPage.indexOf("${root}/admin/search") !== -1 ||
+                   currentPage.indexOf("${root}/admin/reservation") !== -1 ||
+                   currentPage.indexOf("${root}/admin/manage") !== -1;
+        }
     $(document).ready(function () {
         var isNavbarHovered = false;
 
@@ -98,7 +110,7 @@
       <c:if test="${not empty sessionScope.loginok}">
       	<!-- <a class="navbar-item-inner flexbox-left"> -->
 	        <span class="navbar-item-inner-icon-wrapper flexbox">
-           		<img src="${root}/res/upload/${sessionScope.userphoto}" class="rounded-circle profile_photo navbar-icon-center"
+           		<img src="${root}/res/photo/${sessionScope.userphoto}" class="rounded-circle profile_photo navbar-icon-center"
 		     	 width=40 height="40" hspace="10" border=1 style="margin-left:16px; margin-bottom: 8px;"
 	     		 onerror="this.src='${root}/res/photo/noimage.png'"><br>
         	</span>
@@ -195,7 +207,6 @@
 	      			<li><a href="${root}/mypage/change">회원 정보</a></li>
       				<li><a href="${root}/mypage/reservation">예약 내역</a></li>
       				<li><a href="${root}/mypage/review">리뷰 관리</a></li>
-      				<li><a href="${root}/mypage/account">회원 탈퇴</a></li>
 				</ul>
 			</c:if>
         </c:otherwise>
@@ -211,7 +222,7 @@
       </a>
     </li>
     <li class="navbar-item flexbox-left">
-      <a class="navbar-item-inner flexbox-left">
+     	<a href="/nature/team" class="navbar-item-inner flexbox-left">
         <span class="navbar-item-inner-icon-wrapper flexbox">
           <i class="bi bi-people" style="font-size: 22px;margin-left: 6px;"></i>
         </span>

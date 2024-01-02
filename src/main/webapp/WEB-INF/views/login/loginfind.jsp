@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>회원정보찾기</title>
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Jua&family=Lobster&family=Nanum+Pen+Script&family=Permanent+Marker&family=Single+Day&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -133,16 +133,32 @@
     background-color: #528171;
     color: white;
 }
+
+#email-Authentication {
+    width: 115px; /* 버튼 너비 */
+    height: 30px; /* 버튼 높이 */
+    font-family: Arial, sans-serif; /* 글꼴 가족 */
+    font-size: 16px; /* 글꼴 크기 */
+    color: white; /* 글꼴 색상 */
+    background-color: #4CAF50; /* 배경 색상 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 둥근 모서리 */
+    cursor: pointer; /* 호버 시 손가락 모양 커서 */
+    transition: background-color 0.3s; /* 배경색 변화에 대한 전환 효과 */
+}
+
+#email-Authentication:hover {
+    background-color: #528171; /* 호버 시 더 어두운 색상 */
+}
     </style>
     <c:set var="root" value="<%=request.getContextPath()%>"/>
     <script>
     var emailok=false;
+    var dataNum;
+    var responseStatus;
         $(document).ready(function () {
             $("#pwsearchBtn").click(function () {
-            	if(!emailok){
-            		alert("인증번호 받기 버튼을 눌러주세요");
-            		return false;
-            	}
+            	
                 var username = $("#login_name").val();
                 var userid = $("#login_id").val();
                 var useremail = $("#login_email").val();
@@ -163,7 +179,7 @@
                     $("#login_name + .error-message").remove();
                 }
 
-                if (userid.length < 5) {
+                if (userid.length < 4) {
                     // 테두리를 빨간색으로 변경
                     $("#login_id").addClass("error-border");
                     // 입력란 아래에 에러 메시지 추가
@@ -174,7 +190,7 @@
                     $("#login_id").removeClass("error-border");
                     $("#login_id + .error-message").remove();
                 }
-                if (!emailPattern.test(useremail)) {
+                if (useremail.length < 13) {
                     // 테두리를 빨간색으로 변경
                     $("#login_email").addClass("error-border");
                     // 입력란 아래에 에러 메시지 추가
@@ -185,6 +201,24 @@
                     $("#login_email").removeClass("error-border");
                     $("#login_email + .error-message").remove();
                 }
+                
+                if(!emailok){
+            		alert("인증번호 받기 버튼을 눌러주세요");
+            		return false;
+            	}
+                var emailNumber = $("#email-Authentication-number").val();
+                console.log(emailNumber);
+                console.log(dataNum);
+                if(emailNumber==""){
+                	alert("인증번호를 입력해주세요");
+                	return false;
+                }
+                
+                if(dataNum!=emailNumber){
+                	alert("인증번호가 일치하지 않습니다");
+                	return false;
+                }
+                
 
                 // AJAX로 서버에 요청 보내기
                 $.ajax({
@@ -210,26 +244,40 @@
                 });
             });
             $("#email-Authentication").click(function () {
+            	var username = $("#login_name").val()
             	var userid = $("#login_id").val();
                 var useremail = $("#login_email").val();
+                if(username ==""){
+                	alert("이름을 입력해주세요");
+                	return false;
+                }
+                if(userid ==""){
+                	alert("아이디를 입력해주세요");
+                	return false;
+                }
+                if(useremail==""){
+                	alert("이메일을 입력해주세요");
+                	return false;
+                }
             	
             	// AJAX로 서버에 요청 보내기
                 $.ajax({
                     url: "<%=request.getContextPath()%>/login/authenticationNumber",
                     method: "POST",
-                    data: {  userid: userid, useremail: useremail },
+                    data: { "username":username ,"userid": userid, "useremail": useremail },
                     success: function (data) {
-                        if (data === "Not Found") {
-                            // 결과가 없을 때 모달창으로 메시지 표시
-                        	$(".pwsearch").after('<div class="error-message" style="color: red;">일치하는 정보가 없습니다. 다시 확인해주세요.</div>');
-                        } else {
-                            // 결과가 있을 때 모달창으로 임시 비밀번호 표시
-                            $("#modal-body").html("임시 비밀번호: " + data);
-                            
-                            $("#modal-footer").html('<a href="<%=request.getContextPath()%>/login/main" class="btnlogin">로그인</a><a href="./change" class="btnchange">비밀번호 변경</a>');
-                            $("#myModal").modal("show");
+                    	console.log(data);
+                    	console.log(typeof data.status)
+                    	console.log("111");
+                    	console.log(data.status);
+                        dataNum= data.num;
+                        responseStatus = data.status;
+                        emailok=true;
+                        if (responseStatus === false) { // 엄격한 비교 사용
+                            alert("사용자 정보가 일치하지 않습니다");
+                            return false;
                         }
-                       
+                        
                     },
                     error: function () {
                     	alert("오류가 발생했습니다.");
@@ -257,8 +305,9 @@
         <input type="text" id="login_id" name="userid" class="form-control" maxlength="20" placeholder="아이디">
         <input type="text" id="login_email" name="useremail" class="form-control" maxlength="50" placeholder="이메일">
         <button type="button" id="email-Authentication" name="email-Authentication"  >인증번호 받기</button>
+        <input type="text" id="email-Authentication-number" name="email-Authentication-number" style="width:207px;">
         <br>
-        <button type="button" class="pwsearch" id="pwsearchBtn">비밀번호 찾기</button>
+        <button type="button" class="pwsearch" id="pwsearchBtn" style="margin-top: 15px;">비밀번호 찾기</button>
     </form>
 </div>
     <!-- 모달 창 추가 -->

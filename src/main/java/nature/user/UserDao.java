@@ -104,4 +104,8 @@ public class UserDao {
     public String getPhotoFileName(String userid) {
         return session.selectOne(nameSpace + "getPhotoFileName", userid);
     }
+
+	public void deleteUser(String userid) {
+		 session.selectOne(nameSpace + "deleteUser", userid);
+	}
 }
