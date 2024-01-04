@@ -5,8 +5,10 @@ import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class UserDto {
 	private int usernum;
 	private String userid;

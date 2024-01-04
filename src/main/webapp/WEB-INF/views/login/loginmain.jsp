@@ -14,6 +14,10 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-3.7.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	
     <style>
       body {
         display: flex;
@@ -188,7 +192,7 @@
 		<div id="naver_id_login"></div>
 		<!-- //네이버아이디로로그인 버튼 노출 영역 -->
 		<script type="text/javascript">
-		    var naver_id_login = new naver_id_login("PPrEmBV42EmjjizVxM97", "http://localhost:8080/nature/navercallback.jsp");
+		    var naver_id_login = new naver_id_login("PPrEmBV42EmjjizVxM97", "http://localhost:8080/nature/login/naverCallback");
 		    var state = naver_id_login.getUniqState();
 		    naver_id_login.setButton("white", 2,40);
 		    naver_id_login.setDomain("http://localhost:8080/nature");
@@ -196,7 +200,7 @@
 		    naver_id_login.setPopup();
 		    naver_id_login.init_naver_id_login();
 		</script>
-
+		
     </form>
 
 </body>
