@@ -19,6 +19,7 @@
 			name = naver_id_login.getProfileData('name');
 			email = naver_id_login.getProfileData('email');
 			gender = naver_id_login.getProfileData('gender');
+				
 			
 				$.ajax({
 					type: 'POST',
@@ -27,18 +28,14 @@
 						'userid': nickname,
 						'username': name,
 						'email': email,
-						'mobile': mobile,
 						'gender': gender
 						}, // data
 					dataType: 'text',
 					success: function(result) {
 						if(result == 1) {
 							console.log('성공')
-										alert("성공");
-
 							closePopupAndRedirect(); 
 						} else  {
-							alert("실패");
 							window.close();
 						}
 					}, 
@@ -48,10 +45,10 @@
 				}) 
 		  }
 		  
-			function closePopupAndRedirect() {
-				window.opener.postMessage('naverLoginSuccess', '*'); 
-						    window.close(); 
-						  }	  	
+		function closePopupAndRedirect() {
+			window.opener.postMessage('naverLoginSuccess', '*'); 
+		    window.close(); 
+		  } 	
 		  
 	</script>
 	

@@ -96,7 +96,6 @@ public class MemberController {
 	public String handleNaverLogin(@RequestParam String userid, 
 	                               @RequestParam String username, 
 	                               @RequestParam String email,
-	                               @RequestParam String mobile,
 	                               @RequestParam String gender) {
 	    System.out.println("naverLogin start ");
 		
@@ -106,14 +105,18 @@ public class MemberController {
 	    dto.setUserid(userid);
 	    dto.setUsername(username);
 	    dto.setUseremail(email);
-	    dto.setUserphone(mobile);
 	    dto.setUsergender(gender);
 	    // 추가 필요한 데이터 설정
-	    
-	    userDao.insertMember(dto);
-	    
-	    System.out.println(dto.toString());
 
-	    return "redirect:/"; // 성공적으로 처리된 후 리다이렉트할 경로
+	    System.out.println(dto.toString());
+	    
+	    if(userDao.isUserExists(dto.getUserid()))
+	    {
+	    	return "redirect:/login/success";
+	    }else {
+	    	userDao.insertMember(dto);
+	    	return "redirect:/login/success";
+	    }
+	    
 	}
 }

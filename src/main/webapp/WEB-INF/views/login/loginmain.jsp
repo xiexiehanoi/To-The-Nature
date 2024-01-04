@@ -199,6 +199,13 @@
 		    naver_id_login.setState(state);
 		    naver_id_login.setPopup();
 		    naver_id_login.init_naver_id_login();
+		    
+		    window.addEventListener('message', function (event) {
+		    	if (event.data === 'naverLoginSuccess') {
+		    	window.location.href = 'list.board'; 
+		     }
+		     });
+		    
 		</script>
 		
     </form>

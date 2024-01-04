@@ -108,4 +108,9 @@ public class UserDao {
 	public void deleteUser(String userid) {
 		 session.selectOne(nameSpace + "deleteUser", userid);
 	}
+	
+	public boolean isUserExists(String userid) {
+	    int count = session.selectOne(nameSpace + "searchIdCount", userid);
+	    return count > 0;
+	}
 }
