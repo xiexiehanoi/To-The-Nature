@@ -96,7 +96,8 @@ public class MemberController {
 	public String handleNaverLogin(@RequestParam String userid, 
 	                               @RequestParam String username, 
 	                               @RequestParam String email,
-	                               @RequestParam String gender) {
+	                               @RequestParam String gender,
+	                               HttpServletRequest request) {
 	    System.out.println("naverLogin start ");
 		
 		
@@ -110,13 +111,20 @@ public class MemberController {
 
 	    System.out.println(dto.toString());
 	    
-	    if(userDao.isUserExists(dto.getUserid()))
-	    {
-	    	return "redirect:/login/success";
-	    }else {
-	    	userDao.insertMember(dto);
-	    	return "redirect:/login/success";
+	    	// 사용자가 데이터베이스에 있는지 확인
+	    if(!userDao.isUserExists(dto.getUserid())) {
+	        // 존재하지 않으면 새로운 사용자로 추가
+	        userDao.insertMember(dto);
 	    }
+
+	    // 로그인 세션 시작
+	    request.getSession().setAttribute("loginok", "yes");
+	    request.getSession().setAttribute("userid", dto.getUserid());
+	    request.getSession().setAttribute("username", dto.getUsername());
+	    // 필요한 경우 추가 세션 정보 설정
+
+	    // 로그인 성공 페이지 또는 메인 페이지로 리디렉션
+	    return "redirect:/login/success";
 	    
 	}
 }
