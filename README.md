@@ -24,78 +24,7 @@ To-The-Nature 프로젝트는 캠핑장에 관련된 웹 애플리케이션입�
 
 ### 백엔드
 | ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white) | ![JAVA](https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white) | ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white) | ![MyBatis](https://img.shields.io/badge/MyBatis-FF0000?style=for-the-badge&logo=mybatis&logoColor=white) |
-| ----------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| Spring                                                                                                | JSP                                                                                          | MySQL                                                                                              | MyBatis                                                                                             |
-
-### 프론트엔드
-| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white) | ![jQuery](https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white) |
-| ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| HTML5                                                                                                 | CSS3                                                                                                | JavaScript                                                                                              | Bootstrap                                                                                               | jQuery                                                                                                  |
-
-### 기타 사용 도구
-| ![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white) | ![Apache Tomcat](https://img.shields.io/badge/Apache%20Tomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=black) | ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white) |
-| ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| Jenkins                                                                                                          | Apache Tomcat                                                                                            | GitHub                                                                                               |
-
-
-## DB설계
-<details>
-<summary>DB</summary>
-<div markdown="1">
-
-  ![image](https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/dd2fe434-f6fd-4450-9d1f-6957aecc0224)
-
-</div>
-
-</details>
-
-
-
-
-## 유저 플로우
-<details>
-<summary>DB</summary>
-<div markdown="1">
-  
-  <img width="958" alt="userflow" src="https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/d96dbbb9-98de-4e99-80c6-37ea0f89c80b">
-
-</div>
-</details>
-
-## 페이지 시연
-
-## 회원가입/ 로그인/ 비밀번호 찾기
-![회원가입](https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/49265968-d4e2-4ffd-9a73-c14d1ca7de7c)
-![비밀번호 찾기](https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/d7730568-b159-40cd-a344-335cb84d52c2)
-![아이디찾기](https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/c42a8649-74bd-4b0d-9a55-f30f649272cf)
-
-### 로그인
-<details>
-<summary>아이디 저장</summary>
-<br>
-아이디 저장 체크 시, 재로그인을 했을 때 아이디란에 아이디가 입력되고 아이디 저장 체크박스에 체크 표시 
-</details>
-
-### 회원가입
-<details>
-<summary>아이디 중복확인</summary>
-<br>
-중복확인 버튼 클릭하면 이미 가입된 아이디 또는 사용 가능한 아이디라는 알림창 표시 
-</details>
-
-## 메인페이지
-![메인페이](https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/84cbd240-235e-4fb6-9ac1-0c70e559adc1)
-
-## 리스트페이지
-![캠핑찾기](https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/81e8917b-6cad-415f-be3d-9c45b08c0203)
-
-
-## 상세페이지 기능 
-![찜하기](https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/ea6a2c92-4246-4ef2-aa04-5e303e1ace2d)
-![리뷰달기](https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/b4efd44e-2484-4355-b0b9-8613ae2fd746)
-
-
-## 캠핑장 상세피이지
+| --------------------------------------------------------------------------------------------페이지
 
 ### 기능 개요
 
