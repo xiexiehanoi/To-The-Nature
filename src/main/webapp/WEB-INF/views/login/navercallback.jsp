@@ -9,9 +9,9 @@
 <body>
 	<script type="text/javascript">
 			var naver_id_login = new naver_id_login("PPrEmBV42EmjjizVxM97", "http://localhost:8080/nature/login/naverLogin");
-			alert(naver_id_login.oauthParams.access_token);
+			//alert(naver_id_login.oauthParams.access_token);
 			naver_id_login.get_naver_userprofile("naverSignInCallback()");
-			console.log('콜백실행')  
+			//console.log('콜백실행')  
 		  
 		  
 		 function naverSignInCallback() {
