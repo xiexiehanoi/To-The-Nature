@@ -22,16 +22,9 @@ public class PaymentController {
 	@PostMapping("/payment")
 	@ResponseBody 
 	public void payment(@ModelAttribute PaymentDto paymentDto) {
-		 System.out.println("222");
 		 System.out.println(paymentDto.toString());
 		 paymentService.payment(paymentDto);
 		
 	}
 	
 }
-	
-	
-	        
-	    
-	    
-
