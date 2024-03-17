@@ -6,6 +6,7 @@ To-The-Nature 프로젝트는 캠핑장에 관련된 웹 애플리케이션입�
 <br/>
 
 ## 팀 소개
+- ### **개발기간: 2023.12.04 - 2023.12.26**
 <img width="80%" alt="팀 소개" src="https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/98e4186c-6841-4618-9eb0-9319352ecc8c">
 
 ## 
