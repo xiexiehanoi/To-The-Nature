@@ -25,6 +25,8 @@ http://110.165.18.20:8091/nature/ (현재 사용X)
 <hr>
 
 ## 🎥시연영상
+[![동영상 제목](https://img.youtube.com/vi/X_iZBETdUyk/0.jpg)](https://www.youtube.com/watch?v=X_iZBETdUyk)
+<hr>
 
 ### 역할 분담 (Full Stack)
 
