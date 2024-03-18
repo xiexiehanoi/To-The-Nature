@@ -24,6 +24,8 @@ http://110.165.18.20:8091/nature/ (현재 사용X)
 <img width="80%" alt="팀 소개" src="https://github.com/xiexiehanoi/To-The-Nature/assets/123315364/221592b5-fb22-4dc4-bb1d-6b5be92d745b">
 <hr>
 
+## 🎥시연영상
+
 ### 역할 분담 (Full Stack)
 
 - **이진경**
