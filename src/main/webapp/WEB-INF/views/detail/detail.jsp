@@ -777,7 +777,6 @@ function updateCountWish() {
 			</div> <!-- close star_boxs -->
 			<br>
 			<div class="reviewList">
-
 			</div> <!-- close reviewList -->
 		</div> <!-- cloase reviewTitle -->	
 	</div> <!-- close reviewbox  -->
