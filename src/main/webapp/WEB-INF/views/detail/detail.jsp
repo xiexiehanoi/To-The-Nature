@@ -22,18 +22,16 @@
 }
 .camp_container {
     margin: 7%;
-    background-color: white; /* 배경색을 흰색으로 설정 */
+    background-color: white;
 }
 .camp_info_box {
     width: 90%;
     height: auto;
-    /* background-color: green; */
     margin: 0 auto;
     min-height: 100%;
-    display: flex; /* flex 컨테이너 설정 */
-    /* border: 1px solid black; */
-    justify-content: space-between; /* 요소들을 가능한 넓게 배치 */
-    flex-wrap: wrap; /* 자식 요소들을 랩핑 */
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     overflow: hidden;
 	border-radius: 8px;
 }	
@@ -83,13 +81,13 @@ hr{
     display: flex;
     border-radius: 20px;
     flex-wrap: wrap;
-    gap: 10px; /* 이미지 사이의 간격 조정 */
+    gap: 10px;
 	border-radius: 8px;
 	object-fit: cover;
 }
 .hidden-image {
     max-width: 22.5%;
-    height: 200px; /* 이미지 너비 조정 (4개씩 배치하려면 25%) */
+    height: 200px;
     border-radius: 8px;
 }
 .hidden {
@@ -316,7 +314,7 @@ $(document).ready(function () {
         }
     });
 	
-        // 찜하기 추가
+    // 찜하기 추가
     $(document).on("click", "#heartIcon", function () {
    //로그인해서 누를 경우
     if (loginStatus === "yes") {
@@ -498,11 +496,9 @@ function updateCountWish() {
 <div class="camp_container">
 <c:forEach var="dto" items="${campinglist}">
 	<div class="camp_info_box">
-			<!-- 메인 사진 부분 -->
 			<div class="img_b">
 				<img src="${dto.firstImageUrl}" alt="캠핑장 메인 이미지" onerror="this.src='${root}/res/photo/noimage_big.jpg'">
 			</div>
-			<!-- 메인 정보 테이블-->
 			<!-- 테이블 부분 -->
 			<div class="camp_tb">
 				<table class="table table-bordered">
@@ -578,7 +574,7 @@ function updateCountWish() {
 		</div><!-- camp_info_box close -->
 		<br>
 		<!-- div grid -->
-			<hr>
+		<hr>
 		<div class="camp_img_grid">
 			<!-- 캠프 내부 사진 grid -->
 			<h3>
@@ -781,12 +777,6 @@ function updateCountWish() {
 			</div> <!-- close star_boxs -->
 			<br>
 			<div class="reviewList">
-				
-
-			
-			</div>
-		</div>	
-	</div>
 
 			</div> <!-- close reviewList -->
 		</div> <!-- cloase reviewTitle -->	
